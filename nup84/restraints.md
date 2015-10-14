@@ -93,7 +93,7 @@ To summarize, the restraints used for Nup84 are:
    - `RestraintSet(name="prior_data")`
      - `LogWrapper`
        - `CrossLinkMSRestraint(length, inner_slope, set of (p1, p2, sigma1, sigma2, psi))`
-       - [for each crosslink]
+        - [for each crosslink]
    - `RestraintSet(name="prior_linear")`
      - `PairRestraint(p1, p2, DistancePairScore(Linear(intercept, slope)))`
      - [for each crosslink]
