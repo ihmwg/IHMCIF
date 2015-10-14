@@ -30,7 +30,7 @@ The next restraint is excluded volume, which is a `PairsRestraint`.
 `PairsRestraint` class: inputs: a set of pairs of particles to act on
 (in IMP we store these in a `Container` class) and the `PairScore` to apply
 to each pair. For Nup84 we use a `ClosePairContainer` and a
-`HarmonicUpperBound(SphereDistancePairScore)`.
+`SphereDistancePairScore(HarmonicUpperBound)`.
 
 `ClosePairContainer` class: contains all pairs of particles that are nearby in
 space (i.e. a nonbonded list). inputs: distance cutoff, slack (controls how
