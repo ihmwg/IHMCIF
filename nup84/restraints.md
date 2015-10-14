@@ -63,7 +63,7 @@ build models.
 
 `RestraintSet`s "prior_psi", "prior_sigmas" and "prior_length" contain simple
 `Restraint`s that make sure the nuisance parameters don't go outside their
-defined range (UniformPrior).
+defined range (`UniformPrior`).
 
 Finally, the EM2D restraint scores particles against one or more EM class
 averages using a `PCAFitRestraint`. In the Nup84 case we score all atomic
@@ -92,8 +92,7 @@ To summarize, the restraints used for Nup84 are:
  - For each crosslinking dataset
    - `RestraintSet(name="prior_data")`
      - `LogWrapper`
-       - `CrossLinkMSRestraint(length, inner_slope, set of (p1, p2, sigma1,
-                                                            sigma2, psi))`
+       - `CrossLinkMSRestraint(length, inner_slope, set of (p1, p2, sigma1, sigma2, psi))`
        - [for each crosslink]
    - `RestraintSet(name="prior_linear")`
      - `PairRestraint(p1, p2, DistancePairScore(Linear(intercept, slope)))`
