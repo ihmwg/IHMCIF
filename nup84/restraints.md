@@ -71,7 +71,23 @@ resolution particles against the single class average in
 data/nup84_kinked_from_class2.pgm.
 
 `PCAFitRestraint` class: inputs: images file name, particles to fit against,
-pixel size, image resolution, number of projections, weight.
+pixel size, image resolution, number of projections. The restraint acts
+on the class averages (processed data). From the
+documentation at https://github.com/salilab/pmi/blob/develop/pyext/src/restraints/em2d.py:
+
+           @param representation The PMI model to fit
+           @param images 2D class average filenames in PGM text format
+                  (list of strings)
+           @param pixel_size Pixel size in angstroms (float)
+           @param image_resolution Estimated resolution of the images
+                  in angstroms (float)
+           @param projection_number Number of projections of the model
+                  to generate and fit to images. The lower the number, the
+                  faster the evaluation, but the lower the accuracy (int)
+           @param resolution Which level of model representation to use
+                  in the fit (float)
+           @param n_components Number of the largest components to be
+                  considered for the EM image (int)
 
 To summarize, the restraints used for Nup84 are:
 
