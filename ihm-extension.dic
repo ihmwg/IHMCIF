@@ -361,9 +361,159 @@ save__ihm_model_details.model_object_count
     _item_type.code               int
      save_
 
-#########################
+################################# 
+## IHM_CROSS_LINK_DB_REFERENCE ##
+#################################
+ 
+save_ihm_cross_link_db_reference
+    _category.description
+;  Category holds links to data sources for the entry, e.g., 
+   held by a remote server.
+;
+    _category.id                ihm_cross_link_db_reference
+    _category.mandatory_code    no
+    _category_key.name         '_ihm_cross_link_db_reference.id'
+    loop_
+    _category_group.id         'inclusive_group'
+                               'ihm_cross_link_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+'Example 1'
+;
+ loop_
+ _ihm_cross_link_db_reference.id
+ _ihm_cross_link_db_reference.db_name
+ _ihm_cross_link_db_reference.access_code
+ _ihm_cross_link_db_reference.data_type
+ 1  PRIDE  PXD003381  CX-MS
+;
+    _pdbx_category_context.type         CONTRIBUTED  
+    _pdbx_category_context.category_id  ihm_cross_link_db_reference
+    save_
+
+save__ihm_cross_link_db_reference.id
+    _item_description.description
+;    A unique identifier for the related reference entry.
+;
+    _item.name                  '_ihm_cross_link_db_reference.id'
+    _item.category_id             ihm_cross_link_db_reference
+    _item.mandatory_code          yes  
+    _item_type.code               code 
+     save_ 
+
+save__ihm_cross_link_db_reference.db_name
+    _item_description.description
+;    The name of the database containing the reference entry.
+;
+    _item.name                  '_ihm_cross_link_db_reference.db_name'
+    _item.category_id             ihm_cross_link_db_reference
+    _item.mandatory_code          yes
+    _item_type.code               code
+     loop_
+    _item_enumeration.value
+          'PRIDE'
+          'OTHER'
+     save_
+
+save__ihm_cross_link_db_reference.access_code
+    _item_description.description
+;   Accession code for the reference entry.
+;
+    _item.name                 '_ihm_cross_link_db_reference.access_code'
+    _item.category_id          ihm_cross_link_db_reference
+    _item.mandatory_code       yes
+    _item_type.code            code
+    loop_
+    _item_examples.case       
+      PXD003381
+    save_
+ 
+save__ihm_cross_link_db_reference.data_type
+    _item_description.description
+;              The type of data stored in the reference entry.
+;
+
+    _item.name                  '_ihm_cross_link_db_reference.details'
+    _item.category_id             ihm_cross_link_db_reference
+    _item.mandatory_code          no
+    _item_type.code               line
+     loop_
+    _item_enumeration.value
+    _item_enumeration.details
+      'CX-MS'	'Chemical cross-linking mass spectrometry data'
+      'OTHER'	'Other proteomics data'
+     save_
+ 
+########################################### 
+## IHM_CROSS_LINK_REFERENCE_AUXILIARY ##
+###########################################
+ 
+save_ihm_cross_link_reference_auxiliary
+    _category.description
+;  Category holds links to raw data sources for the entry, e.g., 
+   held by a remote server.
+;
+    _category.id                ihm_cross_link_reference_auxiliary
+    _category.mandatory_code    no
+    _category_key.name         '_ihm_cross_link_reference_auxiliary.id'
+    loop_
+    _category_group.id         'inclusive_group'
+                               'ihm_cross_link_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+'Example 1'
+;
+ loop_
+ _ihm_cross_link_reference_auxiliary.id
+ _ihm_cross_link_reference_auxiliary.link
+ _ihm_cross_link_reference_auxiliary.link_data_type 
+ 1 https://github.com/integrativemodeling/nup84/blob/master/data/EDC_XL_122013.dat   CX-MS 
+ 2 https://github.com/integrativemodeling/nup84/blob/master/data/yeast_Nup84_DSS.dat CX-MS
+;
+    _pdbx_category_context.type         CONTRIBUTED 
+    _pdbx_category_context.category_id  ihm_cross_link_reference_auxiliary
+    save_
+ 
+save__ihm_cross_link_reference_auxiliary.id
+    _item_description.description
+;   Unique identifier for a provided link.
+;
+    _item.name                 '_ihm_cross_link_reference_auxiliary.id'
+    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.mandatory_code       yes
+    _item_type.code            code
+    save_
+ 
+save__ihm_cross_link_reference_auxiliary.link
+    _item_description.description
+;   Hyperlink to the auxiliary data.
+;
+    _item.name                 '_ihm_cross_link_reference_auxiliary.link'
+    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.mandatory_code       yes
+    _item_type.code            code
+    save_
+ 
+save__ihm_cross_link_reference_auxiliary.link_data_type
+    _item_description.description
+;   Type of auxiliary data stored at the indicated link. 
+;
+    _item.name                 '_ihm_cross_link_reference_auxiliary.link_data_type'
+    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.mandatory_code       yes
+    _item_type.code            line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.details
+        'CX-MS'	'Chemical cross-linking followed by mass spectrometry data'
+	'OTHER'	'Other proteomics data'
+    save_
+
+##############################
 ## ihm_cross_link_restraint ##
-#########################
+##############################
 
 save_ihm_cross_link_restraint
     _category.description
@@ -387,7 +537,8 @@ save_ihm_cross_link_restraint
 ;
 ;
         loop_
-        _ihm_cross_link_restraint.id
+	_ihm_cross_link_restraint.id
+        _ihm_cross_link_restraint.group_id
         _ihm_cross_link_restraint.entity_id_1
         _ihm_cross_link_restraint.seq_id_1
         _ihm_cross_link_restraint.comp_id_1
@@ -395,18 +546,19 @@ save_ihm_cross_link_restraint
         _ihm_cross_link_restraint.seq_id_2
         _ihm_cross_link_restraint.comp_id_2
         _ihm_cross_link_restraint.type
-          1  3    17  LYS  3   421  GLU  EDC
-          2  3   206  LYS  3   219  ASP  EDC
-          3  3    38  LYS  3   429  GLU  EDC
-          4  3   400  LYS  3   440  GLU  EDC
-          5  3   400  LYS  3   441  GLU  EDC
-          6  3   400  LYS  3   523  ASP  EDC
-          7  3   735  LYS  3   403  ASP  EDC
-          8  3   735  LYS  3   405  GLU  EDC
-          9  3   865  LYS  3   894  GLU  EDC
-         10  3   865  LYS  3   898  ASP  EDC
-         11  4   103  LYS  4   130  ASP  EDC
-         12  4   103  LYS  4   131  GLU  EDC
+        _ihm_cross_link_restraint.reference_auxiliary_id
+          1   1  3    17  LYS  3   421  GLU  EDC  1
+          2   2  3   206  LYS  3   219  ASP  EDC  1
+          3   3  3    38  LYS  3   429  GLU  EDC  1
+          4   4  3   400  LYS  3   440  GLU  EDC  1
+          5   4  3   400  LYS  3   441  GLU  EDC  1
+          6   5  3   400  LYS  3   523  ASP  EDC  1
+          7   6  3   735  LYS  3   403  ASP  EDC  1
+          8   7  3   735  LYS  3   405  GLU  EDC  1
+          9   7  3   865  LYS  3   894  GLU  EDC  1
+         10   7  3   865  LYS  3   898  ASP  EDC  1
+         11   8  4   103  LYS  4   130  ASP  EDC  1
+         12   8  4   103  LYS  4   131  GLU  EDC  1
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -423,6 +575,17 @@ save__ihm_cross_link_restraint.id
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               int
+     save_
+
+save__ihm_cross_link_restraint.group_id
+    _item_description.description
+;     An identifier for a set of ambiguous crosslink restraints. 
+      Handles experimental uncertainties.
+;
+    _item.name                  '_ihm_cross_link_restraint.group_id'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          yes  
+    _item_type.code               int  
      save_
 
 save__ihm_cross_link_restraint.entity_id_1
@@ -524,6 +687,30 @@ save__ihm_cross_link_restraint.type
                  'DSS'  'disuccinimidyl suberate (DSS) crosslinker'
      save_
 
+save__ihm_cross_link_restraint.db_reference_id
+    _item_description.description
+;     The cross link data reference from external db source.
+;
+    _item.name                  '_ihm_cross_link_restraint.db_reference_id'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    _item_linked.child_name       _ihm_cross_link_restraint.db_reference_id
+    _item_linked.parent_name      ihm_cross_link_db_reference.id
+     save_
+
+save__ihm_cross_link_restraint.reference_auxiliary_id
+    _item_description.description
+;     The cross link reference for data hosted at external sites.
+;
+    _item.name                  '_ihm_cross_link_restraint.reference_auxiliary_id'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    _item_linked.child_name       _ihm_cross_link_restraint.reference_auxiliary_id
+    _item_linked.parent_name      ihm_cross_link_reference_auxiliary.id
+     save_
+
 #########################
 ## ihm_cross_link_list ##
 #########################
@@ -552,7 +739,7 @@ save_ihm_cross_link_list
 ;
         loop_
         _ihm_cross_link_list.ordinal_id
-	_ihm_cross_link_list.restraint_group_id
+	_ihm_cross_link_list.restraint_id
         _ihm_cross_link_list.entity_id_1
 	_ihm_cross_link_list.asym_id_1
         _ihm_cross_link_list.seq_id_1
@@ -594,17 +781,18 @@ save__ihm_cross_link_list.ordinal_id
     _item_type.code               int
      save_
 
-save__ihm_cross_link_list.restraint_group_id
+save__ihm_cross_link_list.restraint_id
     _item_description.description
-;     An identifier for the cross-linking restraint group.
+;     An identifier for a set of ambiguous cross-links.
+      Handles implementation uncertainties related to multiple copies of subunit.
       This data item is a pointer to ihm_cross_link_restraint.id in the 
       IHM_CROSS_LINK_RESTRAINT category.
 ;
-    _item.name                  '_ihm_cross_link_list.restraint_group_id'
+    _item.name                  '_ihm_cross_link_list.restraint_id'
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_cross_link_list.restraint_group_id'
+    _item_linked.child_name       '_ihm_cross_link_list.restraint_id'
     _item_linked.parent_name      '_ihm_cross_link_restraint.id'
      save_
 
