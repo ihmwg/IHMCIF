@@ -1,4 +1,4 @@
-# ----------------------------------------------------------------------------------------------------------------------------
+y ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
 #  Date: 14-Oct-2015 Jdw/BV
@@ -10,6 +10,10 @@
 #           Changed _imp_tempate_model_coord to _ihm_starting_model_coord
 #           Changed _imp_pseudo_atom_site to _ihm_sphere_object_site
 #           Added 'integrative' to _ihm_starting_model_details.starting_model_source
+#	    Separated ihm_cross_link_restraint and ihm_cross_link_list categories
+#	    Updated ambiguous crosslinks in ihm_cross_link_restraint and ihm_cross_link_list categories
+#	    Added ihm_cross_link_db_reference and ihm_cross_link_reference_auxiliary categories
+#	    Added ihm_2dem_class_average and ihm_2dem_class_average_restraint categories
 #
 # ----------------------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +37,7 @@ save_ihm_starting_model_details
     _category_group.id           'inclusive_group'
                                  'ihm_group'
     loop_
-    _category_examples.detail
+    _category_exampesl.detail
     _category_examples.case
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -379,15 +383,29 @@ save_ihm_cross_link_db_reference
     loop_
     _category_examples.detail
     _category_examples.case
-'Example 1'
+;   'Example 1'
 ;
- loop_
- _ihm_cross_link_db_reference.id
- _ihm_cross_link_db_reference.db_name
- _ihm_cross_link_db_reference.access_code
- _ihm_cross_link_db_reference.data_type
- 1  PRIDE  PXD003381  CX-MS
 ;
+ _ihm_cross_link_db_reference.id		1
+ _ihm_cross_link_db_reference.db_name		PRIDE
+ _ihm_cross_link_db_reference.access_code	PXD00381
+ _ihm_cross_link_db_reference.data_type		CX-MS
+ _ihm_cross_link_db_reference.details
+ ;	Structural Analysis of a Prokaryotic Ribosome Using a 
+	Novel Amidinating Cross-Linker and Mass Spectrometry.
+	The structure of the Escherichia coli ribosome, 
+   	a 2.5 MDa ribonucleoprotein complex containing more than 
+	50 proteins, was probed using the novel amidinating 
+	cross-linker diethyl suberthioimidate (DEST) and mass 
+	spectrometry. Peptide cross-links derived from this 
+	complex structure were identified at high confidence 
+	(FDR 0.8%) from precursor mass measurements and 
+	collision-induced dissociation (CID) fragmentation spectra. 
+	The acquired cross-linking data were found to be in excellent 
+	agreement with the crystal structure of the E. coli 
+ ;
+;
+
     _pdbx_category_context.type         CONTRIBUTED  
     _pdbx_category_context.category_id  ihm_cross_link_db_reference
     save_
@@ -399,7 +417,7 @@ save__ihm_cross_link_db_reference.id
     _item.name                  '_ihm_cross_link_db_reference.id'
     _item.category_id             ihm_cross_link_db_reference
     _item.mandatory_code          yes  
-    _item_type.code               code 
+    _item_type.code               int 
      save_ 
 
 save__ihm_cross_link_db_reference.db_name
@@ -434,15 +452,25 @@ save__ihm_cross_link_db_reference.data_type
 ;              The type of data stored in the reference entry.
 ;
 
-    _item.name                  '_ihm_cross_link_db_reference.details'
+    _item.name                  '_ihm_cross_link_db_reference.data_type'
     _item.category_id             ihm_cross_link_db_reference
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               line
      loop_
     _item_enumeration.value
     _item_enumeration.details
       'CX-MS'	'Chemical cross-linking mass spectrometry data'
       'OTHER'	'Other proteomics data'
+     save_
+
+save__ihm_cross_link_db_reference.details
+    _item_description.description
+;    Experimental details regarding the reference entry.
+;
+    _item.name                  '_ihm_cross_link_db_reference.details'
+    _item.category_id             ihm_cross_link_db_reference
+    _item.mandatory_code          yes
+    _item_type.code               text
      save_
  
 ########################################### 
@@ -463,14 +491,28 @@ save_ihm_cross_link_reference_auxiliary
     loop_
     _category_examples.detail
     _category_examples.case
-'Example 1'
+;   'Example 1'
 ;
- loop_
- _ihm_cross_link_reference_auxiliary.id
- _ihm_cross_link_reference_auxiliary.link
- _ihm_cross_link_reference_auxiliary.link_data_type 
- 1 https://github.com/integrativemodeling/nup84/blob/master/data/EDC_XL_122013.dat   CX-MS 
- 2 https://github.com/integrativemodeling/nup84/blob/master/data/yeast_Nup84_DSS.dat CX-MS
+;
+ _ihm_cross_link_reference_auxiliary.id			1
+ _ihm_cross_link_reference_auxiliary.link		https://github.com/integrativemodeling/nup84/blob/master/data/EDC_XL_122013_new.dat
+ _ihm_cross_link_reference_auxiliary.link_data_type 	CX-MS
+ _ihm_cross_link_reference_auxiliary.details
+ ;
+	Nup84 sub-complex probed by chemical crosslinking
+	using 1-ethyl-(dimethylaminopropyl) carbodiimide 
+	hydrochloride (EDC) crosslinker followed by mass 
+	spectrometry.  
+ ;
+ _ihm_cross_link_reference_auxiliary.id                 2
+ _ihm_cross_link_reference_auxiliary.link               https://github.com/integrativemodeling/nup84/blob/master/data/yeast_Nup84_DSS_new.dat
+ _ihm_cross_link_reference_auxiliary.link_data_type     CX-MS
+ _ihm_cross_link_reference_auxiliary.details
+ ;
+	Nup84 sub-complex probed by chemical crosslinking
+        using disuccinimidyl suberate (DSS) crosslinker 
+	followed by mass spectrometry.
+ ;
 ;
     _pdbx_category_context.type         CONTRIBUTED 
     _pdbx_category_context.category_id  ihm_cross_link_reference_auxiliary
@@ -483,7 +525,7 @@ save__ihm_cross_link_reference_auxiliary.id
     _item.name                 '_ihm_cross_link_reference_auxiliary.id'
     _item.category_id          ihm_cross_link_reference_auxiliary
     _item.mandatory_code       yes
-    _item_type.code            code
+    _item_type.code            int
     save_
  
 save__ihm_cross_link_reference_auxiliary.link
@@ -509,6 +551,16 @@ save__ihm_cross_link_reference_auxiliary.link_data_type
     _item_enumeration.details
         'CX-MS'	'Chemical cross-linking followed by mass spectrometry data'
 	'OTHER'	'Other proteomics data'
+    save_
+
+save__ihm_cross_link_reference_auxiliary.details
+    _item_description.description
+;   Experimental details regarding the auxiliary data.
+;
+    _item.name                 '_ihm_cross_link_reference_auxiliary.details'
+    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.mandatory_code       yes
+    _item_type.code            text
     save_
 
 ##############################
@@ -690,25 +742,29 @@ save__ihm_cross_link_restraint.type
 save__ihm_cross_link_restraint.db_reference_id
     _item_description.description
 ;     The cross link data reference from external db source.
+      This data item is a pointer to ihm_cross_link_db_reference.id in the
+      IHM_CROSS_LINK_DB_REFERENCE category. 
 ;
     _item.name                  '_ihm_cross_link_restraint.db_reference_id'
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          no
-    _item_type.code               code
-    _item_linked.child_name       _ihm_cross_link_restraint.db_reference_id
-    _item_linked.parent_name      ihm_cross_link_db_reference.id
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_restraint.db_reference_id'
+    _item_linked.parent_name      '_ihm_cross_link_db_reference.id'
      save_
 
 save__ihm_cross_link_restraint.reference_auxiliary_id
     _item_description.description
 ;     The cross link reference for data hosted at external sites.
+      This data item is a pointer to ihm_cross_link_reference_auxiliary.id in the
+      IHM_CROSS_LINK_REFERENCE_AUXILIARY category.
 ;
     _item.name                  '_ihm_cross_link_restraint.reference_auxiliary_id'
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          no
-    _item_type.code               code
-    _item_linked.child_name       _ihm_cross_link_restraint.reference_auxiliary_id
-    _item_linked.parent_name      ihm_cross_link_reference_auxiliary.id
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_restraint.reference_auxiliary_id'
+    _item_linked.parent_name      '_ihm_cross_link_reference_auxiliary.id'
      save_
 
 #########################
@@ -925,6 +981,8 @@ save__ihm_cross_link_list.seq_id_2
 save__ihm_cross_link_list.type
     _item_description.description
 ;     The cross link type.  
+      This data item is a pointer to _ihm_cross_link_restraint.type 
+      in the IHM_CROSS_LINK_RESTRAINT category. 
 ;
     _item.name                  '_ihm_cross_link_list.type'
     _item.category_id             ihm_cross_link_list
@@ -973,6 +1031,220 @@ save__ihm_cross_link_list.distance_threshold
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
+     save_
+
+############################
+## ihm_2dem_class_average ##
+############################
+
+save_ihm_2dem_class_average
+    _category.description
+;              Data items in the IHM_2DEM_CLASS_AVERAGE category records the
+               details of the 2DEM class averages used in the IHM modeling.
+;
+    _category.id                  ihm_2dem_class_average
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_2dem_class_average'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        _ihm_2dem_class_average.id		1
+        _ihm_2dem_class_average.link		https://github.com/integrativemodeling/nup84/blob/master/data/nup84_kinked_from_class2.pgm
+        _ihm_2dem_class_average.link_type	IMAGE
+        _ihm_2dem_class_average.link_format	PGM
+	_ihm_2dem_class_average.details
+	;
+	  The 2DEM class average image of the Nup84 sub-complex. 
+	;
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_2dem_class_average
+     save_
+
+save__ihm_2dem_class_average.id
+_item_description.description
+;     A unique identifier for the 2DEM class average.
+;
+    _item.name                  '_ihm_2dem_class_average.id'
+    _item.category_id             ihm_2dem_class_average
+    _item.mandatory_code          yes
+    _item_type.code               int
+save_
+
+save_2dem_class_average.link
+_item_description.description
+;     A link to the 2DEM class average data.
+;
+    _item.name                  '_ihm_2dem_class_average.link'
+    _item.category_id             ihm_2dem_class_average
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_examples.case
+      https://github.com/integrativemodeling/nup84/blob/master/data/nup84_kinked_from_class2.pgm
+save_
+
+save_2dem_class_average.link_type
+_item_description.description
+;    The type of data provided in the 2DEM class average link.
+;
+    _item.name                  '_ihm_2dem_class_average.link_type'
+    _item.category_id             ihm_2dem_class_average
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.details
+	'IMAGE'	'The 2DEM class average is an image'
+	'OTHER'	'Other format'
+save_
+
+save_2dem_class_average.link_format
+_item_description.description
+;     Format type for the 2DEM class average image.
+;
+    _item.name                  '_ihm_2dem_class_average.link_format'
+    _item.category_id             ihm_2dem_class_average
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.details
+        'PGM'	'PORTABLE GRAYMAP FORMAT'
+        'OTHER' 'OTHER FORMAT'
+save_
+
+save_2dem_class_average.details
+_item_description.description
+;    Expermental details of the 2DEM class average.
+;
+    _item.name                  '_ihm_2dem_class_average.details'
+    _item.category_id             ihm_2dem_class_average
+    _item.mandatory_code          yes
+    _item_type.code               text
+save_
+
+######################################
+## ihm_2dem_class_average_restraint ##
+######################################
+
+save_ihm_2dem_class_average_restraint
+    _category.description
+;              Data items in the IHM_2DEM_CLASS_AVERAGE_RESTRAINT category records the
+               details of the 2DEM class averages used in the IHM modeling.
+;
+    _category.id                  ihm_2dem_class_average_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_2dem_class_average_restraint'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        _ihm_2dem_class_average_restraint.id				1
+        _ihm_2dem_class_average_restraint.pixel_size			5.91
+        _ihm_2dem_class_average_restraint.image_resolution		30.0
+	_ihm_2dem_class_average_restraint.model_resolution		1.0
+	_ihm_2dem_class_average_restraint.number_of_projections		400
+	_ihm_2dem_class_average_restraint.number_of_components		7
+        _ihm_2dem_class_average_restraint.cross_correlation_coefficient	0.68
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_2dem_class_average_restraint
+     save_
+
+save__ihm_2dem_class_average_restraint.id
+    _item_description.description
+;     An identifier for the 2dem class average.
+      This data item is a pointer to _ihm_2dem_class_average.id in the IHM_2DEM_CLASS_AVERAGE category. 
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.id'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_2dem_class_average_restraint.id'
+    _item_linked.parent_name      '_ihm_2dem_class_average.id'
+     save_
+
+save__ihm_2dem_class_average_restraint.pixel_size
+    _item_description.description
+;     Pixel size of the 2dem class average image.
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.pixel_size'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_2dem_class_average_restraint.image_resolution
+    _item_description.description
+;     Resolution of the 2dem class average.
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.image_resolution'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_2dem_class_average_restraint.model_resolution
+    _item_description.description
+;     Resolution of the model used in the fitting.
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.model_resolution'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_2dem_class_average_restraint.number_of_projections
+    _item_description.description
+;    Number of projections used in the fitting. 
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.number_of_projections'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_2dem_class_average_restraint.number_of_components
+    _item_description.description
+;    Number of components in the complex that are fit to the 2DEM class average. 
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.number_of_components'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_2dem_class_average_restraint.cross_correlation_coefficient
+    _item_description.description
+;     Cross-correlation coeffient obtaint as a result of the fitting.
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.cross_correlation_coefficient'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               float
      save_
 
 ##############################
