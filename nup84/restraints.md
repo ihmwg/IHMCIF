@@ -89,6 +89,9 @@ documentation at https://github.com/salilab/pmi/blob/develop/pyext/src/restraint
            @param n_components Number of the largest components to be
                   considered for the EM image (int)
 
+(3DEM isn't used for Nup84, but for reference the parameters for that restraint
+are documented at https://github.com/salilab/imp/blob/develop/modules/pmi/pyext/src/restraints/em.py)
+
 To summarize, the restraints used for Nup84 are:
 
  - For each Nup84 component
