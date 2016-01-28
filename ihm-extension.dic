@@ -1,7 +1,7 @@
-y ----------------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 14-Oct-2015 Jdw/BV
+#  Date: 27-JAN-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -12,15 +12,18 @@ y ------------------------------------------------------------------------------
 #           Added 'integrative' to _ihm_starting_model_details.starting_model_source
 #	    Separated ihm_cross_link_restraint and ihm_cross_link_list categories
 #	    Updated ambiguous crosslinks in ihm_cross_link_restraint and ihm_cross_link_list categories
-#	    Added ihm_cross_link_db_reference and ihm_cross_link_reference_auxiliary categories
-#	    Added ihm_2dem_class_average and ihm_2dem_class_average_restraint categories
+#	    Added ihm_dataset_list, ihm_related_db_reference and ihm_dataset_other categories
+#           Added ihm_cross_link_result (yet to be completed) and ihm_entity_assembly categories
+#	    Updated ihm_2dem_class_average_restraint category
+#           Removed ihm_cross_link_db_reference, ihm_cross_link_reference_auxiliary, ihm_2dem_class_average categories
+#           Revised several data items to be non-mandatory
 #
 # ----------------------------------------------------------------------------------------------------------------------------
 
 
-##########################
-## ihm_starting_model_details ##
-##########################
+################################
+## IHM_STARTING_MODEL_DETAILS ##
+################################
 
 save_ihm_starting_model_details
     _category.description
@@ -91,13 +94,13 @@ save__ihm_starting_model_details.entity_id
 
 save__ihm_starting_model_details.entity_description
     _item_description.description
-;     A text description of the molecuar molecular entity
+;     A text description of the molecular entity
 
 ;
     _item.name                  '_ihm_starting_model_details.entity_description'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
-    _item_type.code               int
+    _item_type.code               line
      save_
 
 save__ihm_starting_model_details.seq_id_begin
@@ -189,7 +192,7 @@ save__ihm_starting_model_details.starting_model_id
 
 
 #######################
-## ihm_model_details ##
+## IHM_MODEL_DETAILS ##
 #######################
 
 save_ihm_model_details
@@ -351,7 +354,7 @@ save__ihm_model_details.model_granularity
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-                                 'by-residue'    'coordinates represent the carbon alpha position'
+                                 'by-residue'    'coordinates represent the alpha carbon position of a residue'
                                  'by-feature'    'coordinates represent center or trace along the feature'
      save_
 
@@ -365,212 +368,782 @@ save__ihm_model_details.model_object_count
     _item_type.code               int
      save_
 
-################################# 
-## IHM_CROSS_LINK_DB_REFERENCE ##
-#################################
- 
-save_ihm_cross_link_db_reference
+#########################
+## IHM_ENTITY_ASSEMBLY ##
+#########################
+
+save_ihm_entity_assembly
     _category.description
-;  Category holds links to data sources for the entry, e.g., 
-   held by a remote server.
+;              Data items in the IHM_ENTITY_ASSEMBLY category records the
+               details of the entity assemblies and sub-assemblies used in the 
+               IHM modeling.
 ;
-    _category.id                ihm_cross_link_db_reference
+    _category.id                  ihm_entity_assembly
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_entity_assembly'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+	loop_
+        _ihm_entity_assembly.ordinal_id
+        _ihm_entity_assembly.assembly_id
+        _ihm_entity_assembly.entity_id
+	_ihm_entity_assembly.entity_description
+	_ihm_entity_assembly.seq_id_begin
+	_ihm_entity_assembly.seq_id_end
+        _ihm_entity_assembly.segment_id_begin
+	_ihm_entity_assembly.segment_id_end
+
+	 1   1   1    Nup84   1   726	 1    14
+	 2   1   2    Nup85   1   744	15    27    
+         3   1   3   Nup120   1  1037   28    46
+         4   1   4   Nup133   1  1157   47    65
+         5   1   5   Nup145   1   712   66    72
+         6   1   6     Seh1   1   349   73    76
+         7   1   7    Sec13   1   297   77    81
+	 8   2   1    Nup84   1   726    1    14
+         9   2   2    Nup85   1   744   15    27
+        10   2   3   Nup120   1  1037   28    46
+        11   2   4   Nup133   1  1157   47    65
+        12   3   5   Nup145   1   712   66    72
+        13   3   6     Seh1   1   349   73    76
+        14   3   7    Sec13   1   297   77    81
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_entity_assembly
+     save_
+
+save__ihm_entity_assembly.ordinal_id
+    _item_description.description
+;     A unique identifier for the entity assembly component.
+;
+    _item.name                  '_ihm_entity_assembly.ordinal_id'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_entity_assembly.assembly_id
+    _item_description.description
+;     An identifier for the entity assembly or sub-assembly. 
+      This data item will remain the same for all components 
+      of an entity assembly. 
+;
+    _item.name                  '_ihm_entity_assembly.assembly_id'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_entity_assembly.entity_id
+    _item_description.description
+;     A unique identifier for distinct molecular entities.
+      This data item is a pointer to _entity_poly.entity_id in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_entity_assembly.entity_id'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_entity_assembly.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_entity_assembly.entity_description
+    _item_description.description
+;     A text description of the molecular entity
+
+;
+    _item.name                  '_ihm_entity_assembly.entity_description'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_entity_assembly.seq_id_begin
+    _item_description.description
+;     The starting residue index for the sequence segment of the entity that is part of the assembly.
+;
+    _item.name                  '_ihm_entity_assembly.seq_id_begin'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_entity_assembly.seq_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_entity_assembly.seq_id_end
+    _item_description.description
+;     The ending residue index for the sequence segment of the entity that is part of the assembly.
+;
+    _item.name                  '_ihm_entity_assembly.seq_id_end'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_entity_assembly.seq_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_entity_assembly.segment_id_begin
+    _item_description.description
+;     The starting index for the sequence segment of the entity that is part of the assembly.
+      This data item is a pointer to the _ihm_model_details.segment_id in the IHM_MODEL_DETAILS 
+      category. 
+;
+    _item.name                  '_ihm_entity_assembly.segment_id_begin'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_entity_assembly.segment_id_begin'
+    _item_linked.parent_name      '_ihm_model_details.segment_id'
+     save_
+
+
+save__ihm_entity_assembly.segment_id_end
+    _item_description.description
+;     The ending index for the sequence segment of the entity that is part of the assembly.
+      This data item is a pointer to the _ihm_model_details.segment_id in the IHM_MODEL_DETAILS 
+      category. 
+;
+    _item.name                  '_ihm_entity_assembly.segment_id_end'
+    _item.category_id             ihm_entity_assembly
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_entity_assembly.segment_id_end'
+    _item_linked.parent_name      '_ihm_model_details.segment_id'
+     save_
+
+######################
+## IHM_DATASET_LIST ##
+######################
+
+save_ihm_dataset_list
+    _category.description
+;  Category holds the list of all datasets used in the IHM modeling. 
+   These can be datasets archived in other related databases such as
+   BMRB, EMDB, EMPIAR, SASBDB, PRIDE etc., or can be hosted in other
+   places such as the authors website, github etc. These datasets are
+   elaborated in detail in the IHM_RELATED_DATABASE_REFERENCE and/or the
+   IHM_DATASET_OTHER categories. This category holds the list
+   of all datasets used. 
+;
+    _category.id                ihm_dataset_list
     _category.mandatory_code    no
-    _category_key.name         '_ihm_cross_link_db_reference.id'
+    _category_key.name         '_ihm_dataset_list.id'
     loop_
     _category_group.id         'inclusive_group'
-                               'ihm_cross_link_group'
+                               'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+;   'Example 1'
+    loop_
+    _ihm_dataset_list.id
+    _ihm_dataset_list.data_type
+    _ihm_dataset_list.database_hosted
+    -ihm_dataset_list.category_info
+
+    1  'CX-MS data'  NO  ihm_dataset_other
+    2  'CX-MS data'  NO  ihm_dataset_other
+    3  '3DEM volume'  YES  ihm_related_database_reference
+    4  '2DEM class average'  NO  ihm_dataset_other
+    # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_dataset_list
+   save_
+
+save__ihm_dataset_list.id
+    _item_description.description
+;    A unique identifier for the dataset.
+;
+    _item.name                  '_ihm_dataset_list.id'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_ 
+
+save__ihm_dataset_list.data_type
+    _item_description.description
+;    The type of data held in the dataset.
+;
+    _item.name                  '_ihm_dataset_list.data_type'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+      'NMR data'
+      '3DEM volume'
+      '2DEM class average'
+      'EM raw micrographs'
+      'SAS data'
+      'CX-MS data'
+      'Homology model'
+      'De Novo model'
+      'Spatial restraint data'
+      'unspecified'
+     save_ 
+
+save__ihm_dataset_list.database_hosted
+    _item_description.description
+;    A flag that indicated whether the dataset is archived in 
+     an IHM related database or elsewhere.
+;
+    _item.name                  '_ihm_dataset_list.database_hosted'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+      YES
+      NO
+     save_
+ 
+save__ihm_dataset_list.category_info
+    _item_description.description
+;    The name of the category that holds all the details regarding the dataset. 
+;
+    _item.name                  '_ihm_dataset_list.category_info'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+     'ihm_related_database_reference'
+     'ihm_dataset_other'
+    save_
+
+####################################
+## IHM_RELATED_DATABASE_REFERENCE ##
+####################################
+ 
+save_ihm_related_database_reference
+    _category.description
+;  Category holds information related to data sources for the entry.
+   These can be datasets archived in other related databases such as 
+   BMRB, EMDB, EMPIAR, SASBDB, PRIDE etc.
+;
+    _category.id                ihm_related_database_reference
+    _category.mandatory_code    no
+    _category_key.name         '_ihm_related_database_reference.id'
+    loop_
+    _category_group.id         'inclusive_group'
+                               'ihm_group'
     loop_
     _category_examples.detail
     _category_examples.case
 ;   'Example 1'
 ;
 ;
- _ihm_cross_link_db_reference.id		1
- _ihm_cross_link_db_reference.db_name		PRIDE
- _ihm_cross_link_db_reference.access_code	PXD00381
- _ihm_cross_link_db_reference.data_type		CX-MS
- _ihm_cross_link_db_reference.details
- ;	Structural Analysis of a Prokaryotic Ribosome Using a 
-	Novel Amidinating Cross-Linker and Mass Spectrometry.
-	The structure of the Escherichia coli ribosome, 
-   	a 2.5 MDa ribonucleoprotein complex containing more than 
-	50 proteins, was probed using the novel amidinating 
-	cross-linker diethyl suberthioimidate (DEST) and mass 
-	spectrometry. Peptide cross-links derived from this 
-	complex structure were identified at high confidence 
-	(FDR 0.8%) from precursor mass measurements and 
-	collision-induced dissociation (CID) fragmentation spectra. 
-	The acquired cross-linking data were found to be in excellent 
-	agreement with the crystal structure of the E. coli 
- ;
-;
+ loop_
+ _ihm_related_database_reference.id
+ _ihm_related_database_reference.dataset_list_id
+ _ihm_related_database_reference.db_name
+ _ihm_related_database_reference.access_code
+ _ihm_related_database_reference.version
+ _ihm_related_database_reference.data_type
+ _ihm_related_database_reference.details
 
+ 1  6  'PRIDE'  'PXD00381'  .  'CX-MS data'
+;	Structural Analysis of a Prokaryotic Ribosome Using a 
+	Novel Amidinating Cross-Linker and Mass Spectrometry
+;
+ 2  3  'EMDB'  'EMD-2799'  .  '3DEM volume'  ?
+ 3  5  'PDB'   '5FM1'      .  'unspecified'            
+;	STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE
+;
+ 4  7  'BMRB'  '25766'     .  'unspecified'  ?
+ 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Homology model'
+;	PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING
+;
+ # ...  abbreviated ...
+
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED  
-    _pdbx_category_context.category_id  ihm_cross_link_db_reference
+    _pdbx_category_context.category_id  ihm_related_database_reference
     save_
 
-save__ihm_cross_link_db_reference.id
+save__ihm_related_database_reference.id
     _item_description.description
-;    A unique identifier for the related reference entry.
+;    A unique identifier for the related database entry.
 ;
-    _item.name                  '_ihm_cross_link_db_reference.id'
-    _item.category_id             ihm_cross_link_db_reference
+    _item.name                  '_ihm_related_database_reference.id'
+    _item.category_id             ihm_related_database_reference
     _item.mandatory_code          yes  
     _item_type.code               int 
      save_ 
 
-save__ihm_cross_link_db_reference.db_name
+save__ihm_related_database_reference.dataset_list_id
     _item_description.description
-;    The name of the database containing the reference entry.
+;   Identifier to the dataset list used in the IHM modeling.
+    This data item is a pointer to the _ihm_dataset_list.id in the
+    IHM_DATASET_LIST category.
 ;
-    _item.name                  '_ihm_cross_link_db_reference.db_name'
-    _item.category_id             ihm_cross_link_db_reference
-    _item.mandatory_code          yes
-    _item_type.code               code
-     loop_
-    _item_enumeration.value
-          'PRIDE'
-          'OTHER'
-     save_
-
-save__ihm_cross_link_db_reference.access_code
-    _item_description.description
-;   Accession code for the reference entry.
-;
-    _item.name                 '_ihm_cross_link_db_reference.access_code'
-    _item.category_id          ihm_cross_link_db_reference
+    _item.name                 '_ihm_related_database_reference.dataset_list_id'
+    _item.category_id          ihm_related_database_reference
     _item.mandatory_code       yes
-    _item_type.code            code
-    loop_
-    _item_examples.case       
-      PXD003381
+    _item_type.code            int
+    _item_linked.child_name    '_ihm_related_database_reference.dataset_list_id'
+    _item_linked.parent_name   '_ihm_dataset_list.id'
     save_
- 
-save__ihm_cross_link_db_reference.data_type
-    _item_description.description
-;              The type of data stored in the reference entry.
-;
 
-    _item.name                  '_ihm_cross_link_db_reference.data_type'
-    _item.category_id             ihm_cross_link_db_reference
+save__ihm_related_database_reference.db_name
+    _item_description.description
+;    The name of the database containing the dataset entry.
+;
+    _item.name                  '_ihm_related_database_reference.db_name'
+    _item.category_id             ihm_related_database_reference
     _item.mandatory_code          yes
     _item_type.code               line
      loop_
     _item_enumeration.value
-    _item_enumeration.details
-      'CX-MS'	'Chemical cross-linking mass spectrometry data'
-      'OTHER'	'Other proteomics data'
+	  'PDB'
+	  'BMRB'
+	  'EMDB'
+	  'EMPIAR'
+	  'SASBDB'
+          'PRIDE'
+	  'MODEL ARCHIVE'
+          'OTHER'
      save_
 
-save__ihm_cross_link_db_reference.details
+save__ihm_related_database_reference.access_code
     _item_description.description
-;    Experimental details regarding the reference entry.
+;   Accession code for the database entry.
 ;
-    _item.name                  '_ihm_cross_link_db_reference.details'
-    _item.category_id             ihm_cross_link_db_reference
-    _item.mandatory_code          yes
-    _item_type.code               text
+    _item.name                 '_ihm_related_database_reference.access_code'
+    _item.category_id          ihm_related_database_reference
+    _item.mandatory_code       yes
+    _item_type.code            line
+    loop_
+    _item_examples.case  
+      5FM1
+      25766
+      EMD-2799 
+      10049 
+      SASDA82   
+      PXD003381
+      MA-CO2KC
+    save_
+
+save__ihm_related_database_reference.version
+    _item_description.description
+;    Version of the database entry, if the database allows versioning.
+;
+    _item.name                  '_ihm_related_database_reference.version'
+    _item.category_id             ihm_related_database_reference
+    _item.mandatory_code          no
+    _item_type.code               int
      save_
  
-########################################### 
-## IHM_CROSS_LINK_REFERENCE_AUXILIARY ##
-###########################################
- 
-save_ihm_cross_link_reference_auxiliary
-    _category.description
-;  Category holds links to raw data sources for the entry, e.g., 
-   held by a remote server.
+save__ihm_related_database_reference.data_type
+    _item_description.description
+;              The type of data stored in the dataset entry.
 ;
-    _category.id                ihm_cross_link_reference_auxiliary
+
+    _item.name                  '_ihm_related_database_reference.data_type'
+    _item.category_id             ihm_related_database_reference
+    _item.mandatory_code          yes
+    _item_type.code               line
+     loop_
+    _item_enumeration.value
+      '3D structure'
+      'NMR data'
+      '3DEM volume'
+      'EM raw micrographs'
+      'SAS data'
+      'CX-MS data'
+      'Homology model'
+      'De Novo model'
+      'unspecified'
+     save_
+
+save__ihm_related_database_reference.details
+    _item_description.description
+;    Details regarding the dataset entry.
+;
+    _item.name                  '_ihm_related_database_reference.details'
+    _item.category_id             ihm_related_database_reference
+    _item.mandatory_code          no
+    _item_type.code               text
+    loop_
+    _item_examples.case
+;	Structural Analysis of a Prokaryotic Ribosome Using a
+       	Novel Amidinating Cross-Linker and Mass Spectrometry
+;
+     save_
+ 
+#######################
+## IHM_DATASET_OTHER ##
+#######################
+ 
+save_ihm_dataset_other
+    _category.description
+;  Category holds links to other data sources for the IHM entry. These can be
+   datasets hosted on the authors website, github or other cloud resources. 
+;
+    _category.id                ihm_dataset_other
     _category.mandatory_code    no
-    _category_key.name         '_ihm_cross_link_reference_auxiliary.id'
+    _category_key.name         '_ihm_dataset_other.id'
     loop_
     _category_group.id         'inclusive_group'
-                               'ihm_cross_link_group'
+                               'ihm_group'
     loop_
     _category_examples.detail
     _category_examples.case
 ;   'Example 1'
 ;
 ;
- _ihm_cross_link_reference_auxiliary.id			1
- _ihm_cross_link_reference_auxiliary.link		https://github.com/integrativemodeling/nup84/blob/master/data/EDC_XL_122013_new.dat
- _ihm_cross_link_reference_auxiliary.link_data_type 	CX-MS
- _ihm_cross_link_reference_auxiliary.details
- ;
-	Nup84 sub-complex probed by chemical crosslinking
-	using 1-ethyl-(dimethylaminopropyl) carbodiimide 
-	hydrochloride (EDC) crosslinker followed by mass 
-	spectrometry.  
- ;
- _ihm_cross_link_reference_auxiliary.id                 2
- _ihm_cross_link_reference_auxiliary.link               https://github.com/integrativemodeling/nup84/blob/master/data/yeast_Nup84_DSS_new.dat
- _ihm_cross_link_reference_auxiliary.link_data_type     CX-MS
- _ihm_cross_link_reference_auxiliary.details
- ;
-	Nup84 sub-complex probed by chemical crosslinking
-        using disuccinimidyl suberate (DSS) crosslinker 
-	followed by mass spectrometry.
- ;
+ loop_
+ _ihm_dataset_other.id
+ -ihm_dataset_other.dataset_list_id
+ _ihm_dataset_other.data_type
+ _ihm_dataset_other.doi
+ _ihm_dataset_other.content_type
+ _ihm_dataset_other.details
+
+ 1  1  'CX-MS data'  .  'text/plain'
+;	 Nup84 sub-complex probed by chemical crosslinking
+	 using 1-ethyl-(dimethylaminopropyl) carbodiimide 
+	 hydrochloride (EDC) crosslinker followed by mass 
+	 spectrometry
 ;
+ 2  2  'CX-MS data'  .  'text/plain'
+;	 Nup84 sub-complex probed by chemical crosslinking
+         using disuccinimidyl suberate (DSS) crosslinker 
+	 followed by mass spectrometry
+;
+ 3  4  '2DEM class average'  .  'image/pgm'
+;  	 2DEM class average of the Nup84 sub-complex
+;
+ # ...  abbreviated ...
+
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED 
-    _pdbx_category_context.category_id  ihm_cross_link_reference_auxiliary
+    _pdbx_category_context.category_id  ihm_dataset_other
     save_
  
-save__ihm_cross_link_reference_auxiliary.id
+save__ihm_dataset_other.id
     _item_description.description
 ;   Unique identifier for a provided link.
 ;
-    _item.name                 '_ihm_cross_link_reference_auxiliary.id'
-    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.name                 '_ihm_dataset_other.id'
+    _item.category_id          ihm_dataset_other
     _item.mandatory_code       yes
     _item_type.code            int
     save_
- 
-save__ihm_cross_link_reference_auxiliary.link
+
+save__ihm_dataset_other.dataset_list_id
     _item_description.description
-;   Hyperlink to the auxiliary data.
+;   Identifier to the dataset list used in the IHM modeling.
+    This data item is a pointer to the _ihm_dataset_list.id in the
+    IHM_DATASET_LIST category. 
 ;
-    _item.name                 '_ihm_cross_link_reference_auxiliary.link'
-    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.name                 '_ihm_dataset_other.dataset_list_id'
+    _item.category_id          ihm_dataset_other
     _item.mandatory_code       yes
-    _item_type.code            code
+    _item_type.code            int
+    _item_linked.child_name    '_ihm_dataset_other.dataset_list_id'
+    _item_linked.parent_name   '_ihm_dataset_list.id'
     save_
- 
-save__ihm_cross_link_reference_auxiliary.link_data_type
+
+save__ihm_dataset_other.data_type
     _item_description.description
-;   Type of auxiliary data stored at the indicated link. 
+;   Type of other data stored at the indicated link.
 ;
-    _item.name                 '_ihm_cross_link_reference_auxiliary.link_data_type'
-    _item.category_id          ihm_cross_link_reference_auxiliary
+    _item.name                 '_ihm_dataset_other.data_type'
+    _item.category_id          ihm_dataset_other
     _item.mandatory_code       yes
     _item_type.code            line
     loop_
     _item_enumeration.value
+      'NMR data'
+      '3DEM volume'
+      '2DEM class average'
+      'EM raw micrographs'
+      'SAS data'
+      'CX-MS data'
+      'Homology model'
+      'De Novo model'
+      'Spatial restraint data'
+      'unspecified'
+    save_
+ 
+save__ihm_dataset_other.doi
+    _item_description.description
+;   A digital object identifier (DOI) for the data.
+;
+    _item.name                 '_ihm_dataset_other.doi'
+    _item.category_id          ihm_dataset_other
+    _item.mandatory_code       no
+    _item_type.code            code
+    save_
+ 
+save__ihm_dataset_other.content_type
+    _item_description.description
+;   File type / format of the data stored at the indicated link.
+    This data item should belong to one of the MIME types.  
+;
+    _item.name                 '_ihm_dataset_other.content_type'
+    _item.category_id          ihm_dataset_other
+    _item.mandatory_code       no
+    _item_type.code            code
+    loop_
+    _item_enumeration.value
     _item_enumeration.details
-        'CX-MS'	'Chemical cross-linking followed by mass spectrometry data'
-	'OTHER'	'Other proteomics data'
+      'text/plain'	'Plain text file'
+      'text/csv'	'Comma-separated text file'
+      'text/tsv'	'Tab-separated text file'
+      'text/xml'	'XML file format'
+      'text/html'	'HTML file format'
+      'image/pgm'	'Portable gray map image'
+      'image/png'	'Portable network graphics image'
+      'image/gif'	'Graphics interchange format image'
+      'image/tif'	'Tagged image file format'
+      'other'		'unspecified'
     save_
 
-save__ihm_cross_link_reference_auxiliary.details
+save__ihm_dataset_other.details
     _item_description.description
-;   Experimental details regarding the auxiliary data.
+;   Experimental details regarding the other data.
 ;
-    _item.name                 '_ihm_cross_link_reference_auxiliary.details'
-    _item.category_id          ihm_cross_link_reference_auxiliary
-    _item.mandatory_code       yes
+    _item.name                 '_ihm_dataset_other.details'
+    _item.category_id          ihm_dataset_other
+    _item.mandatory_code       no
     _item_type.code            text
+    loop_
+    _item_examples.case
+;        Nup84 sub-complex probed by chemical crosslinking
+         using disuccinimidyl suberate (DSS) crosslinker
+         followed by mass spectrometry
+;
     save_
+
+#########################
+## IHM_CROSS_LINK_LIST ##
+#########################
+
+save_ihm_cross_link_list
+    _category.description
+;              Data items in the IHM_CROSS_LINK_LIST category records the
+               list of spatial restraints derived from chemical crosslinking 
+               experiment.
+;
+    _category.id                  ihm_cross_link_list
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_cross_link_list.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+        loop_
+	_ihm_cross_link_list.id
+        _ihm_cross_link_list.group_id
+        _ihm_cross_link_list.entity_id_1
+        _ihm_cross_link_list.seq_id_1
+        _ihm_cross_link_list.comp_id_1
+        _ihm_cross_link_list.entity_id_2
+        _ihm_cross_link_list.seq_id_2
+        _ihm_cross_link_list.comp_id_2
+        _ihm_cross_link_list.type
+        _ihm_cross_link_list.dataset_list_id
+          1    1  3    17  LYS  3   421  GLU  EDC  1
+          2    2  3   206  LYS  3   219  ASP  EDC  1
+          3    3  3    38  LYS  3   429  GLU  EDC  1
+          4    4  3   400  LYS  3   440  GLU  EDC  1
+          5    4  3   400  LYS  3   441  GLU  EDC  1
+          6    5  3   400  LYS  3   523  ASP  EDC  1
+          7    6  3   735  LYS  3   403  ASP  EDC  1
+          8    7  3   735  LYS  3   405  GLU  EDC  1
+          9    7  3   865  LYS  3   894  GLU  EDC  1
+         10    7  3   865  LYS  3   898  ASP  EDC  1
+         11    8  4   103  LYS  4   130  ASP  EDC  1
+         12    8  4   103  LYS  4   131  GLU  EDC  1
+         13    9  3    17  LYS  3   412  LYS  DSS  2
+	 14   10  3    17  LYS  3   735  LYS  DSS  2
+	 15   11  3   206  LYS  3   217  LYS  DSS  2
+	 16   12  3   384  LYS  3   362  LYS  DSS  2
+	 17   13  3   400  LYS  3   530  LYS  DSS  2
+	 18   14  3   400  LYS  3   531  LYS  DSS  2
+	 19   15  3   400  LYS  3   735  LYS  DSS  2
+         20   16  3   735  LYS  3   412  LYS  DSS  2
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_cross_link_list
+     save_
+
+save__ihm_cross_link_list.id
+    _item_description.description
+;     A unique identifier for the cross link restraint.
+;
+    _item.name                  '_ihm_cross_link_list.id'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_cross_link_list.group_id
+    _item_description.description
+;     An identifier for a set of ambiguous crosslink restraints. 
+      Handles experimental uncertainties in the identities of 
+      crosslinked residues.
+;
+    _item.name                  '_ihm_cross_link_list.group_id'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes  
+    _item_type.code               int  
+     save_
+
+save__ihm_cross_link_list.entity_id_1
+    _item_description.description
+;     The entity identifier for the first monomer partner in the cross link
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_cross_link_list.entity_id_1'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_cross_link_list.entity_id_1'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_cross_link_list.entity_id_2
+    _item_description.description
+;     The entity identifier for the second monomer partner in the cross link
+
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_cross_link_list.entity_id_2'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_cross_link_list.entity_id_2'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_cross_link_list.comp_id_1
+    _item_description.description
+;     The component identifier for the first monomer partner in the cross link.
+
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_cross_link_list.comp_id_1'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_linked.child_name       '_ihm_cross_link_list.comp_id_1'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_cross_link_list.comp_id_2
+    _item_description.description
+;     The component identifier for the second monomer partner in the cross link.
+
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_cross_link_list.comp_id_2'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_linked.child_name       '_ihm_cross_link_list.comp_id_2'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_cross_link_list.seq_id_1
+    _item_description.description
+;     The sequence index for the first monomer partner in the cross link.
+
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_cross_link_list.seq_id_1'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_list.seq_id_1'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_cross_link_list.seq_id_2
+    _item_description.description
+;     The sequence index for the second monomer partner in the cross link.
+
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_cross_link_list.seq_id_2'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_list.seq_id_2'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_cross_link_list.type
+    _item_description.description
+;     The cross link type.
+;
+    _item.name                  '_ihm_cross_link_list.type'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+                 'EDC'  '1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC)  crosslinker'
+                 'DSS'  'disuccinimidyl suberate (DSS) crosslinker'
+     save_
+
+save__ihm_cross_link_list.dataset_list_id
+    _item_description.description
+;     Identifier to the crosslinking dataset.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_cross_link_list.dataset_list_id'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_list.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
 
 ##############################
-## ihm_cross_link_restraint ##
+## IHM_CROSS_LINK_RESTRAINT ##
 ##############################
 
 save_ihm_cross_link_restraint
     _category.description
-;              Data items in the IHM_CROSS_LINK_RESTRAINT category records the
-               details of the spatial restraints derived from chemical cross linking experiment.
+;              Data items in the IHM_CROSS_LINK_RESTRAINT category enumerates the
+               implementation details of the chemical crosslinking restraints in 
+               the integrative modeling. This category holds the details of how 
+               the experimentally derived crosslinks are applied in the modeling. 
 ;
     _category.id                  ihm_cross_link_restraint
     _category.mandatory_code      no
@@ -589,39 +1162,42 @@ save_ihm_cross_link_restraint
 ;
 ;
         loop_
-	_ihm_cross_link_restraint.id
-        _ihm_cross_link_restraint.group_id
+        _ihm_cross_link_restraint.id
+	_ihm_cross_link_restraint.group_id
         _ihm_cross_link_restraint.entity_id_1
+	_ihm_cross_link_restraint.asym_id_1
         _ihm_cross_link_restraint.seq_id_1
         _ihm_cross_link_restraint.comp_id_1
         _ihm_cross_link_restraint.entity_id_2
+	_ihm_cross_link_restraint.asym_id_2
         _ihm_cross_link_restraint.seq_id_2
         _ihm_cross_link_restraint.comp_id_2
         _ihm_cross_link_restraint.type
-        _ihm_cross_link_restraint.reference_auxiliary_id
-          1   1  3    17  LYS  3   421  GLU  EDC  1
-          2   2  3   206  LYS  3   219  ASP  EDC  1
-          3   3  3    38  LYS  3   429  GLU  EDC  1
-          4   4  3   400  LYS  3   440  GLU  EDC  1
-          5   4  3   400  LYS  3   441  GLU  EDC  1
-          6   5  3   400  LYS  3   523  ASP  EDC  1
-          7   6  3   735  LYS  3   403  ASP  EDC  1
-          8   7  3   735  LYS  3   405  GLU  EDC  1
-          9   7  3   865  LYS  3   894  GLU  EDC  1
-         10   7  3   865  LYS  3   898  ASP  EDC  1
-         11   8  4   103  LYS  4   130  ASP  EDC  1
-         12   8  4   103  LYS  4   131  GLU  EDC  1
+	_ihm_cross_link_restraint.conditional_crosslink_flag
+        _ihm_cross_link_restraint.model_granularity
+        _ihm_cross_link_restraint.distance_threshold
+          1    1  3  C    17  LYS  3  C   421  GLU  EDC  ALL  by-residue  25.0  
+          2    2  3  C   206  LYS  3  C   219  ASP  EDC  ALL  by-residue  25.0  
+          3    3  3  C    38  LYS  3  C   429  GLU  EDC  ALL  by-residue  25.0  
+          4    4  3  C   400  LYS  3  C   440  GLU  EDC  ALL  by-residue  25.0  
+          5    5  3  C   400  LYS  3  C   441  GLU  EDC  ALL  by-residue  25.0  
+          6    6  3  C   400  LYS  3  C   523  ASP  EDC  ALL  by-residue  25.0  
+          7    7  3  C   735  LYS  3  C   403  ASP  EDC  ALL  by-residue  25.0  
+          8    8  3  C   735  LYS  3  C   405  GLU  EDC  ALL  by-residue  25.0  
+          9    9  3  C   865  LYS  3  C   894  GLU  EDC  ALL  by-residue  25.0  
+         10   10  3  C   865  LYS  3  C   898  ASP  EDC  ALL  by-residue  25.0  
+         11   11  4  D   103  LYS  4  D   130  ASP  EDC  ALL  by-residue  25.0  
+         12   12  4  D   103  LYS  4  D   131  GLU  EDC  ALL  by-residue  25.0 
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_cross_link_restraint
      save_
 
 save__ihm_cross_link_restraint.id
     _item_description.description
-;     A unique identifier for the cross link restraint.
+;     A unique identifier for the cross link record.
 ;
     _item.name                  '_ihm_cross_link_restraint.id'
     _item.category_id             ihm_cross_link_restraint
@@ -631,20 +1207,25 @@ save__ihm_cross_link_restraint.id
 
 save__ihm_cross_link_restraint.group_id
     _item_description.description
-;     An identifier for a set of ambiguous crosslink restraints. 
-      Handles experimental uncertainties.
+;     An identifier for a set of ambiguous cross-links.
+      Handles implementation uncertainties related to multiple copies of subunit.
+      This data item is a pointer to _ihm_cross_link_list.id in the 
+      IHM_CROSS_LINK_LIST category.
 ;
     _item.name                  '_ihm_cross_link_restraint.group_id'
     _item.category_id             ihm_cross_link_restraint
-    _item.mandatory_code          yes  
-    _item_type.code               int  
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_restraint.group_id'
+    _item_linked.parent_name      '_ihm_cross_link_list.id'
      save_
 
 save__ihm_cross_link_restraint.entity_id_1
     _item_description.description
 ;     The entity identifier for the first monomer partner in the cross link
 
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category 
+      and the _ihm_cross_link_restraint.entity_id_1 in the IHM_CROSS_LINK_RESTRAINT category.
 ;
     _item.name                  '_ihm_cross_link_restraint.entity_id_1'
     _item.category_id             ihm_cross_link_restraint
@@ -652,13 +1233,15 @@ save__ihm_cross_link_restraint.entity_id_1
     _item_type.code               code
     _item_linked.child_name       '_ihm_cross_link_restraint.entity_id_1'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_ihm_cross_link_restraint.entity_id_1'
      save_
 
 save__ihm_cross_link_restraint.entity_id_2
     _item_description.description
 ;     The entity identifier for the second monomer partner in the cross link
 
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category
+      and the _ihm_cross_link_restraint.entity_id_2 in the IHM_CROSS_LINK_RESTRAINT category.
 ;
     _item.name                  '_ihm_cross_link_restraint.entity_id_2'
     _item.category_id             ihm_cross_link_restraint
@@ -666,13 +1249,45 @@ save__ihm_cross_link_restraint.entity_id_2
     _item_type.code               code
     _item_linked.child_name       '_ihm_cross_link_restraint.entity_id_2'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_ihm_cross_link_restraint.entity_id_2'
+     save_
+
+save__ihm_cross_link_restraint.asym_id_1
+    _item_description.description
+;              An asym/strand identifier for the first monomer partner in the cross-link.
+
+               This data item is a pointer to _struct_asym.id in the
+               STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_cross_link_restraint.asym_id_1'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_cross_link_restraint.asym_id_1'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_cross_link_restraint.asym_id_2
+    _item_description.description
+;              An asym/strand identifier for the second monomer partner in the cross-link.
+
+	       This data item is a pointer to _struct_asym.id in the
+               STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_cross_link_restraint.asym_id_2'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_cross_link_restraint.asym_id_2'
+    _item_linked.parent_name      '_struct_asym.id'
      save_
 
 save__ihm_cross_link_restraint.comp_id_1
     _item_description.description
 ;     The component identifier for the first monomer partner in the cross link.
 
-      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category
+      and the _ihm_cross_link_restraint.comp_id_1 in the IHM_CROSS_LINK_RESTRAINT category.
 ;
     _item.name                  '_ihm_cross_link_restraint.comp_id_1'
     _item.category_id             ihm_cross_link_restraint
@@ -680,13 +1295,15 @@ save__ihm_cross_link_restraint.comp_id_1
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_cross_link_restraint.comp_id_1'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
+    _item_linked.parent_name      '_ihm_cross_link_restraint.comp_id_1'
      save_
 
 save__ihm_cross_link_restraint.comp_id_2
     _item_description.description
 ;     The component identifier for the second monomer partner in the cross link.
 
-      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category
+      and the _ihm_cross_link_restraint.comp_id_2 in the IHM_CROSS_LINK_RESTRAINT category.
 ;
     _item.name                  '_ihm_cross_link_restraint.comp_id_2'
     _item.category_id             ihm_cross_link_restraint
@@ -694,13 +1311,15 @@ save__ihm_cross_link_restraint.comp_id_2
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_cross_link_restraint.comp_id_2'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
+    _item_linked.parent_name      '_ihm_cross_link_restraint.comp_id_2'
      save_
 
 save__ihm_cross_link_restraint.seq_id_1
     _item_description.description
 ;     The sequence index for the first monomer partner in the cross link.
 
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category
+      and the _ihm_cross_link_restraint.seq_id_1 in the IHM_CROSS_LINK_RESTRAINT category.
 ;
     _item.name                  '_ihm_cross_link_restraint.seq_id_1'
     _item.category_id             ihm_cross_link_restraint
@@ -708,13 +1327,15 @@ save__ihm_cross_link_restraint.seq_id_1
     _item_type.code               int
     _item_linked.child_name       '_ihm_cross_link_restraint.seq_id_1'
     _item_linked.parent_name      '_entity_poly_seq.num'
+    _item_linked.parent_name      '_ihm_cross_link_restraint.seq_id_1'
      save_
 
 save__ihm_cross_link_restraint.seq_id_2
     _item_description.description
 ;     The sequence index for the second monomer partner in the cross link.
 
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category
+      and the _ihm_cross_link_restraint.seq_id_2 in the IHM_CROSS_LINK_RESTRAINT category.
 ;
     _item.name                  '_ihm_cross_link_restraint.seq_id_2'
     _item.category_id             ihm_cross_link_restraint
@@ -722,11 +1343,12 @@ save__ihm_cross_link_restraint.seq_id_2
     _item_type.code               int
     _item_linked.child_name       '_ihm_cross_link_restraint.seq_id_2'
     _item_linked.parent_name      '_entity_poly_seq.num'
+    _item_linked.parent_name      '_ihm_cross_link_restraint.seq_id_2'
      save_
 
 save__ihm_cross_link_restraint.type
     _item_description.description
-;     The cross link type.
+;     The cross link type.  
 ;
     _item.name                  '_ihm_cross_link_restraint.type'
     _item.category_id             ihm_cross_link_restraint
@@ -739,313 +1361,60 @@ save__ihm_cross_link_restraint.type
                  'DSS'  'disuccinimidyl suberate (DSS) crosslinker'
      save_
 
-save__ihm_cross_link_restraint.db_reference_id
-    _item_description.description
-;     The cross link data reference from external db source.
-      This data item is a pointer to ihm_cross_link_db_reference.id in the
-      IHM_CROSS_LINK_DB_REFERENCE category. 
-;
-    _item.name                  '_ihm_cross_link_restraint.db_reference_id'
-    _item.category_id             ihm_cross_link_restraint
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_cross_link_restraint.db_reference_id'
-    _item_linked.parent_name      '_ihm_cross_link_db_reference.id'
-     save_
-
-save__ihm_cross_link_restraint.reference_auxiliary_id
-    _item_description.description
-;     The cross link reference for data hosted at external sites.
-      This data item is a pointer to ihm_cross_link_reference_auxiliary.id in the
-      IHM_CROSS_LINK_REFERENCE_AUXILIARY category.
-;
-    _item.name                  '_ihm_cross_link_restraint.reference_auxiliary_id'
-    _item.category_id             ihm_cross_link_restraint
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_cross_link_restraint.reference_auxiliary_id'
-    _item_linked.parent_name      '_ihm_cross_link_reference_auxiliary.id'
-     save_
-
-#########################
-## ihm_cross_link_list ##
-#########################
-
-save_ihm_cross_link_list
-    _category.description
-;              Data items in the IHM_CROSS_LINK_LIST category enumerates the
-               implementation details of the chemical crosslinking restraints in 
-               integrative modeling.
-;
-    _category.id                  ihm_cross_link_list
-    _category.mandatory_code      no
-     loop_
-    _category_key.name          '_ihm_cross_link_list.ordinal_id'
-
-    loop_
-    _category_group.id           'inclusive_group'
-                                 'ihm_group'
-    loop_
-    _category_examples.detail
-    _category_examples.case
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-;
-    Example 1 - 
-;
-;
-        loop_
-        _ihm_cross_link_list.ordinal_id
-	_ihm_cross_link_list.restraint_id
-        _ihm_cross_link_list.entity_id_1
-	_ihm_cross_link_list.asym_id_1
-        _ihm_cross_link_list.seq_id_1
-        _ihm_cross_link_list.comp_id_1
-        _ihm_cross_link_list.entity_id_2
-	_ihm_cross_link_list.asym_id_2
-        _ihm_cross_link_list.seq_id_2
-        _ihm_cross_link_list.comp_id_2
-        _ihm_cross_link_list.type
-	_ihm_cross_link_list.conditional_flag
-        _ihm_cross_link_list.residue_specific_flag
-        _ihm_cross_link_list.distance_threshold
-          1    1  3  C    17  LYS  3  C   421  GLU  EDC  ALL  YES  25.0  
-          2    2  3  C   206  LYS  3  C   219  ASP  EDC  ALL  YES  25.0  
-          3    3  3  C    38  LYS  3  C   429  GLU  EDC  ALL  YES  25.0  
-          4    4  3  C   400  LYS  3  C   440  GLU  EDC  ALL  YES  25.0  
-          5    5  3  C   400  LYS  3  C   441  GLU  EDC  ALL  YES  25.0  
-          6    6  3  C   400  LYS  3  C   523  ASP  EDC  ALL  YES  25.0  
-          7    7  3  C   735  LYS  3  C   403  ASP  EDC  ALL  YES  25.0  
-          8    8  3  C   735  LYS  3  C   405  GLU  EDC  ALL  YES  25.0  
-          9    9  3  C   865  LYS  3  C   894  GLU  EDC  ALL  YES  25.0  
-         10   10  3  C   865  LYS  3  C   898  ASP  EDC  ALL  YES  25.0  
-         11   11  4  D   103  LYS  4  D   130  ASP  EDC  ALL  YES  25.0  
-         12   12  4  D   103  LYS  4  D   131  GLU  EDC  ALL  YES  25.0 
-         # ...  abbreviated ...
-;
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-   _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_cross_link_list
-     save_
-
-save__ihm_cross_link_list.ordinal_id
-    _item_description.description
-;     A unique identifier for the cross link record.
-;
-    _item.name                  '_ihm_cross_link_list.ordinal_id'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
-save__ihm_cross_link_list.restraint_id
-    _item_description.description
-;     An identifier for a set of ambiguous cross-links.
-      Handles implementation uncertainties related to multiple copies of subunit.
-      This data item is a pointer to ihm_cross_link_restraint.id in the 
-      IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.restraint_id'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_cross_link_list.restraint_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.id'
-     save_
-
-save__ihm_cross_link_list.entity_id_1
-    _item_description.description
-;     The entity identifier for the first monomer partner in the cross link
-
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category 
-      and the _ihm_cross_link_restraint.entity_id_1 in the IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.entity_id_1'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name       '_ihm_cross_link_list.entity_id_1'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.entity_id_1'
-     save_
-
-save__ihm_cross_link_list.entity_id_2
-    _item_description.description
-;     The entity identifier for the second monomer partner in the cross link
-
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category
-      and the _ihm_cross_link_restraint.entity_id_2 in the IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.entity_id_2'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name       '_ihm_cross_link_list.entity_id_2'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.entity_id_2'
-     save_
-
-save__ihm_cross_link_list.asym_id_1
-    _item_description.description
-;              An asym/strand identifier for the first monomer partner in the cross-link.
-
-               This data item is a pointer to _struct_asym.id in the
-               STRUCT_ASYM category.
-;
-    _item.name                  '_ihm_cross_link_list.asym_id_1'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name       '_ihm_cross_link_list.asym_id_1'
-    _item_linked.parent_name      '_struct_asym.id'
-     save_
-
-save__ihm_cross_link_list.asym_id_2
-    _item_description.description
-;              An asym/strand identifier for the second monomer partner in the cross-link.
-
-	       This data item is a pointer to _struct_asym.id in the
-               STRUCT_ASYM category.
-;
-    _item.name                  '_ihm_cross_link_list.asym_id_2'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name       '_ihm_cross_link_list.asym_id_2'
-    _item_linked.parent_name      '_struct_asym.id'
-     save_
-
-save__ihm_cross_link_list.comp_id_1
-    _item_description.description
-;     The component identifier for the first monomer partner in the cross link.
-
-      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category
-      and the _ihm_cross_link_restraint.comp_id_1 in the IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.comp_id_1'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               ucode
-    _item_linked.child_name       '_ihm_cross_link_list.comp_id_1'
-    _item_linked.parent_name      '_entity_poly_seq.mon_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.comp_id_1'
-     save_
-
-save__ihm_cross_link_list.comp_id_2
-    _item_description.description
-;     The component identifier for the second monomer partner in the cross link.
-
-      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category
-      and the _ihm_cross_link_restraint.comp_id_2 in the IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.comp_id_2'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               ucode
-    _item_linked.child_name       '_ihm_cross_link_list.comp_id_2'
-    _item_linked.parent_name      '_entity_poly_seq.mon_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.comp_id_2'
-     save_
-
-save__ihm_cross_link_list.seq_id_1
-    _item_description.description
-;     The sequence index for the first monomer partner in the cross link.
-
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category
-      and the _ihm_cross_link_restraint.seq_id_1 in the IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.seq_id_1'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_cross_link_list.seq_id_1'
-    _item_linked.parent_name      '_entity_poly_seq.num'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.seq_id_1'
-     save_
-
-save__ihm_cross_link_list.seq_id_2
-    _item_description.description
-;     The sequence index for the second monomer partner in the cross link.
-
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category
-      and the _ihm_cross_link_restraint.seq_id_2 in the IHM_CROSS_LINK_RESTRAINT category.
-;
-    _item.name                  '_ihm_cross_link_list.seq_id_2'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_cross_link_list.seq_id_2'
-    _item_linked.parent_name      '_entity_poly_seq.num'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.seq_id_2'
-     save_
-
-save__ihm_cross_link_list.type
-    _item_description.description
-;     The cross link type.  
-      This data item is a pointer to _ihm_cross_link_restraint.type 
-      in the IHM_CROSS_LINK_RESTRAINT category. 
-;
-    _item.name                  '_ihm_cross_link_list.type'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
-    _item_type.code               line
-    _item_linked.child_name       '_ihm_cross_link_list.type'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.type'
-     save_
-
-save__ihm_cross_link_list.conditional_flag
+save__ihm_cross_link_restraint.conditional_crosslink_flag
     _item_description.description
 ;     The cross link conditionality.  
 ;
-    _item.name                  '_ihm_cross_link_list.conditional_flag'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes
+    _item.name                  '_ihm_cross_link_restraint.conditional_crosslink_flag'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-                 'ALL'  'All cross-links are restrained'
-                 'ANY'  'Any one of the cross-links among the multiple instances could be satisfied'
+                 'ALL'  'All crosslinks in the group are restrained'
+                 'ANY'  'Any one of the crosslinks among the multiple instances in the group could be satisfied'
      save_
 
-save__ihm_cross_link_list.residue_specific_flag
+save__ihm_cross_link_restraint.model_granularity
     _item_description.description
-;     The cross link implementation flag for coarse-graining.  
+;     The coarse-graining information for the crosslink implementation.  
 ;
-    _item.name                  '_ihm_cross_link_list.residue_specific_flag'
-    _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          yes  
+    _item.name                  '_ihm_cross_link_restraint.model_granularity'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          no  
     _item_type.code               line 
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-                 'YES'  'Cross-link is residue-specific'
-                 'NO'   'Cross-link is not residue-specific; may be coarse-grained to a spherical or other primitive'
+                 'by-residue'   'Crosslink applied to the specific residue'
+                 'by-object'    'Crosslink applied to the closest object in the model representation'
      save_
 
-save__ihm_cross_link_list.distance_threshold
+save__ihm_cross_link_restraint.distance_threshold
     _item_description.description
-;     The distance threshold applied to this crosslink in the intgrated modeling task.
+;     The distance threshold applied to this crosslink in the integrated modeling task.
 ;
-    _item.name                  '_ihm_cross_link_list.distance_threshold'
-    _item.category_id             ihm_cross_link_list
+    _item.name                  '_ihm_cross_link_restraint.distance_threshold'
+    _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-############################
-## ihm_2dem_class_average ##
-############################
+###########################
+## IHM_CROSS_LINK_RESULT ##
+###########################
 
-save_ihm_2dem_class_average
+save_ihm_cross_link_result
     _category.description
-;              Data items in the IHM_2DEM_CLASS_AVERAGE category records the
-               details of the 2DEM class averages used in the IHM modeling.
+;              Data items in the IHM_CROSS_LINK_RESULT category records the
+               results of the crosslinking restraints in the IHM modeling.
 ;
-    _category.id                  ihm_2dem_class_average
+    _category.id                  ihm_cross_link_result
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_2dem_class_average'
+    _category_key.name          '_ihm_cross_link_result.id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -1058,85 +1427,111 @@ save_ihm_2dem_class_average
     Example 1 -
 ;
 ;
-        _ihm_2dem_class_average.id		1
-        _ihm_2dem_class_average.link		https://github.com/integrativemodeling/nup84/blob/master/data/nup84_kinked_from_class2.pgm
-        _ihm_2dem_class_average.link_type	IMAGE
-        _ihm_2dem_class_average.link_format	PGM
-	_ihm_2dem_class_average.details
-	;
-	  The 2DEM class average image of the Nup84 sub-complex. 
-	;
+        loop_
+        _ihm_cross_link_result.id
+        _ihm_cross_link_result.restraint_id
+        _ihm_cross_link_result.num_models
+        _ihm_cross_link_result.restraint_distance
+   	_ihm_cross_link_result.median_distance
+	_ihm_cross_link_result.error_bar
+        _ihm_cross_link_result.details
+        
+ 	1  1  100  25.0  22.65  .  .
+ 	2  2  100  25.0  18.21  .  .
+	3  3  100  25.0  16.47  .  .
+	4  4  100  25.0  23.84  .  .
+	5  5  100  25.0  21.96  .  .
+
+	# ...  abbreviated ...
 ;
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_2dem_class_average
+   _pdbx_category_context.category_id  ihm_cross_link_result
      save_
 
-save__ihm_2dem_class_average.id
-_item_description.description
-;     A unique identifier for the 2DEM class average.
+save__ihm_cross_link_result.id
+    _item_description.description
+;     An identifier for the crosslink result record.
 ;
-    _item.name                  '_ihm_2dem_class_average.id'
-    _item.category_id             ihm_2dem_class_average
+    _item.name                  '_ihm_cross_link_result.id'
+    _item.category_id             ihm_cross_link_result
     _item.mandatory_code          yes
     _item_type.code               int
-save_
+     save_
 
-save_2dem_class_average.link
-_item_description.description
-;     A link to the 2DEM class average data.
+save__ihm_cross_link_result.restraint_id
+    _item_description.description
+;     An identifier for the crosslink restraint.
+      This data item is a pointer to _ihm_cross_link_restraint.id in the
+      IHM_CROSS_LINK_RESTRAINT category.  
 ;
-    _item.name                  '_ihm_2dem_class_average.link'
-    _item.category_id             ihm_2dem_class_average
+    _item.name                  '_ihm_cross_link_result.restraint_id'
+    _item.category_id             ihm_cross_link_result
     _item.mandatory_code          yes
-    _item_type.code               code
-    loop_
-    _item_examples.case
-      https://github.com/integrativemodeling/nup84/blob/master/data/nup84_kinked_from_class2.pgm
-save_
+    _item_type.code               int
+    _item_linked.child_name    '_ihm_cross_link_result.restraint_id'
+    _item_linked.parent_name   '_ihm_cross_link_restraint.id'
+     save_
 
-save_2dem_class_average.link_type
-_item_description.description
-;    The type of data provided in the 2DEM class average link.
+save__ihm_cross_link_result.num_models
+    _item_description.description
+;     Number of models sampled in the integrative modeling task. 
+      The default value is 1. 
 ;
-    _item.name                  '_ihm_2dem_class_average.link_type'
-    _item.category_id             ihm_2dem_class_average
+    _item.name                    '_ihm_cross_link_result.num_models'
+    _item.category_id             ihm_cross_link_result
     _item.mandatory_code          yes
-    _item_type.code               line
-    loop_
-    _item_enumeration.value
-    _item_enumeration.details
-	'IMAGE'	'The 2DEM class average is an image'
-	'OTHER'	'Other format'
-save_
+    _item_type.code               int
+    _item_default.value           1
+     save_
 
-save_2dem_class_average.link_format
-_item_description.description
-;     Format type for the 2DEM class average image.
+save__ihm_cross_link_result.restraint_distance
+    _item_description.description
+;     The distance threshold applied to this crosslink in the integrated modeling task.
 ;
-    _item.name                  '_ihm_2dem_class_average.link_format'
-    _item.category_id             ihm_2dem_class_average
+    _item.name                  '_ihm_cross_link_result.restraint_distance'
+    _item.category_id             ihm_cross_link_result
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_cross_link_result.median_distance
+    _item_description.description
+;     The median distance between the crosslinked residues.
+;
+    _item.name                  '_ihm_cross_link_result.median_distance'
+    _item.category_id             ihm_cross_link_result
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_cross_link_result.error_bar
+    _item_description.description
+;     The observed error bar (or standard deviation) from the median distance in the sampled models.
+;
+    _item.name                  '_ihm_cross_link_result.error_bar'
+    _item.category_id             ihm_cross_link_result
     _item.mandatory_code          no
-    _item_type.code               line
-    loop_
-    _item_enumeration.value
-    _item_enumeration.details
-        'PGM'	'PORTABLE GRAYMAP FORMAT'
-        'OTHER' 'OTHER FORMAT'
-save_
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
 
-save_2dem_class_average.details
-_item_description.description
-;    Expermental details of the 2DEM class average.
+save__ihm_cross_link_result.details
+    _item_description.description
+;     This records holds any associated details of the results of the particular 
+      crosslink restraint in the integrated modeling task.
 ;
-    _item.name                  '_ihm_2dem_class_average.details'
-    _item.category_id             ihm_2dem_class_average
-    _item.mandatory_code          yes
+    _item.name                  '_ihm_cross_link_result.details'
+    _item.category_id             ihm_cross_link_result
+    _item.mandatory_code          no
     _item_type.code               text
-save_
+     save_
 
 ######################################
-## ihm_2dem_class_average_restraint ##
+## IHM_2DEM_CLASS_AVERAGE_RESTRAINT ##
 ######################################
 
 save_ihm_2dem_class_average_restraint
@@ -1161,12 +1556,19 @@ save_ihm_2dem_class_average_restraint
 ;
 ;
         _ihm_2dem_class_average_restraint.id				1
+	_ihm_2dem_class_average_restraint.dataset_list_id		4
         _ihm_2dem_class_average_restraint.pixel_size			5.91
         _ihm_2dem_class_average_restraint.image_resolution		30.0
-	_ihm_2dem_class_average_restraint.model_resolution		1.0
+	_ihm_2dem_class_average_restraint.image_masking_flag            No
 	_ihm_2dem_class_average_restraint.number_of_projections		400
-	_ihm_2dem_class_average_restraint.number_of_components		7
-        _ihm_2dem_class_average_restraint.cross_correlation_coefficient	0.68
+	_ihm_2dem_class_average_restraint.entity_assembly_id		1
+	_ihm_2dem_class_average_restraint.details
+;	The 2DEM restraint fits a given model to an 2DEM class average and
+        computes a score that quantifies the match. The computation proceeds
+        in three stages: generation of 3D model projections on a 2D grid, 
+        alignment of the model projections and the 2DEM class average image, 
+        and calculation of the best fitting score. 
+;
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1176,15 +1578,26 @@ save_ihm_2dem_class_average_restraint
 
 save__ihm_2dem_class_average_restraint.id
     _item_description.description
-;     An identifier for the 2dem class average.
-      This data item is a pointer to _ihm_2dem_class_average.id in the IHM_2DEM_CLASS_AVERAGE category. 
+;     A unique identifier for the 2dem class average.
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.id'
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_2dem_class_average_restraint.id'
-    _item_linked.parent_name      '_ihm_2dem_class_average.id'
+     save_
+
+save__ihm_2dem_class_average_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the 2dem class average dataset.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_2dem_class_average_restraint.dataset_list_id'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_2dem_class_average_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
      save_
 
 save__ihm_2dem_class_average_restraint.pixel_size
@@ -1195,6 +1608,7 @@ save__ihm_2dem_class_average_restraint.pixel_size
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          yes
     _item_type.code               float
+    _item_units.code              angstroms
      save_
 
 save__ihm_2dem_class_average_restraint.image_resolution
@@ -1205,50 +1619,74 @@ save__ihm_2dem_class_average_restraint.image_resolution
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          yes
     _item_type.code               float
+    _item_units.code              angstroms
      save_
 
-save__ihm_2dem_class_average_restraint.model_resolution
+save__ihm_2dem_class_average_restraint.image_masking_flag
     _item_description.description
-;     Resolution of the model used in the fitting.
+;     A flag that indicates whether or not the 2DEM class average image is masked i.e.,
+      whether the whole image is used or only a portion of it is used (by masking) 
+      as restraint in the modeling. 
 ;
-    _item.name                  '_ihm_2dem_class_average_restraint.model_resolution'
+    _item.name                  '_ihm_2dem_class_average_restraint.image_masking_flag'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
-    _item_type.code               float
+    _item.mandatory_code          no
+    _item_type.code               code
+    _item_enumeration.value
+    _item_enumeration.details
+	'YES'	'Image is masked; only a portion of the image is used'
+	'NO'	'Image is not masked; the entire image is used'
      save_
 
 save__ihm_2dem_class_average_restraint.number_of_projections
     _item_description.description
-;    Number of projections used in the fitting. 
+;    Number of 2D projections of the model used in the fitting. 
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.number_of_projections'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
      save_
 
-save__ihm_2dem_class_average_restraint.number_of_components
+save__ihm_2dem_class_average_restraint.entity_assembly_id
     _item_description.description
-;    Number of components in the complex that are fit to the 2DEM class average. 
+;    An indicator to whether the whole assembly that is modeled is fit into the image 
+     or if only a subset of the entities in the complete model is fit into the image. 
+     This data item is a pointer to _ihm_entity_assembly.assembly_id in the 
+     IHM_ENTITY_ASSEMBLY category. The IHM_ENTITY_ASSEMBLY category provides the 
+     details regarding the different entity sub-assemblies used in the modeling. 
+     The default value for this data item is "1" indicating that the entire assembly 
+     being modeled is fit into the EM data. 
 ;
-    _item.name                  '_ihm_2dem_class_average_restraint.number_of_components'
+    _item.name                  '_ihm_2dem_class_average_restraint.entity_assembly_id'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
+    _item_linked.child_name	'_ihm_2dem_class_average_restraint.entity_assembly_id'
+    _item_linked.parent_name	'_ihm_entity_assembly.id'
+    _item_default.value		  1
      save_
 
-save__ihm_2dem_class_average_restraint.cross_correlation_coefficient
+save__ihm_2dem_class_average_restraint.details
     _item_description.description
-;     Cross-correlation coeffient obtaint as a result of the fitting.
+;     Details of how the 2DEM restraint is applied in the modeling algorithm.
 ;
-    _item.name                  '_ihm_2dem_class_average_restraint.cross_correlation_coefficient'
+    _item.name                  '_ihm_2dem_class_average_restraint.details'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
-    _item_type.code               float
+    _item.mandatory_code          no
+    _item_type.code               text
+     loop_
+    _item_examples.case
+;	The 2DEM restraint fits a given model to an 2DEM class average and
+        computes a score that quantifies the match. The computation proceeds
+        in three stages: generation of 3D model projections on a 2D grid, 
+        alignment of the model projections and the 2DEM class average image, 
+        and calculation of the best fitting score.
+;
      save_
 
 ##############################
-## ihm_starting_model_coord ##
+## IHM_STARTING_MODEL_COORD ##
 ##############################
 
 save_ihm_starting_model_coord
@@ -1454,9 +1892,9 @@ save__ihm_starting_model_coord.formal_charge
      save_
 
 
-##########################
-## ihm_sphere_obj_site ##
-##########################
+#########################
+## IHM_SPHERE_OBJ_SITE ##
+#########################
 
 save_ihm_sphere_obj_site
     _category.description
