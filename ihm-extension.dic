@@ -17,7 +17,8 @@
 #	    Updated ihm_2dem_class_average_restraint category
 #           Removed ihm_cross_link_db_reference, ihm_cross_link_reference_auxiliary, ihm_2dem_class_average categories
 #           Revised several data items to be non-mandatory
-#
+#           Changed category key item in ihm_model_details category to account for multiple coarse-grained representations 
+#           of the same model segment (introduced _ihm_model_details.ordinal_id
 # ----------------------------------------------------------------------------------------------------------------------------
 
 
@@ -189,8 +190,6 @@ save__ihm_starting_model_details.starting_model_id
     _item_type.code               code
      save_
 
-
-
 #######################
 ## IHM_MODEL_DETAILS ##
 #######################
@@ -204,7 +203,7 @@ save_ihm_model_details
     _category.id                  ihm_model_details
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_model_details.segment_id'
+    _category_key.name          '_ihm_model_details.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -218,6 +217,7 @@ save_ihm_model_details
 ;
 ;
         loop_
+	_ihm_model_details.ordinal_id
         _ihm_model_details.segment_id
         _ihm_model_details.entity_id
         _ihm_model_details.entity_description
@@ -228,13 +228,14 @@ save_ihm_model_details
         _ihm_model_details.model_mode
         _ihm_model_details.model_granularity
         _ihm_model_details.model_object_count
-         1  1  Nup84       1     6  sphere  Nup84-m1    flexible  by-feature  1  
-         2  1  Nup84       7    20  sphere  Nup84-m1    rigid     by-residue  .  
-         3  1  Nup84      21    26  sphere  Nup84-m1    flexible  by-feature  1  
-         4  1  Nup84      27    80  sphere  Nup84-m1    rigid     by-residue  .  
-         5  1  Nup84      81    95  sphere  Nup84-m1    flexible  by-feature  1  
-         6  1  Nup84      96   126  sphere  Nup84-m1    rigid     by-residue  .  
-         7  1  Nup84     127   135  sphere  Nup84-m1    flexible  by-feature  1  
+         1  1  1  Nup84       1     6  sphere  Nup84-m1    flexible  by-feature  1  
+         2  2  1  Nup84       7    20  sphere  Nup84-m1    rigid     by-residue  .  
+         3  3  1  Nup84      21    26  sphere  Nup84-m1    flexible  by-feature  1  
+         4  4  1  Nup84      27    80  sphere  Nup84-m1    rigid     by-residue  .  
+         5  5  1  Nup84      81    95  sphere  Nup84-m1    flexible  by-feature  1  
+         6  6  1  Nup84      96   126  sphere  Nup84-m1    rigid     by-residue  .
+	 7  6  1  Nup84      96   126  sphere  Nup84-m1    flexible  by-feature  3  
+         8  7  1  Nup84     127   135  sphere  Nup84-m1    flexible  by-feature  1 
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -242,9 +243,20 @@ save_ihm_model_details
    _pdbx_category_context.category_id  ihm_model_details
      save_
 
+save__ihm_model_details.ordinal_id
+    _item_description.description
+;     A unique identifier for the model details record.
+
+;
+    _item.name                  '_ihm_model_details.ordinal_id'
+    _item.category_id             ihm_model_details
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
 save__ihm_model_details.segment_id
     _item_description.description
-;     A unique identifier for a residue range within the structural model.
+;     An identifier for the residue range segment within the structural model.
 
 ;
     _item.name                  '_ihm_model_details.segment_id'
@@ -381,7 +393,7 @@ save_ihm_entity_assembly
     _category.id                  ihm_entity_assembly
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_entity_assembly'
+    _category_key.name          '_ihm_entity_assembly.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -1542,7 +1554,7 @@ save_ihm_2dem_class_average_restraint
     _category.id                  ihm_2dem_class_average_restraint
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_2dem_class_average_restraint'
+    _category_key.name          '_ihm_2dem_class_average_restraint.id'
 
     loop_
     _category_group.id           'inclusive_group'
