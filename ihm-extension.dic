@@ -1399,8 +1399,8 @@ save__ihm_cross_link_restraint.model_granularity
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-                 'by-residue'   'Crosslink applied to the specific residue'
-                 'by-object'    'Crosslink applied to the closest object in the model representation'
+                 'by-residue'    'Crosslink applied to the specific residue represented by the alpha carbon atom'
+                 'by-feature'    'Crosslink applied to the closest primitive object with the highest resolution'
      save_
 
 save__ihm_cross_link_restraint.distance_threshold
