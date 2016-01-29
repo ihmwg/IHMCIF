@@ -1,0 +1,21 @@
+Crosslinks in the model could be output as follows:
+
+Protein1 Residue1 Protein2 Residue2 Distance Psi
+Nup120   17       Nup120   421      10.0     0.05
+
+Distance = measured distance in the model between the two residues.
+
+Psi = uncertainty in the experimental data; it is approximately equal to
+   the false positive rate. This can be optimized during the model building
+   process, or held constant, and can be specified for each crosslink,
+   each class of crosslink, or for all crosslinks.
+   See https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4151992/ for more detail.
+   For Nup84 it was held constant at 5% for all crosslinks. For the
+   40S-eIF1-eIF3 study (link above) the crosslinks were split into three
+   groups (based on experimental confidence) and psi fixed for each one.
+
+There is also a per-residue (at least for all crosslinked residues)
+*structural* uncertainty (sigma). This is essentially, the radius of the sphere
+within which the residue would have to be located in order to satisfy
+the crosslink. In the Nup84 case this is constrained to be the same for *all*
+residues (to reduce the number of parameters to sample).
