@@ -1841,7 +1841,7 @@ save__ihm_cross_link_restraint.model_granularity
 
 save__ihm_cross_link_restraint.distance_threshold
     _item_description.description
-;     The distance threshold applied to this crosslink in the integrated modeling task.
+;     The distance threshold applied to this crosslink in the integrative modeling task.
 ;
     _item.name                  '_ihm_cross_link_restraint.distance_threshold'
     _item.category_id             ihm_cross_link_restraint
@@ -1964,7 +1964,7 @@ save__ihm_cross_link_result.num_models
 
 save__ihm_cross_link_result.distance_threshold
     _item_description.description
-;     The distance threshold applied to this crosslink in the integrated modeling task.
+;     The distance threshold applied to this crosslink in the integrative modeling task.
 ;
     _item.name                  '_ihm_cross_link_result.distance_threshold'
     _item.category_id             ihm_cross_link_result
@@ -2002,7 +2002,7 @@ save__ihm_cross_link_result.model_distance_type
 save__ihm_cross_link_result.details
     _item_description.description
 ;     This records holds any associated details of the results of the particular 
-      crosslink restraint in the integrated modeling task.
+      crosslink restraint in the integrative modeling task.
 ;
     _item.name                  '_ihm_cross_link_result.details'
     _item.category_id             ihm_cross_link_result
