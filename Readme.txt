@@ -9,7 +9,7 @@ nup84-strawman-1.cif     Example PDBx data file based on data from your GitHub
 imp-extension.dic        PDBx/mmCIF extension dictionary for the NUP IMP project
 
 
-Summary - 
+Summary
 
 The example file contains a draft of how a "future" hybrid-capable PDB might
 represent an IMP structure model. 
