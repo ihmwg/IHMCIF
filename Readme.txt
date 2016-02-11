@@ -20,9 +20,9 @@ the existing PDBx/mmCIF data categories.
 
 New data categories have been created to describe template selection,
 model representation/architecture, cross-linking restraints, template
-model coordinates, pseudo atom positions, 2DEM restraints, clustering
-information, modeling experiment details, structural assemblies, 
-experimental datasets used.  
+model coordinates, pseudo atom positions, 2DEM and 3DEM restraints, 
+clustering information, modeling experiment details, structural 
+assemblies, experimental datasets used.  
 
 The template and model representation should reflect the details in the
 table Supplemental Figure S3. The fasta sequences, cross-linking, and
