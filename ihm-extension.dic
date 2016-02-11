@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 5-FEB-2016 Jdw/BV
+#  Date: 11-FEB-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -21,6 +21,7 @@
 #           of the same model segment (introduced _ihm_model_details.ordinal_id)
 #	    Updated _ihm_sphere_obj_site.entity_instance_id, ihm_cross_link_restraint (psi and sigma parameters)
 #	    Added ihm_modeling_experiment, ihm_cluster_info, ihm_struct_assembly (previously ihm_entity_assembly)
+#	    Added _ihm_3dem_restraint category; minor changes to other categories
 #
 # ----------------------------------------------------------------------------------------------------------------------------
 
@@ -645,7 +646,7 @@ save__ihm_modeling_experiment.sampling_method
     _item_examples.case
         'Replica exchange monte carlo'
 	'Simulated annealing monte carlo'
-	'Monte carlo random sampling'
+	'Monte carlo sampling'
      save_
 
 save__ihm_modeling_experiment.filtered_models
@@ -671,7 +672,7 @@ save__ihm_modeling_experiment.filtering_parameter
     _item_enumeration.value
     _item_enumeration.details
 	'energy/score'	'filtered by energy or score'
-	'other'		'filtered by other means'
+	'other'		'filtered by other parameter'
 	'none'		'no filtering employed'
      save_
 
@@ -788,14 +789,13 @@ save_ihm_cluster_info
 	_ihm_cluster_info.num_models_analyzed
 	_ihm_cluster_info.cluster_index
 	_ihm_cluster_info.num_cluster_models
-        _ihm_cluster_info.cluster_precision_type
 	_ihm_cluster_info.cluster_precision_value
         _ihm_cluster_info.struct_assembly_id
 	
-	1  1  1  Hierarchical  6520  1  2885  dRMSD  17.3   1
-	2  1  1  Hierarchical  6520  2  1401  dRMSD  19.2   1
-        3  1  2  Hierarchical  6520  1   577  dRMSD  14.8   2
-        4  1  2  Hierarchical  6520  2   404  dRMSD  10.8   2
+	1  1  1  Hierarchical  6520  1  2885   17.3   1
+	2  1  1  Hierarchical  6520  2  1401   19.2   1
+        3  1  2  Hierarchical  6520  1   577   14.8   2
+        4  1  2  Hierarchical  6520  2   404   10.8   2
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -883,31 +883,13 @@ save__ihm_cluster_info.num_cluster_models
     _item_type.code               int
      save_
 
-save__ihm_cluster_info.cluster_precision_type
-    _item_description.description
-;   The cluster precision type indicates the type of cluster precision data
-    provided in the _ihm_cluster_info.cluster_precision_value data item. 
-    RMDS or dRMSD is estimated as the precision of each cluster, which is
-    calculated as the average C-alpha distance root mean square deviation 
-    (dRMSD) or the C-alpha root mean square deviation (RMSD) between the
-    individual models in the cluster and the cluster centroid.
-    The cluster centroid is defined as the model with the minimal sum of
-    dRMSDs to the other models in the cluster. 
-;
-    _item.name                  '_ihm_cluster_info.cluster_precision_type'
-    _item.category_id             ihm_cluster_info
-    _item.mandatory_code          no
-    _item_type.code               code
-    loop_
-    _item_enumeration.value
-	'RMSD'
-	'dRMSD'
-	'other'
-     save_
-
 save__ihm_cluster_info.cluster_precision_value
     _item_description.description
-;   The cluster precision value. 
+;   The precision of each cluster is calculated as dRMSD, which is
+    the average C-alpha distance root mean square deviation (dRMSD) 
+    between the individual models in the cluster and the cluster centroid.
+    The cluster centroid is defined as the model with the minimal sum of
+    dRMSDs to the other models in the cluster.
 ;
     _item.name                  '_ihm_cluster_info.cluster_precision_value'
     _item.category_id             ihm_cluster_info
@@ -966,10 +948,10 @@ save_ihm_dataset_list
     _ihm_dataset_list.database_hosted
     -ihm_dataset_list.category_info
 
-    1  'CX-MS data'  NO  ihm_dataset_other
-    2  'CX-MS data'  NO  ihm_dataset_other
-    3  '3DEM volume'  YES  ihm_related_database_reference
-    4  '2DEM class average'  NO  ihm_dataset_other
+    1  'CX-MS data'   'NO'   'ihm_dataset_other'
+    2  'CX-MS data'   'NO'   'ihm_dataset_other'
+    3  '3DEM volume'  'YES'  'ihm_related_database_reference'
+    4  '2DEM class average'  'NO'  'ihm_dataset_other'
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1003,7 +985,7 @@ save__ihm_dataset_list.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
-      'Homology model'
+      'Comparative model'
       'De Novo model'
       'Spatial restraint data'
       'unspecified'
@@ -1011,7 +993,7 @@ save__ihm_dataset_list.data_type
 
 save__ihm_dataset_list.database_hosted
     _item_description.description
-;    A flag that indicated whether the dataset is archived in 
+;    A flag that indicates whether the dataset is archived in 
      an IHM related database or elsewhere.
 ;
     _item.name                  '_ihm_dataset_list.database_hosted'
@@ -1020,8 +1002,8 @@ save__ihm_dataset_list.database_hosted
     _item_type.code               code
     loop_
     _item_enumeration.value
-      YES
-      NO
+      'YES'
+      'NO'
      save_
  
 save__ihm_dataset_list.category_info
@@ -1078,7 +1060,7 @@ save_ihm_related_database_reference
 ;	STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE
 ;
  4  7  'BMRB'  '25766'     .  'unspecified'  ?
- 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Homology model'
+ 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Comparative model'
 ;	PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING
 ;
  # ...  abbreviated ...
@@ -1207,6 +1189,7 @@ save_ihm_dataset_other
     _category.description
 ;  Category holds links to other data sources for the IHM entry. These can be
    datasets hosted on the authors website, github or other cloud resources. 
+   Currently, only datasets with DOIs (digital object identifiers) are accepted. 
 ;
     _category.id                ihm_dataset_other
     _category.mandatory_code    no
@@ -1291,7 +1274,7 @@ save__ihm_dataset_other.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
-      'Homology model'
+      'Comparative model'
       'De Novo model'
       'Spatial restraint data'
       'unspecified'
@@ -1919,16 +1902,15 @@ save_ihm_cross_link_result
         _ihm_cross_link_result.restraint_id
         _ihm_cross_link_result.num_models
         _ihm_cross_link_result.distance_threshold
-   	_ihm_cross_link_result.model_distance
-	_ihm_cross_link_result.model_distance_type
+   	_ihm_cross_link_result.median_distance
         _ihm_cross_link_result.details
         
- 	1   6520  25.0   9.6  median   .
- 	2   6520  25.0  14.7  median   .
-	3   6520  25.0  16.4  median   .
-	4   6520  25.0  15.8  median   .
-	5   6520  25.0  18.9  median   .
-        6   6520  25.0  11.6  median   .
+ 	1   6520  25.0   9.6   .
+ 	2   6520  25.0  14.7   .
+	3   6520  25.0  16.4   .
+	4   6520  25.0  15.8   .
+	5   6520  25.0  18.9   .
+        6   6520  25.0  11.6   .
 
 	# ...  abbreviated ...
 ;
@@ -1974,30 +1956,15 @@ save__ihm_cross_link_result.distance_threshold
     _item_units.code              angstroms
      save_
 
-save__ihm_cross_link_result.model_distance
+save__ihm_cross_link_result.median_distance
     _item_description.description
-;     The distance between the crosslinked residues in the sampled models.
+;     The median distance between the crosslinked residues in the sampled models.
 ;
-    _item.name                  '_ihm_cross_link_result.model_distance'
+    _item.name                  '_ihm_cross_link_result.median_distance'
     _item.category_id             ihm_cross_link_result
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
-     save_
-
-save__ihm_cross_link_result.model_distance_type
-    _item_description.description
-;     An indicator of whether the distance is a mean, median or any other type. 
-;
-    _item.name                  '_ihm_cross_link_result.model_distance_type'
-    _item.category_id             ihm_cross_link_result
-    _item.mandatory_code          yes
-    _item_type.code               code
-    loop_
-    _item_enumeration.value
-	'mean'
-	'median'
-	'other'
      save_
 
 save__ihm_cross_link_result.details
@@ -2382,6 +2349,155 @@ save__ihm_2dem_class_average_fitting.tr_vector[3]
     _item.category_id             ihm_2dem_class_average_fitting
     _item.mandatory_code          no
     _item_type.code               float
+     save_
+
+########################
+## IHM_3DEM_RESTRAINT ##
+########################
+
+save_ihm_3dem_restraint
+    _category.description
+;              Data items in the IHM_3DEM_RESTRAINT category records the
+               details of the 3DEM maps used as restraints in the
+               IHM modeling.
+;
+    _category.id                  ihm_3dem_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_3dem_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+	_ihm_3dem_restraint.id					1
+	_ihm_3dem_restraint.dataset_list_id			3
+	_ihm_3dem_restraint.pdbx_PDB_model_num			1
+	_ihm_3dem_restraint.fitting_method			'Gaussian mixture models'
+	_ihm_3dem_restraint.number_of_gaussians			10
+	_ihm_3dem_restraint.cross_correlation_coefficient	0.8	
+	_ihm_3dem_restraint.fitting_method_citation_id		5
+	_ihm_3dem_restraint.details
+;	The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
+	using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
+	a 3D fit of the map and the model. 
+;
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_3dem_restraint
+     save_
+
+save__ihm_3dem_restraint.id
+    _item_description.description
+;     A unique identifier for the 3DEM restraint.
+;
+    _item.name                  '_ihm_3dem_restraint.id'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_3dem_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the 3DEM map used.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_3dem_restraint.dataset_list_id'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_3dem_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_3dem_restraint.pdbx_PDB_model_num
+    _item_description.description
+;     The model number corresponding to the 3DEM fitting result presented.
+      This data item is a pointer to _atom_site.pdbx_PDB_model_num in the
+      ATOM_SITE category.
+;
+    _item.name                    '_ihm_3dem_restraint.pdbx_PDB_model.num'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_3dem_restraint.pdbx_PDB_model_num'
+    _item_linked.parent_name      '_atom_site.pdbx_PDB_model_num'
+     save_
+
+save__ihm_3dem_restraint.fitting_method
+    _item_description.description
+;     Method used to fit the model to the 3DEM map.
+;
+    _item.name                  '_ihm_3dem_restraint.fitting_method'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Gaussian mixture model'
+    'Local refinement'
+    'Flexible fitting'
+     save_
+
+save__ihm_3dem_restraint.number_of_gaussians
+    _item_description.description
+;     In case of Gaussian mixture models, the number of gaussians
+      is a parameter used to covert the 3DEM maps and models into
+      GMMs. This captures the level of granularity used in
+      representing the maps and/or models as 3D Gaussians. 
+;
+    _item.name                  '_ihm_3dem_restraint.number_of_gaussians'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          no
+    _item_type.code               int
+     save_
+
+save__ihm_3dem_restraint.cross_correlation_coefficient
+    _item_description.description
+;     The cross correlation coefficient corresponding to the model to map fitting.
+;
+    _item.name                  '_ihm_3dem_restraint.cross_correlation_coefficient'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_3dem_restraint.fitting_method_citation_id
+    _item_description.description
+;     The citation id of the citation for the fitting method used. 
+      This data item is a pointer to _citation.id in the CITATION
+      category. 
+;
+    _item.name                  '_ihm_3dem_restraint.fitting_method_citation_id'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          no
+    _item_type.code               int
+     save_
+
+save__ihm_3dem_restraint.details
+    _item_description.description
+;     Additional details regarding the model to map fitting. 
+;
+    _item.name                  '_ihm_3dem_restraint.details'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          no
+    _item_type.code               text
+    loop_
+    _item.examples.case
+;   	The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
+        using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
+        a 3D fit of the map and the model.
+;
      save_
 
 ##############################
