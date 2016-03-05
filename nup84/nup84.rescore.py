@@ -127,5 +127,14 @@ rh = RMF.open_rmf_file_read_only('../outputs/3-xray.after_cluster_on_hub.cluster
 IMP.rmf.link_hierarchies(rh, [simo.prot])
 IMP.rmf.load_frame(rh, RMF.FrameID(0))
 
-# Evaluate the score (note: does not seem right; probably need to set sigma)
+# Set nuisance values (from stat file)
+for key in xl1.sigma_dictionary:
+    sigma=xl1.sigma_dictionary[key][0]
+    sigma.set_scale(10.0020377979)
+
+for key in xl2.sigma_dictionary:
+    sigma=xl2.sigma_dictionary[key][0]
+    sigma.set_scale(7.15769480855)
+
+# Evaluate the score (note: does not seem right)
 print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
