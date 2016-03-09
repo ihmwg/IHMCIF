@@ -624,8 +624,8 @@ save__ihm_modeling_experiment.struct_assembly_id
      This data item is a pointer to _ihm_struct_assembly.assembly_id in the
      IHM_STRUCT_ASSEMBLY category. The IHM_STRUCT_ASSEMBLY category provides the
      details regarding the different structural assemblies used in the modeling.
-     The default value for this data item is "1" indicating that the entire assembly
-     being modeled is clustered.
+     The default value for this data item is "1", indicating that the entire
+     assembly is being modeled. 
 ;
     _item.name                  '_ihm_modeling_experiment.struct_assembly_id'
     _item.category_id             ihm_modeling_experiment
@@ -633,6 +633,7 @@ save__ihm_modeling_experiment.struct_assembly_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_modeling_experiment.struct_assembly_id'
     _item_linked.parent_name    '_ihm_struct_assembly.assembly_id' 
+    _item_default.value           1
     save_
 
 save__ihm_modeling_experiment.dataset_collection_id
@@ -2773,9 +2774,9 @@ save__ihm_2dem_class_average_restraint.struct_assembly_id
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          no
     _item_type.code               int
-    _item_linked.child_name '_ihm_2dem_class_average_restraint.struct_assembly_id'
-    _item_linked.parent_name    '_ihm_struct_assembly.id'
-    _item_default.value       1
+    _item_linked.child_name     '_ihm_2dem_class_average_restraint.struct_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
+    _item_default.value           1
      save_
 
 save__ihm_2dem_class_average_restraint.details
