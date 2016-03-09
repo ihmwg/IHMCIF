@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 11-FEB-2016 Jdw/BV
+#  Date: 9-MAR-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -10,21 +10,26 @@
 #           Changed _imp_tempate_model_coord to _ihm_starting_model_coord
 #           Changed _imp_pseudo_atom_site to _ihm_sphere_object_site
 #           Added 'integrative' to _ihm_starting_model_details.starting_model_source
-#	    Separated ihm_cross_link_restraint and ihm_cross_link_list categories
-#	    Updated ambiguous crosslinks in ihm_cross_link_restraint and ihm_cross_link_list categories
-#	    Added ihm_dataset_list, ihm_related_database_reference and ihm_dataset_other categories
+#           Separated ihm_cross_link_restraint and ihm_cross_link_list categories
+#           Updated ambiguous crosslinks in ihm_cross_link_restraint and ihm_cross_link_list categories
+#           Added ihm_dataset_list, ihm_related_database_reference and ihm_dataset_other categories
 #           Added ihm_cross_link_result (yet to be completed) and ihm_entity_assembly categories
-#	    Updated ihm_2dem_class_average_restraint category
+#           Updated ihm_2dem_class_average_restraint category
 #           Removed ihm_cross_link_db_reference, ihm_cross_link_reference_auxiliary, ihm_2dem_class_average categories
 #           Revised several data items to be non-mandatory
 #           Changed category key item in ihm_model_details category to account for multiple coarse-grained representations 
 #           of the same model segment (introduced _ihm_model_details.ordinal_id)
-#	    Updated _ihm_sphere_obj_site.entity_instance_id, ihm_cross_link_restraint (psi and sigma parameters)
-#	    Added ihm_modeling_experiment, ihm_cluster_info, ihm_struct_assembly (previously ihm_entity_assembly)
-#	    Added _ihm_3dem_restraint category; minor changes to other categories
+#           Updated _ihm_sphere_obj_site.entity_instance_id, ihm_cross_link_restraint (psi and sigma parameters)
+#           Added ihm_modeling_experiment, ihm_cluster_info, ihm_struct_assembly (previously ihm_entity_assembly)
+#           Added _ihm_3dem_restraint category; minor changes to other categories
+#           Changed ihm_model_details category name to ihm_model_representation (handles multi-scale representation)
+#           Changed several data items in the ihm_modeling_experiment category
+#           Added ihm_modeling_post_process, ihm_model_list, ihm_multi_state_modeling,
+#           ihm_time_ordered_ensemble, ihm_gaussian_object_site categories
+#           Linked ihm_model_list to ihm_sphere_obj_site through model_id
+#           Linked ihm_starting_model_details to ihm_dataset_list through dataset_list_id
 #
-# ----------------------------------------------------------------------------------------------------------------------------
-
+# -------------------------------------------------------------------------------------------------------------------------
 
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
@@ -64,10 +69,11 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_db_pdb_auth_seq_id
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
-         2  1  Nup84      7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1    
-         3  1  Nup84      7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1    
-         4  1  Nup84    429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1    
-         6  1  Nup84    506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1    
+        _ihm_starting_model_details.dataset_list_id
+         2  1  Nup84      7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
+         3  1  Nup84      7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6     
+         4  1  Nup84    429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  
+         6  1  Nup84    506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -88,13 +94,14 @@ save__ihm_starting_model_details.ordinal_id
 save__ihm_starting_model_details.entity_id
     _item_description.description
 ;     A unique identifier distinct molecular entities.
-
-      This data item is a pointer to _entity_poly.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_starting_model_details.entity_id'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_model_details.entity_id'
+    _item_linked.parent_name    '_entity_poly_seq.entity_id'
      save_
 
 save__ihm_starting_model_details.entity_description
@@ -140,7 +147,7 @@ save__ihm_starting_model_details.starting_model_source
     _item_enumeration.value
     _item_enumeration.detail
                                  'comparative model'   .
-                                 'experimental model'   .
+                                 'experimental model'  .
                                  'integrative model'   .
      save_
 
@@ -194,20 +201,35 @@ save__ihm_starting_model_details.starting_model_id
     _item_type.code               code
      save_
 
-#######################
-## IHM_MODEL_DETAILS ##
-#######################
-
-save_ihm_model_details
-    _category.description
-;              Data items in the IHM_MODEL_DETAILS category records the
-               details about the architecture and representation of structural 
-               models created by the integrative model building tasks.
+save__ihm_starting_model_details.dataset_list_id
+    _item_description.description
+;     Identifier to the starting model dataset.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
 ;
-    _category.id                  ihm_model_details
+    _item.name                  '_ihm_starting_model_details.dataset_list_id'
+    _item.category_id             ihm_starting_model_details
+    _item.mandatory_code          yes   
+    _item_type.code               int  
+    _item_linked.child_name       '_ihm_starting_model_details.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+##############################
+## IHM_MODEL_REPRESENTATION ##
+##############################
+
+save_ihm_model_representation
+    _category.description
+;              Data items in the IHM_MODEL_REPRESENTATION category records the
+               details about the architecture and representation of structural 
+               models created by the integrative model building tasks. This
+               category handles the multi-scale model representation, if employed. 
+;
+    _category.id                  ihm_model_representation
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_model_details.ordinal_id'
+    _category_key.name          '_ihm_model_representation.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -221,135 +243,148 @@ save_ihm_model_details
 ;
 ;
         loop_
-	_ihm_model_details.ordinal_id
-        _ihm_model_details.segment_id
-        _ihm_model_details.entity_id
-        _ihm_model_details.entity_description
-        _ihm_model_details.seq_id_begin
-        _ihm_model_details.seq_id_end
-        _ihm_model_details.model_object_primitive
-        _ihm_model_details.starting_model_id
-        _ihm_model_details.model_mode
-        _ihm_model_details.model_granularity
-        _ihm_model_details.model_object_count
-         1  1  1  Nup84       1     6  sphere  Nup84-m1    flexible  by-feature  1  
-         2  2  1  Nup84       7    20  sphere  Nup84-m1    rigid     by-residue  .  
-         3  3  1  Nup84      21    26  sphere  Nup84-m1    flexible  by-feature  1  
-         4  4  1  Nup84      27    80  sphere  Nup84-m1    rigid     by-residue  .  
-         5  5  1  Nup84      81    95  sphere  Nup84-m1    flexible  by-feature  1  
-         6  6  1  Nup84      96   126  sphere  Nup84-m1    rigid     by-residue  .
-	 7  6  1  Nup84      96   126  sphere  Nup84-m1    flexible  by-feature  3  
-         8  7  1  Nup84     127   135  sphere  Nup84-m1    flexible  by-feature  1 
+        _ihm_model_representation.ordinal_id
+        _ihm_model_representation.segment_id
+        _ihm_model_representation.entity_id
+        _ihm_model_representation.entity_description
+        _ihm_model_representation.entity_asym_id
+        _ihm_model_representation.seq_id_begin
+        _ihm_model_representation.seq_id_end
+        _ihm_model_representation.model_object_primitive
+        _ihm_model_representation.starting_model_id
+        _ihm_model_representation.model_mode
+        _ihm_model_representation.model_granularity
+        _ihm_model_representation.model_object_count
+         1  1  1  Nup84   A     1     6  sphere  Nup84-m1    flexible  by-feature  1  
+         2  2  1  Nup84   A     7    20  sphere  Nup84-m1    rigid     by-residue  .  
+         3  3  1  Nup84   A    21    26  sphere  Nup84-m1    flexible  by-feature  1  
+         4  4  1  Nup84   A    27    80  sphere  Nup84-m1    rigid     by-residue  .  
+         5  5  1  Nup84   A    81    95  sphere  Nup84-m1    flexible  by-feature  1  
+         6  6  1  Nup84   A    96   126  sphere  Nup84-m1    rigid     by-residue  .
+         7  6  1  Nup84   A    96   126  sphere  Nup84-m1    flexible  by-feature  3  
+         8  7  1  Nup84   A   127   135  sphere  Nup84-m1    flexible  by-feature  1 
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_model_details
+   _pdbx_category_context.category_id  ihm_model_representation
      save_
 
-save__ihm_model_details.ordinal_id
+save__ihm_model_representation.ordinal_id
     _item_description.description
 ;     A unique identifier for the model details record.
-
 ;
-    _item.name                  '_ihm_model_details.ordinal_id'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.ordinal_id'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_model_details.segment_id
+save__ihm_model_representation.segment_id
     _item_description.description
 ;     An identifier for the residue range segment within the structural model.
-
 ;
-    _item.name                  '_ihm_model_details.segment_id'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.segment_id'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_model_details.entity_id
+save__ihm_model_representation.entity_id
     _item_description.description
 ;     A unique identifier distinct molecular entities.
-
-      This data item is a pointer to _entity_poly.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
-    _item.name                  '_ihm_model_details.entity_id'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.entity_id'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          yes
     _item_type.code               code
-    _item_linked.child_name       '_ihm_model_details.entity_id'
+    _item_linked.child_name       '_ihm_model_representation.entity_id'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
 
 
-save__ihm_model_details.entity_description
+save__ihm_model_representation.entity_description
     _item_description.description
 ;     A text description of the molecuar molecular entity
-
 ;
-    _item.name                  '_ihm_model_details.entity_description'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.entity_description'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               int
      save_
 
-save__ihm_model_details.seq_id_begin
+save__ihm_model_representation.entity_asym_id
+    _item_description.description
+;   An asym/strand identifier for the entity molecule.
+    This data item is a pointer to _struct_asym.id in the
+    STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_model_representation.entity_asym_id'
+    _item.category_id             ihm_model_representation
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_model_representation.entity_asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_model_representation.seq_id_begin
     _item_description.description
 ;     The leading residue index for the sequence segment modeled using this starting model.
 ;
-    _item.name                  '_ihm_model_details.seq_id_begin'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.seq_id_begin'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               int
-    _item_linked.child_name       '_ihm_model_details.seq_id_begin'
+    _item_linked.child_name       '_ihm_model_representation.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
 
-save__ihm_model_details.seq_id_end
+save__ihm_model_representation.seq_id_end
     _item_description.description
 ;     The trailing residue index for the sequence segment modeled using this starting model.
 ;
-    _item.name                  '_ihm_model_details.seq_id_end'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.seq_id_end'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               int
-    _item_linked.child_name       '_ihm_model_details.seq_id_begin'
+    _item_linked.child_name       '_ihm_model_representation.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
 
 
-save__ihm_model_details.model_object_primitive
+save__ihm_model_representation.model_object_primitive
     _item_description.description
 ;     The primitive object used to model this segment.
 ;
-    _item.name                  '_ihm_model_details.model_object_primitive'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.model_object_primitive'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-                                 'sphere'   .
+                            'sphere'    .
+                            'gaussian'  .    
+                            'other'     .
      save_
 
-save__ihm_model_details.starting_model_id
+save__ihm_model_representation.starting_model_id
     _item_description.description
 ;     The identifier for the starting structural model.
 ;
-    _item.name                  '_ihm_model_details.starting_model_id'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.starting_model_id'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          yes
     _item_type.code               code
      save_
 
-save__ihm_model_details.model_mode
+save__ihm_model_representation.model_mode
     _item_description.description
 ;     The manner in which the seqment is modeled.
 ;
-    _item.name                  '_ihm_model_details.model_mode'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.model_mode'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               line
     loop_
@@ -359,28 +394,29 @@ save__ihm_model_details.model_mode
                                  'flexible'   .
      save_
 
-save__ihm_model_details.model_granularity
+save__ihm_model_representation.model_granularity
     _item_description.description
 ;     The level of detail at which model primitive objects are applied to the structure. 
 ;
-    _item.name                  '_ihm_model_details.model_granularity'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.model_granularity'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-				 'by-atom'	 'atomistic coordinate representation'
-                                 'by-residue'    'coordinates represent the alpha carbon position of a residue'
-                                 'by-feature'    'coordinates represent center or trace along the feature'
+                 'by-atom'       'atomistic coordinate representation'
+                 'by-residue'    'coordinates represent the alpha carbon position of a residue'
+                 'multi-residue' 'coordinates represent the center of mass of a set of residues'
+                 'by-feature'    'coordinates represent center or trace along the feature'
      save_
 
-save__ihm_model_details.model_object_count
+save__ihm_model_representation.model_object_count
     _item_description.description
 ;     The number of primitive objects used to model a feature in the case of 'by-feature' granularity.
 ;
-    _item.name                  '_ihm_model_details.model_object_count'
-    _item.category_id             ihm_model_details
+    _item.name                  '_ihm_model_representation.model_object_count'
+    _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               int
      save_
@@ -411,23 +447,23 @@ save_ihm_struct_assembly
     Example 1 -
 ;
 ;
-	loop_
-        _ihm_struct_assembly.ordinal_id
-        _ihm_struct_assembly.assembly_id
-	_ihm_struct_assembly.entity_description
-	_ihm_struct_assembly.entity_id
-	_ihm_struct_assembly.asym_id
-	_ihm_struct_assembly.seq_id_begin
-	_ihm_struct_assembly.seq_id_end
+    loop_
+    _ihm_struct_assembly.ordinal_id
+    _ihm_struct_assembly.assembly_id
+    _ihm_struct_assembly.entity_description
+    _ihm_struct_assembly.entity_id
+    _ihm_struct_assembly.asym_id
+    _ihm_struct_assembly.seq_id_begin
+    _ihm_struct_assembly.seq_id_end
 
-	 1   1    Nup84   1  A  1   726 
-	 2   1    Nup85   2  B  1   744 
+         1   1    Nup84   1  A  1   726 
+         2   1    Nup85   2  B  1   744 
          3   1   Nup120   3  C  1  1037 
          4   1   Nup133   4  D  1  1157 
          5   1   Nup145   5  E  1   712 
          6   1     Seh1   6  F  1   349 
          7   1    Sec13   7  G  1   297 
-	 8   2    Nup84   1  A  1   726 
+         8   2    Nup84   1  A  1   726 
          9   2    Nup85   2  B  1   744 
         10   2   Nup145   5  E  1   712 
         11   2     Seh1   6  F  1   349 
@@ -475,7 +511,7 @@ save__ihm_struct_assembly.entity_description
 save__ihm_struct_assembly.entity_id
     _item_description.description
 ;     A unique identifier for distinct molecular entities.
-      This data item is a pointer to _entity_poly.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_struct_assembly.entity_id'
     _item.category_id             ihm_struct_assembly
@@ -531,13 +567,13 @@ save__ihm_struct_assembly.seq_id_end
 
 save_ihm_modeling_experiment
     _category.description
-;              Data items in the IHM_MODELING_EXPERIMENt category records the
+;              Data items in the IHM_MODELING_EXPERIMENT category records the
                details of the integrative modeling simulation. 
 ;
     _category.id                  ihm_modeling_experiment
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_modeling_experiment.ordinal_id'
+    _category_key.name          '_ihm_modeling_experiment.id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -550,36 +586,24 @@ save_ihm_modeling_experiment
     Example 1 -
 ;
 ;
-	_ihm_modeling_experiment.ordinal_id			1
-	_ihm_modeling_experiment.id				1
-	_ihm_modeling_experiment.struct_assembly_id		1
-	_ihm_modeling_experiment.assembly_description		'Nup84 sub-complex'
-	_ihm_modeling_experiment.sampled_models			15000
-	_ihm_modeling_experiment.sampling_method                'Replica exchange monte carlo'
-	_ihm_modeling_experiment.filtered_models		6520
-	_ihm_modeling_experiment.filtering_parameter		'energy/score'
-	_ihm_modeling_experiment.clustered_models		6520
-	_ihm_modeling_experiment.clustering_parameter		'dRMSD'
-	_ihm_modeling_experiment.num_clusters			2
-	_ihm_modeling_experiment.models_deposited		10
-	_ihm_modeling_experiment.model_selection_criterion	'energy/score'
-	_ihm_modeling_experiment.details
-;		The integrative modeling experiment resulted in 6520 models
-		clustered into two clusters. The top 5 scoring models from
-		each cluster is deposited. 
-
+    _ihm_modeling_experiment.id                         1
+    _ihm_modeling_experiment.struct_assembly_id         1
+    _ihm_modeling_experiment.dataset_collection_id      1
+    _ihm_modeling_experiment.assembly_description       'Nup84 sub-complex'
+    _ihm_modeling_experiment.sampling_method            'Replica exchange monte carlo'
+    _ihm_modeling_experiment.sampled_models             15000
+    _ihm_modeling_experiment.multi_scale_flag           Yes
+    _ihm_modeling_experiment.multi_state_flag           No 
+    _ihm_modeling_experiment.time_ordered_flag          No
+    _ihm_modeling_experiment.details
+;    The integrative modeling of the Nup84 sub-complex of the nuclear pore in budding yeast
+     is carried out using a multi scale approach.
 ;
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-save__ihm_modeling_experiment.ordinal_id
-    _item_description.description
-;     A unique identifier for the modeling experiment information.
-;
-    _item.name                  '_ihm_modeling_experiment.ordinal_id'
-    _item.category_id             ihm_modeling_experiment
-    _item.mandatory_code          yes
-    _item_type.code               int
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_modeling_experiment
      save_
 
 save__ihm_modeling_experiment.id
@@ -607,6 +631,24 @@ save__ihm_modeling_experiment.struct_assembly_id
     _item.category_id             ihm_modeling_experiment
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_experiment.struct_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id' 
+    save_
+
+save__ihm_modeling_experiment.dataset_collection_id
+    _item_description.description
+;    An index for the dataset collection being used in the modeling experiment.
+     This is an indicator of whether the entire experimental dataset is used
+     or if only a subset of the dataset is used in the current modeling experiment.
+     This data item is a pointer to the _ihm_dataset_list.collection_id in the
+     IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_modeling_experiment.dataset_collection_id'
+    _item.category_id             ihm_modeling_experiment
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_experiment.dataset_collection_id'
+    _item_linked.parent_name    '_ihm_dataset_list.collection_id'
      save_
 
 save__ihm_modeling_experiment.struct_assembly_description
@@ -619,14 +661,13 @@ save__ihm_modeling_experiment.struct_assembly_description
     _item_type.code               line
     loop_
     _item_examples.case
-	'Nup84 sub-complex'
+    'Nup84 sub-complex'
      save_
 
 save__ihm_modeling_experiment.sampled_models
     _item_description.description
 ;    The number of models sampled in the modeling experiment. 
 ;
-
     _item.name                  '_ihm_modeling_experiment.sampled_models'
     _item.category_id             ihm_modeling_experiment
     _item.mandatory_code          no
@@ -637,7 +678,6 @@ save__ihm_modeling_experiment.sampling_method
     _item_description.description
 ;    The sampling method used in the modeling experiment.
 ;
-
     _item.name                  '_ihm_modeling_experiment.sampling_method'
     _item.category_id             ihm_modeling_experiment
     _item.mandatory_code          no
@@ -645,115 +685,628 @@ save__ihm_modeling_experiment.sampling_method
     loop_
     _item_examples.case
         'Replica exchange monte carlo'
-	'Simulated annealing monte carlo'
-	'Monte carlo sampling'
+        'Simulated annealing monte carlo'
+        'Monte carlo sampling'
      save_
 
-save__ihm_modeling_experiment.filtered_models
+save__ihm_modeling_experiment.multi_scale_flag
     _item_description.description
-;    The number of resulting models after any filtering employed. 
+;    A flag to indicate if the modeling is multi scale. 
 ;
-
-    _item.name                  '_ihm_modeling_experiment.filtered_models'
+    _item.name                  '_ihm_modeling_experiment.multi_scale_flag'
     _item.category_id             ihm_modeling_experiment
     _item.mandatory_code          no
-    _item_type.code               int
-     save_
-
-save__ihm_modeling_experiment.filtering_parameter
-    _item_description.description
-;    The parameter used for filtering the sampled models.
-;
-    _item.name                  '_ihm_modeling_experiment.filtered_parameter'
-    _item.category_id             ihm_modeling_experiment
-    _item.mandatory_code          no
-    _item_type.code               line
+    _item_type.code               code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
-	'energy/score'	'filtered by energy or score'
-	'other'		'filtered by other parameter'
-	'none'		'no filtering employed'
+        'Yes'
+        'No'
      save_
 
-save__ihm_modeling_experiment.clustered_models
+save__ihm_modeling_experiment.multi_state_flag
     _item_description.description
-;    The number of models clustered.
-;
-
-    _item.name                  '_ihm_modeling_experiment.clustered_models'
+;    A flag to indicate if the modeling is multi state. 
+;   
+    _item.name                  '_ihm_modeling_experiment.multi_state_flag'
     _item.category_id             ihm_modeling_experiment
     _item.mandatory_code          no
-    _item_type.code               int
-     save_
-
-save__ihm_modeling_experiment.clustering_parameter
-    _item_description.description
-;    The parameter used for clustering the models.
-;
-    _item.name                  '_ihm_modeling_experiment.clustering_parameter'
-    _item.category_id             ihm_modeling_experiment
-    _item.mandatory_code          no
-    _item_type.code               line
+    _item_type.code               code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
-        'RMSD'  	'clustered by RMSD'
-        'dRMSD'         'clustered by dRMSD'
-	'other'		'clustered by other parameter'
-        'none'          'no clustering employed'
+        'Yes'   
+        'No'    
      save_
 
-save__ihm_modeling_experiment.num_clusters
+save__ihm_modeling_experiment.time_ordered_flag
     _item_description.description
-;    The number of clusters obtained. 
-;
-    _item.name                  '_ihm_modeling_experiment.num_clusters'
+;    A flag to indicate if the modeling provides a time ordered ensemble.
+;   
+    _item.name                  '_ihm_modeling_experiment.time_ordered_flag'
     _item.category_id             ihm_modeling_experiment
     _item.mandatory_code          no
-    _item_type.code               int
-     save_
-
-save__ihm_modeling_experiment.models_deposited
-    _item_description.description
-;    The number of models deposited. 
-;
-    _item.name                  '_ihm_modeling_experiment.models_deposited'
-    _item.category_id             ihm_modeling_experiment
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
-save__ihm_modeling_experiment.model_selection_criterion
-    _item_description.description
-;    The parameter used to select the final models deposited. 
-;
-    _item.name                  '_ihm_modeling_experiment.model_selection_criterion'
-    _item.category_id             ihm_modeling_experiment
-    _item.mandatory_code          no
-    _item_type.code               line
+    _item_type.code               code
     loop_
-    _item_enumeration.case
-    _item_enumeration.details
-	'energy/score'		'selected by best energy/score'
-	'cluster centroid'	'selected by distance from cluster centroid'
-	'other'			'selected using other methods'
+    _item_enumeration.value
+        'Yes'
+        'No'
      save_
 
 save__ihm_modeling_experiment.details
     _item_description.description
-;    Additional details regarding the modeling experiment. 
-;
+;    Textual details of the modeling experiment.
+;   
     _item.name                  '_ihm_modeling_experiment.details'
     _item.category_id             ihm_modeling_experiment
-    _item.mandatory_code          no
-    _item_type.code               text
+    _item.mandatory_code          no   
+    _item_type.code               text 
     loop_
     _item_examples.case
-;	The integrative modeling experiment resulted in 6520 models
-        clustered into two clusters. The top 5 scoring models from
-        each cluster is deposited.
+;   The integrative modeling of the Nup84 sub-complex of the nuclear pore in budding yeast
+    is carried out in a multi scale approach. 
 ;
+     save_
+
+###########################
+## IHM_MULTI_STATE_MODELING
+###########################
+
+save_ihm_multi_state_modeling
+    _category.description
+;              Data items in the IHM_MULTI_STATE_MODELING category records the
+               details of the multi-state modeling experiment, if applicable. 
+;
+    _category.id                  ihm_multi_state_modeling
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_multi_state_modeling.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - conformational change
+;
+;
+    loop_
+    _ihm_multi_state_modeling.ordinal_id
+    _ihm_multi_state_modeling.experiment_id
+    _ihm_multi_state_modeling.state_id    
+    _ihm_multi_state_modeling.state_type
+    _ihm_multi_state_modeling.state_name 
+    _ihm_multi_state_modeling.entity_description
+    _ihm_multi_state_modeling.entity_id
+    _ihm_multi_state_modeling.entity_asym_id
+    _ihm_multi_state_modeling.model_id
+    _ihm_multi_state_modeling.details
+
+    1   1   1   'conformational change'  'open'       Nup84   1   A   1  .
+    3   1   1   'conformational change'  'open'       Nup85   2   B   1  .
+    2   1   2   'conformational change'  'closed'     Nup84   1   A   2  .
+    4   1   2   'conformational change'  'closed'     Nup85   2   B   2  .
+    5   1   3   'conformational change'  'open'       Nup84   1   A   3  .
+    6   1   3   'conformational change'  'closed'     Nup85   2   B   3  .
+    7   1   4   'conformational change'  'closed'     Nup84   1   A   4  .
+    8   1   4   'conformational change'  'open'       Nup85   2   B   4  .
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 2 - complex formation
+;
+;
+    loop_
+    _ihm_multi_state_modeling.ordinal_id
+    _ihm_multi_state_modeling.experiment_id
+    _ihm_multi_state_modeling.state_id  
+    _ihm_multi_state_modeling.state_type
+    _ihm_multi_state_modeling.state_name
+    _ihm_multi_state_modeling.entity_description
+    _ihm_multi_state_modeling.entity_id
+    _ihm_multi_state_modeling.entity_asym_id
+    _ihm_multi_state_modeling.model_id
+    _ihm_multi_state_modeling.details
+
+    1   1   1   'complex formation'    'unbound'    Nup84   1   A    1  .
+    2   1   1   'complex formation'    'unbound'    Nup85   2   B    2  .
+    3   1   2   'complex formation'    'bound'      Nup84   1   A    3  .
+    4   1   2   'complex formation'    'bound'      Nup85   2   B    3  .
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 3 - ligand binding
+;
+;
+    loop_
+    _ihm_multi_state_modeling.ordinal_id 
+    _ihm_multi_state_modeling.experiment_id
+    _ihm_multi_state_modeling.state_id   
+    _ihm_multi_state_modeling.state_type 
+    _ihm_multi_state_modeling.state_name
+    _ihm_multi_state_modeling.entity_description
+    _ihm_multi_state_modeling.entity_id
+    _ihm_multi_state_modeling.entity_asym_id
+    _ihm_multi_state_modeling.model_id
+    _ihm_multi_state_modeling.details
+
+    1   1   1   'ligand binding'    'bound'      Nup84   1   A    1     .
+    2   1   1   'ligand binding'    'unbound'    Nup85   2   B    2     .
+    3   1   2   'ligand binding'    'unbound'    Nup84   1   A    3     .
+    4   1   2   'ligand binding'    'bound'      Nup85   2   B    4     .
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_multi_state_modeling
+     save_
+
+save__ihm_multi_state_modeling.ordinal_id
+    _item_description.description
+;    A unique identifier for the multiple states being described.
+;
+    _item.name                  '_ihm_multi_state_modeling.ordinal_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_multi_state_modeling.experiment_id
+    _item_description.description
+;    An identifier for the modeling experiment. 
+     This data item is a pointer to _ihm_modeling_experiment.id in the
+     IHM_MODELING_EXPERIMENT category. 
+;
+    _item.name                  '_ihm_multi_state_modeling.experiment_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_modeling.experiment_id'
+    _item_linked.parent_name    '_ihm_modeling_experiment.id'
+     save_
+
+save__ihm_multi_state_modeling.state_id
+    _item_description.description
+;    An identifier for the particular state in the multi-state modeling.
+;
+    _item.name                  '_ihm_multi_state_modeling.state_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_multi_state_modeling.state_type
+    _item_description.description
+;    The type that the multiple states being modeled belong to.
+;
+    _item.name                  '_ihm_multi_state_modeling.state_type'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_examples.case
+        'conformational change' 
+        'ligand binding'       
+        'complex formation'   
+        'complex dissociation'
+     save_
+
+save__ihm_multi_state_modeling.state_name
+    _item_description.description
+;   A descriptive name for the state. 
+;
+    _item.name                  '_ihm_multi_state_modeling.state_name'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_examples.case
+        'open'  
+        'closed'
+        'bound'
+        'unbound'
+     save_
+
+save__ihm_multi_state_modeling.entity_description
+    _item_description.description
+;     A text description of molecular entity.
+
+;
+    _item.name                  '_ihm_multi_state_modeling.entity_description'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_multi_state_modeling.entity_id
+    _item_description.description
+;     The entity identifier for the molecule in multiple states. 
+      This data item is a pointer to _entity_poly_seq.entity_id 
+      in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_multi_state_modeling.entity_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_multi_state_modeling.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_multi_state_modeling.entity_asym_id
+    _item_description.description
+;   An asym/strand identifier for the entity molecule in multiple states. 
+    This data item is a pointer to _struct_asym.id in the
+    STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_multi_state_modeling.entity_asym_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_multi_state_modeling.entity_asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_multi_state_modeling.model_id
+    _item_description.description
+;    The model id corresponding to the particular state in the multi-state model.
+     This data item is a pointer to _ihm_model_list.model_id in the
+     IHM_MODEL_LIST category.
+;
+    _item.name                  '_ihm_multi_state_modeling.model_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_modeling.model_id'
+    _item_linked.parent_name    '_ihm_model_list.model_id'
+
+save__ihm_multi_state_modeling.details
+    _item_description.description
+;   Additional textual details of the multi-state modeling, if required. 
+;
+    _item.name                  '_ihm_multi_state_modeling.details'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+############################
+## IHM_TIME_ORDERED_ENSEMBLE
+############################
+
+save_ihm_time_ordered_ensemble
+    _category.description
+;   Data items in the IHM_TIME_ORDERED_ENSEMBLE category records the
+    details of the time ordered ensemble being modeled. 
+;
+    _category.id                  ihm_time_ordered_ensemble
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_time_ordered_ensemble.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+    loop_
+    _ihm_time_ordered_ensemble.ordinal_id
+    _ihm_time_ordered_ensemble.experiment_id
+    _ihm_time_ordered_ensemble.step_id
+    _ihm_time_ordered_ensemble.time_begin
+    _ihm_time_ordered_ensemble.time_end
+    _ihm_time_ordered_ensemble.time_unit
+    _ihm_time_ordered_ensemble.model_id_begin
+    _ihm_time_ordered_ensemble.model_id_end
+
+    1   1   1   0   1   nanosecond  1   2
+    2   1   2   1   2   nanosecond  2   3
+    3   1   3   2   3   nanosecond  3   4
+    4   1   4   3   4   nanosecond  4   5
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 2 - cyclic process
+;
+;
+    loop_
+    _ihm_time_ordered_ensemble.ordinal_id
+    _ihm_time_ordered_ensemble.experiment_id
+    _ihm_time_ordered_ensemble.step_id
+    _ihm_time_ordered_ensemble.time_begin
+    _ihm_time_ordered_ensemble.time_end
+    _ihm_time_ordered_ensemble.time_unit
+    _ihm_time_ordered_ensemble.model_id_begin
+    _ihm_time_ordered_ensemble.model_id_end
+
+    1   1   1   0   1   nanosecond  1   2
+    2   1   2   1   2   nanosecond  2   3
+    3   1   3   2   3   nanosecond  3   4
+    4   1   4   3   4   nanosecond  4   1
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 3 - branched process
+;
+;  
+    loop_
+    _ihm_time_ordered_ensemble.ordinal_id
+    _ihm_time_ordered_ensemble.experiment_id
+    _ihm_time_ordered_ensemble.step_id
+    _ihm_time_ordered_ensemble.time_begin
+    _ihm_time_ordered_ensemble.time_end
+    _ihm_time_ordered_ensemble.time_unit
+    _ihm_time_ordered_ensemble.model_id_begin
+    _ihm_time_ordered_ensemble.model_id_end
+
+    1   1   1   0   1   picosecond  1   2
+    2   1   2   1   2   picosecond  2   3
+    3   1   2   1   2   picosecond  2   4
+    4   1   3   2   3   picosecond  3   5
+    5   1   3   2   3   picosecond  4   6
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_time_ordered_ensemble
+     save_
+
+save__ihm_time_ordered_ensemble.ordinal_id
+    _item_description.description
+;    A unique identifier to the time ordered modeling. 
+;
+    _item.name                  '_ihm_time_ordered_ensemble.ordinal_id'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_time_ordered_ensemble.experiment_id
+    _item_description.description
+;    An identifier to the modeling experiment.
+     This data item is a pointer to _ihm_modeling_experiment.id 
+     in the IHM_MODELING_EXPERIMENT category.  
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.experiment_id'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_time_ordered_ensemble.experiment_id'
+    _item_linked.parent_name    '_ihm_modeling_experiment.id'
+     save_
+
+save__ihm_time_ordered_ensemble.step_id
+    _item_description.description
+;    An identifier to the particular step in the time ordered modeling.             
+;
+    _item.name                  '_ihm_time_ordered_ensemble.step_id'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_time_ordered_ensemble.time_begin
+    _item_description.description
+;    Time stamp at the beginning of the step. 
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.time_begin'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_time_ordered_ensemble.time_end
+    _item_description.description
+;    Time stamp at the end of the step.
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.time_end'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_time_ordered_ensemble.time_unit
+    _item_description.description
+;    The unit corresponding to _ihm_time_ordered_ensemble.time_begin 
+     and _ihm_time_ordered_ensemble.time_end data items above.
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.time_unit'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_examples.case
+        'picosecond'
+        'nanosecond'
+        'microsecond'
+        'millisecond'
+     save_
+    
+save__ihm_time_ordered_ensemble.model_id_begin
+    _item_description.description
+;    The model id corresponding to the time stamp at the beginning of the step. 
+     This data item is a pointer to _ihm_model_list.model_id in the
+     IHM_MODEL_LIST category. 
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.model_id_begin'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes  
+    _item_type.code               int  
+    _item_linked.child_name     '_ihm_time_ordered_ensemble.model_id_begin'
+    _item_linked.parent_name    '_ihm_model_list.model_id'
+
+save__ihm_time_ordered_ensemble.model_id_end
+    _item_description.description
+;    The model id corresponding to the time stamp at the end of the step.
+     This data item is a pointer to _ihm_model_list.model_id in the
+     IHM_MODEL_LIST category.
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.model_id_end'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_time_ordered_ensemble.model_id_end'
+    _item_linked.parent_name    '_ihm_model_list.model_id'
+     save_
+
+############################
+## IHM_MODELING_POST_PROCESS
+############################
+
+save_ihm_modeling_post_process
+    _category.description
+;              Data items in the IHM_MODELING_POST_PROCESS category records
+               the details of the post processing of the models/results of
+               the modeling experiment.
+;
+    _category.id                  ihm_modeling_post_process
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_modeling_post_process.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+    loop_
+    _ihm_modeling_post_process.id
+    _ihm_modeling_post_process.experiment_id
+    _ihm_modeling_post_process.analysis_id
+    _ihm_modeling_post_process.step_id
+    _ihm_modeling_post_process.type
+    _ihm_modeling_post_process.feature
+    _ihm_modeling_post_process.num_models_begin
+    _ihm_modeling_post_process.num_models_end 
+
+    1  1   1   1   'filter'  'energy/score'  15000   6520 
+    2  1   1   2   'cluster' 'dRMSD'         6520    6520
+    3  1   2   1   'filter'  'energy/score'  15000   6520
+    4  1   2   2   'filter'  'composition'   6520    6520
+    5  1   2   3   'cluster' 'dRMSD'         6520    6520
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_modeling_post_process
+     save_
+
+save__ihm_modeling_post_process.id
+    _item_description.description
+;    A unique identifier for the post modeling analysis/step combination.
+;
+    _item.name                  '_ihm_modeling_post_process.id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.experiment_id
+    _item_description.description
+;    An identifier for the modeling experiment, whose post modeling analysis
+     is being carried out. 
+     This data item is a pointer to the _ihm_modeling_experiment.id in the
+     IHM_MODELING_EXPERIMENT category. 
+;
+    _item.name                  '_ihm_modeling_post_process.experiment_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_post_process.experiment_id'
+    _item_linked.parent_name    '_ihm_modeling_experiment.id'
+     save_
+
+save__ihm_modeling_post_process.analysis_id
+    _item_description.description
+;    An identifier for the post modeling analysis. This data item accounts for
+     multiple post-modeling analyses that can be carried out. 
+;
+    _item.name                  '_ihm_modeling_post_process.analysis_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.step_id
+    _item_description.description
+;    In a multi-step process, this identifier denotes the particular
+     step in the post modeling analysis. 
+;
+    _item.name                  '_ihm_modeling_post_process.step_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.type
+    _item_description.description
+;    The type of post modeling analysis being carried out. 
+;
+    _item.name                  '_ihm_modeling_post_process.type'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_ 
+   _item_enumeration.value
+   _item_enumeration.details
+    'filter'    'post processing step involves filtering of models'
+    'cluster'   'post processing step involves clustering of models'
+    'rescore'   'post processing step involves rescoring of the models'
+    'other'     'post processing step involves a different kind of analysis'
+    'none'      'no post processing is carried out'
+     save_
+
+save__ihm_modeling_post_process.feature
+    _item_description.description
+;    The parameter/feature used in the post modeling analysis.
+;
+    _item.name                  '_ihm_modeling_post_process.feature'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_ 
+    _item_enumeration.value
+    _item_enumeration.details
+    'energy/score'  .
+    'RMSD'          .
+    'dRMSD'         .
+    'other'         .
+    'none'          .
+     save_
+
+save__ihm_modeling_post_process.num_models_begin
+    _item_description.description
+;    The number of models at the beginning of the post processing step. 
+;
+    _item.name                  '_ihm_modeling_post_process.num_models_begin'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.num_models_end
+    _item_description.description
+;    The number of models the the end of the post processing step.  
+;
+    _item.name                  '_ihm_modeling_post_process.num_models_end'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               int
      save_
 
 ######################
@@ -768,7 +1321,7 @@ save_ihm_cluster_info
     _category.id                  ihm_cluster_info
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_cluster_info.ordinal_id'
+    _category_key.name          '_ihm_cluster_info.cluster_index'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -781,37 +1334,44 @@ save_ihm_cluster_info
     Example 1 -
 ;
 ;
-	loop_
-        _ihm_cluster_info.ordinal_id
-	_ihm_cluster_info.experiment_id
-	_ihm_cluster_info.cluster_analysis_id
-	_ihm_cluster_info.clustering_method
-	_ihm_cluster_info.num_models_analyzed
-	_ihm_cluster_info.cluster_index
-	_ihm_cluster_info.num_cluster_models
-	_ihm_cluster_info.cluster_precision_value
-        _ihm_cluster_info.struct_assembly_id
-	
-	1  1  1  Hierarchical  6520  1  2885   17.3   1
-	2  1  1  Hierarchical  6520  2  1401   19.2   1
-        3  1  2  Hierarchical  6520  1   577   14.8   2
-        4  1  2  Hierarchical  6520  2   404   10.8   2
+    loop_
+    _ihm_cluster_info.cluster_index
+    _ihm_cluster_info.cluster_name
+    _ihm_cluster_info.experiment_id
+    _ihm_cluster_info.post_process_id
+    _ihm_cluster_info.model_collection_id
+    _ihm_cluster_info.clustering_method
+    _ihm_cluster_info.clustering_feature
+    _ihm_cluster_info.num_models_analyzed
+    _ihm_cluster_info.num_cluster_models
+    _ihm_cluster_info.cluster_precision_value
+    
+        1  cluster1  1  2  1  Hierarchical  dRMSD  6520  2885   17.3
+        2  cluster2  1  2  2  Hierarchical  dRMSD  6520  1401   19.2
+        3  cluster3  1  5  .  Hierarchical  dRMSD  6520   577   14.8
+        4  cluster4  1  5  .  Hierarchical  dRMSD  6520   404   10.8
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-   _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_cluster_info
-     save_
-
-save__ihm_cluster_info.ordinal_id
+save__ihm_cluster_info.cluster_index
     _item_description.description
-;     A unique identifier for the clustering data.
+;     The cluster index or cluster id unique for the cluster obtained.
 ;
-    _item.name                  '_ihm_cluster_info.ordinal_id'
+    _item.name                  '_ihm_cluster_info.cluster_index'
     _item.category_id             ihm_cluster_info
     _item.mandatory_code          yes
     _item_type.code               int
+     save_
+
+save__ihm_cluster_info.cluster_name
+    _item_description.description
+;     An optional name for the cluster for better description.
+;
+    _item.name                  '_ihm_cluster_info.cluster_name'
+    _item.category_id             ihm_cluster_info
+    _item.mandatory_code          no
+    _item_type.code               code
      save_
 
 save__ihm_cluster_info.experiment_id
@@ -824,18 +1384,36 @@ save__ihm_cluster_info.experiment_id
     _item.category_id             ihm_cluster_info
     _item.mandatory_code          yes  
     _item_type.code               int  
-    _item_linked.child_name	'_ihm_cluster_info.experiment_id'
-    _item_linked.parent_name	'_ihm_modeling_experiment.id'
+    _item_linked.child_name     '_ihm_cluster_info.experiment_id'
+    _item_linked.parent_name    '_ihm_modeling_experiment.id'
      save_
 
-save__ihm_cluster_info.cluster_analysis_id
+save__ihm_cluster_info.post_process_id
     _item_description.description
-;     An identifier for the independent cluster analyses carried out. 
+;     An identifier for the post modeling cluster analyses carried out. 
+      This data item is a pointer to _ihm_modeling_post_process.id in
+      the IHM_MODELING_POST_PROCESS category. 
 ;
-    _item.name                  '_ihm_cluster_info.cluster_analysis_id'
+    _item.name                  '_ihm_cluster_info.post_process_id'
     _item.category_id             ihm_cluster_info
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_linked.child_name     '_ihm_cluster_info.post_process_id'
+    _item_linked.parent_name    '_ihm_modeling_post_process.id'
+     save_
+
+save__ihm_cluster_info.model_collection_id
+    _item_description.description
+;     An identifier for the set of cluster models being deposited.
+      This data item is a pointer to the _ihm_model_list.collection_id
+      in the IHM_MODEL_LIST category.
+;
+    _item.name                  '_ihm_cluster_info.model_collection_id'
+    _item.category_id             ihm_cluster_info
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_cluster_info.model_collection_id'
+    _item_linked.parent_name    '_ihm_model_list.collection_id'
      save_
 
 save__ihm_cluster_info.clustering_method
@@ -848,9 +1426,25 @@ save__ihm_cluster_info.clustering_method
     _item_type.code               code
     loop_
     _item_enumeration.value
-	'Hierarchical'
- 	'Partitioning (k-means)'
-	'Other'
+    'Hierarchical'
+    'Partitioning (k-means)'
+    'Other'
+     save_
+
+save__ihm_cluster_info.clustering_feature
+    _item_description.description
+;    The parameter/feature used for clustering the models.
+;
+    _item.name                  '_ihm_cluster_info.clustering_feature'
+    _item.category_id             ihm_cluster_info
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.details
+        'RMSD'      'clustered by RMSD'
+        'dRMSD'     'clustered by dRMSD'
+        'other'     'clustered by other feature'
      save_
 
 save__ihm_cluster_info.num_models_analyzed
@@ -863,19 +1457,9 @@ save__ihm_cluster_info.num_models_analyzed
     _item_type.code               int
      save_
 
-save__ihm_cluster_info.cluster_index
-    _item_description.description
-;     The cluster index or cluster id.
-;
-    _item.name                  '_ihm_cluster_info.cluster_index'
-    _item.category_id             ihm_cluster_info
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
 save__ihm_cluster_info.num_cluster_models
     _item_description.description
-;	The number of models in the current cluster. 
+;   The number of models in the current cluster. 
 ;
     _item.name                  '_ihm_cluster_info.num_cluster_models'
     _item.category_id             ihm_cluster_info
@@ -898,23 +1482,87 @@ save__ihm_cluster_info.cluster_precision_value
     _item_units.code              angstroms
      save_
 
-save__ihm_cluster_info.struct_assembly_id
-    _item_description.description
-;    An indicator to whether the whole assembly is clustered or if only a
-     subset of the structural assembly is clustered.
-     This data item is a pointer to _ihm_struct_assembly.assembly_id in the
-     IHM_STRUCT_ASSEMBLY category. The IHM_STRUCT_ASSEMBLY category provides the
-     details regarding the different structural assemblies used in the modeling.
-     The default value for this data item is "1" indicating that the entire assembly
-     being modeled is clustered.
+#################
+## IHM_MODEL_LIST
+#################
+
+save_ihm_model_list
+    _category.description
+;              Data items in the IHM_MODEL_LIST category record the
+               details of the models being being deposited.
 ;
-    _item.name                  '_ihm_cluster_info.struct_assembly_id'
-    _item.category_id             ihm_cluster_info
+    _category.id                  ihm_model_list
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_model_list.model_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    loop_
+    _ihm_model_list.model_id
+    _ihm_model_list.collection_id
+    _ihm_model_list.experiment_id
+
+    1    1    1
+    2    1    1
+    3    1    1
+    4    1    1
+    5    1    1
+    6    2    1
+    7    2    1
+    8    2    1
+    9    2    1
+   10    2    1
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+save__ihm_model_list.model_id
+    _item_description.description
+;     A unique identifier for the structural model being deposited.
+;
+    _item.name                  '_ihm_model_list.model_id'
+    _item.category_id             ihm_model_list
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_cluster_info.struct_assembly_id'
-    _item_linked.parent_name    '_ihm_struct_assembly.id'
+     save_
+
+save__ihm_model_list.collection_id
+    _item_description.description
+;     An identifier to group structural models into collections or sets.
+      This data item can be used to group models into structural clusters
+      or using other criteria based on experimental data or other
+      relationships.
+      The default value is 1, because all deposited models can be grouped
+      into a single set by default.
+;
+    _item.name                  '_ihm_model_list.collection_id'
+    _item.category_id             ihm_model_list
+    _item.mandatory_code          yes
+    _item_type.code               int
     _item_default.value           1
+     save_
+
+save__ihm_model_list.experiment_id
+    _item_description.description
+;     An identifier to the modeling experiment that produced the model.
+      This data item is a pointer to the _ihm_modeling_experiment.id in
+      the IHM_MODELING_EXPERIMENT category.
+;
+    _item.name                  '_ihm_model_list.experiment_id'
+    _item.category_id             ihm_model_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_model_list.experiment_id'
+    _item_linked.parent_name    '_ihm_modeling_experiment.id'
      save_
 
 ######################
@@ -944,14 +1592,16 @@ save_ihm_dataset_list
 ;   'Example 1'
     loop_
     _ihm_dataset_list.id
+    _ihm_dataset_list_collection_id
     _ihm_dataset_list.data_type
     _ihm_dataset_list.database_hosted
     -ihm_dataset_list.category_info
 
-    1  'CX-MS data'   'NO'   'ihm_dataset_other'
-    2  'CX-MS data'   'NO'   'ihm_dataset_other'
-    3  '3DEM volume'  'YES'  'ihm_related_database_reference'
-    4  '2DEM class average'  'NO'  'ihm_dataset_other'
+    1  1  'CX-MS data'   'NO'   'ihm_dataset_other'
+    2  1  'CX-MS data'   'NO'   'ihm_dataset_other'
+    3  1  '3DEM volume'  'YES'  'ihm_related_database_reference'
+    4  1  '2DEM class average'  'NO'  'ihm_dataset_other'
+    5  1  'Comparative model'   'NO'  'ihm_dataset_other'
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -968,6 +1618,17 @@ save__ihm_dataset_list.id
     _item.mandatory_code          yes
     _item_type.code               int
      save_ 
+
+save__ihm_dataset_list.collection_id
+    _item_description.description
+;    An identifier for dataset collection. Allows for organization
+     of datasets into subsets for easier reference.  
+;
+    _item.name                  '_ihm_dataset_list.collection_id'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
 
 save__ihm_dataset_list.data_type
     _item_description.description
@@ -1052,16 +1713,16 @@ save_ihm_related_database_reference
  _ihm_related_database_reference.details
 
  1  6  'PRIDE'  'PXD00381'  .  'CX-MS data'
-;	Structural Analysis of a Prokaryotic Ribosome Using a 
-	Novel Amidinating Cross-Linker and Mass Spectrometry
+;   Structural Analysis of a Prokaryotic Ribosome Using a 
+    Novel Amidinating Cross-Linker and Mass Spectrometry
 ;
  2  3  'EMDB'  'EMD-2799'  .  '3DEM volume'  ?
  3  5  'PDB'   '5FM1'      .  'unspecified'            
-;	STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE
+;   STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE
 ;
  4  7  'BMRB'  '25766'     .  'unspecified'  ?
  5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Comparative model'
-;	PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING
+;   PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING
 ;
  # ...  abbreviated ...
 
@@ -1105,14 +1766,14 @@ save__ihm_related_database_reference.db_name
     _item_type.code               line
      loop_
     _item_enumeration.value
-	  'PDB'
-	  'BMRB'
-	  'EMDB'
-	  'EMPIAR'
-	  'SASBDB'
-          'PRIDE'
-	  'MODEL ARCHIVE'
-          'OTHER'
+      'PDB'
+      'BMRB'
+      'EMDB'
+      'EMPIAR'
+      'SASBDB'
+      'PRIDE'
+      'MODEL ARCHIVE'
+      'OTHER'
      save_
 
 save__ihm_related_database_reference.access_code
@@ -1125,13 +1786,13 @@ save__ihm_related_database_reference.access_code
     _item_type.code            line
     loop_
     _item_examples.case  
-      5FM1
-      25766
-      EMD-2799 
-      10049 
-      SASDA82   
-      PXD003381
-      MA-CO2KC
+      '5FM1'
+      '25766'
+      'EMD-2799' 
+      '10049' 
+      'SASDA82'   
+      'PXD003381'
+      'MA-CO2KC'
     save_
 
 save__ihm_related_database_reference.version
@@ -1176,8 +1837,8 @@ save__ihm_related_database_reference.details
     _item_type.code               text
     loop_
     _item_examples.case
-;	Structural Analysis of a Prokaryotic Ribosome Using a
-       	Novel Amidinating Cross-Linker and Mass Spectrometry
+;   Structural Analysis of a Prokaryotic Ribosome Using a
+    Novel Amidinating Cross-Linker and Mass Spectrometry
 ;
      save_
  
@@ -1200,7 +1861,8 @@ save_ihm_dataset_other
     loop_
     _category_examples.detail
     _category_examples.case
-;   'Example 1'
+;   
+    Example 1 -
 ;
 ;
  loop_
@@ -1212,20 +1874,21 @@ save_ihm_dataset_other
  _ihm_dataset_other.content_type
  _ihm_dataset_other.details
 
- 1  1  'CX-MS data'  ?  'EDC_XL_122013.new.dat'  'text/plain'
-;	 Nup84 sub-complex probed by chemical crosslinking
-	 using 1-ethyl-(dimethylaminopropyl) carbodiimide 
-	 hydrochloride (EDC) crosslinker followed by mass 
-	 spectrometry
+ 1  1  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain'
+;    Nup84 sub-complex probed by chemical crosslinking
+     using 1-ethyl-(dimethylaminopropyl) carbodiimide 
+     hydrochloride (EDC) crosslinker followed by mass 
+     spectrometry
 ;
- 2  2  'CX-MS data'  ?  'yeast_Nup84_DSS.new.dat'  'text/plain'
-;	 Nup84 sub-complex probed by chemical crosslinking
+ 2  2  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain'
+;    Nup84 sub-complex probed by chemical crosslinking
          using disuccinimidyl suberate (DSS) crosslinker 
-	 followed by mass spectrometry
+     followed by mass spectrometry
 ;
- 3  4  '2DEM class average'  ?  'nup84_kinked_from_class2.pgm'  'image/pgm'
-;  	 2DEM class average of the Nup84 sub-complex
+ 3  4  '2DEM class average'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm'
+;    2DEM class average of the Nup84 sub-complex
 ;
+ 4  5  'Comparative model'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain'
  # ...  abbreviated ...
 
 ;
@@ -1312,16 +1975,16 @@ save__ihm_dataset_other.content_type
     loop_
     _item_enumeration.value
     _item_enumeration.details
-      'text/plain'	'Plain text file'
-      'text/csv'	'Comma-separated text file'
-      'text/tsv'	'Tab-separated text file'
-      'text/xml'	'XML file format'
-      'text/html'	'HTML file format'
-      'image/pgm'	'Portable gray map image'
-      'image/png'	'Portable network graphics image'
-      'image/gif'	'Graphics interchange format image'
-      'image/tif'	'Tagged image file format'
-      'other'		'unspecified'
+      'text/plain'  'Plain text file'
+      'text/csv'    'Comma-separated text file'
+      'text/tsv'    'Tab-separated text file'
+      'text/xml'    'XML file format'
+      'text/html'   'HTML file format'
+      'image/pgm'   'Portable gray map image'
+      'image/png'   'Portable network graphics image'
+      'image/gif'   'Graphics interchange format image'
+      'image/tif'   'Tagged image file format'
+      'other'       'unspecified'
     save_
 
 save__ihm_dataset_other.details
@@ -1367,7 +2030,7 @@ save_ihm_cross_link_list
 ;
 ;
         loop_
-	_ihm_cross_link_list.id
+        _ihm_cross_link_list.id
         _ihm_cross_link_list.group_id
         _ihm_cross_link_list.entity_description_1
         _ihm_cross_link_list.entity_id_1
@@ -1392,12 +2055,12 @@ save_ihm_cross_link_list
          11    8  Nup133  4   103  LYS  Nup133  4   130  ASP  EDC  1
          12    8  Nup133  4   103  LYS  Nup133  4   131  GLU  EDC  1
          13    9  Nup120  3    17  LYS  Nup120  3   412  LYS  DSS  2
-	 14   10  Nup120  3    17  LYS  Nup120  3   735  LYS  DSS  2
-	 15   11  Nup120  3   206  LYS  Nup120  3   217  LYS  DSS  2
-	 16   12  Nup120  3   384  LYS  Nup120  3   362  LYS  DSS  2
-	 17   13  Nup120  3   400  LYS  Nup120  3   530  LYS  DSS  2
-	 18   14  Nup120  3   400  LYS  Nup120  3   531  LYS  DSS  2
-	 19   15  Nup120  3   400  LYS  Nup120  3   735  LYS  DSS  2
+         14   10  Nup120  3    17  LYS  Nup120  3   735  LYS  DSS  2
+         15   11  Nup120  3   206  LYS  Nup120  3   217  LYS  DSS  2
+         16   12  Nup120  3   384  LYS  Nup120  3   362  LYS  DSS  2
+         17   13  Nup120  3   400  LYS  Nup120  3   530  LYS  DSS  2
+         18   14  Nup120  3   400  LYS  Nup120  3   531  LYS  DSS  2
+         19   15  Nup120  3   400  LYS  Nup120  3   735  LYS  DSS  2
          20   16  Nup120  3   735  LYS  Nup120  3   412  LYS  DSS  2
          # ...  abbreviated ...
 ;
@@ -1557,7 +2220,7 @@ save__ihm_cross_link_list.dataset_list_id
 ;
     _item.name                  '_ihm_cross_link_list.dataset_list_id'
     _item.category_id             ihm_cross_link_list
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name       '_ihm_cross_link_list.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
@@ -1592,22 +2255,22 @@ save_ihm_cross_link_restraint
 ;
         loop_
         _ihm_cross_link_restraint.id
-	_ihm_cross_link_restraint.group_id
+        _ihm_cross_link_restraint.group_id
         _ihm_cross_link_restraint.entity_id_1
-	_ihm_cross_link_restraint.asym_id_1
+        _ihm_cross_link_restraint.asym_id_1
         _ihm_cross_link_restraint.seq_id_1
         _ihm_cross_link_restraint.comp_id_1
         _ihm_cross_link_restraint.entity_id_2
-	_ihm_cross_link_restraint.asym_id_2
+        _ihm_cross_link_restraint.asym_id_2
         _ihm_cross_link_restraint.seq_id_2
         _ihm_cross_link_restraint.comp_id_2
         _ihm_cross_link_restraint.type
-	_ihm_cross_link_restraint.conditional_crosslink_flag
+        _ihm_cross_link_restraint.conditional_crosslink_flag
         _ihm_cross_link_restraint.model_granularity
         _ihm_cross_link_restraint.distance_threshold
-	_ihm_cross_link_restraint.psi
-	_ihm_cross_link_restraint.sigma_1
-	_ihm_cross_link_restraint.sigma_2
+        _ihm_cross_link_restraint.psi
+        _ihm_cross_link_restraint.sigma_1
+        _ihm_cross_link_restraint.sigma_2
           1    1  3  C    17  LYS  3  C   421  GLU  EDC  ALL  by-residue  25.0   0.05  0.01  0.01
           2    2  3  C   206  LYS  3  C   219  ASP  EDC  ALL  by-residue  25.0   0.05  0.01  0.01
           3    3  3  C    38  LYS  3  C   429  GLU  EDC  ALL  by-residue  25.0   0.05  0.01  0.01
@@ -1703,7 +2366,7 @@ save__ihm_cross_link_restraint.asym_id_2
     _item_description.description
 ;              An asym/strand identifier for the second monomer partner in the cross-link.
 
-	       This data item is a pointer to _struct_asym.id in the
+           This data item is a pointer to _struct_asym.id in the
                STRUCT_ASYM category.
 ;
     _item.name                  '_ihm_cross_link_restraint.asym_id_2'
@@ -1902,17 +2565,17 @@ save_ihm_cross_link_result
         _ihm_cross_link_result.restraint_id
         _ihm_cross_link_result.num_models
         _ihm_cross_link_result.distance_threshold
-   	_ihm_cross_link_result.median_distance
+        _ihm_cross_link_result.median_distance
         _ihm_cross_link_result.details
         
- 	1   6520  25.0   9.6   .
- 	2   6520  25.0  14.7   .
-	3   6520  25.0  16.4   .
-	4   6520  25.0  15.8   .
-	5   6520  25.0  18.9   .
+        1   6520  25.0   9.6   .
+        2   6520  25.0  14.7   .
+        3   6520  25.0  16.4   .
+        4   6520  25.0  15.8   .
+        5   6520  25.0  18.9   .
         6   6520  25.0  11.6   .
 
-	# ...  abbreviated ...
+    # ...  abbreviated ...
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2003,15 +2666,15 @@ save_ihm_2dem_class_average_restraint
     Example 1 -
 ;
 ;
-        _ihm_2dem_class_average_restraint.id				1
-	_ihm_2dem_class_average_restraint.dataset_list_id		4
-        _ihm_2dem_class_average_restraint.pixel_size			5.91
-        _ihm_2dem_class_average_restraint.image_resolution		30.0
-	_ihm_2dem_class_average_restraint.image_segment_flag            No
-	_ihm_2dem_class_average_restraint.number_of_projections		400
-	_ihm_2dem_class_average_restraint.struct_assembly_id		1
-	_ihm_2dem_class_average_restraint.details
-;	The 2DEM restraint fits a given model to an 2DEM class average and
+    _ihm_2dem_class_average_restraint.id                        1
+    _ihm_2dem_class_average_restraint.dataset_list_id           4
+    _ihm_2dem_class_average_restraint.pixel_size                5.91
+    _ihm_2dem_class_average_restraint.image_resolution          30.0
+    _ihm_2dem_class_average_restraint.image_segment_flag        No
+    _ihm_2dem_class_average_restraint.number_of_projections     400
+    _ihm_2dem_class_average_restraint.struct_assembly_id        1
+    _ihm_2dem_class_average_restraint.details
+;       The 2DEM restraint fits a given model to an 2DEM class average and
         computes a score that quantifies the match. The computation proceeds
         in three stages: generation of 3D model projections on a 2D grid, 
         alignment of the model projections and the 2DEM class average image, 
@@ -2082,8 +2745,8 @@ save__ihm_2dem_class_average_restraint.image_segment_flag
     _item_type.code               code
     _item_enumeration.value
     _item_enumeration.details
-	'YES'	'Image is masked; only a portion of the image is used'
-	'NO'	'Image is not masked; the entire image is used'
+    'YES'   'Image is masked; only a portion of the image is used'
+    'NO'    'Image is not masked; the entire image is used'
      save_
 
 save__ihm_2dem_class_average_restraint.number_of_projections
@@ -2110,9 +2773,9 @@ save__ihm_2dem_class_average_restraint.struct_assembly_id
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          no
     _item_type.code               int
-    _item_linked.child_name	'_ihm_2dem_class_average_restraint.struct_assembly_id'
-    _item_linked.parent_name	'_ihm_struct_assembly.id'
-    _item_default.value		  1
+    _item_linked.child_name '_ihm_2dem_class_average_restraint.struct_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.id'
+    _item_default.value       1
      save_
 
 save__ihm_2dem_class_average_restraint.details
@@ -2125,7 +2788,7 @@ save__ihm_2dem_class_average_restraint.details
     _item_type.code               text
      loop_
     _item_examples.case
-;	The 2DEM restraint fits a given model to an 2DEM class average and
+;   The 2DEM restraint fits a given model to an 2DEM class average and
         computes a score that quantifies the match. The computation proceeds
         in three stages: generation of 3D model projections on a 2D grid, 
         alignment of the model projections and the 2DEM class average image, 
@@ -2159,22 +2822,22 @@ save_ihm_2dem_class_average_fitting
     Example 1 -
 ;
 ;
-        _ihm_2dem_class_average_fitting.id                              1
-        _ihm_2dem_class_average_fitting.dataset_list_id                 4
-	_ihm_2dem_class_average_fitting.pdbx_PDB_model_num		1
-        _ihm_2dem_class_average_fitting.cross_correlation_coefficient   0.9
-	_ihm_2dem_class_average_fitting.rot_matrix[1][1]		1.0
-	_ihm_2dem_class_average_fitting.rot_matrix[2][1]                0.0
-	_ihm_2dem_class_average_fitting.rot_matrix[3][1]                0.0
-	_ihm_2dem_class_average_fitting.rot_matrix[1][2]                0.0
-	_ihm_2dem_class_average_fitting.rot_matrix[2][2]                1.0
-	_ihm_2dem_class_average_fitting.rot_matrix[3][2]                0.0
-	_ihm_2dem_class_average_fitting.rot_matrix[1][3]                0.0
-	_ihm_2dem_class_average_fitting.rot_matrix[2][3]                0.0
-	_ihm_2dem_class_average_fitting.rot_matrix[3][3]                1.0
-	_ihm_2dem_class_average_fitting.tr_vector[1]			0.0
-	_ihm_2dem_class_average_fitting.tr_vector[2]			0.0
-	_ihm_2dem_class_average_fitting.tr_vector[3]			0.0
+    _ihm_2dem_class_average_fitting.id                              1
+    _ihm_2dem_class_average_fitting.dataset_list_id                 4
+    _ihm_2dem_class_average_fitting.pdbx_PDB_model_num              1
+    _ihm_2dem_class_average_fitting.cross_correlation_coefficient   0.9
+    _ihm_2dem_class_average_fitting.rot_matrix[1][1]                1.0
+    _ihm_2dem_class_average_fitting.rot_matrix[2][1]                0.0
+    _ihm_2dem_class_average_fitting.rot_matrix[3][1]                0.0
+    _ihm_2dem_class_average_fitting.rot_matrix[1][2]                0.0
+    _ihm_2dem_class_average_fitting.rot_matrix[2][2]                1.0
+    _ihm_2dem_class_average_fitting.rot_matrix[3][2]                0.0
+    _ihm_2dem_class_average_fitting.rot_matrix[1][3]                0.0
+    _ihm_2dem_class_average_fitting.rot_matrix[2][3]                0.0
+    _ihm_2dem_class_average_fitting.rot_matrix[3][3]                1.0
+    _ihm_2dem_class_average_fitting.tr_vector[1]                    0.0
+    _ihm_2dem_class_average_fitting.tr_vector[2]                    0.0
+    _ihm_2dem_class_average_fitting.tr_vector[3]                    0.0
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2377,17 +3040,17 @@ save_ihm_3dem_restraint
     Example 1 -
 ;
 ;
-	_ihm_3dem_restraint.id					1
-	_ihm_3dem_restraint.dataset_list_id			3
-	_ihm_3dem_restraint.pdbx_PDB_model_num			1
-	_ihm_3dem_restraint.fitting_method			'Gaussian mixture models'
-	_ihm_3dem_restraint.number_of_gaussians			10
-	_ihm_3dem_restraint.cross_correlation_coefficient	0.8	
-	_ihm_3dem_restraint.fitting_method_citation_id		5
-	_ihm_3dem_restraint.details
-;	The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
-	using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
-	a 3D fit of the map and the model. 
+    _ihm_3dem_restraint.id                              1
+    _ihm_3dem_restraint.dataset_list_id                 3
+    _ihm_3dem_restraint.pdbx_PDB_model_num              1
+    _ihm_3dem_restraint.fitting_method                  'Gaussian mixture models'
+    _ihm_3dem_restraint.number_of_gaussians             10
+    _ihm_3dem_restraint.cross_correlation_coefficient   0.8 
+    _ihm_3dem_restraint.fitting_method_citation_id      5
+    _ihm_3dem_restraint.details
+;   The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
+    using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
+    a 3D fit of the map and the model. 
 ;
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2494,7 +3157,7 @@ save__ihm_3dem_restraint.details
     _item_type.code               text
     loop_
     _item.examples.case
-;   	The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
+;       The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
         using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
         a 3D fit of the map and the model.
 ;
@@ -2602,8 +3265,7 @@ save__ihm_starting_model_coord.type_symbol
 save__ihm_starting_model_coord.entity_id
     _item_description.description
 ;     The entity identifier corresponding to this coordinate position.
-
-      This data item is a pointer to _entity_poly.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_starting_model_coord.entity_id'
     _item.category_id             ihm_starting_model_coord
@@ -2627,8 +3289,7 @@ save__ihm_starting_model_coord.atom_id
 save__ihm_starting_model_coord.comp_id
     _item_description.description
 ;     The component identifier corresponding to this coordinate position.
-
-      This data item is a pointer to _entity_poly.mon_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_starting_model_coord.comp_id'
     _item.category_id             ihm_starting_model_coord
@@ -2642,7 +3303,7 @@ save__ihm_starting_model_coord.seq_id
     _item_description.description
 ;     The sequence index corresponding this to coordinate position.
 
-      This data item is a pointer to _entity_poly.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_starting_model_coord.seq_id'
     _item.category_id             ihm_starting_model_coord
@@ -2712,8 +3373,8 @@ save__ihm_starting_model_coord.formal_charge
 
 save_ihm_sphere_obj_site
     _category.description
-;              Data items in the IHM_SPHERE_OBJ_SITE category records the coordinates
-               of the modeled objects representing the integrative structural model.
+;              Data items in the IHM_SPHERE_OBJ_SITE category records the details
+               of the spherical objects modeled in the integrative structural model.
 ;
     _category.id                  ihm_sphere_obj_site
     _category.mandatory_code      no
@@ -2736,21 +3397,22 @@ save_ihm_sphere_obj_site
         _ihm_sphere_obj_site.entity_id
         _ihm_sphere_obj_site.seq_id_begin
         _ihm_sphere_obj_site.seq_id_end
-        _ihm_sphere_obj_site.entity_instance_id
+        _ihm_sphere_obj_site.asym_id
         _ihm_sphere_obj_site.Cartn_x
         _ihm_sphere_obj_site.Cartn_y
         _ihm_sphere_obj_site.Cartn_z
         _ihm_sphere_obj_site.object_radius
-           1  1     1     6  A  1.0  1.0  1.0  1.0  
-           2  1     7     7  A  1.0  1.0  1.0  1.0  
-           3  1     8     8  A  1.0  1.0  1.0  1.0  
-           4  1     9     9  A  1.0  1.0  1.0  1.0  
-           5  1    10    10  A  1.0  1.0  1.0  1.0  
-           6  1    11    11  A  1.0  1.0  1.0  1.0  
-           7  1    12    12  A  1.0  1.0  1.0  1.0  
-           8  1    13    13  A  1.0  1.0  1.0  1.0  
-           9  1    14    14  A  1.0  1.0  1.0  1.0  
-          10  1    15    15  A  1.0  1.0  1.0  1.0  
+        _ihm_sphere_obj_site.model_id
+           1  1     1     6  A  1.0  1.0  1.0  1.0  1
+           2  1     7     7  A  1.0  1.0  1.0  1.0  1
+           3  1     8     8  A  1.0  1.0  1.0  1.0  1
+           4  1     9     9  A  1.0  1.0  1.0  1.0  1
+           5  1    10    10  A  1.0  1.0  1.0  1.0  1
+           6  1    11    11  A  1.0  1.0  1.0  1.0  1
+           7  1    12    12  A  1.0  1.0  1.0  1.0  1
+           8  1    13    13  A  1.0  1.0  1.0  1.0  1
+           9  1    14    14  A  1.0  1.0  1.0  1.0  1
+          10  1    15    15  A  1.0  1.0  1.0  1.0  1
           # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2760,7 +3422,7 @@ save_ihm_sphere_obj_site
 
 save__ihm_sphere_obj_site.ordinal_id
     _item_description.description
-;     A unique identifier for this pseudo atom position.
+;     A unique identifier for this pseudo atom / sphere object.
 ;
     _item.name                  '_ihm_sphere_obj_site.ordinal_id'
     _item.category_id             ihm_sphere_obj_site
@@ -2770,9 +3432,8 @@ save__ihm_sphere_obj_site.ordinal_id
 
 save__ihm_sphere_obj_site.entity_id
     _item_description.description
-;     The entity identifier corresponding to this pseudo atom position.
-
-      This data item is a pointer to _entity_poly.entity_id in the ENTITY_POLY category.
+;     The entity identifier corresponding to this sphere object.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_sphere_obj_site.entity_id'
     _item.category_id             ihm_sphere_obj_site
@@ -2784,9 +3445,8 @@ save__ihm_sphere_obj_site.entity_id
 
 save__ihm_sphere_obj_site.seq_id_begin
     _item_description.description
-;     The leading sequence index corresponding this to pseudo atom position.
-
-      This data item is a pointer to _entity_poly.num in the ENTITY_POLY category.
+;     The leading sequence index corresponding to this sphere object.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_sphere_obj_site.seq_id_begin'
     _item.category_id             ihm_sphere_obj_site
@@ -2798,9 +3458,8 @@ save__ihm_sphere_obj_site.seq_id_begin
 
 save__ihm_sphere_obj_site.seq_id_end
     _item_description.description
-;     The trailing sequence index corresponding this to pseudo atom position.
-
-      This data item is a pointer to _entity_poly.num in the ENTITY_POLY category.
+;     The trailing sequence index corresponding to this sphere object.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_sphere_obj_site.seq_id_end'
     _item.category_id             ihm_sphere_obj_site
@@ -2810,60 +3469,260 @@ save__ihm_sphere_obj_site.seq_id_end
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
 
-save__ihm_sphere_obj_site.entity_instance_id
+save__ihm_sphere_obj_site.asym_id
     _item_description.description
-;     An asym/strand identifier for the pseudo atom position. 
+;     An asym/strand identifier corresponding to this sphere object. 
       This data item is a pointer to _struct_asym.id in the STRUCT_ASYM category.
 ;
-    _item.name                  '_ihm_sphere_obj_site.entity_instance_id'
+    _item.name                  '_ihm_sphere_obj_site.asym_id'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               code
-    _item_linked.child_name       '_ihm_sphere_obj_site.entity_instance_id'
+    _item_linked.child_name       '_ihm_sphere_obj_site.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
      save_
 
 save__ihm_sphere_obj_site.Cartn_x
     _item_description.description
-;     The Cartesian X component corresponding to this pseudo atom position.
+;     The Cartesian X component corresponding to this sphere object.
 ;
     _item.name                  '_ihm_sphere_obj_site.Cartn_x'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_sphere_obj_site.Cartn_y'
+        '_ihm_sphere_obj_site.Cartn_z'
      save_
 
 save__ihm_sphere_obj_site.Cartn_y
     _item_description.description
-;     The Cartesian Y component corresponding to this pseudo atom position.
+;     The Cartesian Y component corresponding to this sphere object.
 ;
     _item.name                  '_ihm_sphere_obj_site.Cartn_y'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_sphere_obj_site.Cartn_x'
+        '_ihm_sphere_obj_site.Cartn_z'
      save_
 
 save__ihm_sphere_obj_site.Cartn_z
     _item_description.description
-;     The Cartesian Z component corresponding to this pseudo atom position.
+;     The Cartesian Z component corresponding to this sphere object.
 ;
     _item.name                  '_ihm_sphere_obj_site.Cartn_z'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_sphere_obj_site.Cartn_x'
+        '_ihm_sphere_obj_site.Cartn_y'
      save_
 
 save__ihm_sphere_obj_site.object_radius
     _item_description.description
-;     The radius associated with the primitive object at this position.
+;     The radius associated with the primitive sphere object at this position.
 ;
     _item.name                  '_ihm_sphere_obj_site.object_radius'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_sphere_obj_site.model_id
+    _item_description.description
+;     The model id corresponding to the sphere object.
+      This data item is a pointer to _ihm_model_list.model_id
+      in the IHM_MODEL_LIST category. 
+;
+    _item.name                  '_ihm_sphere_obj_site.model_id'
+    _item.category_id             ihm_sphere_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_sphere_obj_site.model_id'
+    _item_linked.parent_name    '_ihm_model_list.model_id'
+     save_
+
+###########################
+## IHM_GAUSSIAN_OBJ_SITE
+###########################
+
+save_ihm_gaussian_obj_site
+    _category.description
+;              Data items in the IHM_GAUSSIAN_OBJ_SITE category records the details
+               of the gaussian objects modeled in the integrative structural model.
+;
+    _category.id                  ihm_gaussian_obj_site
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_gaussian_obj_site.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -  
+;
+;
+        loop_
+        _ihm_gaussian_obj_site.ordinal_id
+        _ihm_gaussian_obj_site.entity_id
+        _ihm_gaussian_obj_site.seq_id_begin
+        _ihm_gaussian_obj_site.seq_id_end
+        _ihm_gaussian_obj_site.asym_id
+        _ihm_gaussian_obj_site.Cartn_x
+        _ihm_gaussian_obj_site.Cartn_y
+        _ihm_gaussian_obj_site.Cartn_z
+        _ihm_gaussian_obj_site.model_id
+           1  1     1     6  A  1.0  1.0  1.0   1
+           2  1     7     7  A  1.0  1.0  1.0   1
+           3  1     8     8  A  1.0  1.0  1.0   1
+           4  1     9     9  A  1.0  1.0  1.0   1
+           5  1    10    10  A  1.0  1.0  1.0   1
+           6  1    11    11  A  1.0  1.0  1.0   1
+           7  1    12    12  A  1.0  1.0  1.0   1
+           8  1    13    13  A  1.0  1.0  1.0   1
+           9  1    14    14  A  1.0  1.0  1.0   1
+          10  1    15    15  A  1.0  1.0  1.0   1
+          # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_gaussian_obj_site
+     save_
+
+save__ihm_gaussian_obj_site.ordinal_id
+    _item_description.description
+;     A unique identifier for this gaussian object in the model.
+;
+    _item.name                  '_ihm_gaussian_obj_site.ordinal_id'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_gaussian_obj_site.entity_id
+    _item_description.description
+;     The entity identifier corresponding to this gaussian object.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_gaussian_obj_site.entity_id'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_gaussian_obj_site.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_gaussian_obj_site.seq_id_begin
+    _item_description.description
+;     The leading sequence index corresponding to this gaussian object.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_gaussian_obj_site.seq_id_begin'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_gaussian_obj_site.seq_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_gaussian_obj_site.seq_id_end
+    _item_description.description
+;     The trailing sequence index corresponding to this gaussian object.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_gaussian_obj_site.seq_id_end'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_gaussian_obj_site.seq_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_gaussian_obj_site.asym_id
+    _item_description.description
+;     An asym/strand identifier corresponding to this gaussian object.
+      This data item is a pointer to _struct_asym.id in the STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_gaussian_obj_site.asym_id'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_gaussian_obj_site.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_gaussian_obj_site.Cartn_x
+    _item_description.description
+;     The Cartesian X component corresponding to this gaussian object.
+;
+    _item.name                  '_ihm_gaussian_obj_site.Cartn_x'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_gaussian_obj_site.Cartn_y'
+        '_ihm_gaussian_obj_site.Cartn_z'
+     save_
+
+save__ihm_gaussian_obj_site.Cartn_y
+    _item_description.description
+;     The Cartesian Y component corresponding to this gaussian object.
+;
+    _item.name                  '_ihm_gaussian_obj_site.Cartn_y'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_gaussian_obj_site.Cartn_x'
+        '_ihm_gaussian_obj_site.Cartn_z'
+     save_
+
+save__ihm_gaussian_obj_site.Cartn_z
+    _item_description.description
+;     The Cartesian Z component corresponding to this gaussian object.
+;
+    _item.name                  '_ihm_gaussian_obj_site.Cartn_z'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_gaussian_obj_site.Cartn_x'
+        '_ihm_gaussian_obj_site.Cartn_y'
+     save_
+
+save__ihm_gaussian_obj_site.model_id
+    _item_description.description
+;     The model id corresponding to the gaussian object.
+      This data item is a pointer to _ihm_model_list.model_id
+      in the IHM_MODEL_LIST category.
+;
+    _item.name                  '_ihm_gaussian_obj_site.model_id'
+    _item.category_id             ihm_gaussian_obj_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_gaussian_obj_site.model_id'
+    _item_linked.parent_name    '_ihm_model_list.model_id'
      save_
 
 
