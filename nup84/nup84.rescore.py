@@ -41,8 +41,8 @@ stat_file = os.path.join(os.path.dirname(input_rmf), 'stat.filtered.out')
 # i.e. the first line in the stat file
 stat = eval(open(stat_file).readline())
 # Get optimized nuisance values for crosslink restraints
-optimized_sigma_dss = stat['ISDCrossLinkMS_Sigma_1_DSS']
-optimized_sigma_edc = stat['ISDCrossLinkMS_Sigma_1_EDC']
+optimized_sigma_dss = float(stat['ISDCrossLinkMS_Sigma_1_DSS'])
+optimized_sigma_edc = float(stat['ISDCrossLinkMS_Sigma_1_EDC'])
 
 
 class TempDir(object):
