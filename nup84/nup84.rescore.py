@@ -187,6 +187,7 @@ simo.setup_component_sequence_connectivity("Sec13", resolution=1.0, scale=4.0)
 # Read in RMF file from previous modeling run
 for c in simo.get_component_names():
     simo.set_coordinates_from_rmf(c, cleaned_rmf, 0)
+del tmpdir
 
 Nup84_all   = Nup84
 Nup85_all   = Nup85_1+Nup85_2
