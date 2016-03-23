@@ -308,3 +308,29 @@ for key in xl2.sigma_dictionary:
 
 # Evaluate the score
 print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
+
+# Short local sampling
+nframes = 50
+mc2=IMP.pmi.macros.ReplicaExchange0(m,
+                                    simo,
+                                    monte_carlo_sample_objects=sampleobjects,
+                                    output_objects=outputobjects,
+                                    crosslink_restraints=[xl1,xl2],
+                                    #crosslink_restraints=[xl1],
+                                    monte_carlo_temperature=1.0,
+                                    replica_exchange_minimum_temperature=1.0,
+                                    replica_exchange_maximum_temperature=2.5,
+                                    number_of_best_scoring_models=50,
+                                    monte_carlo_steps=10,
+                                    number_of_frames=nframes,
+                                    write_initial_rmf=True,
+                                    initial_rmf_name_suffix="initial",
+                                    stat_file_name_suffix="stat",
+                                    best_pdb_name_suffix="model",
+                                    do_clean_first=True,
+                                    do_create_directories=True,
+                                    global_output_directory="output.1",
+                                    rmf_dir="rmfs/",
+                                    best_pdb_dir="pdbs/",
+                                    replica_stat_file_suffix="stat_replica")
+mc2.execute_macro()
