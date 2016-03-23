@@ -4,9 +4,6 @@
   repository. It simply does the same setup as the regular
   nup84.isd.modeling.py script, but rather than then doing a sampling
   run, it reads in the RMF file and calculates the score.
-
-  Note that this is a work in progress - in particular, the output score
-  seems way too large for a relaxed model. Ben to investigate.
 """
 
 from __future__ import print_function
@@ -32,6 +29,46 @@ import IMP.pmi.macros
 
 import os
 import sys
+import tempfile
+import shutil
+
+# The RMF file to rescore
+input_rmf = '../outputs/3-xray.after_cluster_on_hub.cluster1.top5.pdb.rmf.score/31.0.rmf3'
+
+# The corresponding stat file
+stat_file = os.path.join(os.path.dirname(input_rmf), 'stat.filtered.out')
+# The RMF file is assumed to be the top-scoring model from the cluster,
+# i.e. the first line in the stat file
+stat = eval(open(stat_file).readline())
+# Get optimized nuisance values for crosslink restraints
+optimized_sigma_dss = stat['ISDCrossLinkMS_Sigma_1_DSS']
+optimized_sigma_edc = stat['ISDCrossLinkMS_Sigma_1_EDC']
+
+
+class TempDir(object):
+    def __init__(self):
+        self.tmpdir = tempfile.mkdtemp()
+    def __del__(self):
+        shutil.rmtree(self.tmpdir, ignore_errors=True)
+
+def remove_densities(in_file, out_file):
+    m = IMP.Model()
+
+    rh = RMF.open_rmf_file_read_only(in_file)
+    h = IMP.rmf.create_hierarchies(rh, m)
+    for component in h[0].get_children():
+        for rep in component.get_children():
+            if rep.get_name() == 'Densities':
+                IMP.atom.destroy(rep)
+
+    rh = RMF.create_rmf_file(out_file)
+    IMP.rmf.add_hierarchies(rh, h)
+    IMP.rmf.save_frame(rh)
+
+
+tmpdir = TempDir()
+cleaned_rmf = os.path.join(tmpdir.tmpdir, "clean.rmf")
+remove_densities(in_file=input_rmf, out_file=cleaned_rmf)
 
 rbmaxtrans = 2.00
 fbmaxtrans = 2.00
@@ -148,10 +185,8 @@ simo.setup_component_sequence_connectivity("Seh1", resolution=1.0, scale=4.0)
 simo.setup_component_sequence_connectivity("Sec13", resolution=1.0, scale=4.0)
 
 # Read in RMF file from previous modeling run
-# (use ../outputs/remove-densities.py script to generate
-# a compatible RMF)
 for c in simo.get_component_names():
-    simo.set_coordinates_from_rmf(c, '../outputs/3-xray.after_cluster_on_hub.cluster1.top5.pdb.rmf.score/out.rmf3', 0)
+    simo.set_coordinates_from_rmf(c, cleaned_rmf, 0)
 
 Nup84_all   = Nup84
 Nup85_all   = Nup85_1+Nup85_2
@@ -264,11 +299,11 @@ outputobjects.append(em2d)
 # Set nuisance values (from stat file)
 for key in xl1.sigma_dictionary:
     sigma=xl1.sigma_dictionary[key][0]
-    sigma.set_scale(10.0020377979)
+    sigma.set_scale(optimized_sigma_dss)
 
 for key in xl2.sigma_dictionary:
     sigma=xl2.sigma_dictionary[key][0]
-    sigma.set_scale(7.15769480855)
+    sigma.set_scale(optimized_sigma_edc)
 
-# Evaluate the score (note: does not seem right)
+# Evaluate the score
 print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
