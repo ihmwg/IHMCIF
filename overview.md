@@ -1,0 +1,84 @@
+# Overview
+
+## Goal
+
+We want to be able to deposit hybrid or integrative models into PDB-dev.
+These are models that are not necessarily atomic (e.g. parts or all of the
+system may be coarse grained) and are derived by integrating information
+from multiple sources. Examples include
+
+ - Modeling of the [Nup84 subcomplex](http://salilab.org/nup84)
+   of the Nuclear Pore Complex (Sali Lab), by combining comparative models
+   with crosslinking and EM class averages, representing subunits as beads
+   (1, 10, or 20 residues per bead).
+ - ATG1-complex (Hummer Lab): Tetramer of tetramers
+   (Atg17-Atg31-Atg29-Atg1-Atg13), 4448 residues. Missing residues and
+   loops modeled as flexible linkers (3 rigid domains, 52 linkers).
+   EROS refined coarse-grained simulations (COMPLEXES, 1AA =1bead) using
+   SAXS data. Ensemble of ~100 dynamic structures.
+
+More examples can be found in the [Google doc](https://docs.google.com/document/d/1tuHzE6N8ENy-8NxeV8CFv9W1BDoJkRoc9VRwoK0Ic5E/edit?usp=sharing).
+
+Existing PDB format is not sufficient since it assumes atomic structures,
+and only supports a small number of input experimental data sources (e.g.
+X-ray crystallography, NMR).
+
+## mmCIF
+
+We proposing extending the existing mmCIF format to store this information
+since
+
+ - mmCIF is designed to be extensible
+ - PDB is already moving traditional atomic structures to mmCIF format
+ - several libraries for handling mmCIF files are already available
+ - there is reasonable support from viewers (e.g. UCSF Chimera)
+
+We plan to support integrative/hybrid models by means of an mmCIF extension
+dictionary, `ihm-extension.dic`. Since this merely extends the existing mmCIF
+specification, "traditional" data (such as atomic coordinates) can be stored
+just as in regular mmCIF files.
+
+An example of using the dictionary, `nup84-strawman-2.cif`, is provided. This
+contains the structures derived by the Sali lab for the Nup84 complex, above.
+
+## Extension dictionary
+
+The extension dictionary aims to cover:
+
+ - Input data (e.g. crosslinks, EM map, EM class average, subunit structures)
+ - Our interpretation of the data (e.g. ambiguity, segmentation)
+   - Note that we *not* store raw restraints in the file since we consider
+     these to be implementation details. At least for IMP, the software, and
+     our approaches to solve modeling problems, are constantly changing, so
+     it would be futile to try to capture every last parameter (particularly
+     since ideally models are refined and rebuilt with newer software as new
+     experimental information becomes available). For "perfect" reproduction
+     of the inputs we link to the archive holding the raw modeling inputs
+     (Python scripts in IMP's case).
+ - Multi-scale models; e.g. parts of the system may be represented atomically
+   or with 1 residue beads if input structures are available; other parts may
+   represented with 20 residue beads (e.g. disordered regions or regions with
+   sequence but no known structure). The same part of the system may be
+   represented at multiple such resolutions simultaneously.
+ - Multi-state models; multiple states (e.g. open and closed) may exist
+   simultaneously such that the collected experimental information
+   (e.g. crosslinks) reflects more than one state, and cannot be satisfied
+   by a single model. The mmCIF file contains all states modeled.
+ - Time-ordered models; multiple models may be deposited that represent
+   a trajectory, reaction cycle/pathway, or other time-ordered relationship.
+ - Output representation (cluster representatives)
+   - Coarse-grained coordinates (beads)
+   - Non-Cartesian values (e.g. nuisances)
+ - Ensemble info (number & size of clusters)
+ - Other metadata (e.g. publications, software versions used)
+ - Basic validation (how well do the models fit the data, are they minima,
+   violations of crosslinks etc.)
+
+Where possible, we link to existing databases (e.g. EMDB, EMPIAR, PRIDE) rather
+than trying to duplicate the data in the mmCIF. For example, an EM map is
+simply represented with an EMDB ID. For data not currently available in a
+repository, we use a DOI. For example, there is currently no repository for
+EM class averages (EMDB stores maps; EMPIAR stores micrographs that were used
+to generate a map). Those used by the Sali lab in the Nup84 study were uploaded
+to GitHub and then archived at zenodo.org, which assigns a permanent DOI,
+in this case [10.5281/zenodo.46266](http://dx.doi.org/10.5281/zenodo.46266).
