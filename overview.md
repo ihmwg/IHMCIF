@@ -25,13 +25,17 @@ X-ray crystallography, NMR).
 
 ## mmCIF
 
-We proposing extending the existing mmCIF format to store this information
+We propose extending the existing mmCIF format to store this information
 since
 
  - mmCIF is designed to be extensible
  - PDB is already moving traditional atomic structures to mmCIF format
  - several libraries for handling mmCIF files are already available
  - there is reasonable support from viewers (e.g. UCSF Chimera)
+ - alternative formats for coarse-grained structures
+   (e.g. [RMF](http://integrativemodeling.org/rmf/)) don't store all the
+   information we're interested in, and aren't widely supported outside
+   of UCSF (IMP, Chimera)
 
 We plan to support integrative/hybrid models by means of an mmCIF extension
 dictionary, `ihm-extension.dic`. Since this merely extends the existing mmCIF
@@ -47,28 +51,32 @@ The extension dictionary aims to cover:
 
  - Input data (e.g. crosslinks, EM map, EM class average, subunit structures)
  - Our interpretation of the data (e.g. ambiguity, segmentation)
-   - Note that we *not* store raw restraints in the file since we consider
+   - Note that we *not* store raw restraints in the file, since we consider
      these to be implementation details. At least for IMP, the software, and
      our approaches to solve modeling problems, are constantly changing, so
      it would be futile to try to capture every last parameter (particularly
-     since ideally models are refined and rebuilt with newer software as new
-     experimental information becomes available). For "perfect" reproduction
-     of the inputs we link to the archive holding the raw modeling inputs
-     (Python scripts in IMP's case).
+     since ideally models are refined and rebuilt with newer or different
+     software as new experimental information becomes available). For
+     "perfect" reproduction of the inputs we link to the archive holding
+     the raw modeling inputs (Python scripts in IMP's case).
  - Multi-scale models; e.g. parts of the system may be represented atomically
    or with 1 residue beads if input structures are available; other parts may
    represented with 20 residue beads (e.g. disordered regions or regions with
-   sequence but no known structure). The same part of the system may be
+   sequence but no known structure). Parts of the system may be
    represented at multiple such resolutions simultaneously.
  - Multi-state models; multiple states (e.g. open and closed) may exist
-   simultaneously such that the collected experimental information
-   (e.g. crosslinks) reflects more than one state, and cannot be satisfied
-   by a single model. The mmCIF file contains all states modeled.
+   simultaneously such that some or all of the collected experimental
+   information (e.g. crosslinks) reflects more than one state, and cannot
+   be satisfied by a single model. The mmCIF file contains all states modeled,
+   with links to the sets of experiments consistent with each
+   state (if known).
  - Time-ordered models; multiple models may be deposited that represent
    a trajectory, reaction cycle/pathway, or other time-ordered relationship.
+   The mmCIF file stores a simple directed graph of these models (as a set
+   of edges).
  - Output representation (cluster representatives)
    - Coarse-grained coordinates (beads)
-   - Non-Cartesian values (e.g. nuisances)
+   - Non-Cartesian values (e.g. Bayesian parameters or nuisances)
  - Ensemble info (number & size of clusters)
  - Other metadata (e.g. publications, software versions used)
  - Basic validation (how well do the models fit the data, are they minima,
@@ -82,3 +90,5 @@ EM class averages (EMDB stores maps; EMPIAR stores micrographs that were used
 to generate a map). Those used by the Sali lab in the Nup84 study were uploaded
 to GitHub and then archived at zenodo.org, which assigns a permanent DOI,
 in this case [10.5281/zenodo.46266](http://dx.doi.org/10.5281/zenodo.46266).
+In other cases the data may be available in the supplementary information of
+a publication, in which case the published-assigned DOI can be used.
