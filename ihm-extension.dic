@@ -60,7 +60,7 @@ save_ihm_starting_model_details
     _category_group.id           'inclusive_group'
                                  'ihm_group'
     loop_
-    _category_exampesl.detail
+    _category_examples.detail
     _category_examples.case
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -2508,7 +2508,6 @@ save__ihm_cross_link_restraint.entity_id_1
     _item_type.code               code
     _item_linked.child_name       '_ihm_cross_link_restraint.entity_id_1'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.entity_id_1'
      save_
 
 save__ihm_cross_link_restraint.entity_id_2
@@ -2524,7 +2523,6 @@ save__ihm_cross_link_restraint.entity_id_2
     _item_type.code               code
     _item_linked.child_name       '_ihm_cross_link_restraint.entity_id_2'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.entity_id_2'
      save_
 
 save__ihm_cross_link_restraint.asym_id_1
@@ -2570,7 +2568,6 @@ save__ihm_cross_link_restraint.comp_id_1
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_cross_link_restraint.comp_id_1'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.comp_id_1'
      save_
 
 save__ihm_cross_link_restraint.comp_id_2
@@ -2586,7 +2583,6 @@ save__ihm_cross_link_restraint.comp_id_2
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_cross_link_restraint.comp_id_2'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.comp_id_2'
      save_
 
 save__ihm_cross_link_restraint.seq_id_1
@@ -2602,7 +2598,6 @@ save__ihm_cross_link_restraint.seq_id_1
     _item_type.code               int
     _item_linked.child_name       '_ihm_cross_link_restraint.seq_id_1'
     _item_linked.parent_name      '_entity_poly_seq.num'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.seq_id_1'
      save_
 
 save__ihm_cross_link_restraint.seq_id_2
@@ -2618,7 +2613,6 @@ save__ihm_cross_link_restraint.seq_id_2
     _item_type.code               int
     _item_linked.child_name       '_ihm_cross_link_restraint.seq_id_2'
     _item_linked.parent_name      '_entity_poly_seq.num'
-    _item_linked.parent_name      '_ihm_cross_link_restraint.seq_id_2'
      save_
 
 save__ihm_cross_link_restraint.type
@@ -2946,6 +2940,7 @@ save__ihm_2dem_class_average_restraint.image_segment_flag
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          no
     _item_type.code               code
+    loop_
     _item_enumeration.value
     _item_enumeration.details
     'YES'   'Image is masked; only a portion of the image is used'
@@ -3359,7 +3354,7 @@ save__ihm_3dem_restraint.details
     _item.mandatory_code          no
     _item_type.code               text
     loop_
-    _item.examples.case
+    _item_examples.case
 ;       The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
         using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
         a 3D fit of the map and the model.
