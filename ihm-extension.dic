@@ -768,7 +768,7 @@ save__ihm_modeling_experiment.multi_scale_flag
     _item_type.code               code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
         Y     'Yes'
         N     'No'
      save_
@@ -783,7 +783,7 @@ save__ihm_modeling_experiment.multi_state_flag
     _item_type.code               code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
         Y   'Yes'   
         N   'No'    
      save_
@@ -798,7 +798,7 @@ save__ihm_modeling_experiment.time_ordered_flag
     _item_type.code               code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
         Y   'Yes'
         N   'No'
      save_
@@ -1326,7 +1326,7 @@ save__ihm_modeling_post_process.type
     _item_type.code               line
     loop_ 
    _item_enumeration.value
-   _item_enumeration.details
+   _item_enumeration.detail
     'filter'    'post processing step involves filtering of models'
     'cluster'   'post processing step involves clustering of models'
     'rescore'   'post processing step involves rescoring of the models'
@@ -1344,7 +1344,7 @@ save__ihm_modeling_post_process.feature
     _item_type.code               code
     loop_ 
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
     'energy/score'  .
     'RMSD'          .
     'dRMSD'         .
@@ -1535,7 +1535,7 @@ save__ihm_ensemble_info.ensemble_clustering_feature
     _item_type.code               line
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
         'RMSD'      'clustered by RMSD'
         'dRMSD'     'clustered by dRMSD'
         'other'     'clustered by other feature'
@@ -2154,7 +2154,7 @@ save__ihm_dataset_other.content_type
     _item_type.code            code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
       'text/plain'  'Plain text file'
       'text/csv'    'Comma-separated text file'
       'text/tsv'    'Tab-separated text file'
@@ -2942,7 +2942,7 @@ save__ihm_2dem_class_average_restraint.image_segment_flag
     _item_type.code               code
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
     'YES'   'Image is masked; only a portion of the image is used'
     'NO'    'Image is not masked; the entire image is used'
      save_
@@ -3343,6 +3343,8 @@ save__ihm_3dem_restraint.fitting_method_citation_id
     _item.category_id             ihm_3dem_restraint
     _item.mandatory_code          no
     _item_type.code               int
+    _item_linked.child_name     '_ihm_3dem_restraint.fitting_method_citation_id'
+    _item_linked.parent_name    '_citation.id'
      save_
 
 save__ihm_3dem_restraint.details
