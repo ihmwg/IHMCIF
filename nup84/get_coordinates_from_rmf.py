@@ -62,19 +62,25 @@ def print_component(c, center, indent=0):
     for child in c.get_children():
         print_component(child, center, indent + 2)
 
-if len(sys.argv) != 2:
-    print("Usage: %s rmf_file" % sys.argv[0], file=sys.stderr)
-    sys.exit(1)
+def handle_rmf(fname):
+    m = IMP.Model()
+    f = RMF.open_rmf_file_read_only(fname)
+    h = IMP.rmf.create_hierarchies(f, m)
+    # Update rigid body coordinates
+    m.update()
 
-m = IMP.Model()
-f = RMF.open_rmf_file_read_only(sys.argv[1])
-h = IMP.rmf.create_hierarchies(f, m)
-# Update rigid body coordinates
-m.update()
+    # Find geometric center (so we can center everything at the origin; for
+    # compatibility with PMI's PDB output).
+    center = get_geometric_center(h[0])
 
-# Find geometric center (so we can center everything at the origin; for
-# compatibility with PMI's PDB output).
-center = get_geometric_center(h[0])
+    for subunit in h[0].get_children():
+        print_component(subunit, center)
 
-for subunit in h[0].get_children():
-    print_component(subunit, center)
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: %s rmf_file" % sys.argv[0], file=sys.stderr)
+        sys.exit(1)
+    handle_rmf(sys.argv[1])
+
+if __name__ == '__main__':
+    main()
