@@ -131,21 +131,27 @@ save__ihm_starting_model_details.entity_description
 save__ihm_starting_model_details.seq_id_begin
     _item_description.description
 ;     The leading residue index for the sequence segment modeled using this starting model.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
 ;
     _item.name                  '_ihm_starting_model_details.seq_id_begin'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_model_details.seq_id_begin'
+    _item_linked.parent_name    '_entity_poly_seq.num'
      save_
 
 save__ihm_starting_model_details.seq_id_end
     _item_description.description
 ;     The trailing residue index for the sequence segment modeled using this starting model.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
 ;
     _item.name                  '_ihm_starting_model_details.seq_id_end'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_model_details.seq_id_end'
+    _item_linked.parent_name    '_entity_poly_seq.num'
      save_
 
 save__ihm_starting_model_details.starting_model_source
@@ -172,6 +178,12 @@ save__ihm_starting_model_details.starting_model_db_name
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'PDB'     'Protein Data Bank'
+        'MA'      'Model Archive'
+        'Other'   'Other archive'
      save_
 
 save__ihm_starting_model_details.starting_model_db_code
@@ -187,11 +199,14 @@ save__ihm_starting_model_details.starting_model_db_code
 save__ihm_starting_model_details.starting_model_db_pdb_auth_asym_id
     _item_description.description
 ;     The for PDB database references the author assigned chainId/auth_asym_id corresponding to this starting model. 
+      This data item is a pointer to _struct_asym.id in the STRUCT_ASYM category. 
 ;
     _item.name                  '_ihm_starting_model_details.starting_model_db_pdb_auth_asym_id'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_model_details.starting_model_db_pdb_auth_asym_id'
+    _item_linked.parent_name    '_struct_asym.id'
      save_
 
 save__ihm_starting_model_details.starting_model_sequence_identity
@@ -1723,7 +1738,7 @@ save_ihm_dataset_list
     _ihm_dataset_list.group_id
     _ihm_dataset_list.data_type
     _ihm_dataset_list.database_hosted
-    -ihm_dataset_list.category_info
+    _ihm_dataset_list.category_info
 
     1  1  'CX-MS data'   'NO'   'ihm_dataset_other'
     2  1  'CX-MS data'   'NO'   'ihm_dataset_other'
@@ -2000,7 +2015,7 @@ save_ihm_dataset_other
 ;
  loop_
  _ihm_dataset_other.id
- -ihm_dataset_other.dataset_list_id
+ _ihm_dataset_other.dataset_list_id
  _ihm_dataset_other.data_type
  _ihm_dataset_other.doi
  _ihm_dataset_other.content_filename
@@ -2021,7 +2036,7 @@ save_ihm_dataset_other
  3  4  '2DEM class average'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm'
 ;    2DEM class average of the Nup84 sub-complex
 ;
- 4  5  'Comparative model'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain'
+ 4  5  'Comparative model'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
  # ...  abbreviated ...
 
 ;
@@ -3377,6 +3392,7 @@ save_ihm_starting_model_coord
         _ihm_starting_model_coord.atom_id
         _ihm_starting_model_coord.comp_id
         _ihm_starting_model_coord.entity_id
+        _ihm_starting_model_coord.asym_id
         _ihm_starting_model_coord.seq_id
         _ihm_starting_model_coord.Cartn_x
         _ihm_starting_model_coord.Cartn_y
@@ -3384,17 +3400,17 @@ save_ihm_starting_model_coord
         _ihm_starting_model_coord.B_iso_or_equiv
         _ihm_starting_model_coord.formal_charge
         _ihm_starting_model_coord.ordinal_id
-        Nup84-m1    ATOM      1  N   N    TYR  1     7    -9.852    10.605    -6.336   91.82  .      1  
-        Nup84-m1    ATOM      2  C   CA   TYR  1     7    -8.986    11.688    -5.817   91.82  .      2  
-        Nup84-m1    ATOM      3  C   CB   TYR  1     7    -7.787    11.073    -5.072   91.82  .      3  
-        Nup84-m1    ATOM      4  C   CG   TYR  1     7    -6.741    12.117    -4.873   91.82  .      4  
-        Nup84-m1    ATOM      5  C   CD1  TYR  1     7    -6.906    13.168    -3.998   91.82  .      5  
-        Nup84-m1    ATOM      6  C   CD2  TYR  1     7    -5.561    12.013    -5.571   91.82  .      6  
-        Nup84-m1    ATOM      7  C   CE1  TYR  1     7     -5.91    14.108    -3.843   91.82  .      7  
-        Nup84-m1    ATOM      8  C   CE2  TYR  1     7    -4.566    12.945    -5.421   91.82  .      8  
-        Nup84-m1    ATOM      9  C   CZ   TYR  1     7    -4.738    13.997    -4.558   91.82  .      9  
-        Nup84-m1    ATOM     10  O   OH   TYR  1     7    -3.708    14.949    -4.411   91.82  .     10  
-        Nup84-m1    ATOM     11  C   C    TYR  1     7    -8.513    12.596    -6.909   91.82  .     11  
+        Nup84-m1    ATOM      1  N   N    TYR  1  A  7    -9.852    10.605    -6.336   91.82  .      1  
+        Nup84-m1    ATOM      2  C   CA   TYR  1  A  7    -8.986    11.688    -5.817   91.82  .      2  
+        Nup84-m1    ATOM      3  C   CB   TYR  1  A  7    -7.787    11.073    -5.072   91.82  .      3  
+        Nup84-m1    ATOM      4  C   CG   TYR  1  A  7    -6.741    12.117    -4.873   91.82  .      4  
+        Nup84-m1    ATOM      5  C   CD1  TYR  1  A  7    -6.906    13.168    -3.998   91.82  .      5  
+        Nup84-m1    ATOM      6  C   CD2  TYR  1  A  7    -5.561    12.013    -5.571   91.82  .      6  
+        Nup84-m1    ATOM      7  C   CE1  TYR  1  A  7     -5.91    14.108    -3.843   91.82  .      7  
+        Nup84-m1    ATOM      8  C   CE2  TYR  1  A  7    -4.566    12.945    -5.421   91.82  .      8  
+        Nup84-m1    ATOM      9  C   CZ   TYR  1  A  7    -4.738    13.997    -4.558   91.82  .      9  
+        Nup84-m1    ATOM     10  O   OH   TYR  1  A  7    -3.708    14.949    -4.411   91.82  .     10  
+        Nup84-m1    ATOM     11  C   C    TYR  1  A  7    -8.513    12.596    -6.909   91.82  .     11  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -3415,11 +3431,15 @@ save__ihm_starting_model_coord.ordinal_id
 save__ihm_starting_model_coord.starting_model_id
     _item_description.description
 ;     The identifier for the starting structural model.
+      This data item is a pointer to _ihm_starting_model_details.starting_model_id
+      in the IHM_STARTING_MODEL_DETAILS category. 
 ;
     _item.name                  '_ihm_starting_model_coord.starting_model_id'
     _item.category_id             ihm_starting_model_coord
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_model_coord.starting_model_id'
+    _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
      save_
 
 save__ihm_starting_model_coord.id
@@ -3491,6 +3511,20 @@ save__ihm_starting_model_coord.seq_id
     _item_type.code               int
     _item_linked.child_name       '_ihm_starting_model_coord.seq_id'
     _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_starting_model_coord.asym_id
+    _item_description.description
+;     The asym/strand id corresponding to this coordinate position. 
+
+      This data item is a pointer to _struct_asym.id in the STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_starting_model_coord.asym_id'
+    _item.category_id             ihm_starting_model_coord
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_starting_model_coord.asym_id'
+    _item_linked.parent_name      '_struct_aysm.id'
      save_
 
 save__ihm_starting_model_coord.Cartn_x
