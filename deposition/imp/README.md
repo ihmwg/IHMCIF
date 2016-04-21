@@ -7,6 +7,8 @@ be suitable for deposition once issues (below) are resolved.
 ## [40S•eIF1•eIF3 Complex](https://salilab.org/40S-eIF1-eIF3)
 
  - No obvious barriers to deposition.
+ - The EM maps used in this study were not used as restraints, but only for
+   assessment (see [figure S6](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4151992/figure/figs6/)).
 
 ## [Exosome modeling](https://salilab.org/exosome)
 
