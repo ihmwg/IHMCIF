@@ -1857,21 +1857,12 @@ save_ihm_dataset_related_db_reference
  _ihm_dataset_related_db_reference.version
  _ihm_dataset_related_db_reference.data_type
  _ihm_dataset_related_db_reference.details
-
- 1  6  'PRIDE'  'PXD00381'  .  'CX-MS data'
-;   Structural Analysis of a Prokaryotic Ribosome Using a 
-    Novel Amidinating Cross-Linker and Mass Spectrometry
-;
- 2  3  'EMDB'  'EMD-2799'  .  '3DEM volume'  ?
- 3  5  'PDB'   '5FM1'      .  'unspecified'            
-;   STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE
-;
- 4  7  'BMRB'  '25766'     .  'unspecified'  ?
- 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Comparative model'
-;   PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING
-;
+ 1  6  'PRIDE'  'PXD00381'  .  'CX-MS data' 'Structural Analysis of a Prokaryotic Ribosome Using a Novel Amidinating Cross-Linker and Mass Spectrometry'
+ 2  3  'EMDB'  'EMD-2799'  .  '3DEM volume'  .
+ 3  5  'PDB'   '5FM1'      .  'unspecified'  'STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE'
+ 4  7  'BMRB'  '25766'     .  'unspecified'  .
+ 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Comparative model' 'PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING'
  # ...  abbreviated ...
-
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED  
@@ -2021,24 +2012,11 @@ save_ihm_dataset_other
  _ihm_dataset_other.content_filename
  _ihm_dataset_other.content_type
  _ihm_dataset_other.details
-
- 1  1  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain'
-;    Nup84 sub-complex probed by chemical crosslinking
-     using 1-ethyl-(dimethylaminopropyl) carbodiimide 
-     hydrochloride (EDC) crosslinker followed by mass 
-     spectrometry
-;
- 2  2  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain'
-;    Nup84 sub-complex probed by chemical crosslinking
-         using disuccinimidyl suberate (DSS) crosslinker 
-     followed by mass spectrometry
-;
- 3  4  '2DEM class average'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm'
-;    2DEM class average of the Nup84 sub-complex
-;
+ 1  1  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
+ 2  2  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
+ 3  4  '2DEM class average'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm' '2DEM class average of the Nup84 sub-complex'
  4  5  'Comparative model'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
  # ...  abbreviated ...
-
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED 
