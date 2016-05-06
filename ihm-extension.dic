@@ -20,27 +20,30 @@
 #           Changed category key item in ihm_model_details category to account for multiple coarse-grained representations 
 #           of the same model segment (introduced _ihm_model_details.ordinal_id)
 #           Updated _ihm_sphere_obj_site.entity_instance_id, ihm_cross_link_restraint (psi and sigma parameters)
-#           Added ihm_modeling_experiment, ihm_cluster_info, ihm_struct_assembly (previously ihm_entity_assembly)
+#           Added ihm_modeling_protocol, ihm_cluster_info, ihm_struct_assembly (previously ihm_entity_assembly)
 #           Added _ihm_3dem_restraint category; minor changes to other categories
 #           Changed ihm_model_details category name to ihm_model_representation (handles multi-scale representation)
-#           Changed several data items in the ihm_modeling_experiment category
+#           Changed several data items in the ihm_modeling_protocol category
 #           Added ihm_modeling_post_process, ihm_model_list, ihm_multi_state_modeling,
 #           ihm_time_ordered_ensemble, ihm_gaussian_object_site categories
 #           Linked ihm_model_list to ihm_sphere_obj_site through model_id
 #           Linked ihm_starting_model_details to ihm_dataset_list through dataset_list_id
-#           Added new data item _ihm_model_representation.representation_id and more changes to ihm_modeling_experiment
+#           Added new data item _ihm_model_representation.representation_id and more changes to ihm_modeling_protocol
 #           and ihm_gaussian_obj_site categories. 
 #           Added ihm_gaussian_obj_ensemble category to represent ensembles as gaussian objects - to be different from
 #           ihm_gaussian_object_site category that is used in model representation and hence by visualization software. 
 #           Changed ihm_cluster_info category name to ihm_ensemble_info and changed relevant data item names accordingly.
 #           Changed ihm_related_database_reference category name to ihm_dataset_related_db_reference to be consistent
 #           with other similar categories
-#           Minor changes in other categories: ihm_model_list, ihm_dataset_list, ihm_modeling_experiment, ihm_ensemble_info,
+#           Minor changes in other categories: ihm_model_list, ihm_dataset_list, ihm_modeling_protocol, ihm_ensemble_info,
 #           ihm_multi_state_modeling, ihm_time_ordered_ensemble, ihm_2dem_class_average_restraint (data items are now 
 #           similar to 2D class average images in EMPIAR), ihm_model_represenation. 
-#           Updated parent-child relationships across several categories (ihm_modeling_experiment, ihm_ensemble_info
+#           Updated parent-child relationships across several categories (ihm_modeling_protocol, ihm_ensemble_info
 #           ihm_model_list, ihm_multi_state_modeling, ihm_time_ordered_ensemble, ihm_2dem_class_average_fitting, 
 #           ihm_cross_link_result)
+#           Updated examples in ihm_dataset_list, ihm_dataset_other and ihm_dataset_related_db_reference
+#           Changed ihm_modeling_experiment to ihm_modeling_protocol to be consistent with the model archive naming 
+#           convention
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -603,18 +606,18 @@ save__ihm_struct_assembly.seq_id_end
      save_
 
 #############################
-## IHM_MODELING_EXPERIMENT ##
+## IHM_MODELING_PROTOCOL ##
 #############################
 
-save_ihm_modeling_experiment
+save_ihm_modeling_protocol
     _category.description
-;              Data items in the IHM_MODELING_EXPERIMENT category records the
+;              Data items in the IHM_MODELING_PROTOCOL category records the
                step-wise details of the integrative modeling workflow. 
 ;
-    _category.id                  ihm_modeling_experiment
+    _category.id                  ihm_modeling_protocol
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_modeling_experiment.ordinal_id'
+    _category_key.name          '_ihm_modeling_protocol.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -627,19 +630,19 @@ save_ihm_modeling_experiment
     Example 1 -
 ;
 ;
-    _ihm_modeling_experiment.ordinal_id
-    _ihm_modeling_experiment.experiment_id
-    _ihm_modeling_experiment.step_id
-    _ihm_modeling_experiment.struct_assembly_id
-    _ihm_modeling_experiment.dataset_group_id
-    _ihm_modeling_experiment.assembly_description
-    _ihm_modeling_experiment.step_name
-    _ihm_modeling_experiment.step_method
-    _ihm_modeling_experiment.num_models_begin
-    _ihm_modeling_experiment.num_models_end
-    _ihm_modeling_experiment.multi_scale_flag
-    _ihm_modeling_experiment.multi_state_flag
-    _ihm_modeling_experiment.time_ordered_flag
+    _ihm_modeling_protocol.ordinal_id
+    _ihm_modeling_protocol.protocol_id
+    _ihm_modeling_protocol.step_id
+    _ihm_modeling_protocol.struct_assembly_id
+    _ihm_modeling_protocol.dataset_group_id
+    _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.step_name
+    _ihm_modeling_protocol.step_method
+    _ihm_modeling_protocol.num_models_begin
+    _ihm_modeling_protocol.num_models_end
+    _ihm_modeling_protocol.multi_scale_flag
+    _ihm_modeling_protocol.multi_state_flag
+    _ihm_modeling_protocol.time_ordered_flag
 
     1   1   1   1   1   'Nup84 sub-complex' 'Sampling'  'Replica exchange monte carlo'     0    7500  Y  N   N
     2   1   2   1   2   'Nup84 sub-complex' 'Sampling'  'Replica exchange monte carlo'  7500   15000  Y  N   N
@@ -647,40 +650,40 @@ save_ihm_modeling_experiment
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_modeling_experiment
+   _pdbx_category_context.category_id  ihm_modeling_protocol
      save_
 
-save__ihm_modeling_experiment.ordinal_id
+save__ihm_modeling_protocol.ordinal_id
     _item_description.description
-;     A unique identifier for the modeling experiment/step combination.
+;     A unique identifier for the modeling protocol/step combination.
 ;
-    _item.name                  '_ihm_modeling_experiment.ordinal_id'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.ordinal_id'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_modeling_experiment.experiment_id
+save__ihm_modeling_protocol.protocol_id
     _item_description.description
-;     An index for the modeling experiment carried out.
+;     An index for the modeling protocol carried out.
 ;
-    _item.name                  '_ihm_modeling_experiment.experiment_id'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.protocol_id'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          yes  
     _item_type.code               int  
      save_
 
-save__ihm_modeling_experiment.step_id
+save__ihm_modeling_protocol.step_id
     _item_description.description
-;     An index for a particular step within the modeling experiment.
+;     An index for a particular step within the modeling protocol.
 ;
-    _item.name                  '_ihm_modeling_experiment.step_id'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.step_id'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          yes  
     _item_type.code               int  
      save_
 
-save__ihm_modeling_experiment.struct_assembly_id
+save__ihm_modeling_protocol.struct_assembly_id
     _item_description.description
 ;    An index for the structural assembly being modeled. 
      This is an indicator to whether the whole assembly is modeled
@@ -691,35 +694,35 @@ save__ihm_modeling_experiment.struct_assembly_id
      The default value for this data item is "1", indicating that the entire
      assembly is being modeled. 
 ;
-    _item.name                  '_ihm_modeling_experiment.struct_assembly_id'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.struct_assembly_id'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_modeling_experiment.struct_assembly_id'
+    _item_linked.child_name     '_ihm_modeling_protocol.struct_assembly_id'
     _item_linked.parent_name    '_ihm_struct_assembly.assembly_id' 
     _item_default.value           1
     save_
 
-save__ihm_modeling_experiment.dataset_group_id
+save__ihm_modeling_protocol.dataset_group_id
     _item_description.description
-;    An index for the dataset group being used in the modeling experiment.
+;    An index for the dataset group being used in the modeling protocol.
      This data item is a pointer to the _ihm_dataset_list.group_id in the
      IHM_DATASET_LIST category.
 ;
-    _item.name                  '_ihm_modeling_experiment.dataset_group_id'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.dataset_group_id'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_modeling_experiment.dataset_group_id'
+    _item_linked.child_name     '_ihm_modeling_protocol.dataset_group_id'
     _item_linked.parent_name    '_ihm_dataset_list.group_id'
      save_
 
-save__ihm_modeling_experiment.struct_assembly_description
+save__ihm_modeling_protocol.struct_assembly_description
     _item_description.description
 ;    A textual description of the structural assembly being modeled. 
 ;
-    _item.name                  '_ihm_modeling_experiment.struct_assembly_description'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.struct_assembly_description'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               line
     loop_
@@ -727,12 +730,12 @@ save__ihm_modeling_experiment.struct_assembly_description
     'Nup84 sub-complex'
      save_
 
-save__ihm_modeling_experiment.step_name
+save__ihm_modeling_protocol.step_name
     _item_description.description
 ;    The name or type of the modeling step. 
 ;
-    _item.name                  '_ihm_modeling_experiment.step_name'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.step_name'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               line
     loop_
@@ -741,12 +744,12 @@ save__ihm_modeling_experiment.step_name
     'Refinement' 
      save_
 
-save__ihm_modeling_experiment.step_method
+save__ihm_modeling_protocol.step_method
     _item_description.description
 ;    Description of the method involved in the modeling step. 
 ;
-    _item.name                  '_ihm_modeling_experiment.step_method'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.step_method'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no   
     _item_type.code               line 
     loop_
@@ -756,32 +759,32 @@ save__ihm_modeling_experiment.step_method
     'Monte carlo sampling'
      save_
 
-save__ihm_modeling_experiment.num_models_begin
+save__ihm_modeling_protocol.num_models_begin
     _item_description.description
 ;    The number of models in the beginning of the step. 
 ;
-    _item.name                  '_ihm_modeling_experiment.num_models_begin'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.num_models_begin'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               int
      save_
 
-save__ihm_modeling_experiment.num_models_end
+save__ihm_modeling_protocol.num_models_end
     _item_description.description
 ;    The number of models at the end of the step.       
 ;
-    _item.name                  '_ihm_modeling_experiment.num_models_end'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.num_models_end'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               int
      save_
 
-save__ihm_modeling_experiment.multi_scale_flag
+save__ihm_modeling_protocol.multi_scale_flag
     _item_description.description
 ;    A flag to indicate if the modeling is multi scale. 
 ;
-    _item.name                  '_ihm_modeling_experiment.multi_scale_flag'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.multi_scale_flag'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               code
     loop_
@@ -791,12 +794,12 @@ save__ihm_modeling_experiment.multi_scale_flag
         N     'No'
      save_
 
-save__ihm_modeling_experiment.multi_state_flag
+save__ihm_modeling_protocol.multi_state_flag
     _item_description.description
 ;    A flag to indicate if the modeling is multi state. 
 ;   
-    _item.name                  '_ihm_modeling_experiment.multi_state_flag'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.multi_state_flag'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               code
     loop_
@@ -806,12 +809,12 @@ save__ihm_modeling_experiment.multi_state_flag
         N   'No'    
      save_
 
-save__ihm_modeling_experiment.time_ordered_flag
+save__ihm_modeling_protocol.time_ordered_flag
     _item_description.description
 ;    A flag to indicate if the modeling provides a time ordered ensemble.
 ;   
-    _item.name                  '_ihm_modeling_experiment.time_ordered_flag'
-    _item.category_id             ihm_modeling_experiment
+    _item.name                  '_ihm_modeling_protocol.time_ordered_flag'
+    _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               code
     loop_
@@ -828,7 +831,7 @@ save__ihm_modeling_experiment.time_ordered_flag
 save_ihm_multi_state_modeling
     _category.description
 ;              Data items in the IHM_MULTI_STATE_MODELING category records the
-               details of the multi-state modeling experiment, if applicable. 
+               details of the multi-state modeling protocol, if applicable. 
 ;
     _category.id                  ihm_multi_state_modeling
     _category.mandatory_code      no
@@ -1212,7 +1215,7 @@ save_ihm_modeling_post_process
     _category.description
 ;              Data items in the IHM_MODELING_POST_PROCESS category records
                the details of the post processing of the models/results of
-               the modeling experiment.
+               the modeling protocol.
 ;
     _category.id                  ihm_modeling_post_process
     _category.mandatory_code      no
@@ -1233,7 +1236,7 @@ save_ihm_modeling_post_process
 ;
     loop_
     _ihm_modeling_post_process.id
-    _ihm_modeling_post_process.experiment_id
+    _ihm_modeling_post_process.protocol_id
     _ihm_modeling_post_process.analysis_id
     _ihm_modeling_post_process.step_id
     _ihm_modeling_post_process.type
@@ -1263,19 +1266,19 @@ save__ihm_modeling_post_process.id
     _item_type.code               int
      save_
 
-save__ihm_modeling_post_process.experiment_id
+save__ihm_modeling_post_process.protocol_id
     _item_description.description
-;    An identifier for the modeling experiment, whose post modeling analysis
+;    An identifier for the modeling protocol, whose post modeling analysis
      is being carried out. 
-     This data item is a pointer to the _ihm_modeling_experiment.experiment_id
-     in the IHM_MODELING_EXPERIMENT category. 
+     This data item is a pointer to the _ihm_modeling_protocol.protocol_id
+     in the IHM_MODELING_PROTOCOL category. 
 ;
-    _item.name                  '_ihm_modeling_post_process.experiment_id'
+    _item.name                  '_ihm_modeling_post_process.protocol_id'
     _item.category_id             ihm_modeling_post_process
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_modeling_post_process.experiment_id'
-    _item_linked.parent_name    '_ihm_modeling_experiment.experiment_id'
+    _item_linked.child_name     '_ihm_modeling_post_process.protocol_id'
+    _item_linked.parent_name    '_ihm_modeling_protocol.protocol_id'
      save_
 
 save__ihm_modeling_post_process.analysis_id
@@ -1574,7 +1577,7 @@ save_ihm_model_list
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
-    _ihm_model_list.experiment_id
+    _ihm_model_list.protocol_id
 
     1    1      1    'ensemble1'     1
     2    2      1    'ensemble1'     1
@@ -1597,7 +1600,7 @@ save_ihm_model_list
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
-    _ihm_model_list.experiment_id
+    _ihm_model_list.protocol_id
 
     11    1      1    'open state'       1
     12    2      1    'open state'       1
@@ -1620,7 +1623,7 @@ save_ihm_model_list
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
-    _ihm_model_list.experiment_id
+    _ihm_model_list.protocol_id
 
     21    1      1    'cluster1'       1
     22    2      1    'cluster1'       1
@@ -1690,18 +1693,18 @@ save__ihm_model_list.model_group_name
     'unbound state'
      save_
 
-save__ihm_model_list.experiment_id
+save__ihm_model_list.protocol_id
     _item_description.description
-;     An identifier to the modeling experiment that produced the model.
-      This data item is a pointer to the _ihm_modeling_experiment.experiment_id
-      in the IHM_MODELING_EXPERIMENT category.
+;     An identifier to the modeling protocol that produced the model.
+      This data item is a pointer to the _ihm_modeling_protocol.protocol_id
+      in the IHM_MODELING_PROTOCOL category.
 ;
-    _item.name                  '_ihm_model_list.experiment_id'
+    _item.name                  '_ihm_model_list.protocol_id'
     _item.category_id             ihm_model_list
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_model_list.experiment_id'
-    _item_linked.parent_name    '_ihm_modeling_experiment.experiment_id'
+    _item_linked.child_name     '_ihm_model_list.protocol_id'
+    _item_linked.parent_name    '_ihm_modeling_protocol.protocol_id'
      save_
 
 ######################
