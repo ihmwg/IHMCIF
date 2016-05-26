@@ -1,5 +1,6 @@
 import IMP.pmi.representation
 import IMP.pmi.tools
+from IMP.pmi.tools import OrderedDict
 import sys
 import os
 import operator
@@ -72,6 +73,8 @@ class CifWriter(object):
         if isinstance(obj, str) and '"' not in obj \
            and "'" not in obj and " " not in obj:
             return obj
+        elif isinstance(obj, float):
+            return "%.3f" % obj
         else:
             return repr(obj)
 
@@ -110,11 +113,51 @@ class EntityDumper(Dumper):
                         pdbx_description=name, formula_weight=writer.unknown,
                         pdbx_number_of_molecules=1, details=writer.unknown)
 
+class StartingModelCoordDumper(Dumper):
+    def __init__(self, simo):
+        super(StartingModelCoordDumper, self).__init__(simo)
+        self.model_hier = OrderedDict()
+
+    def add_model(self, name, hier):
+        self.model_hier[name] = hier
+
+    def dump(self, writer):
+        ordinal = 1
+        with writer.loop("_ihm_starting_model_coord",
+                     ["starting_model_id", "group_PDB", "id", "type_symbol",
+                      "atom_id", "comp_id", "entity_id", "seq_id", "Cartn_x",
+                      "Cartn_y", "Cartn_z", "B_iso_or_equiv",
+                      "ordinal_id"]) as l:
+            for model_name, hier in self.model_hier.items():
+                for a in IMP.atom.get_leaves(hier):
+                    coord = IMP.core.XYZ(a).get_coordinates()
+                    atom = IMP.atom.Atom(a)
+                    element = atom.get_element()
+                    element = IMP.atom.get_element_table().get_name(element)
+                    atom_name = atom.get_atom_type().get_string()
+                    group_pdb = 'ATOM'
+                    if atom_name.startswith('HET:'):
+                        group_pdb = 'HETATM'
+                        del atom_name[:4]
+                    res = IMP.atom.get_residue(atom)
+                    res_name = res.get_residue_type().get_string()
+                    chain = IMP.atom.get_chain(res)
+                    l.write(starting_model_id=model_name, group_PDB=group_pdb,
+                            id=atom.get_input_index(), type_symbol=element,
+                            atom_id=atom_name, comp_id=res_name,
+                            entity_id=self.simo._entity_id[model_name],
+                            seq_id=res.get_index(), Cartn_x=coord[0],
+                            Cartn_y=coord[1], Cartn_z=coord[2],
+                            B_iso_or_equiv=atom.get_temperature_factor(),
+                            ordinal_id=ordinal)
+                    ordinal += 1
+
 
 class Representation(IMP.pmi.representation.Representation):
     def __init__(self, m, fh, *args, **kwargs):
         self._cif_writer = CifWriter(fh)
         self._entity_id = {}
+        self.starting_model_coord_dump = StartingModelCoordDumper(self)
         super(Representation, self).__init__(m, *args, **kwargs)
 
     def create_component(self, name, *args, **kwargs):
@@ -124,3 +167,14 @@ class Representation(IMP.pmi.representation.Representation):
     def flush(self):
         for dumper in SoftwareDumper, EntityDumper:
             dumper(self).dump(self._cif_writer)
+        for dumper in (self.starting_model_coord_dump,):
+            dumper.dump(self._cif_writer)
+
+    def add_component_pdb(self, name, pdbname, chain, resolutions,
+                          resrange=None, *args, **kwargs):
+        sel = IMP.atom.NonWaterNonHydrogenPDBSelector() & IMP.atom.ChainPDBSelector(chain)
+        ph = IMP.atom.read_pdb(pdbname, self.m, sel)
+        self.starting_model_coord_dump.add_model(name, ph)
+        return super(Representation, self).add_component_pdb(name, pdbname,
+                                     chain, resolutions, resrange=resrange,
+                                     *args, **kwargs)
