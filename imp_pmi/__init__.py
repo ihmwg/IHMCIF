@@ -1,5 +1,6 @@
 import IMP.pmi.representation
 import IMP.pmi.tools
+import IMP.pmi.output
 from IMP.pmi.tools import OrderedDict
 import sys
 import os
@@ -113,6 +114,31 @@ class EntityDumper(Dumper):
                         pdbx_description=name, formula_weight=writer.unknown,
                         pdbx_number_of_molecules=1, details=writer.unknown)
 
+
+class EntityPolyDumper(Dumper):
+    def __init__(self, simo):
+        super(EntityPolyDumper, self).__init__(simo)
+        self.output = IMP.pmi.output.Output()
+
+    def dump(self, writer):
+        all_entities = [x for x in sorted(self.simo._entity_id.items(),
+                                          key=operator.itemgetter(1))]
+        chain = 0
+        with writer.loop("_entity_poly",
+                         ["entity_id", "type", "nstd_linkage",
+                          "nstd_monomer", "pdbx_strand_id",
+                          "pdbx_seq_one_letter_code",
+                          "pdbx_seq_one_letter_code_can"]) as l:
+            for name, entity_id in all_entities:
+                seq = self.simo.sequence_dict[name]
+                l.write(entity_id=entity_id, type='polypeptide(L)',
+                        nstd_linkage='no', nstd_monomer='no',
+                        pdbx_strand_id=self.output.chainids[chain],
+                        pdbx_seq_one_letter_code=seq,
+                        pdbx_seq_one_letter_code_can=seq)
+                chain += 1
+
+
 class StartingModelCoordDumper(Dumper):
     def __init__(self, simo):
         super(StartingModelCoordDumper, self).__init__(simo)
@@ -165,7 +191,7 @@ class Representation(IMP.pmi.representation.Representation):
         super(Representation, self).create_component(name, *args, **kwargs)
 
     def flush(self):
-        for dumper in SoftwareDumper, EntityDumper:
+        for dumper in SoftwareDumper, EntityDumper, EntityPolyDumper:
             dumper(self).dump(self._cif_writer)
         for dumper in (self.starting_model_coord_dump,):
             dumper.dump(self._cif_writer)
