@@ -7,11 +7,20 @@ import os
 import operator
 
 class _LineWriter(object):
-    def __init__(self, writer, line_len=80):
+    def __init__(self, writer, line_len=80, multi_line_len=70):
         self.writer = writer
         self.line_len = line_len
+        self.multi_line_len = multi_line_len
         self.column = 0
     def write(self, val):
+        if isinstance(val, str) and len(val) > self.multi_line_len:
+            self.writer.fh.write("\n;")
+            for i in range(0, len(val), self.multi_line_len):
+                self.writer.fh.write(val[i:i+self.multi_line_len])
+                self.writer.fh.write("\n")
+            self.writer.fh.write(";\n")
+            self.column = 0
+            return
         val = self.writer._repr(val)
         if self.column > 0:
             if self.column + len(val) + 1 > self.line_len:
