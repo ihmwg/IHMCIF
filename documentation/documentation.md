@@ -15,6 +15,13 @@ create an archive for integrative/hybrid methods and
 propose to extend the existing PDBX/mmCIF dictionary to accommodate 
 the requirements for integrative models. 
 
+![Integrative Modeling](./figures/IM.png "Integrative Modeling")
+
+*Figure 1. Integrative modeling of a complex macromolecular assembly utilizes spatial restraints 
+dervied from a variety of experiments along with available structural data of individual components 
+to drive an extensive computational sampling and analysis leading to the structural characterization 
+of the assembly.*
+
 ### PDBX/mmCIF dictionary extension
 
 The PDBX/mmCIF dictionary is currently used by the Protein Data Bank
@@ -35,7 +42,7 @@ I/H methods extension dictionary.
  
 ![IHM dictionary extension overview](./figures/IHM_dictionary_overview.png "IHM dictionary extension overview")
 
-*Figure 1. Illustration of the data content captured in the IHM dictionary extension.* 
+*Figure 2. Illustration of the data content captured in the IHM dictionary extension.* 
 
 The I/H methods extension dictionary describes the different kinds of input data types used in integrative modeling. 
 These include the following. 
@@ -66,10 +73,9 @@ ambiguities and uncertainties involved in the interpretation of experimental dat
 corresponding spatial restraints. References are included for the primary data archived in 
 the corresponding external repositories such as the [PDB](http://www.rcsb.org/), 
 [BMRB](http://www.bmrb.wisc.edu/), [EMDB](https://www.ebi.ac.uk/pdbe/emdb/), 
-[EMPIAR](https://www.ebi.ac.uk/pdbe/emdb/empiar/), [BIOSIS](http://www.bioisis.net/), 
-[SASBDB](http://www.sasbdb.org/) and [PRIDE](https://www.ebi.ac.uk/pride/archive/). 
-Allowances have been made to include data that do not yet have a primary repository. 
-These can be linked via persistent digital object identifiers (DOI). 
+[EMPIAR](https://www.ebi.ac.uk/pdbe/emdb/empiar/), [SASBDB](http://www.sasbdb.org/) and 
+[PRIDE](https://www.ebi.ac.uk/pride/archive/). Allowances have been made to include data 
+that do not yet have a primary repository. These can be linked via persistent digital object identifiers (DOI). 
 
 The integrative modeling algorithm can involve any combination of the following and are defined in the I/H methods dictionary.  
 
@@ -98,12 +104,11 @@ data sets used differently in the integrative modeling.
 
 Some experimental methods such as NMR spectroscopy ([BMRB](http://www.bmrb.wisc.edu/)),
 Electron microscopy ([EMDB](https://www.ebi.ac.uk/pdbe/emdb/), [EMPIAR](https://www.ebi.ac.uk/pdbe/emdb/empiar/)),
-Small angle solution scattering ([BIOSIS](http://www.bioisis.net/), [SASBDB](http://www.sasbdb.org/)), 
-crosslinking mass spectrometry and other proteomics data ([PRIDE](https://www.ebi.ac.uk/pride/archive/)) 
-have their own repositories where primary data is hosted. Data derived from such sources 
-are listed appropriately with references pointing to the primary data resource. The details of 
-database name, accession code, version number are included in the `ihm_dataset_related_db_reference`
-data category. 
+Small angle solution scattering [SASBDB](http://www.sasbdb.org/)), crosslinking mass spectrometry 
+and other proteomics data ([PRIDE](https://www.ebi.ac.uk/pride/archive/)) have their own repositories 
+where primary data is hosted. Data derived from such sources are listed appropriately with references 
+pointing to the primary data resource. The details of database name, accession code, version number are 
+included in the `ihm_dataset_related_db_reference` data category. 
 
 Other data types that do not currently have a primary repository can be included via persistent
 digital object identifiers (DOIs) and are listed in the `ihm_dataset_other` category. DOIs can be obtained
@@ -165,21 +170,21 @@ Example for `ihm_dataset_other` category
     _ihm_dataset_other.content_filename
     _ihm_dataset_other.content_type
     _ihm_dataset_other.details
-     1  1  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain'
+     1  1  'CX-MS data'  '10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain'
         ;    Nup84 sub-complex probed by chemical crosslinking
              using 1-ethyl-(dimethylaminopropyl) carbodiimide
              hydrochloride (EDC) crosslinker followed by mass
              spectrometry
         ;
-     2  2  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain'
+     2  2  'CX-MS data'  '10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain'
         ;    Nup84 sub-complex probed by chemical crosslinking
              using disuccinimidyl suberate (DSS) crosslinker
              followed by mass spectrometry
         ;
-     3  4  '2DEM class average'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm'
+     3  4  '2DEM class average'  '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm'
         ;    2DEM class average of the Nup84 sub-complex
         ;
-     4  5  'Comparative model'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
+     4  5  'Comparative model'  '10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
      # ... abbreviated ...
 
 ### Section 2: Input restraints derived from experiments
@@ -206,9 +211,9 @@ molecule (intra-chain crosslinks) or between different protein molecules (inter-
 crosslinks). For example, residue i in Protein A may be crosslinked to residue
 j in Protein B or residues i and j from Protein A may be crosslinked to each other. 
 
-![Chemical crosslinks](./figures/cc2.png "Chemical crosslinks")
+![Chemical crosslinks](./figures/cc.png "Chemical crosslinks")
 
-*Figure 2. Chemical crosslinking experiments provide information regarding distances
+*Figure 3. Chemical crosslinking experiments provide information regarding distances
 between the crosslinked amino acid residues. The crosslinks across subunits within 
 an assembly can be very useful in integrative modeling.*
 
@@ -337,7 +342,7 @@ digital object identifiers (DOI) as discussed in Section 1 above.
 
 ![2DEM class average](./figures/2dem.png "2DEM image")
 
-*Figure 3. The class average of 2D micrographs obtained during an electron microscopy experiment
+*Figure 4. The class average of 2D micrographs obtained during an electron microscopy experiment
 can be used as a restraint in integrative modeling. 2D projections of sampled 3D models can be fit
 to the 2D class average image to provide a fit-to-image score. The 2DEM class average of the 
 Nup-84 sub-complex from budding yeast is shown in the figure.*
@@ -378,7 +383,7 @@ cross-correlation coefficient corresponding to the fit.
 
 ![3DEM maps](./figures/3dem.png "3DEM maps")
 
-*Figure 4. 3D reconstructions obtained from electron microscopy experiments can be used as restraints in
+*Figure 5. 3D reconstructions obtained from electron microscopy experiments can be used as restraints in
 integrative modeling. Sampled models can be fit to the 3D maps to obtain a fit-to-density score that can
 be used to score the models.*
 
@@ -389,6 +394,7 @@ Example for `ihm_3dem_restraint` category
     _ihm_3dem_restraint.model_id                        1
     _ihm_3dem_restraint.fitting_method                  'Gaussian mixture models'
     _ihm_3dem_restraint.number_of_gaussians             10
+    _ihm_3dem_restraint.map_segment_flag                No
     _ihm_3dem_restraint.cross_correlation_coefficient   0.8
     _ihm_3dem_restraint.fitting_method_citation_id      5
     _ihm_3dem_restraint.details
@@ -398,6 +404,35 @@ Example for `ihm_3dem_restraint` category
       ;
       # ... abbreviated ...
 
+**Restraints from Small Angle Scattering (SAS) experiments**
+
+The data from SAS experiments are archived in the [SASBDB repository](http://www.sasbdb.org/). 
+All relevant information regarding the SAS experiment including the SAS profiles are captured in the 
+SASBDB entry. In the `ihm_sas_restraint` category, we capture the information regarding how the 
+SAS data is used as restraints in the integrative modeling. These include the fitting method used to 
+fit the model to the SAS profile, the chi-value corresponding to the fit and the radius of gyration 
+obtained from the SAS data.
+
+![SAS restraint](./figures/sas.png "SAS restraint")
+
+*Figure 6. An example of an experimentally derived SAS profile is shown (left, black dots) along with the 
+theoretical SAS profile (left, red line) derived from a model obtained through integrative modeling (right).* 
+
+Example for `ihm_sas_restraint` category
+
+    _ihm_sas_restraint.id                              1
+    _ihm_sas_restraint.dataset_list_id                 6
+    _ihm_sas_restraint.model_id                        1
+    _ihm_sas_restraint.profile_segment_flag            No
+    _ihm_sas_restraint.fitting_atom_type               'Heavy atoms'
+    _ihm_sas_restraint.fitting_method                  'FoXS'
+    _ihm_sas_restraint.fitting_state                   'Single'
+    _ihm_sas_restraint.radius_of_gyration              21.07
+    _ihm_sas_restraint.chi_value                       4.69
+    _ihm_sas_restraint.details                         .
+
+    # ... abbreviated ...
+
 ### Section 3: Starting structural models
 
 Integrative modeling of macromolecular assemblies may include starting structural models
@@ -406,9 +441,9 @@ such as [PDB](http://www.rcsb.org/) and [the model archive](http://www.modelarch
 [PMP](http://www.proteinmodelportal.org/). These starting structural models are 
 desribed in the `ihm_starting_model_details` and `ihm_starting_model_coord` categories. 
 
-![Starting structural models](./figures/ss3.png "Starting structural models")
+![Starting structural models](./figures/ss.png "Starting structural models")
 
-*Figure 5. Starting structural models of individual components in a macromolecular assembly may
+*Figure 7. Starting structural models of individual components in a macromolecular assembly may
 be obtained through experimental methods such as X-ray crystallography and NMR spectroscopy or 
 through computational methods such as abinitio or comparative modeling.*
 
@@ -481,6 +516,13 @@ The integrative modeling can involve any combination of the following.
  - Multi-state modeling involving multiple conformational states. 
  - Time-ordered ensemble representing multiple models related by time. 
 
+![Integrative Modeling Hierarchy](./figures/IM_hierarchy.png "Integrative Modeling Hierarchy")
+
+*Figure 8. The integrative modeling hierarchy involving multi-scale, multi-state, time-ordered ensembles.
+The PDB archive currently holds only atomistic models using the PDBx/mmCIF dictionary. The new I/H methods 
+dictionary systematically extends this to represent multi-scale, multi-state, time-ordered ensembles of 
+I/H models.*
+
 The details of the multi-scale, multi-state, time-ordered modeling experiment is described
 in the categories discussed below. 
 
@@ -488,9 +530,9 @@ in the categories discussed below.
 
 Integrative models can include atomistic and coarse-grained representation as seen in the following figure. 
 
-![Multi-scale representation](./figures/multi-scale3.png "Multi-scale representation")
+![Multi-scale representation](./figures/multi-scale.png "Multi-scale representation")
 
-*Figure 6. Multi-scale modeling of macro-molecular assemblies include representations of the 
+*Figure 9. Multi-scale modeling of macro-molecular assemblies include representations of the 
 macrmolecules in atomistic and other coarse-grained representations such as beads or spheres
 corresponding to single residues or a set of residues as shown in the figure. The assembly
 can be a combination of various representations (both atomistic and non-atomistic), depending
@@ -622,6 +664,11 @@ Example for the `ihm_sphere_obj_site` category representing spherical beads comp
 Gaussian primitives representing single or multiple residues are captured using
 the `ihm_gaussian_obj_site` category.
 
+![Gaussian primitive](./figures/Gaussian_primitive.png "Gaussian_primitive")
+
+*Figure 10. Modeling of ELF3 complex. An example of a Gaussian object used as a primitive 
+representation in the multi-scale model.*
+
 Example for the `ihm_gaussian_obj_site` category representing 3D Gaussian objects in the model representation
 
         loop_
@@ -661,75 +708,71 @@ Example for the `ihm_gaussian_obj_site` category representing 3D Gaussian object
 Integrative modeling can involve molecular ensembles in different conformational states
 such as open and closed states, active and inactive states or ligand bound and unbound states.
 
-![Multi-state modeling](./figures/multi-state2.png "Multi-state modeling")
+![Multi-state modeling](./figures/multi-state.png "Multi-state modeling")
 
-*Figure 7. Multi-state modeling may involve proteins in multiple states as shown in the figure.
+*Figure 11. Multi-state modeling may involve proteins in multiple states as shown in the figure.
 A. Calcium bound (left) and unbound (right) states of Calcium Pump. B. Inactive tensed (left) 
 and active relaxed (right) states of Glycogen Phosphorylase. C. Open (left) and closed (right) 
 states of Hexokinase. D. Active (left) and inactive (right) states of Lactate dehydrogenase.
 Pictures courtesy of [PDB101](http://pdb101.rcsb.org/).*
 
-Multiple states may exist simultaneously such that some or all of the collected experimental information (e.g. crosslinks) 
-reflect more than one state, and cannot be satisfied by a single model. Multi-state modeling information is captured 
-in the `ihm_multi_state_modeling` category, as shown in the following examples.
+Multiple states may exist simultaneously such that some or all of the collected experimental information 
+(e.g. crosslinks) reflect more than one state, and cannot be satisfied by a single model. Multi-state 
+modeling information is captured in the `ihm_multi_state_modeling` category, as shown in the following 
+examples. The multiple states can be grouped together to represent a collection of states that may evolve
+with time. 
 
 Example 1: Conformational change
 
     loop_
     _ihm_multi_state_modeling.ordinal_id
     _ihm_multi_state_modeling.state_id
+    _ihm_multi_state_modeling.state_group_id
+    _ihm_multi_state_modeling.population_fraction
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.entity_description
-    _ihm_multi_state_modeling.entity_id
-    _ihm_multi_state_modeling.entity_asym_id
     _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.details
-      1     1   'conformational change'  'open'       Nup84   1   A   1  .
-      3     1   'conformational change'  'open'       Nup85   2   B   1  .
-      2     2   'conformational change'  'closed'     Nup84   1   A   2  .
-      4     2   'conformational change'  'closed'     Nup85   2   B   2  .
-      5     3   'conformational change'  'open'       Nup84   1   A   3  .
-      6     3   'conformational change'  'closed'     Nup85   2   B   3  .
-      7     4   'conformational change'  'closed'     Nup84   1   A   4  .
-      8     4   'conformational change'  'open'       Nup85   2   B   4  .
-      # ... abbreviated ...
 
-Example 2: Complex formation
+    1     1   1   0.5  'conformational change'  'open'        1  'open state ensemble 1'
+    2     2   1   0.5  'conformational change'  'closed'      2  'closed state ensemble 2'
+
+    # ... abbreviated ...
+
+Example 2: Ligand binding
 
     loop_
     _ihm_multi_state_modeling.ordinal_id
     _ihm_multi_state_modeling.state_id
+    _ihm_multi_state_modeling.state_group_id
+    _ihm_multi_state_modeling.population_fraction
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.entity_description
-    _ihm_multi_state_modeling.entity_id
-    _ihm_multi_state_modeling.entity_asym_id
     _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.details
-      1     1   'complex formation'    'unbound'    Nup84   1   A    1  .
-      2     1   'complex formation'    'unbound'    Nup85   2   B    2  .
-      3     2   'complex formation'    'bound'      Nup84   1   A    3  .
-      4     2   'complex formation'    'bound'      Nup85   2   B    3  .
-      # ... abbreviated ...
 
-Example 3: Ligand binding
+    1     1   1   0.25  'ligand binding'    'unbound'    1   'unbound'
+    2     2   1   0.75  'ligand binding'    'bound'      2   'bound to heme'
+    
+    # ... abbreviated ...
+
+Example 3: Complex formation
 
     loop_
     _ihm_multi_state_modeling.ordinal_id
     _ihm_multi_state_modeling.state_id
+    _ihm_multi_state_modeling.state_group_id
+    _ihm_multi_state_modeling.population_fraction
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.entity_description
-    _ihm_multi_state_modeling.entity_id
-    _ihm_multi_state_modeling.entity_asym_id
     _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.details
-      1     1   'ligand binding'    'bound'      Nup84   1   A    1     .
-      2     1   'ligand binding'    'unbound'    Nup85   2   B    2     .
-      3     2   'ligand binding'    'unbound'    Nup84   1   A    3     .
-      4     2   'ligand binding'    'bound'      Nup85   2   B    4     .
-      # ... abbreviated ...
+
+    1     1   1   .  'complex formation'    'unbound'      1  'unbound molecule 1'
+    2     2   1   .  'complex formation'    'unbound'      2  'unbound molecule 2'
+    3     3   1   .  'complex formation'    'bound'        3  'bound molecules 1 and 2'
+
+    # ... abbreviated ...
 
 #### Time-ordered ensembles
 
@@ -737,9 +780,9 @@ Integrative modeling can involve time-ordered ensembles such as macromolecules i
 pathways, metabolic networks, trajectories or any other time-ordered relationships. 
 These can be related in a linear, branched or cyclic manner. 
 
-![Time-ordered ensembles](./figures/time-ordered2.png "Time-ordered ensembles")
+![Time-ordered ensembles](./figures/time-ordered.png "Time-ordered ensembles")
 
-*Figure 8. Time-ordered ensembles may involve macromolecular complexes involved in
+*Figure 12. Time-ordered ensembles may involve macromolecular complexes involved in
 a reaction pathway or metabolic network as shown in the figure. A. Enzymes involved
 in bacterial fatty acid biosynthesis pathway. B. Heterotrimeric G proteins involved
 in signal transduction pathway. Pictures are courtesy of [PDB101](http://pdb101.rcsb.org/).*
@@ -748,7 +791,13 @@ The details of time-ordered ensembles are captured in the `ihm_time_ordered_ense
 category as shown in the examples given below. The time-ordered relationships are stored 
 as a simple directed graph of the models, ordered in time and connected by a set of edges.
 The start and end points of the time-ordered process is listed along with the model groups
-that represent the start and end points. The time unit can be included, if relevant. 
+and/or state groups that represent the start and end points. The time unit can be included, 
+if relevant. 
+
+![Time-ordered directed graph](./figures/time-ordered_graph.png "Time-ordered directed graph")
+
+*Figure 13. Time-ordered ensembled are represented as directed graphs using ensembles or states of models
+as nodes and the time-ordered relationship between them as edges.*
 
 Example 1: Linear process
 
@@ -760,30 +809,17 @@ Example 1: Linear process
     _ihm_time_ordered_ensemble.time_unit
     _ihm_time_ordered_ensemble.model_group_id_begin
     _ihm_time_ordered_ensemble.model_group_id_end
-      1     1   0   1   nanosecond  1   2
-      2     2   1   2   nanosecond  2   3
-      3     3   2   3   nanosecond  3   4
-      4     4   3   4   nanosecond  4   5
-      # ... abbreviated ...
+    _ihm_time_ordered_ensemble.state_group_id_begin
+    _ihm_time_ordered_ensemble.state_group_id_end
 
-Example 2: Branched process
+    1     1   0   1   nanosecond  .  .   1   2
+    2     2   1   2   nanosecond  .  .   2   3
+    3     3   2   3   nanosecond  .  .   3   4
+    4     4   3   4   nanosecond  .  .   4   5
+    
+    # ... abbreviated ...
 
-    loop_
-    _ihm_time_ordered_ensemble.ordinal_id
-    _ihm_time_ordered_ensemble.time_step_id
-    _ihm_time_ordered_ensemble.time_begin
-    _ihm_time_ordered_ensemble.time_end
-    _ihm_time_ordered_ensemble.time_unit
-    _ihm_time_ordered_ensemble.model_group_id_begin
-    _ihm_time_ordered_ensemble.model_group_id_end
-      1     1   0   1   picosecond  1   2
-      2     2   1   2   picosecond  2   3
-      3     2   1   2   picosecond  2   4
-      4     3   2   3   picosecond  3   5
-      5     3   2   3   picosecond  4   6
-      # ... abbreviated ...
-
-Example 3: Cyclic process
+Example 2: Cyclic process
 
     loop_
     _ihm_time_ordered_ensemble.ordinal_id
@@ -793,53 +829,103 @@ Example 3: Cyclic process
     _ihm_time_ordered_ensemble.time_unit
     _ihm_time_ordered_ensemble.model_group_id_begin
     _ihm_time_ordered_ensemble.model_group_id_end
-      1     1   0   1   .  1   2
-      2     2   1   2   .  2   3
-      3     3   2   3   .  3   4
-      4     4   3   4   .  4   1
-      # ... abbreviated ...
+    _ihm_time_ordered_ensemble.state_group_id_begin
+    _ihm_time_ordered_ensemble.state_group_id_end
+
+    1     1   0   1   nanosecond  1   2   .   .
+    2     2   1   2   nanosecond  2   3   .   .
+    3     3   2   3   nanosecond  3   4   .   .
+    4     4   3   4   nanosecond  4   1   .   .  
+    
+    # ... abbreviated ...
+
+Example 3: Branched process
+
+    loop_
+    _ihm_time_ordered_ensemble.ordinal_id
+    _ihm_time_ordered_ensemble.time_step_id
+    _ihm_time_ordered_ensemble.time_begin
+    _ihm_time_ordered_ensemble.time_end
+    _ihm_time_ordered_ensemble.time_unit
+    _ihm_time_ordered_ensemble.model_group_id_begin
+    _ihm_time_ordered_ensemble.model_group_id_end
+    _ihm_time_ordered_ensemble.state_group_id_begin
+    _ihm_time_ordered_ensemble.state_group_id_end
+
+    1     1   0   1   picosecond  1   2   .   .
+    2     2   1   2   picosecond  2   3   .   .
+    3     2   1   2   picosecond  2   4   .   .
+    4     3   2   3   picosecond  3   5   .   .
+    5     3   2   3   picosecond  4   6   .   .
+    
+    # ... abbreviated ...
 
 ### Section 5: Modeling workflow
 
 Preliminary information on the integrative modeling workflow and the post-modeling
-process are captured in the `ihm_modeling_experiment` and the `ihm_modeling_post_process`
-categories. The `ihm_modeling_experiment` category provides references to the input
-dataset described in the `ihm_dataset_list` category and to the structural assembly of macromolecules
-described in the `ihm_struct_assembly` category. It also includes flags to indicate 
-whether the integrative modeling experiment involves multi-scale, multi-state and 
-time-ordered ensembles. The various steps involved in the modeling and post-process, 
+process are captured in the `ihm_modeling_protocol` and the `ihm_modeling_post_process`
+categories. The `ihm_modeling_protocol` category provides references to the input
+dataset described in the `ihm_dataset_list` category and to the structural assembly of 
+macromolecules described in the `ihm_struct_assembly` category. It also includes flags 
+to indicate whether the integrative modeling experiment involves multi-scale, multi-state 
+and time-ordered ensembles. The various steps involved in the modeling and post-process, 
 such as sampling, scoring, filtering and clustering can be described in these categories. 
 
-![Workflow overview](./figures/workflow4.png "Workflow overview")
+![Workflow overview](./figures/workflow.png "Workflow overview")
 
-*Figure 9. An example of the modeling workflow is shown. The modeling task may involve various
+*Figure 14. An example of the modeling workflow is shown. The modeling task may involve various
 sampling, scoring and post-modeling analyses steps that are briefly captured in the IHM
 dictionary extension.*
 
-Example for the `ihm_modeling_experiment` category
+Example 1 for the `ihm_modeling_protocol` category
 
-    _ihm_modeling_experiment.ordinal_id
-    _ihm_modeling_experiment.experiment_id
-    _ihm_modeling_experiment.step_id
-    _ihm_modeling_experiment.struct_assembly_id
-    _ihm_modeling_experiment.dataset_group_id
-    _ihm_modeling_experiment.assembly_description
-    _ihm_modeling_experiment.step_name
-    _ihm_modeling_experiment.step_method
-    _ihm_modeling_experiment.num_models_begin
-    _ihm_modeling_experiment.num_models_end
-    _ihm_modeling_experiment.multi_scale_flag
-    _ihm_modeling_experiment.multi_state_flag
-    _ihm_modeling_experiment.time_ordered_flag
-    1  1  1  1  1  'Nup84 sub-complex' 'Sampling'  'Replica exchange monte carlo'     0   7500  Y  N   N
-    2  1  2  1  2  'Nup84 sub-complex' 'Sampling'  'Replica exchange monte carlo'  7500  15000  Y  N   N
+    _ihm_modeling_protocol.ordinal_id
+    _ihm_modeling_protocol.protocol_id
+    _ihm_modeling_protocol.step_id
+    _ihm_modeling_protocol.struct_assembly_id
+    _ihm_modeling_protocol.dataset_group_id
+    _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.protocol_name
+    _ihm_modeling_protocol.step_name
+    _ihm_modeling_protocol.step_method
+    _ihm_modeling_protocol.num_models_begin
+    _ihm_modeling_protocol.num_models_end
+    _ihm_modeling_protocol.multi_scale_flag
+    _ihm_modeling_protocol.multi_state_flag
+    _ihm_modeling_protocol.time_ordered_flag
+
+    1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 Y N N
+    2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 Y N N
+
+    # ... abbreviated ...
+
+Example 2 for the `ihm_modeling_protocol` category
+
+    _ihm_modeling_protocol.ordinal_id
+    _ihm_modeling_protocol.protocol_id
+    _ihm_modeling_protocol.step_id
+    _ihm_modeling_protocol.struct_assembly_id
+    _ihm_modeling_protocol.dataset_group_id
+    _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.protocol_name
+    _ihm_modeling_protocol.step_name
+    _ihm_modeling_protocol.step_method
+    _ihm_modeling_protocol.num_models_begin
+    _ihm_modeling_protocol.num_models_end
+    _ihm_modeling_protocol.multi_scale_flag
+    _ihm_modeling_protocol.multi_state_flag
+    _ihm_modeling_protocol.time_ordered_flag
+
+    1   1   1   1   1   'PhoQ' 'Multi-state modeling' 'Sampling'  'Monte carlo'   0    5000  N  Y  N
+    2   1   1   2   1   'PhoQ' 'Multi-state modeling' 'Sampling'  'Monte carlo'   0    5000  N  Y  N
+
     # ... abbreviated ...
 
 Example for the `ihm_modeling_post_process` category
 
     loop_
     _ihm_modeling_post_process.id
-    _ihm_modeling_post_process.experiment_id
+    _ihm_modeling_post_process.protocol_id
     _ihm_modeling_post_process.analysis_id
     _ihm_modeling_post_process.step_id
     _ihm_modeling_post_process.type
@@ -858,10 +944,10 @@ Example for the `ihm_modeling_post_process` category
 #### Inventory of deposited models
 
 The `ihm_model_list` category provides an inventory list of the models deposited,
-along with references to the modeling experiment that produced the models and
-a method to group the models according to the discretion of the depositor. The
-grouping can refer to any combination of the following and can have an appropriate
-user-friendly name.
+along with references to the modeling protocol that produced the models and the
+structure assembly/sub-assembly corresponding to the model. The models can be grouped 
+together according to the discretion of the depositor. The grouping can refer to any 
+combination of the following and can have an appropriate user-friendly name.
 
  - Clusters or ensembles resulting from the integrative modeling experiment
  - Different states in a multi-state modeling experiment
@@ -876,17 +962,18 @@ Example 1:
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
-    _ihm_model_list.experiment_id
-     1    1      1    'ensemble1'     1
-     2    2      1    'ensemble1'     1
-     3    3      1    'ensemble1'     1
-     4    4      1    'ensemble1'     1
-     5    5      1    'ensemble1'     1
-     6    6      2    'ensemble2'     1
-     7    7      2    'ensemble2'     1
-     8    8      2    'ensemble2'     1
-     9    9      2    'ensemble2'     1
-    10   10      2    'ensemble2'     1
+    _ihm_model_list.assembly_id
+    _ihm_model_list.protocol_id
+     1    1      1    'ensemble1'     1  1
+     2    2      1    'ensemble1'     1  1
+     3    3      1    'ensemble1'     1  1
+     4    4      1    'ensemble1'     1  1
+     5    5      1    'ensemble1'     1  1
+     6    6      2    'ensemble2'     1  1
+     7    7      2    'ensemble2'     1  1
+     8    8      2    'ensemble2'     1  1
+     9    9      2    'ensemble2'     1  1
+    10   10      2    'ensemble2'     1  1
     # ... abbreviated ...
 
 Example 2:
@@ -896,17 +983,18 @@ Example 2:
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
-    _ihm_model_list.experiment_id
-    11    1      1    'open state'       1
-    12    2      1    'open state'       1
-    13    3      1    'open state'       1
-    14    4      1    'open state'       1
-    15    5      1    'open state'       1
-    16    6      2    'closed state'     1
-    17    7      2    'closed state'     1
-    18    8      2    'closed state'     1
-    19    9      2    'closed state'     1
-    20   10      2    'closed state'     1
+    _ihm_model_list.assembly_id
+    _ihm_model_list.protocol_id
+     1    1      1    'open state'       1  1
+     2    2      1    'open state'       1  1
+     3    3      1    'open state'       1  1
+     4    4      1    'open state'       1  1
+     5    5      1    'open state'       1  1
+     6    6      2    'closed state'     1  1
+     7    7      2    'closed state'     1  1
+     8    8      2    'closed state'     1  1
+     9    9      2    'closed state'     1  1
+    10   10      2    'closed state'     1  1
     # ... abbreviated ...
 
 Example 3:
@@ -916,17 +1004,18 @@ Example 3:
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
-    _ihm_model_list.experiment_id
-    21    1      1    'cluster1'       1
-    22    2      1    'cluster1'       1
-    23    3      1    'cluster1'       1
-    24    4      1    'cluster1'       1
-    25    5      1    'cluster1'       1
-    26    6      2    'cluster2'       1
-    27    7      2    'cluster2'       1
-    28    8      2    'cluster2'       1
-    29    9      2    'cluster2'       1
-    30   10      2    'cluster2'       1
+    _ihm_model_list.assembly_id
+    _ihm_model_list.protocol_id
+     1    1      1    'Bound state ensemble 1'         1    1
+     2    2      1    'Bound state ensemble 1'         1    1
+     3    3      1    'Bound state ensemble 1'         1    1
+     4    4      1    'Bound state ensemble 1'         1    1
+     5    5      1    'Bound state ensemble 1'         1    1
+     6    6      2    'Unbound state ensemble 2'       2    1
+     7    7      2    'Unbound state ensemble 2'       2    1
+     8    8      2    'Unbound state ensemble 2'       2    1
+     9    9      2    'Unbound state ensemble 2'       2    1
+    10   10      2    'Unbound state ensemble 2'       2    1
     # ... abbreviated ...
 
 #### Description of the macromolecular assembly
@@ -940,7 +1029,7 @@ instances.
 
 ![Assembly](./figures/assembly.png "Assembly")
 
-*Figure 10. The macromolecular assembly comprises of various individual components that are
+*Figure 15. The macromolecular assembly comprises of various individual components that are
 defined in the `ihm_struct_assembly` category. The integrative modeling task may involve
 the entire assembly or a sub-assembly and these can be defined accordingly in the 
 `ihm_struct_assembly` category.*
@@ -979,7 +1068,7 @@ the `ihm_ensemble_info` category are shown below.
 
 ![Ensembles](./figures/ensembles.png "Ensembles")
 
-*Figure 11. The integrative modeling experiment may lead to an ensemble of structural models
+*Figure 16. The integrative modeling experiment may lead to an ensemble of structural models
 as shown in the figure. While only a subset of individual models may be deposited to the archive, 
 the ensembles themselves are described in the `ihm_ensemble_info` category.* 
 
@@ -1058,9 +1147,9 @@ correlation co-efficient that can be used to estimate the quality of the fit.
 A matrix is provided for every 2DEM class average used as input and corresponds
 to fitting a single deposited model. 
 
-![2DEM fitting](./figures/2dem_projections3.png "2DEM fitting")
+![2DEM fitting](./figures/2dem_projections.png "2DEM fitting")
 
-*Figure 12. The 2D projections of the sampled models are fit to the 2DEM class average
+*Figure 17. The 2D projections of the sampled models are fit to the 2DEM class average
 to obtain a fit-to-image score.* 
 
 Example for the `ihm_2dem_class_average_fitting` category
@@ -1094,7 +1183,7 @@ category used in the multi-scale representation of the integrative model.
 
 ![Localization Density](./figures/localization_density.png "Localization Density")
 
-*Figure 13. The ensembles described in the `ihm_ensemble_info` category can provide
+*Figure 18. The ensembles described in the `ihm_ensemble_info` category can provide
 the localization densities of protein domains sampled during integrative modeling.
 These densities can be represented as 3D Gaussians and are captured in the 
 `ihm_gaussian_object_ensemble` category.* 
@@ -1179,6 +1268,7 @@ category captures the information on the atomic XYZ coordinates.
 |`ihm_cross_link_restraint`        |Crosslinking restraints implemented            |
 |`ihm_2dem_class_average_restraint`|Restraints from 2DEM class average image       |
 |`ihm_3dem_restraint`              |Restraint from 3DEM maps                       |
+|`ihm_sas_restraint`               |Restraint from SAS data                        |
 |`ihm_starting_model_details`      |Details of starting structural models          |
 |`ihm_starting_model_coords`       |XYZ coordinates of starting models             |
 |`ihm_model_representation`        |Representation of multi-scale models           |
@@ -1186,7 +1276,7 @@ category captures the information on the atomic XYZ coordinates.
 |`ihm_gaussian_obj_site`           |Description of Gaussian objects in the model   |
 |`ihm_multi_state_modeling`        |Description of multiple conformational states  |
 |`ihm_time_ordered_ensembles`      |Description time-related models                |
-|`ihm_modeling_experiment`         |Description of modeling workflow               |
+|`ihm_modeling_protocol`           |Description of modeling workflow               |
 |`ihm_modeling_post_process`       |Description of post-modeling processing        |
 |`ihm_model_list`                  |Inventory list of deposited models             |
 |`ihm_struct_assembly`             |Description of assemblies and sub-assemblies   |
