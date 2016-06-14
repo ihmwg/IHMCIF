@@ -316,4 +316,6 @@ be suitable for deposition once issues (below) are resolved.
 
  - Note: Refer to details in the supplementary methods, figures and tables. 
 
-#### What about elF3, GroEL, Integrin and Glycophorin modeling available on IMP website?
+The remaining systems on the IMP website (elF3, GroEL, Integrin and Glycophorin
+modeling) are example or benchmark systems (in some cases a crystal structure
+is already available) and aren't suitable for deposition.
