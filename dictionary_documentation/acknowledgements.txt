@@ -1,0 +1,14 @@
+
+Acknowledgements
+
+1. Ben Webb and Andrej Sali for contributing examples from the integrative modeling platform (IMP) that were used 
+   to create the dictionary. 
+2. The figures were obtained from Salilab website and various published papers from Salilab listed below:
+   1. Alber et al., Ann. Rev. Biochem., 2008
+   2. Lasker et al., MCP, 2010
+   3. Russel et al., PLOS Biology, 2012
+   4. Sali et al., Nature 2003
+   5. Ward et al., Science 2013
+   6. Shi et al., MCP, 2014
+   7. http://modbase.compbio.ucsf.edu/foxs/help.html
+3. Figures were also obtained from the PDB101 website. 
