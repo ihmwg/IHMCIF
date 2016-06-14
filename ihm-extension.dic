@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 8-APR-2016 Jdw/BV
+#  Date: 14-JUN-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -44,6 +44,9 @@
 #           Updated examples in ihm_dataset_list, ihm_dataset_other and ihm_dataset_related_db_reference
 #           Changed ihm_modeling_experiment to ihm_modeling_protocol to be consistent with the model archive naming 
 #           convention
+#           Added ihm_sas_restraint category; added _ihm_3dem_restraint.map_segment_flag
+#           Modified the following categories: ihm_model_list, ihm_modeling_protocol, ihm_multi_state_modeling,
+#           ihm_time_ordered_ensemble
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -636,6 +639,7 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.struct_assembly_id
     _ihm_modeling_protocol.dataset_group_id
     _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.protocol_name
     _ihm_modeling_protocol.step_name
     _ihm_modeling_protocol.step_method
     _ihm_modeling_protocol.num_models_begin
@@ -644,10 +648,33 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.multi_state_flag
     _ihm_modeling_protocol.time_ordered_flag
 
-    1   1   1   1   1   'Nup84 sub-complex' 'Sampling'  'Replica exchange monte carlo'     0    7500  Y  N   N
-    2   1   2   1   2   'Nup84 sub-complex' 'Sampling'  'Replica exchange monte carlo'  7500   15000  Y  N   N
+    1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 Y N N
+    2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 Y N N
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 2 -
+;
+;
+    _ihm_modeling_protocol.ordinal_id
+    _ihm_modeling_protocol.protocol_id
+    _ihm_modeling_protocol.step_id
+    _ihm_modeling_protocol.struct_assembly_id
+    _ihm_modeling_protocol.dataset_group_id
+    _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.protocol_name
+    _ihm_modeling_protocol.step_name
+    _ihm_modeling_protocol.step_method
+    _ihm_modeling_protocol.num_models_begin
+    _ihm_modeling_protocol.num_models_end
+    _ihm_modeling_protocol.multi_scale_flag
+    _ihm_modeling_protocol.multi_state_flag
+    _ihm_modeling_protocol.time_ordered_flag
+
+    1   1   1   1   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  N  Y  N
+    2   1   1   2   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  N  Y  N
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_modeling_protocol
@@ -728,6 +755,22 @@ save__ihm_modeling_protocol.struct_assembly_description
     loop_
     _item_examples.case
     'Nup84 sub-complex'
+    'PhoQ'
+     save_
+
+save__ihm_modeling_protocol.protocol_name
+    _item_description.description
+;    The name for the modeling protocol.
+;
+    _item.name                  '_ihm_modeling_protocol.protocol_name'
+    _item.category_id             ihm_modeling_protocol
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Multi-scale modeling'
+    'Multi-state modeling'
+    'Multi-scale time-ordered modeling'
      save_
 
 save__ihm_modeling_protocol.step_name
@@ -852,67 +895,55 @@ save_ihm_multi_state_modeling
 ;
     loop_
     _ihm_multi_state_modeling.ordinal_id
-    _ihm_multi_state_modeling.state_id    
+    _ihm_multi_state_modeling.state_id 
+    _ihm_multi_state_modeling.state_group_id 
+    _ihm_multi_state_modeling.population_fraction  
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name 
-    _ihm_multi_state_modeling.entity_description
-    _ihm_multi_state_modeling.entity_id
-    _ihm_multi_state_modeling.entity_asym_id
     _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.details
 
-    1     1   'conformational change'  'open'       Nup84   1   A   1  .
-    3     1   'conformational change'  'open'       Nup85   2   B   1  .
-    2     2   'conformational change'  'closed'     Nup84   1   A   2  .
-    4     2   'conformational change'  'closed'     Nup85   2   B   2  .
-    5     3   'conformational change'  'open'       Nup84   1   A   3  .
-    6     3   'conformational change'  'closed'     Nup85   2   B   3  .
-    7     4   'conformational change'  'closed'     Nup84   1   A   4  .
-    8     4   'conformational change'  'open'       Nup85   2   B   4  .
+    1     1   1   0.5  'conformational change'  'open'        1  'open state ensemble 1'
+    2     2   1   0.5  'conformational change'  'closed'      2  'closed state ensemble 2'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 2 - complex formation
+    Example 2 - ligand binding
+;
+;
+    loop_
+    _ihm_multi_state_modeling.ordinal_id 
+    _ihm_multi_state_modeling.state_id
+    _ihm_multi_state_modeling.state_group_id 
+    _ihm_multi_state_modeling.population_fraction
+    _ihm_multi_state_modeling.state_type 
+    _ihm_multi_state_modeling.state_name
+    _ihm_multi_state_modeling.model_group_id
+    _ihm_multi_state_modeling.details
+
+    1     1   1   0.25  'ligand binding'    'unbound'    1   'unbound'
+    2     2   1   0.75  'ligand binding'    'bound'      2   'bound to heme'
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 3 - complex formation
 ;
 ;
     loop_
     _ihm_multi_state_modeling.ordinal_id
     _ihm_multi_state_modeling.state_id  
+    _ihm_multi_state_modeling.state_group_id
+    _ihm_multi_state_modeling.population_fraction
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.entity_description
-    _ihm_multi_state_modeling.entity_id
-    _ihm_multi_state_modeling.entity_asym_id
     _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.details
 
-    1     1   'complex formation'    'unbound'    Nup84   1   A    1  .
-    2     1   'complex formation'    'unbound'    Nup85   2   B    2  .
-    3     2   'complex formation'    'bound'      Nup84   1   A    3  .
-    4     2   'complex formation'    'bound'      Nup85   2   B    3  .
+    1     1   1   .  'complex formation'    'unbound'      1  'unbound molecule 1'
+    2     2   1   .  'complex formation'    'unbound'      2  'unbound molecule 2'
+    3     3   1   .  'complex formation'    'bound'        3  'bound molecules 1 and 2'
 ;
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-;
-    Example 3 - ligand binding
-;
-;
-    loop_
-    _ihm_multi_state_modeling.ordinal_id 
-    _ihm_multi_state_modeling.state_id   
-    _ihm_multi_state_modeling.state_type 
-    _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.entity_description
-    _ihm_multi_state_modeling.entity_id
-    _ihm_multi_state_modeling.entity_asym_id
-    _ihm_multi_state_modeling.model_group_id
-    _ihm_multi_state_modeling.details
-
-    1     1   'ligand binding'    'bound'      Nup84   1   A    1     .
-    2     1   'ligand binding'    'unbound'    Nup85   2   B    2     .
-    3     2   'ligand binding'    'unbound'    Nup84   1   A    3     .
-    4     2   'ligand binding'    'bound'      Nup85   2   B    4     .
-;
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_multi_state_modeling
@@ -936,6 +967,29 @@ save__ihm_multi_state_modeling.state_id
     _item.category_id             ihm_multi_state_modeling
     _item.mandatory_code          yes
     _item_type.code               int
+     save_
+
+save__ihm_multi_state_modeling.state_group_id
+    _item_description.description
+;    An identifier for a collections of states in the multi-state modeling.
+     If the states do not need to be grouped into collections, then
+     _ihm_multi_state_modeling.state_group_id is the same as
+     _ihm_multi_state_modeling.state_id. 
+;
+    _item.name                  '_ihm_multi_state_modeling.state_group_id'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_multi_state_modeling.population_fraction
+    _item_description.description
+;    A fraction representing the population of the particular state.
+;
+    _item.name                  '_ihm_multi_state_modeling.population_fraction'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          no
+    _item_type.code               float
      save_
 
 save__ihm_multi_state_modeling.state_type
@@ -968,45 +1022,10 @@ save__ihm_multi_state_modeling.state_name
         'closed'
         'bound'
         'unbound'
-     save_
-
-save__ihm_multi_state_modeling.entity_description
-    _item_description.description
-;     A text description of molecular entity.
-
-;
-    _item.name                  '_ihm_multi_state_modeling.entity_description'
-    _item.category_id             ihm_multi_state_modeling
-    _item.mandatory_code          no
-    _item_type.code               line
-     save_
-
-save__ihm_multi_state_modeling.entity_id
-    _item_description.description
-;     The entity identifier for the molecule in multiple states. 
-      This data item is a pointer to _entity_poly_seq.entity_id 
-      in the ENTITY_POLY_SEQ category.
-;
-    _item.name                  '_ihm_multi_state_modeling.entity_id'
-    _item.category_id             ihm_multi_state_modeling
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name       '_ihm_multi_state_modeling.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
-     save_
-
-save__ihm_multi_state_modeling.entity_asym_id
-    _item_description.description
-;   An asym/strand identifier for the entity molecule in multiple states. 
-    This data item is a pointer to _struct_asym.id in the
-    STRUCT_ASYM category.
-;
-    _item.name                  '_ihm_multi_state_modeling.entity_asym_id'
-    _item.category_id             ihm_multi_state_modeling
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name       '_ihm_multi_state_modeling.entity_asym_id'
-    _item_linked.parent_name      '_struct_asym.id'
+        'active'
+        'inactive'
+        'relaxed'
+        'tensed'
      save_
 
 save__ihm_multi_state_modeling.model_group_id
@@ -1032,6 +1051,11 @@ save__ihm_multi_state_modeling.details
     _item.category_id             ihm_multi_state_modeling
     _item.mandatory_code          no
     _item_type.code               text
+    loop_
+    _item_examples.case
+        'open state ensemble 1'  
+        'closed state ensemble 2'
+        'bound to heme'
      save_
 
 ############################
@@ -1068,11 +1092,13 @@ save_ihm_time_ordered_ensemble
     _ihm_time_ordered_ensemble.time_unit
     _ihm_time_ordered_ensemble.model_group_id_begin
     _ihm_time_ordered_ensemble.model_group_id_end
+    _ihm_time_ordered_ensemble.state_group_id_begin
+    _ihm_time_ordered_ensemble.state_group_id_end
 
-    1     1   0   1   nanosecond  1   2
-    2     2   1   2   nanosecond  2   3
-    3     3   2   3   nanosecond  3   4
-    4     4   3   4   nanosecond  4   5
+    1     1   0   1   nanosecond  .  .   1   2
+    2     2   1   2   nanosecond  .  .   2   3
+    3     3   2   3   nanosecond  .  .   3   4
+    4     4   3   4   nanosecond  .  .   4   5
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1087,11 +1113,13 @@ save_ihm_time_ordered_ensemble
     _ihm_time_ordered_ensemble.time_unit
     _ihm_time_ordered_ensemble.model_group_id_begin
     _ihm_time_ordered_ensemble.model_group_id_end
+    _ihm_time_ordered_ensemble.state_group_id_begin
+    _ihm_time_ordered_ensemble.state_group_id_end
 
-    1     1   0   1   nanosecond  1   2
-    2     2   1   2   nanosecond  2   3
-    3     3   2   3   nanosecond  3   4
-    4     4   3   4   nanosecond  4   1
+    1     1   0   1   nanosecond  1   2   .   .
+    2     2   1   2   nanosecond  2   3   .   .
+    3     3   2   3   nanosecond  3   4   .   .
+    4     4   3   4   nanosecond  4   1   .   .
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1106,12 +1134,14 @@ save_ihm_time_ordered_ensemble
     _ihm_time_ordered_ensemble.time_unit
     _ihm_time_ordered_ensemble.model_group_id_begin
     _ihm_time_ordered_ensemble.model_group_id_end
+    _ihm_time_ordered_ensemble.state_group_id_begin
+    _ihm_time_ordered_ensemble.state_group_id_end
 
-    1     1   0   1   picosecond  1   2
-    2     2   1   2   picosecond  2   3
-    3     2   1   2   picosecond  2   4
-    4     3   2   3   picosecond  3   5
-    5     3   2   3   picosecond  4   6
+    1     1   0   1   picosecond  1   2   .   .
+    2     2   1   2   picosecond  2   3   .   .
+    3     2   1   2   picosecond  2   4   .   .
+    4     3   2   3   picosecond  3   5   .   .
+    5     3   2   3   picosecond  4   6   .   .
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1186,7 +1216,7 @@ save__ihm_time_ordered_ensemble.model_group_id_begin
 ;   
     _item.name                  '_ihm_time_ordered_ensemble.model_group_id_begin'
     _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          yes  
+    _item.mandatory_code          no  
     _item_type.code               int  
     _item_linked.child_name     '_ihm_time_ordered_ensemble.model_group_id_begin'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
@@ -1201,11 +1231,43 @@ save__ihm_time_ordered_ensemble.model_group_id_end
 ;   
     _item.name                  '_ihm_time_ordered_ensemble.model_group_id_end'
     _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_time_ordered_ensemble.model_group_id_end'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
      save_
+
+save__ihm_time_ordered_ensemble.state_group_id_begin
+    _item_description.description
+;    The state group id corresponding to the time stamp at the beginning of the step.
+     This data item is a pointer to _ihm_multi_state_modeling.state_group_id in the
+     IHM_MULTI_STATE_MODELING category. 
+     If the time stamp corresponds to a single state instead of a collection of states,
+     then the _ihm_multi_state_modeling.state_group_id is the same as the
+     _ihm_multi_state_modeling.state_id.
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.state_group_id_begin'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_time_ordered_ensemble.state_group_id_begin'
+    _item_linked.parent_name    '_ihm_multi_state_modeling.state_group_id'
+
+save__ihm_time_ordered_ensemble.state_group_id_end
+    _item_description.description
+;    The state group id corresponding to the time stamp at the end of the step.
+     This data item is a pointer to _ihm_multi_state_modeling.state_group_id in the
+     IHM_MULTI_STATE_MODELING category.
+     If the time stamp corresponds to a single state instead of a collection of states,
+     then the _ihm_multi_state_modeling.state_group_id is the same as the
+     _ihm_multi_state_modeling.state_id.
+;   
+    _item.name                  '_ihm_time_ordered_ensemble.state_group_id_end'
+    _item.category_id             ihm_time_ordered_ensemble
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_time_ordered_ensemble.state_group_id_end'
+    _item_linked.parent_name    '_ihm_multi_state_modeling.state_group_id'
 
 ############################
 ## IHM_MODELING_POST_PROCESS
@@ -1577,18 +1639,20 @@ save_ihm_model_list
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
+    _ihm_model_list.assembly_id
     _ihm_model_list.protocol_id
 
-    1    1      1    'ensemble1'     1
-    2    2      1    'ensemble1'     1
-    3    3      1    'ensemble1'     1
-    4    4      1    'ensemble1'     1
-    5    5      1    'ensemble1'     1
-    6    6      2    'ensemble2'     1
-    7    7      2    'ensemble2'     1
-    8    8      2    'ensemble2'     1
-    9    9      2    'ensemble2'     1
-   10   10      2    'ensemble2'     1
+    1    1      1    'ensemble1'     1  1 
+    2    2      1    'ensemble1'     1  1 
+    3    3      1    'ensemble1'     1  1 
+    4    4      1    'ensemble1'     1  1 
+    5    5      1    'ensemble1'     1  1 
+    6    6      2    'ensemble2'     1  1 
+    7    7      2    'ensemble2'     1  1 
+    8    8      2    'ensemble2'     1  1 
+    9    9      2    'ensemble2'     1  1 
+   10   10      2    'ensemble2'     1  1 
+   # ...  abbreviated ... 
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1600,18 +1664,20 @@ save_ihm_model_list
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
+    _ihm_model_list.assembly_id
     _ihm_model_list.protocol_id
 
-    11    1      1    'open state'       1
-    12    2      1    'open state'       1
-    13    3      1    'open state'       1
-    14    4      1    'open state'       1
-    15    5      1    'open state'       1
-    16    6      2    'closed state'     1
-    17    7      2    'closed state'     1
-    18    8      2    'closed state'     1
-    19    9      2    'closed state'     1
-    20   10      2    'closed state'     1
+     1    1      1    'open state'       1  1 
+     2    2      1    'open state'       1  1 
+     3    3      1    'open state'       1  1 
+     4    4      1    'open state'       1  1 
+     5    5      1    'open state'       1  1 
+     6    6      2    'closed state'     1  1 
+     7    7      2    'closed state'     1  1 
+     8    8      2    'closed state'     1  1 
+     9    9      2    'closed state'     1  1 
+    10   10      2    'closed state'     1  1 
+    # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1623,18 +1689,20 @@ save_ihm_model_list
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
     _ihm_model_list.model_group_name
+    _ihm_model_list.assembly_id 
     _ihm_model_list.protocol_id
 
-    21    1      1    'cluster1'       1
-    22    2      1    'cluster1'       1
-    23    3      1    'cluster1'       1
-    24    4      1    'cluster1'       1
-    25    5      1    'cluster1'       1
-    26    6      2    'cluster2'       1
-    27    7      2    'cluster2'       1
-    28    8      2    'cluster2'       1
-    29    9      2    'cluster2'       1
-    30   10      2    'cluster2'       1
+     1    1      1    'Bound state ensemble 1'         1    1 
+     2    2      1    'Bound state ensemble 1'         1    1 
+     3    3      1    'Bound state ensemble 1'         1    1 
+     4    4      1    'Bound state ensemble 1'         1    1 
+     5    5      1    'Bound state ensemble 1'         1    1 
+     6    6      2    'Unbound state ensemble 2'       2    1 
+     7    7      2    'Unbound state ensemble 2'       2    1 
+     8    8      2    'Unbound state ensemble 2'       2    1 
+     9    9      2    'Unbound state ensemble 2'       2    1 
+    10   10      2    'Unbound state ensemble 2'       2    1 
+    # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1691,6 +1759,22 @@ save__ihm_model_list.model_group_name
     'closed state'
     'bound state'
     'unbound state'
+    'bound state ensemble 1'
+    'unbound state ensemble 2'
+     save_
+
+save__ihm_model_list.assembly_id
+    _item_description.description
+;     An identifier to the structure assembly corresponding to the model.
+      This data item is a pointer to the _ihm_struct_assembly.assembly_id
+      in the IHM_STRUCT_ASSEMBLY category.
+;
+    _item.name                  '_ihm_model_list.assembly_id'
+    _item.category_id             ihm_model_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_model_list.assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
      save_
 
 save__ihm_model_list.protocol_id
@@ -1977,9 +2061,7 @@ save__ihm_dataset_related_db_reference.details
     _item_type.code               text
     loop_
     _item_examples.case
-;   Structural Analysis of a Prokaryotic Ribosome Using a
-    Novel Amidinating Cross-Linker and Mass Spectrometry
-;
+    'Structural Analysis of a Prokaryotic Ribosome Using a Novel Amidinating Cross-Linker and Mass Spectrometry'
      save_
  
 #######################
@@ -2015,10 +2097,10 @@ save_ihm_dataset_other
  _ihm_dataset_other.content_filename
  _ihm_dataset_other.content_type
  _ihm_dataset_other.details
- 1  1  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
- 2  2  'CX-MS data'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
- 3  4  '2DEM class average'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm' '2DEM class average of the Nup84 sub-complex'
- 4  5  'Comparative model'  'https://dx.doi.org/10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
+ 1  1  'CX-MS data'  '10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
+ 2  2  'CX-MS data'  '10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
+ 3  4  '2DEM class average'  '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm' '2DEM class average of the Nup84 sub-complex'
+ 4  5  'Comparative model'  '10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2126,10 +2208,7 @@ save__ihm_dataset_other.details
     _item_type.code            text
     loop_
     _item_examples.case
-;        Nup84 sub-complex probed by chemical crosslinking
-         using disuccinimidyl suberate (DSS) crosslinker
-         followed by mass spectrometry
-;
+     'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
     save_
 
 #########################
@@ -3219,6 +3298,7 @@ save_ihm_3dem_restraint
     _ihm_3dem_restraint.model_id                        1
     _ihm_3dem_restraint.fitting_method                  'Gaussian mixture models'
     _ihm_3dem_restraint.number_of_gaussians             10
+    _ihm_3dem_restraint.map_segment_flag                No
     _ihm_3dem_restraint.cross_correlation_coefficient   0.8 
     _ihm_3dem_restraint.fitting_method_citation_id      5
     _ihm_3dem_restraint.details
@@ -3235,7 +3315,7 @@ save_ihm_3dem_restraint
 
 save__ihm_3dem_restraint.id
     _item_description.description
-;     A unique identifier for the 3DEM restraint.
+;     A unique identifier for the 3DEM restraint description.
 ;
     _item.name                  '_ihm_3dem_restraint.id'
     _item.category_id             ihm_3dem_restraint
@@ -3299,6 +3379,23 @@ save__ihm_3dem_restraint.number_of_gaussians
     _item_type.code               int
      save_
 
+save__ihm_3dem_restraint.map_segment_flag
+    _item_description.description
+;     A flag that indicates whether or not the 3DEM map is segmented i.e.,
+      whether the whole map is used or only a portion of it is used (by masking
+      or by other means) as restraint in the modeling.
+;
+    _item.name                  '_ihm_3dem_restraint.map_segment_flag'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          no   
+    _item_type.code               code  
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'YES'   'Map is masked; only a portion of the map is used'
+    'NO'    'Map is not masked; the entire map is used'
+     save_
+
 save__ihm_3dem_restraint.cross_correlation_coefficient
     _item_description.description
 ;     The cross correlation coefficient corresponding to the model to map fitting.
@@ -3337,6 +3434,182 @@ save__ihm_3dem_restraint.details
         using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
         a 3D fit of the map and the model.
 ;
+     save_
+
+########################
+## IHM_SAS_RESTRAINT ##
+########################
+
+save_ihm_sas_restraint
+    _category.description
+;              Data items in the IHM_SAS_RESTRAINT category records the
+               details of the SAS data used as restraints in the
+               IHM modeling.
+;
+    _category.id                  ihm_sas_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_sas_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    _ihm_sas_restraint.id                              1
+    _ihm_sas_restraint.dataset_list_id                 6
+    _ihm_sas_restraint.model_id                        1
+    _ihm_sas_restraint.profile_segment_flag            No
+    _ihm_sas_restraint.fitting_atom_type               'Heavy atoms'
+    _ihm_sas_restraint.fitting_method                  'FoXS'
+    _ihm_sas_restraint.fitting_state                   'Single'
+    _ihm_sas_restraint.radius_of_gyration              21.07
+    _ihm_sas_restraint.chi_value                       4.69
+    _ihm_sas_restraint.details                         .
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_3dem_restraint
+     save_
+
+save__ihm_sas_restraint.id
+    _item_description.description
+;     A unique identifier for the SAS restraint description.
+;
+    _item.name                  '_ihm_sas_restraint.id'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_sas_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the SAS data used.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_sas_restraint.dataset_list_id'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_sas_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_sas_restraint.model_id
+    _item_description.description
+;     The model number corresponding to the SAS fitting result presented.
+      This data item is a pointer to _ihm_model_list.model_id in the
+      IHM_MODEL_LIST category.
+;
+    _item.name                    '_ihm_sas_restraint.model_id'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_sas_restraint.model_id'
+    _item_linked.parent_name      '_ihm_model_list.model_id'
+     save_
+
+save__ihm_sas_restraint.profile_segment_flag
+    _item_description.description
+;     A flag that indicates whether or not the SAS profile is segmented i.e.,
+      whether the whole SAS profile is used or only a portion of it is used 
+      (by masking or by other means) as restraint in the modeling.
+;
+    _item.name                  '_ihm_sas_restraint.profile_segment_flag'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'YES'   'SAS profile is masked; only a portion of the SAS data is used'
+    'NO'    'SAS profile is not masked; the entire SAS data is used'
+     save_
+
+save__ihm_sas_restraint.fitting_atom_type
+    _item_description.description
+;    The type of atoms in the model fit to the SAS data.  
+;
+    _item.name                  '_ihm_sas_restraint.fitting_atom_type'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'C-alpha atoms'
+    'Heavy atoms'
+    'All atoms'
+     save_
+
+save__ihm_sas_restraint.fitting_method
+    _item_description.description
+;    The method used for fitting the model to the SAS data.
+;
+    _item.name                  '_ihm_sas_restraint.fitting_method'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'DAMMIF'
+    'FoXS'
+    'MultiFoXS'
+    'Minimal Ensemble Search'
+     save_
+
+save__ihm_sas_restraint.fitting_state
+    _item_description.description
+;    An indicator to single or multiple state fitting. 
+;
+    _item.name                  '_ihm_sas_restraint.fitting_state'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'Single'    'Single-state fitting'
+    'Multiple'  'Multi-state fitting'
+     save_
+
+save__ihm_sas_restraint.radius_of_gyration
+    _item_description.description
+;    Radius of gyration obtained from the SAS profile, if used as input restraint. 
+;
+    _item.name                  '_ihm_sas_restraint.radius_of_gyration'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_sas_restraint.chi_value
+    _item_description.description
+;    The chi value resulting from fitting the model to the SAS data. 
+;
+    _item.name                  '_ihm_sas_restraint.chi_value'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_sas_restraint.details
+    _item_description.description
+;    Additional details regarding the SAS restraint used. 
+;
+    _item.name                  '_ihm_sas_restraint.details'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ##############################
