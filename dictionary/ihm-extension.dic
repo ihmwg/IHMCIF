@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 14-JUN-2016 Jdw/BV
+#  Date: 23-JUN-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -47,6 +47,7 @@
 #           Added ihm_sas_restraint category; added _ihm_3dem_restraint.map_segment_flag
 #           Modified the following categories: ihm_model_list, ihm_modeling_protocol, ihm_multi_state_modeling,
 #           ihm_time_ordered_ensemble
+#           Minor updates to ihm_cross_link_list, ihm_cross_link_restraint and ihm_model_representation categories.
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -418,12 +419,16 @@ save__ihm_model_representation.model_object_primitive
 
 save__ihm_model_representation.starting_model_id
     _item_description.description
-;     The identifier for the starting structural model.
+;     The identifier for the starting structural model. 
+      This data item is a pointer to _ihm_starting_model_details.starting_model_id
+      in the IHM_STARTING_MODEL_DETAILS category. 
 ;
     _item.name                  '_ihm_model_representation.starting_model_id'
     _item.category_id             ihm_model_representation
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
+    _item_linked.child_name       '_ihm_model_representation.starting_model_id'
+    _item_linked.parent_name      '_ihm_starting_model_details.starting_model_id'
      save_
 
 save__ihm_model_representation.model_mode
@@ -2418,6 +2423,7 @@ save__ihm_cross_link_list.type
     _item_enumeration.detail
                  'EDC'  '1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC)  crosslinker'
                  'DSS'  'disuccinimidyl suberate (DSS) crosslinker'
+                 'Other'    'Other crosslink type'
      save_
 
 save__ihm_cross_link_list.dataset_list_id
@@ -2656,6 +2662,7 @@ save__ihm_cross_link_restraint.type
     _item_enumeration.detail
                  'EDC'  '1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC)  crosslinker'
                  'DSS'  'disuccinimidyl suberate (DSS) crosslinker'
+                 'Other'    'Other crosslink type'
      save_
 
 save__ihm_cross_link_restraint.conditional_crosslink_flag
