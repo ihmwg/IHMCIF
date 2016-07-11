@@ -653,8 +653,8 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.multi_state_flag
     _ihm_modeling_protocol.time_ordered_flag
 
-    1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 Y N N
-    2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 Y N N
+    1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 'YES' 'NO' 'NO'
+    2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 'YES' 'NO' 'NO'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -676,8 +676,8 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.multi_state_flag
     _ihm_modeling_protocol.time_ordered_flag
 
-    1   1   1   1   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  N  Y  N
-    2   1   1   2   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  N  Y  N
+    1   1   1   1   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO'
+    2   1   1   2   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -838,8 +838,8 @@ save__ihm_modeling_protocol.multi_scale_flag
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-        Y     'Yes'
-        N     'No'
+        'YES'  .
+        'NO'   .
      save_
 
 save__ihm_modeling_protocol.multi_state_flag
@@ -853,8 +853,8 @@ save__ihm_modeling_protocol.multi_state_flag
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-        Y   'Yes'   
-        N   'No'    
+        'YES'  .   
+        'NO'   . 
      save_
 
 save__ihm_modeling_protocol.time_ordered_flag
@@ -868,8 +868,8 @@ save__ihm_modeling_protocol.time_ordered_flag
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-        Y   'Yes'
-        N   'No'
+        'YES'  .
+        'NO'   .
      save_
 
 ###########################
@@ -1812,7 +1812,7 @@ save_ihm_dataset_list
 ;
     _category.id                ihm_dataset_list
     _category.mandatory_code    no
-    _category_key.name         '_ihm_dataset_list.id'
+    _category_key.name         '_ihm_dataset_list.ordinal_id'
     loop_
     _category_group.id         'inclusive_group'
                                'ihm_group'
@@ -1826,17 +1826,18 @@ save_ihm_dataset_list
 ;
 ;
     loop_
+    _ihm_dataset_list.ordinal_id
     _ihm_dataset_list.id
     _ihm_dataset_list.group_id
     _ihm_dataset_list.data_type
     _ihm_dataset_list.database_hosted
-    _ihm_dataset_list.category_info
 
-    1  1  'CX-MS data'   'NO'   'ihm_dataset_other'
-    2  1  'CX-MS data'   'NO'   'ihm_dataset_other'
-    3  1  '3DEM volume'  'YES'  'ihm_related_database_reference'
-    4  1  '2DEM class average'  'NO'  'ihm_dataset_other'
-    5  1  'Comparative model'   'NO'  'ihm_dataset_other'
+    1  1  1  'CX-MS data'   'NO'
+    2  2  1  'CX-MS data'   'NO' 
+    3  3  1  '3DEM volume'  'YES' 
+    4  4  1  '2DEM class average'  'NO' 
+    5  5  1  'Comparative model'   'NO'
+    6  6  1  'EM raw micrographs'  'NO'
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1844,9 +1845,19 @@ save_ihm_dataset_list
    _pdbx_category_context.category_id  ihm_dataset_list
    save_
 
+save__ihm_dataset_list.ordinal_id
+    _item_description.description
+;    A unique identifier for the entry.
+;
+    _item.name                  '_ihm_dataset_list.ordinal_id'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
 save__ihm_dataset_list.id
     _item_description.description
-;    A unique identifier for the dataset.
+;    An identifier for the dataset.
 ;
     _item.name                  '_ihm_dataset_list.id'
     _item.category_id             ihm_dataset_list
@@ -1881,9 +1892,9 @@ save__ihm_dataset_list.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
+      'Experimental model'
       'Comparative model'
       'De Novo model'
-      'Spatial restraint data'
       'unspecified'
      save_ 
 
@@ -1902,20 +1913,6 @@ save__ihm_dataset_list.database_hosted
       'NO'
      save_
  
-save__ihm_dataset_list.category_info
-    _item_description.description
-;    The name of the category that holds all the details regarding the dataset. 
-;
-    _item.name                  '_ihm_dataset_list.category_info'
-    _item.category_id             ihm_dataset_list
-    _item.mandatory_code          no
-    _item_type.code               code
-    loop_
-    _item_enumeration.value
-     'ihm_related_database_reference'
-     'ihm_dataset_other'
-    save_
-
 ######################################
 ## IHM_DATASET_RELATED_DB_REFERENCE ##
 ######################################
@@ -2051,6 +2048,7 @@ save__ihm_dataset_related_db_reference.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
+      'Experimental model'
       'Comparative model'
       'De Novo model'
       'unspecified'
@@ -2153,9 +2151,9 @@ save__ihm_dataset_other.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
+      'Experimental model'
       'Comparative model'
       'De Novo model'
-      'Spatial restraint data'
       'unspecified'
     save_
  
@@ -2902,15 +2900,16 @@ save_ihm_2dem_class_average_restraint
     Example 1 -
 ;
 ;
-    _ihm_2dem_class_average_restraint.id                        1
-    _ihm_2dem_class_average_restraint.dataset_list_id           4
-    _ihm_2dem_class_average_restraint.number_raw_micrographs    200
-    _ihm_2dem_class_average_restraint.pixel_size_width          5.91
-    _ihm_2dem_class_average_restraint.pixel_size_height         5.91
-    _ihm_2dem_class_average_restraint.image_resolution          30.0
-    _ihm_2dem_class_average_restraint.image_segment_flag        No
-    _ihm_2dem_class_average_restraint.number_of_projections     400
-    _ihm_2dem_class_average_restraint.struct_assembly_id        1
+    _ihm_2dem_class_average_restraint.id                                1
+    _ihm_2dem_class_average_restraint.dataset_list_id                   4
+    _ihm_2dem_class_average_restraint.number_raw_micrographs            200
+    _ihm_2dem_class_average_restraint.raw_micrographs_dataset_list_id   6
+    _ihm_2dem_class_average_restraint.pixel_size_width                  5.91
+    _ihm_2dem_class_average_restraint.pixel_size_height                 5.91
+    _ihm_2dem_class_average_restraint.image_resolution                  30.0
+    _ihm_2dem_class_average_restraint.image_segment_flag                No
+    _ihm_2dem_class_average_restraint.number_of_projections             400
+    _ihm_2dem_class_average_restraint.struct_assembly_id                1
     _ihm_2dem_class_average_restraint.details
 ;       The 2DEM restraint fits a given model to an 2DEM class average and
         computes a score that quantifies the match. The computation proceeds
@@ -2958,6 +2957,20 @@ save__ihm_2dem_class_average_restraint.number_raw_micrographs
     _item.mandatory_code          yes
     _item_type.code               int
     save_
+
+save__ihm_2dem_class_average_restraint.raw_micrographs_dataset_list_id
+    _item_description.description
+;     Identifier to the raw EM micrographs dataset from which the class average 
+      was derived. This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                    '_ihm_2dem_class_average_restraint.raw_micrographs_dataset_list_id'
+    _item.category_id             ihm_2dem_class_average_restraint
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_2dem_class_average_restraint.raw_micrographs_dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
 
 save__ihm_2dem_class_average_restraint.pixel_size_width
     _item_description.description
