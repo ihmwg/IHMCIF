@@ -433,7 +433,7 @@ save__ihm_model_representation.starting_model_id
 
 save__ihm_model_representation.model_mode
     _item_description.description
-;     The manner in which the seqment is modeled.
+;     The manner in which the segment is modeled.
 ;
     _item.name                  '_ihm_model_representation.model_mode'
     _item.category_id             ihm_model_representation
