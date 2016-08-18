@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 23-JUN-2016 Jdw/BV
+#  Date: 18-AUG-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -48,6 +48,7 @@
 #           Modified the following categories: ihm_model_list, ihm_modeling_protocol, ihm_multi_state_modeling,
 #           ihm_time_ordered_ensemble
 #           Minor updates to ihm_cross_link_list, ihm_cross_link_restraint and ihm_model_representation categories.
+#           Added ihm_sphere_obj_site.rmsf and ihm_starting_model_details.asym_id
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -81,6 +82,7 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.ordinal_id
         _ihm_starting_model_details.entity_id
         _ihm_starting_model_details.entity_description
+        _ihm_starting_model_details.asym_id
         _ihm_starting_model_details.seq_id_begin
         _ihm_starting_model_details.seq_id_end
         _ihm_starting_model_details.starting_model_source
@@ -90,10 +92,10 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-         2  1  Nup84      7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
-         3  1  Nup84      7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6     
-         4  1  Nup84    429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  
-         6  1  Nup84    506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  
+         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
+         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6     
+         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  
+         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -133,6 +135,20 @@ save__ihm_starting_model_details.entity_description
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               line
+     save_
+
+save__ihm_starting_model_details.asym_id
+    _item_description.description
+;   An asym/strand identifier for the entity molecule.
+    This data item is a pointer to _struct_asym.id in the
+    STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_starting_model_details.asym_id'
+    _item.category_id             ihm_starting_model_details
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_starting_model_details.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
      save_
 
 save__ihm_starting_model_details.seq_id_begin
@@ -433,7 +449,7 @@ save__ihm_model_representation.starting_model_id
 
 save__ihm_model_representation.model_mode
     _item_description.description
-;     The manner in which the segment is modeled.
+;     The manner in which the seqment is modeled.
 ;
     _item.name                  '_ihm_model_representation.model_mode'
     _item.category_id             ihm_model_representation
@@ -3890,17 +3906,18 @@ save_ihm_sphere_obj_site
         _ihm_sphere_obj_site.Cartn_y
         _ihm_sphere_obj_site.Cartn_z
         _ihm_sphere_obj_site.object_radius
+        _ihm_sphere_obj_site.rmsf
         _ihm_sphere_obj_site.model_id
-           1  1     1     6  A  1.0  1.0  1.0  1.0  1
-           2  1     7     7  A  1.0  1.0  1.0  1.0  1
-           3  1     8     8  A  1.0  1.0  1.0  1.0  1
-           4  1     9     9  A  1.0  1.0  1.0  1.0  1
-           5  1    10    10  A  1.0  1.0  1.0  1.0  1
-           6  1    11    11  A  1.0  1.0  1.0  1.0  1
-           7  1    12    12  A  1.0  1.0  1.0  1.0  1
-           8  1    13    13  A  1.0  1.0  1.0  1.0  1
-           9  1    14    14  A  1.0  1.0  1.0  1.0  1
-          10  1    15    15  A  1.0  1.0  1.0  1.0  1
+           1  1     1     6  A  1.0  1.0  1.0  1.0  .  1
+           2  1     7     7  A  1.0  1.0  1.0  1.0  .  1
+           3  1     8     8  A  1.0  1.0  1.0  1.0  .  1
+           4  1     9     9  A  1.0  1.0  1.0  1.0  .  1
+           5  1    10    10  A  1.0  1.0  1.0  1.0  .  1
+           6  1    11    11  A  1.0  1.0  1.0  1.0  .  1
+           7  1    12    12  A  1.0  1.0  1.0  1.0  .  1
+           8  1    13    13  A  1.0  1.0  1.0  1.0  .  1
+           9  1    14    14  A  1.0  1.0  1.0  1.0  .  1
+          10  1    15    15  A  1.0  1.0  1.0  1.0  .  1
           # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -4022,6 +4039,18 @@ save__ihm_sphere_obj_site.object_radius
     _item.name                  '_ihm_sphere_obj_site.object_radius'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_sphere_obj_site.rmsf
+    _item_description.description
+;     The Root Mean Square Fluctuation (RMSF) observed in the primitive 
+      sphere object at this position.
+;
+    _item.name                  '_ihm_sphere_obj_site.rmsf'
+    _item.category_id             ihm_sphere_obj_site
+    _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
