@@ -457,6 +457,7 @@ Example for `ihm_starting_model_details` category
         _ihm_starting_model_details.ordinal_id
         _ihm_starting_model_details.entity_id
         _ihm_starting_model_details.entity_description
+        _ihm_starting_model_details.asym_id
         _ihm_starting_model_details.seq_id_begin
         _ihm_starting_model_details.seq_id_end
         _ihm_starting_model_details.starting_model_source
@@ -466,10 +467,10 @@ Example for `ihm_starting_model_details` category
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-         2  1  Nup84      7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
-         3  1  Nup84      7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6
-         4  1  Nup84    429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7
-         6  1  Nup84    506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8
+         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
+         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6
+         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7
+         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8
          # ... abbreviated ...
 
 The `ihm_starting_model_coord` records the details of the XYZ coordinates of the starting
@@ -646,17 +647,18 @@ Example for the `ihm_sphere_obj_site` category representing spherical beads comp
         _ihm_sphere_obj_site.Cartn_y
         _ihm_sphere_obj_site.Cartn_z
         _ihm_sphere_obj_site.object_radius
+        _ihm_sphere_obj_site.rmsf
         _ihm_sphere_obj_site.model_id
-           1  1     1     6  A  1.0  1.0  1.0  1.0  1
-           2  1     7     7  A  1.0  1.0  1.0  1.0  1
-           3  1     8     8  A  1.0  1.0  1.0  1.0  1
-           4  1     9     9  A  1.0  1.0  1.0  1.0  1
-           5  1    10    10  A  1.0  1.0  1.0  1.0  1
-           6  1    11    11  A  1.0  1.0  1.0  1.0  1
-           7  1    12    12  A  1.0  1.0  1.0  1.0  1
-           8  1    13    13  A  1.0  1.0  1.0  1.0  1
-           9  1    14    14  A  1.0  1.0  1.0  1.0  1
-          10  1    15    15  A  1.0  1.0  1.0  1.0  1 
+           1  1     1     6  A  1.0  1.0  1.0  1.0  .  1
+           2  1     7     7  A  1.0  1.0  1.0  1.0  .  1
+           3  1     8     8  A  1.0  1.0  1.0  1.0  .  1
+           4  1     9     9  A  1.0  1.0  1.0  1.0  .  1
+           5  1    10    10  A  1.0  1.0  1.0  1.0  .  1
+           6  1    11    11  A  1.0  1.0  1.0  1.0  .  1
+           7  1    12    12  A  1.0  1.0  1.0  1.0  .  1
+           8  1    13    13  A  1.0  1.0  1.0  1.0  .  1
+           9  1    14    14  A  1.0  1.0  1.0  1.0  .  1
+          10  1    15    15  A  1.0  1.0  1.0  1.0  .  1 
           # ... abbreviated ...
 
 **Gaussian objects**
