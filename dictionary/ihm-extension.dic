@@ -374,7 +374,7 @@ save__ihm_model_representation.entity_description
     _item.name                  '_ihm_model_representation.entity_description'
     _item.category_id             ihm_model_representation
     _item.mandatory_code          no
-    _item_type.code               int
+    _item_type.code               line
      save_
 
 save__ihm_model_representation.entity_asym_id
@@ -584,7 +584,7 @@ save__ihm_struct_assembly.entity_id
     _item.name                  '_ihm_struct_assembly.entity_id'
     _item.category_id             ihm_struct_assembly
     _item.mandatory_code          yes
-    _item_type.code               int
+    _item_type.code               code
     _item_linked.child_name       '_ihm_struct_assembly.entity_id'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -1063,6 +1063,7 @@ save__ihm_multi_state_modeling.model_group_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_multi_state_modeling.model_group_id'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
+    save_
 
 save__ihm_multi_state_modeling.details
     _item_description.description
@@ -1241,6 +1242,7 @@ save__ihm_time_ordered_ensemble.model_group_id_begin
     _item_type.code               int  
     _item_linked.child_name     '_ihm_time_ordered_ensemble.model_group_id_begin'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
+    save_
 
 save__ihm_time_ordered_ensemble.model_group_id_end
     _item_description.description
@@ -1273,6 +1275,7 @@ save__ihm_time_ordered_ensemble.state_group_id_begin
     _item_type.code               int
     _item_linked.child_name     '_ihm_time_ordered_ensemble.state_group_id_begin'
     _item_linked.parent_name    '_ihm_multi_state_modeling.state_group_id'
+    save_
 
 save__ihm_time_ordered_ensemble.state_group_id_end
     _item_description.description
@@ -1289,6 +1292,7 @@ save__ihm_time_ordered_ensemble.state_group_id_end
     _item_type.code               int
     _item_linked.child_name     '_ihm_time_ordered_ensemble.state_group_id_end'
     _item_linked.parent_name    '_ihm_multi_state_modeling.state_group_id'
+    save_
 
 ############################
 ## IHM_MODELING_POST_PROCESS
@@ -1507,6 +1511,10 @@ save_ihm_ensemble_info
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_ensemble_info
+     save_
 
 save__ihm_ensemble_info.ensemble_id
     _item_description.description
@@ -1727,6 +1735,10 @@ save_ihm_model_list
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_model_list
+     save_
+
 save__ihm_model_list.ordinal_id
     _item_description.description
 ;     A unique identifier for the model / model group combination.
@@ -1899,7 +1911,7 @@ save__ihm_dataset_list.data_type
     _item.name                  '_ihm_dataset_list.data_type'
     _item.category_id             ihm_dataset_list
     _item.mandatory_code          yes
-    _item_type.code               code
+    _item_type.code               line
     loop_
     _item_enumeration.value
       'NMR data'
@@ -2044,7 +2056,7 @@ save__ihm_dataset_related_db_reference.version
     _item.name                  '_ihm_dataset_related_db_reference.version'
     _item.category_id             ihm_dataset_related_db_reference
     _item.mandatory_code          no
-    _item_type.code               int
+    _item_type.code               code
      save_
  
 save__ihm_dataset_related_db_reference.data_type
@@ -2733,8 +2745,8 @@ save__ihm_cross_link_restraint.psi
     _item_range.minimum
     _item_range.maximum
         0.0   0.0
-        0.0   0.5
-        0.5   0.5
+        0.0   1.0
+        1.0   1.0
      save_
 
 save__ihm_cross_link_restraint.sigma_1
@@ -2926,13 +2938,7 @@ save_ihm_2dem_class_average_restraint
     _ihm_2dem_class_average_restraint.image_segment_flag                No
     _ihm_2dem_class_average_restraint.number_of_projections             400
     _ihm_2dem_class_average_restraint.struct_assembly_id                1
-    _ihm_2dem_class_average_restraint.details
-;       The 2DEM restraint fits a given model to an 2DEM class average and
-        computes a score that quantifies the match. The computation proceeds
-        in three stages: generation of 3D model projections on a 2D grid, 
-        alignment of the model projections and the 2DEM class average image, 
-        and calculation of the best fitting score. 
-;
+    _ihm_2dem_class_average_restraint.details                           .
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -3337,11 +3343,7 @@ save_ihm_3dem_restraint
     _ihm_3dem_restraint.map_segment_flag                No
     _ihm_3dem_restraint.cross_correlation_coefficient   0.8 
     _ihm_3dem_restraint.fitting_method_citation_id      5
-    _ihm_3dem_restraint.details
-;   The Nup-84 models generated and the 3DEM maps are converted to 3D Gaussians
-    using Gaussian mixture models (GMMs). The GMMs are then compared to obtain
-    a 3D fit of the map and the model. 
-;
+    _ihm_3dem_restraint.details                         .
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -3451,7 +3453,7 @@ save__ihm_3dem_restraint.fitting_method_citation_id
     _item.name                  '_ihm_3dem_restraint.fitting_method_citation_id'
     _item.category_id             ihm_3dem_restraint
     _item.mandatory_code          no
-    _item_type.code               int
+    _item_type.code               code
     _item_linked.child_name     '_ihm_3dem_restraint.fitting_method_citation_id'
     _item_linked.parent_name    '_citation.id'
      save_
@@ -3814,7 +3816,7 @@ save__ihm_starting_model_coord.asym_id
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_starting_model_coord.asym_id'
-    _item_linked.parent_name      '_struct_aysm.id'
+    _item_linked.parent_name      '_struct_asym.id'
      save_
 
 save__ihm_starting_model_coord.Cartn_x
