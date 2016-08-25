@@ -88,7 +88,7 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_source
         _ihm_starting_model_details.starting_model_db_name
         _ihm_starting_model_details.starting_model_db_code
-        _ihm_starting_model_details.starting_model_db_pdb_auth_seq_id
+        _ihm_starting_model_details.starting_model_db_pdb_auth_asym_id
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
