@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 18-AUG-2016 Jdw/BV
+#  Date: 7-SEP-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -48,7 +48,12 @@
 #           Modified the following categories: ihm_model_list, ihm_modeling_protocol, ihm_multi_state_modeling,
 #           ihm_time_ordered_ensemble
 #           Minor updates to ihm_cross_link_list, ihm_cross_link_restraint and ihm_model_representation categories.
-#           Added ihm_sphere_obj_site.rmsf and ihm_starting_model_details.asym_id
+#           Added _ihm_sphere_obj_site.rmsf and _ihm_starting_model_details.asym_id
+#           Added ihm_related_datasets and ihm_cross_link_result_parameters
+#           Added _ihm_3dem_restraint.struct_assembly_id, _ihm_sas_restraint.struct_assembly_id,
+#           _ihm_starting_model_details.notes and _ihm_starting_model_coord.group_PDB
+#           Changed _ihm_3dem_restraint.id to _ihm_3dem_restraint.ordinal_id and _ihm_sas_restraint.id to
+#           _ihm_sas_restraint.ordinal_id
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -92,10 +97,11 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
-         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6     
-         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  
-         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  
+        _ihm_starting_model_details.notes
+         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5  "MSE to MET conversion"
+         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6  .
+         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  .
+         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  .
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -264,6 +270,19 @@ save__ihm_starting_model_details.dataset_list_id
     _item_type.code               int  
     _item_linked.child_name       '_ihm_starting_model_details.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_starting_model_details.notes
+    _item_description.description
+;   Additional details regarding the starting models, if any.
+;
+    _item.name                  '_ihm_starting_model_details.notes'
+    _item.category_id             ihm_starting_model_details
+    _item.mandatory_code          no
+    _item_type.code               text
+    loop_
+    _item_examples.case
+        'MSE to MET conversion'
      save_
 
 ##############################
@@ -1834,8 +1853,8 @@ save_ihm_dataset_list
    These can be datasets archived in other related databases such as
    BMRB, EMDB, EMPIAR, SASBDB, PRIDE etc., or can be hosted in other
    places such as the authors website, github etc. These datasets are
-   elaborated in detail in the IHM_RELATED_DATABASE_REFERENCE and/or the
-   IHM_DATASET_OTHER categories. This category holds the list
+   elaborated in detail in the IHM_DATASET_RELATED_DB_REFERENCE and/or 
+   the IHM_DATASET_OTHER categories. This category holds the list
    of all datasets used. 
 ;
     _category.id                ihm_dataset_list
@@ -1920,6 +1939,7 @@ save__ihm_dataset_list.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
+      'Mass Spectrometry data'
       'Experimental model'
       'Comparative model'
       'De Novo model'
@@ -1940,7 +1960,126 @@ save__ihm_dataset_list.database_hosted
       'YES'
       'NO'
      save_
+
+##########################
+## IHM_RELATED_DATASETS ##
+##########################
+
+save_ihm_related_datasets
+    _category.description
+;  Category holds information about related datasets, where one is derived from the other.
+;
+    _category.id                ihm_related_datasets
+    _category.mandatory_code    no
+    _category_key.name         '_ihm_related_datasets.ordinal_id'
+    loop_
+    _category_group.id         'inclusive_group'
+                               'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1
+;
+;
+    loop_
+    _ihm_related_datasets.ordinal_id
+    _ihm_related_datasets.dataset_list_id_derived
+    _ihm_related_datasets.data_type_derived
+    _ihm_related_datasets.dataset_list_id_primary
+    _ihm_related_datasets.data_type_primary
  
+    1   1   'CX-MS data'                5   'Mass Spectrometry data'
+    2   2   'CX-MS data'                6   'Mass Spectrometry data'
+    3   3   '2DEM class average'        7   'EM raw Micrographs'
+    4   4   '3DEM volume'               8   'EM raw Micrographs'
+    # ... abbreviated ... #
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    _pdbx_category_context.type         CONTRIBUTED
+    _pdbx_category_context.category_id  ihm_related_datasets
+    save_
+
+save__ihm_related_datasets.ordinal_id
+    _item_description.description
+;    A unique identifier for the entry.
+;
+    _item.name                  '_ihm_related_datasets.ordinal_id'
+    _item.category_id             ihm_related_datasets
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_related_datasets.dataset_list_id_derived
+    _item_description.description
+;    The dataset list id corresponding to the derived dataset.
+     This data item is a pointer to _ihm_dataset_list.id in the
+     IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_related_datasets.dataset_list_id_derived'
+    _item.category_id             ihm_related_datasets
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_related_datasets.dataset_list_id_derived'
+    _item_linked.parent_name    '_ihm_dataset_list.id'
+     save_
+
+save__ihm_related_datasets.data_type_derived
+    _item_description.description
+;    The data type for the derived dataset.
+;
+    _item.name                  '_ihm_related_datasets.data_type_derived'
+    _item.category_id             ihm_related_datasets
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+      'NMR data'
+      '3DEM volume'
+      '2DEM class average'
+      'EM raw micrographs'
+      'SAS data'
+      'CX-MS data'
+      'Mass Spectrometry data'
+      'unspecified'
+     save_
+
+save__ihm_related_datasets.dataset_list_id_primary
+    _item_description.description
+;    The primary dataset list id from which the corresponding derived dataset is obtained.
+     This data item is a pointer to _ihm_dataset_list.id in the
+     IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_related_datasets.dataset_list_id_primary'
+    _item.category_id             ihm_related_datasets
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_related_datasets.dataset_list_id_primary'
+    _item_linked.parent_name    '_ihm_dataset_list.id'
+     save_
+
+save__ihm_related_datasets.data_type_primary
+    _item_description.description
+;    The data type for the primary dataset.
+;
+    _item.name                  '_ihm_related_datasets.data_type_primary'
+    _item.category_id             ihm_related_datasets
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+      'NMR data'
+      '3DEM volume'
+      '2DEM class average'
+      'EM raw micrographs'
+      'SAS data'
+      'CX-MS data'
+      'Mass Spectrometry data'
+      'unspecified'
+     save_
+
 ######################################
 ## IHM_DATASET_RELATED_DB_REFERENCE ##
 ######################################
@@ -2076,6 +2215,7 @@ save__ihm_dataset_related_db_reference.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
+      'Mass Spectrometry data'
       'Experimental model'
       'Comparative model'
       'De Novo model'
@@ -2179,6 +2319,7 @@ save__ihm_dataset_other.data_type
       'EM raw micrographs'
       'SAS data'
       'CX-MS data'
+      'Mass Spectrometry data'
       'Experimental model'
       'Comparative model'
       'De Novo model'
@@ -2904,6 +3045,129 @@ save__ihm_cross_link_result.details
      save_
 
 ######################################
+## IHM_CROSS_LINK_RESULT_PARAMETERS ##
+######################################
+
+save_ihm_cross_link_result_parameters
+    _category.description
+;              Data items in the IHM_CROSS_LINK_RESULT_PARAMETERS category records the
+               results of the crosslinking restraint parameters in the IHM modeling.
+;
+    _category.id                  ihm_cross_link_result_parameters
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_cross_link_result_parameters.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_cross_link_result_parameters.ordinal_id
+        _ihm_cross_link_result_parameters.restraint_id
+        _ihm_cross_link_result_parameters.model_id
+        _ihm_cross_link_result_parameters.psi
+        _ihm_cross_link_result_parameters.sigma_1
+        _ihm_cross_link_result_parameters.sigma_2
+
+        1  1   1  0.05  0.01  0.01 
+        2  2   1  0.05  0.01  0.01
+        3  3   1  0.05  0.01  0.01
+        4  4   2  0.05  0.01  0.01
+        5  5   3  0.05  0.01  0.01
+        6  6   4  0.05  0.01  0.01
+        # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_cross_link_result_parameters
+     save_
+
+save__ihm_cross_link_result_parameters.ordinal_id
+    _item_description.description
+;     A unique identifier for the restraint/model combination.
+;
+    _item.name                  '_ihm_cross_link_result_parameters.ordinal_id'
+    _item.category_id             ihm_cross_link_result_parameters
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_cross_link_result_parameters.restraint_id
+    _item_description.description
+;     An identifier for the crosslink restraint between a pair of residues.
+      This data item is a pointer to _ihm_cross_link_restraint.id in the
+      IHM_CROSS_LINK_RESTRAINT category.
+;
+    _item.name                  '_ihm_cross_link_result_parameters.restraint_id'
+    _item.category_id             ihm_cross_link_result_parameters
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name    '_ihm_cross_link_result_parameters.restraint_id'
+    _item_linked.parent_name   '_ihm_cross_link_restraint.id'
+     save_
+
+save__ihm_cross_link_result_parameters.model_id
+    _item_description.description
+;     The model number corresponding to the cross link result presented.
+      This data item is a pointer to _ihm_model_list.model_id in the
+      IHM_MODEL_LIST category.
+;
+    _item.name                    '_ihm_cross_link_result_parameters.model_id'
+    _item.category_id             ihm_cross_link_result_parameters
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_result_parameters.model_id'
+    _item_linked.parent_name      '_ihm_model_list.model_id'
+     save_
+
+save__ihm_cross_link_result_parameters.psi
+    _item_description.description
+;     The uncertainty in the crosslinking experimental data;
+      May be approximated to the false positive rate.
+;
+    _item.name                  '_ihm_cross_link_result_parameters.psi'
+    _item.category_id             ihm_cross_link_result_parameters
+    _item.mandatory_code          no
+    _item_type.code               float
+    loop_
+    _item_range.minimum
+    _item_range.maximum
+        0.0   0.0
+        0.0   1.0
+        1.0   1.0
+     save_
+
+save__ihm_cross_link_result_parameters.sigma_1
+    _item_description.description
+;     The uncertainty in the position of residue 1 in the crosslink
+      arising due to the multi-scale nature of the model represention.
+;
+    _item.name                  '_ihm_cross_link_result_parameters.sigma_1'
+    _item.category_id             ihm_cross_link_result_parameters
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_cross_link_result_parameters.sigma_2
+    _item_description.description
+;     The uncertainty in the position of residue 2 in the crosslink
+      arising due to the multi-scale nature of the model represention.
+;
+    _item.name                  '_ihm_cross_link_result_parameters.sigma_2'
+    _item.category_id             ihm_cross_link_result_parameters
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+######################################
 ## IHM_2DEM_CLASS_AVERAGE_RESTRAINT ##
 ######################################
 
@@ -3066,7 +3330,7 @@ save__ihm_2dem_class_average_restraint.struct_assembly_id
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.struct_assembly_id'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_2dem_class_average_restraint.struct_assembly_id'
     _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
@@ -3335,9 +3599,10 @@ save_ihm_3dem_restraint
     Example 1 -
 ;
 ;
-    _ihm_3dem_restraint.id                              1
+    _ihm_3dem_restraint.ordinal_id                      1
     _ihm_3dem_restraint.dataset_list_id                 3
     _ihm_3dem_restraint.model_id                        1
+    _ihm_3dem_restraint.struct_assembly_id              1
     _ihm_3dem_restraint.fitting_method                  'Gaussian mixture models'
     _ihm_3dem_restraint.number_of_gaussians             10
     _ihm_3dem_restraint.map_segment_flag                No
@@ -3351,11 +3616,11 @@ save_ihm_3dem_restraint
    _pdbx_category_context.category_id  ihm_3dem_restraint
      save_
 
-save__ihm_3dem_restraint.id
+save__ihm_3dem_restraint.ordinal_id
     _item_description.description
 ;     A unique identifier for the 3DEM restraint description.
 ;
-    _item.name                  '_ihm_3dem_restraint.id'
+    _item.name                  '_ihm_3dem_restraint.ordinal_id'
     _item.category_id             ihm_3dem_restraint
     _item.mandatory_code          yes
     _item_type.code               int
@@ -3387,6 +3652,25 @@ save__ihm_3dem_restraint.model_id
     _item_type.code               int
     _item_linked.child_name       '_ihm_3dem_restraint.model_id'
     _item_linked.parent_name      '_ihm_model_list.model_id'
+     save_
+
+save__ihm_3dem_restraint.struct_assembly_id
+    _item_description.description
+;    An indicator to whether the whole assembly that is modeled is fit into the 3DEM map
+     or if only a subset of the structural assembly is fit into the map.
+     This data item is a pointer to _ihm_struct_assembly.assembly_id in the
+     IHM_STRUCT_ASSEMBLY category. The IHM_STRUCT_ASSEMBLY category provides the
+     details regarding the different structural assemblies used in the modeling.
+     The default value for this data item is "1" indicating that the entire assembly
+     being modeled is fit into the EM map.
+;
+    _item.name                  '_ihm_3dem_restraint.struct_assembly_id'
+    _item.category_id             ihm_3dem_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_3dem_restraint.struct_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
+    _item_default.value           1
      save_
 
 save__ihm_3dem_restraint.fitting_method
@@ -3500,9 +3784,10 @@ save_ihm_sas_restraint
     Example 1 -
 ;
 ;
-    _ihm_sas_restraint.id                              1
+    _ihm_sas_restraint.ordinal_id                      1
     _ihm_sas_restraint.dataset_list_id                 6
     _ihm_sas_restraint.model_id                        1
+    _ihm_sas_restraint.struct_assembly_id              1
     _ihm_sas_restraint.profile_segment_flag            No
     _ihm_sas_restraint.fitting_atom_type               'Heavy atoms'
     _ihm_sas_restraint.fitting_method                  'FoXS'
@@ -3517,11 +3802,11 @@ save_ihm_sas_restraint
    _pdbx_category_context.category_id  ihm_3dem_restraint
      save_
 
-save__ihm_sas_restraint.id
+save__ihm_sas_restraint.ordinal_id
     _item_description.description
 ;     A unique identifier for the SAS restraint description.
 ;
-    _item.name                  '_ihm_sas_restraint.id'
+    _item.name                  '_ihm_sas_restraint.ordinal_id'
     _item.category_id             ihm_sas_restraint
     _item.mandatory_code          yes
     _item_type.code               int
@@ -3553,6 +3838,25 @@ save__ihm_sas_restraint.model_id
     _item_type.code               int
     _item_linked.child_name       '_ihm_sas_restraint.model_id'
     _item_linked.parent_name      '_ihm_model_list.model_id'
+     save_
+
+save__ihm_sas_restraint.struct_assembly_id
+    _item_description.description
+;    An indicator to whether the whole assembly that is modeled is fit into the SAS data
+     or if only a subset of the structural assembly is fit into the data.
+     This data item is a pointer to _ihm_struct_assembly.assembly_id in the
+     IHM_STRUCT_ASSEMBLY category. The IHM_STRUCT_ASSEMBLY category provides the
+     details regarding the different structural assemblies used in the modeling.
+     The default value for this data item is "1" indicating that the entire assembly
+     being modeled is fit into the SAS data.
+;
+    _item.name                  '_ihm_sas_restraint.struct_assembly_id'
+    _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_sas_restraint.struct_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
+    _item_default.value           1
      save_
 
 save__ihm_sas_restraint.profile_segment_flag
@@ -3732,6 +4036,22 @@ save__ihm_starting_model_coord.starting_model_id
     _item_type.code               code
     _item_linked.child_name     '_ihm_starting_model_coord.starting_model_id'
     _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
+     save_
+
+save__ihm_starting_model_coord.group_PDB
+    _item_description.description
+;    The group of atoms to which the atom site in the starting model belongs. This data
+     item is provided for compatibility with the original Protein Data Bank format, 
+     and only for that purpose.
+;
+    _item.name                  '_ihm_starting_model_coord.group_PDB'
+    _item.category_id             ihm_starting_model_coord
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value       
+            ATOM
+            HETATM
      save_
 
 save__ihm_starting_model_coord.id
