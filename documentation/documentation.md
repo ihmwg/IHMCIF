@@ -100,7 +100,8 @@ complementary information about the macromolecular assembly. Spatial restraints
 derived from various experiments are used together to obtain the structure of the
 macromolecular assembly. All input restraints derived from experiments are listed
 in the `ihm_dataset_list` data category. These can be grouped together to distinguish
-data sets used differently in the integrative modeling. 
+data sets used differently in the integrative modeling. The `ihm_related_datasets`
+category holds the relationships between datasets derived from primary datasets. 
 
 Some experimental methods such as NMR spectroscopy ([BMRB](http://www.bmrb.wisc.edu/)),
 Electron microscopy ([EMDB](https://www.ebi.ac.uk/pdbe/emdb/), [EMPIAR](https://www.ebi.ac.uk/pdbe/emdb/empiar/)),
@@ -117,8 +118,8 @@ or other websites such as [Github](https://github.com/). DOIs for such datasets 
 resources such as [Figshare](https://figshare.com/) or [Zenodo](http://zenodo.org/).
 
 The various kinds of input data used in the integrative modeling are listed and described in the `ihm_dataset_list`, 
-`ihm_dataset_related_db_reference` and `ihm_dataset_other` categories (examples below). The restraints derived 
-from the primary data sources are handled in other data categories discussed in the following section. 
+`ihm_related_datasets`, `ihm_dataset_related_db_reference` and `ihm_dataset_other` categories (examples below). 
+The restraints obtained from these data sources are handled in other data categories discussed in the following section. 
 
 Example for `ihm_dataset_list` category
 
@@ -134,6 +135,21 @@ Example for `ihm_dataset_list` category
      4  1  '2DEM class average'  'NO'  'ihm_dataset_other'
      5  1  'Comparative model'   'NO'  'ihm_dataset_other'
      # ... abbreviated ...
+
+Example for `ihm_related_datasets` category
+
+    loop_
+    _ihm_related_datasets.ordinal_id
+    _ihm_related_datasets.dataset_list_id_derived
+    _ihm_related_datasets.data_type_derived
+    _ihm_related_datasets.dataset_list_id_primary
+    _ihm_related_datasets.data_type_primary
+    
+    1   1   'CX-MS data'                5   'Mass Spectrometry data'
+    2   2   'CX-MS data'                6   'Mass Spectrometry data'
+    3   3   '2DEM class average'        7   'EM raw Micrographs'
+    4   4   '3DEM volume'               8   'EM raw Micrographs'
+    # ... abbreviated ... #
 
 Example for `ihm_dataset_related_db_reference` category
 
@@ -389,9 +405,10 @@ be used to score the models.*
 
 Example for `ihm_3dem_restraint` category
 
-    _ihm_3dem_restraint.id                              1
+    _ihm_3dem_restraint.ordinal_id                      1
     _ihm_3dem_restraint.dataset_list_id                 3
     _ihm_3dem_restraint.model_id                        1
+    _ihm_3dem_restraint.struct_assembly_id              1
     _ihm_3dem_restraint.fitting_method                  'Gaussian mixture models'
     _ihm_3dem_restraint.number_of_gaussians             10
     _ihm_3dem_restraint.map_segment_flag                No
@@ -420,9 +437,10 @@ theoretical SAS profile (left, red line) derived from a model obtained through i
 
 Example for `ihm_sas_restraint` category
 
-    _ihm_sas_restraint.id                              1
+    _ihm_sas_restraint.ordinal_id                      1
     _ihm_sas_restraint.dataset_list_id                 6
     _ihm_sas_restraint.model_id                        1
+    _ihm_sas_restraint.struct_assembly_id              1
     _ihm_sas_restraint.profile_segment_flag            No
     _ihm_sas_restraint.fitting_atom_type               'Heavy atoms'
     _ihm_sas_restraint.fitting_method                  'FoXS'
@@ -463,14 +481,15 @@ Example for `ihm_starting_model_details` category
         _ihm_starting_model_details.starting_model_source
         _ihm_starting_model_details.starting_model_db_name
         _ihm_starting_model_details.starting_model_db_code
-        _ihm_starting_model_details.starting_model_db_pdb_auth_seq_id
+        _ihm_starting_model_details.starting_model_db_pdb_auth_asym_id
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5
-         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6
-         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7
-         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8
+        _ihm_starting_model_details.notes
+         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5  "MSE to MET conversion"
+         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6  .
+         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  .
+         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  .
          # ... abbreviated ...
 
 The `ihm_starting_model_coord` records the details of the XYZ coordinates of the starting
@@ -886,7 +905,7 @@ Example 1 for the `ihm_modeling_protocol` category
     _ihm_modeling_protocol.step_id
     _ihm_modeling_protocol.struct_assembly_id
     _ihm_modeling_protocol.dataset_group_id
-    _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.struct_assembly_description
     _ihm_modeling_protocol.protocol_name
     _ihm_modeling_protocol.step_name
     _ihm_modeling_protocol.step_method
@@ -908,7 +927,7 @@ Example 2 for the `ihm_modeling_protocol` category
     _ihm_modeling_protocol.step_id
     _ihm_modeling_protocol.struct_assembly_id
     _ihm_modeling_protocol.dataset_group_id
-    _ihm_modeling_protocol.assembly_description
+    _ihm_modeling_protocol.struct_assembly_description
     _ihm_modeling_protocol.protocol_name
     _ihm_modeling_protocol.step_name
     _ihm_modeling_protocol.step_method
@@ -1120,7 +1139,7 @@ are discussed below.
 The `ihm_cross_link_result` provides information on whether the crosslinking
 restraints used in the modeling and defined in the `ihm_cross_link_restraint` 
 category are satisfied by the ensembles obtained from the modeling and
-described in the `ihm_ensemble_info` category. 
+described in the `ihm_ensemble_info` category.  
 
 Example for the `ihm_cross_link_result` category
 
@@ -1139,6 +1158,29 @@ Example for the `ihm_cross_link_result` category
           5  5   1  2885  25.0  18.9   .
           6  6   1  2885  25.0  11.6   .
           # ... abbreviated ...
+
+The `ihm_cross_link_result_parameters` category holds the details regarding the 
+crosslinking parameters (psi, sigma_1 and sigma_2) for every cross link restraint
+defined in the `ihm_cross_link_restraint` category and the corresponding integrative
+model obtained at the end of the modeling experiment. 
+
+Example for the `ihm_cross_link_result_parameters` category
+
+        loop_
+        _ihm_cross_link_result_parameters.ordinal_id
+        _ihm_cross_link_result_parameters.restraint_id
+        _ihm_cross_link_result_parameters.model_id
+        _ihm_cross_link_result_parameters.psi
+        _ihm_cross_link_result_parameters.sigma_1
+        _ihm_cross_link_result_parameters.sigma_2
+
+        1  1   1  0.05  0.01  0.01
+        2  2   1  0.05  0.01  0.01
+        3  3   1  0.05  0.01  0.01
+        4  4   2  0.05  0.01  0.01
+        5  5   3  0.05  0.01  0.01
+        6  6   4  0.05  0.01  0.01
+        # ...  abbreviated ...
 
 **Fitting of 2DEM data**
 
