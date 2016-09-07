@@ -3586,7 +3586,7 @@ save_ihm_3dem_restraint
     _category.id                  ihm_3dem_restraint
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_3dem_restraint.id'
+    _category_key.name          '_ihm_3dem_restraint.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -3771,7 +3771,7 @@ save_ihm_sas_restraint
     _category.id                  ihm_sas_restraint
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_sas_restraint.id'
+    _category_key.name          '_ihm_sas_restraint.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
