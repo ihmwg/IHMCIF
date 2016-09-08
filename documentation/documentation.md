@@ -157,7 +157,7 @@ Example for `ihm_dataset_related_db_reference` category
     _ihm_dataset_related_db_reference.id
     _ihm_dataset_related_db_reference.dataset_list_id
     _ihm_dataset_related_db_reference.db_name
-    _ihm_dataset_related_db_reference.access_code
+    _ihm_dataset_related_db_reference.accession_code
     _ihm_dataset_related_db_reference.version
     _ihm_dataset_related_db_reference.data_type
     _ihm_dataset_related_db_reference.details
