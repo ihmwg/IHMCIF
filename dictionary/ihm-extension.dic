@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 7-SEP-2016 Jdw/BV
+#  Date: 8-SEP-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -54,6 +54,7 @@
 #           _ihm_starting_model_details.notes and _ihm_starting_model_coord.group_PDB
 #           Changed _ihm_3dem_restraint.id to _ihm_3dem_restraint.ordinal_id and _ihm_sas_restraint.id to
 #           _ihm_sas_restraint.ordinal_id
+#           Changed _ihm_dataset_related_db_reference.access_code to _ihm_dataset_related_db_reference.accession_code
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -2109,7 +2110,7 @@ save_ihm_dataset_related_db_reference
  _ihm_dataset_related_db_reference.id
  _ihm_dataset_related_db_reference.dataset_list_id
  _ihm_dataset_related_db_reference.db_name
- _ihm_dataset_related_db_reference.access_code
+ _ihm_dataset_related_db_reference.accession_code
  _ihm_dataset_related_db_reference.version
  _ihm_dataset_related_db_reference.data_type
  _ihm_dataset_related_db_reference.details
@@ -2169,11 +2170,11 @@ save__ihm_dataset_related_db_reference.db_name
       'OTHER'
      save_
 
-save__ihm_dataset_related_db_reference.access_code
+save__ihm_dataset_related_db_reference.accession_code
     _item_description.description
 ;   Accession code for the database entry.
 ;
-    _item.name                 '_ihm_dataset_related_db_reference.access_code'
+    _item.name                 '_ihm_dataset_related_db_reference.accession_code'
     _item.category_id          ihm_dataset_related_db_reference
     _item.mandatory_code       yes
     _item_type.code            line
