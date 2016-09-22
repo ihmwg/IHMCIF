@@ -5490,8 +5490,19 @@ _ihm_dataset_list.database_hosted
 18 8 2 'Experimental model' YES
 19 9 2 'CX-MS data' NO
 20 10 2 'CX-MS data' NO
-21 11 2 'EM raw micrographs' NO
-22 12 2 '2DEM class average' NO
+21 12 2 '2DEM class average' NO
+22 1 3 'Comparative model' NO
+23 2 3 'Comparative model' NO
+24 3 3 'Comparative model' NO
+25 4 3 'Comparative model' NO
+26 5 3 'Comparative model' NO
+27 6 3 'Comparative model' NO
+28 7 3 'Experimental model' YES
+29 8 3 'Experimental model' YES
+30 9 3 'CX-MS data' NO
+31 10 3 'CX-MS data' NO
+32 12 3 '2DEM class average' NO
+33 11 3 'EM raw micrographs' NO
 #
 #
 loop_
@@ -5528,6 +5539,15 @@ _ihm_dataset_related_db_reference.details
 R COAT, SELENOMETHIONINE VERSION
 ;
 
+#
+#
+loop_
+_ihm_related_datasets.ordinal_id
+_ihm_related_datasets.dataset_list_id_derived
+_ihm_related_datasets.data_type_derived
+_ihm_related_datasets.dataset_list_id_primary
+_ihm_related_datasets.data_type_primary
+1 12 '2DEM class average' 11 'EM raw micrographs'
 #
 #
 loop_
@@ -6151,7 +6171,6 @@ loop_
 _ihm_2dem_class_average_restraint.id
 _ihm_2dem_class_average_restraint.dataset_list_id
 _ihm_2dem_class_average_restraint.number_raw_micrographs
-_ihm_2dem_class_average_restraint.raw_micrographs_dataset_list_id
 _ihm_2dem_class_average_restraint.pixel_size_width
 _ihm_2dem_class_average_restraint.pixel_size_height
 _ihm_2dem_class_average_restraint.image_resolution
@@ -6159,7 +6178,7 @@ _ihm_2dem_class_average_restraint.image_segment_flag
 _ihm_2dem_class_average_restraint.number_of_projections
 _ihm_2dem_class_average_restraint.struct_assembly_id
 _ihm_2dem_class_average_restraint.details
-1 12 800 11 5.910 5.910 30.000 NO 400 1 .
+1 12 800 5.910 5.910 30.000 NO 400 1 .
 #
 # IMP will attempt to identify which input models are crystal structures and
 # which are comparative models, but does not always have sufficient information
