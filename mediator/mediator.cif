@@ -9615,16 +9615,18 @@ _ihm_dataset_list.database_hosted
 2 2 1 'Comparative model' NO
 3 3 1 'Comparative model' NO
 4 5 1 'CX-MS data' NO
-5 7 1 '3DEM volume' NO
-6 8 1 '3DEM volume' NO
+5 8 1 '3DEM volume' NO
+6 10 1 '3DEM volume' NO
 7 1 2 'Experimental model' YES
 8 2 2 'Comparative model' NO
 9 3 2 'Comparative model' NO
 10 5 2 'CX-MS data' NO
 11 4 2 'Mass Spectrometry data' YES
-12 7 2 '3DEM volume' NO
-13 6 2 '3DEM volume' YES
-14 8 2 '3DEM volume' NO
+12 8 2 '3DEM volume' NO
+13 7 2 '3DEM volume' NO
+14 6 2 '3DEM volume' YES
+15 10 2 '3DEM volume' NO
+16 9 2 '3DEM volume' NO
 #
 #
 loop_
@@ -9637,14 +9639,18 @@ _ihm_dataset_other.content_filename
 sampling/pdb_files/cr_mid_fullmed10.pdb
 2 3 'Comparative model' 10.5281/zenodo.60814
 sampling/pdb_files/med16.NTD.phyre.model.pdb
-3 5 'CX-MS data' 10.5281/zenodo.60814 analysis/CXMS_files/full_med_splitmods.txt
+3 5 'CX-MS data' 10.5281/zenodo.60814 sampling/CXMS_files/full_med_splitmods.txt
 4 7 '3DEM volume' 10.5281/zenodo.60814
-;analysis/em_map_files/asturias_middle_module_translated_resampled.mrc.
+sampling/em_map_files/asturias_middle_module_translated_resampled.mrc
+5 8 '3DEM volume' 10.5281/zenodo.60814
+;sampling/em_map_files/asturias_middle_module_translated_resampled.mrc.
 gmm.29.txt
 ;
 
-5 8 '3DEM volume' 10.5281/zenodo.60814
-;analysis/em_map_files/asturias_tail_module_translated_resampled.mrc.gm
+6 9 '3DEM volume' 10.5281/zenodo.60814
+sampling/em_map_files/asturias_tail_module_translated_resampled.mrc
+7 10 '3DEM volume' 10.5281/zenodo.60814
+;sampling/em_map_files/asturias_tail_module_translated_resampled.mrc.gm
 m.49.txt
 ;
 
@@ -9654,7 +9660,7 @@ loop_
 _ihm_dataset_related_db_reference.id
 _ihm_dataset_related_db_reference.dataset_list_id
 _ihm_dataset_related_db_reference.db_name
-_ihm_dataset_related_db_reference.access_code
+_ihm_dataset_related_db_reference.accession_code
 _ihm_dataset_related_db_reference.version
 _ihm_dataset_related_db_reference.data_type
 _ihm_dataset_related_db_reference.details
@@ -9673,7 +9679,9 @@ _ihm_related_datasets.dataset_list_id_primary
 _ihm_related_datasets.data_type_primary
 1 5 'CX-MS data' 4 'Mass Spectrometry data'
 2 7 '3DEM volume' 6 '3DEM volume'
-3 8 '3DEM volume' 6 '3DEM volume'
+3 8 '3DEM volume' 7 '3DEM volume'
+4 9 '3DEM volume' 6 '3DEM volume'
+5 10 '3DEM volume' 9 '3DEM volume'
 #
 #
 loop_
@@ -21137,8 +21145,16 @@ _ihm_3dem_restraint.dataset_list_id
 _ihm_3dem_restraint.fitting_method
 _ihm_3dem_restraint.struct_assembly_id
 _ihm_3dem_restraint.number_of_gaussians
-1 7 'Gaussian mixture models' 2 29
-2 8 'Gaussian mixture models' 3 49
+_ihm_3dem_restraint.model_id
+_ihm_3dem_restraint.cross_correlation_coefficient
+1 8 'Gaussian mixture models' 2 29 1 .
+2 10 'Gaussian mixture models' 3 49 1 .
+3 8 'Gaussian mixture models' 2 29 2 .
+4 10 'Gaussian mixture models' 3 49 2 .
+5 8 'Gaussian mixture models' 2 29 3 .
+6 10 'Gaussian mixture models' 3 49 3 .
+7 8 'Gaussian mixture models' 2 29 4 .
+8 10 'Gaussian mixture models' 3 49 4 .
 #
 # IMP will attempt to identify which input models are crystal structures and
 # which are comparative models, but does not always have sufficient information
