@@ -9635,25 +9635,34 @@ _ihm_dataset_other.dataset_list_id
 _ihm_dataset_other.data_type
 _ihm_dataset_other.doi
 _ihm_dataset_other.content_filename
+_ihm_dataset_other.details
 1 2 'Comparative model' 10.5281/zenodo.60814
 sampling/pdb_files/cr_mid_fullmed10.pdb
+;This combines structures of Med7C-Med21 and Med7N-Med31
+from X-ray str
+uctures, with Med4-Med9 and the first 540 residues of Med16
+from compa
+rative models.
+;
+
 2 3 'Comparative model' 10.5281/zenodo.60814
-sampling/pdb_files/med16.NTD.phyre.model.pdb
+sampling/pdb_files/med16.NTD.phyre.model.pdb .
 3 5 'CX-MS data' 10.5281/zenodo.60814 sampling/CXMS_files/full_med_splitmods.txt
+.
 4 7 '3DEM volume' 10.5281/zenodo.60814
-sampling/em_map_files/asturias_middle_module_translated_resampled.mrc
+sampling/em_map_files/asturias_middle_module_translated_resampled.mrc .
 5 8 '3DEM volume' 10.5281/zenodo.60814
 ;sampling/em_map_files/asturias_middle_module_translated_resampled.mrc.
 gmm.29.txt
 ;
-
+.
 6 9 '3DEM volume' 10.5281/zenodo.60814
-sampling/em_map_files/asturias_tail_module_translated_resampled.mrc
+sampling/em_map_files/asturias_tail_module_translated_resampled.mrc .
 7 10 '3DEM volume' 10.5281/zenodo.60814
 ;sampling/em_map_files/asturias_tail_module_translated_resampled.mrc.gm
 m.49.txt
 ;
-
+.
 #
 #
 loop_
@@ -9666,7 +9675,7 @@ _ihm_dataset_related_db_reference.data_type
 _ihm_dataset_related_db_reference.details
 1 1 PDB 4GWP 03-SEP-12 'Experimental model'
 'STRUCTURE OF THE MEDIATOR HEAD MODULE FROM S. CEREVISIAE'
-2 4 MassIVE MSV000079237 . 'Mass Spectrometry data'
+2 4 MASSIVE MSV000079237 . 'Mass Spectrometry data'
 'All raw mass spectrometry files and peaklists used in the study'
 3 6 EMDB EMD-2634 . '3DEM volume' .
 #
@@ -21182,12 +21191,12 @@ _ihm_starting_model_details.dataset_list_id
 5 5 med18 E 2 301 'experimental model' PDB 4GWP E 100.000 med18-m1 1
 6 6 med20 F 2 210 'experimental model' PDB 4GWP F 100.000 med20-m1 1
 7 7 med22 G 1 121 'experimental model' PDB 4GWP D 100.000 med22-m1 1
-8 8 med4 H 37 127 ? ? ? ? ? med4-m1 2
-9 9 med7 I 12 206 ? ? ? ? ? med7-m1 2
-10 10 med9 J 65 149 ? ? ? ? ? med9-m1 2
-11 11 med31 K 19 110 ? ? ? ? ? med31-m1 2
-12 12 med21 L 2 128 ? ? ? ? ? med21-m1 2
-13 21 med16 U 8 538 ? ? ? ? ? med16-m1 3
+8 8 med4 H 37 127 'comparative model' ? ? ? ? med4-m1 2
+9 9 med7 I 12 206 'comparative model' ? ? ? ? med7-m1 2
+10 10 med9 J 65 149 'comparative model' ? ? ? ? med9-m1 2
+11 11 med31 K 19 110 'comparative model' ? ? ? ? med31-m1 2
+12 12 med21 L 2 128 'comparative model' ? ? ? ? med21-m1 2
+13 21 med16 U 8 538 'comparative model' ? ? ? ? med16-m1 3
 #
 #
 loop_
