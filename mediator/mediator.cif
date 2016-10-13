@@ -9636,26 +9636,29 @@ _ihm_dataset_other.data_type
 _ihm_dataset_other.doi
 _ihm_dataset_other.content_filename
 _ihm_dataset_other.details
-1 2 'Comparative model' 10.5281/zenodo.60814
+1 2 'Comparative model' 10.5281/zenodo.160593
 sampling/pdb_files/cr_mid_fullmed10.pdb
 ;This combines structures of Med7C-Med21 and Med7N-Med31
 from X-ray structures, with Med4-Med9 and the first 540 residues of Med16
 from comparative models.
 ;
 
-2 3 'Comparative model' 10.5281/zenodo.60814
+2 3 'Comparative model' 10.5281/zenodo.160593
 sampling/pdb_files/med16.NTD.phyre.model.pdb .
-3 5 'CX-MS data' 10.5281/zenodo.60814 sampling/CXMS_files/full_med_splitmods.txt
-.
-4 7 '3DEM volume' 10.5281/zenodo.60814
-sampling/em_map_files/asturias_middle_module_translated_resampled.mrc .
-5 8 '3DEM volume' 10.5281/zenodo.60814
+3 5 'CX-MS data' 10.5281/zenodo.160593
+sampling/CXMS_files/full_med_splitmods.txt .
+4 7 '3DEM volume' 10.5281/zenodo.160593
+sampling/em_map_files/asturias_middle_module_translated_resampled.mrc
+'Original MRC file from which the GMM was derived'
+5 8 '3DEM volume' 10.5281/zenodo.160593
 sampling/em_map_files/asturias_middle_module_translated_resampled.mrc.gmm.29.txt
-.
-6 9 '3DEM volume' 10.5281/zenodo.60814
-sampling/em_map_files/asturias_tail_module_translated_resampled.mrc .
-7 10 '3DEM volume' 10.5281/zenodo.60814
-sampling/em_map_files/asturias_tail_module_translated_resampled.mrc.gmm.49.txt .
+'Segmented map covering the middle module'
+6 9 '3DEM volume' 10.5281/zenodo.160593
+sampling/em_map_files/asturias_tail_module_translated_resampled.mrc
+'Original MRC file from which the GMM was derived'
+7 10 '3DEM volume' 10.5281/zenodo.160593
+sampling/em_map_files/asturias_tail_module_translated_resampled.mrc.gmm.49.txt
+'Segmented map covering the tail module'
 #
 #
 loop_
