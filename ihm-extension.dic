@@ -56,8 +56,9 @@
 #           _ihm_sas_restraint.ordinal_id
 #           Changed _ihm_dataset_related_db_reference.access_code to _ihm_dataset_related_db_reference.accession_code
 #           Added new categories to reference externally hosted files: IHM_LOCALIZATION_DENSITY_FILES,
-#           IHM_STARTING_MODEL_ALIGNMENT_FILES, IHM_MODELING_SCRIPT_FILES
-#           Added _ihm_dataset_other.url to enable automated download of files provided by _ihm_dataset_other.doi
+#           IHM_STARTING_MODEL_ALIGNMENT_FILES, IHM_MODELING_WORKFLOW_FILES
+#           Added IHM_DATA_DOI_URL_MAPPING category to include a URL corresponding to a DOI. This enables automated 
+#           download of files. 
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -2171,7 +2172,7 @@ save__ihm_dataset_related_db_reference.db_name
       'PRIDE'
       'MODEL ARCHIVE'
       'MASSIVE'
-      'OTHER'
+      'Other'
      save_
 
 save__ihm_dataset_related_db_reference.accession_code
@@ -2269,16 +2270,16 @@ save_ihm_dataset_other
  _ihm_dataset_other.id
  _ihm_dataset_other.dataset_list_id
  _ihm_dataset_other.data_type
+ _ihm_dataset_other.doi_id
  _ihm_dataset_other.doi
  _ihm_dataset_other.content_filename
  _ihm_dataset_other.content_type
- _ihm_dataset_other.url
  _ihm_dataset_other.details
- 1  1  'CX-MS data'  '10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
- 2  2  'CX-MS data'  '10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
- 3  4  '2DEM class average'  '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' '2DEM class average of the Nup84 sub-complex in pgm format'
- 4  5  'Comparative model'  '10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' .
- 5  4  '2DEM class average'  '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.mrc'  'other' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' '2DEM class average of the Nup84 sub-complex in MRC format'
+ 1  1  'CX-MS data'  1 '10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
+ 2  2  'CX-MS data'  1 '10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
+ 3  4  '2DEM class average'  1 '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm' '2DEM class average of the Nup84 sub-complex in pgm format'
+ 4  5  'Comparative model'  1 '10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
+ 5  4  '2DEM class average'  1 '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.mrc'  'other' '2DEM class average of the Nup84 sub-complex in MRC format'
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2343,19 +2344,18 @@ save__ihm_dataset_other.doi
     _item_type.code            code
     save_
 
-save__ihm_dataset_other.url
+save__ihm_dataset_other.doi_id
     _item_description.description
-;   A Uniform Resource Locator (URL) for the downloadable zip archive associated with
-    the DOI provided in _ihm_dataset_other.doi.
-    The URL has to be linked to the DOI provided and cannot exist alone without the DOI.
+;    A unique id for this Digital Object Identifier (DOI). 
+     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id
+     in the IHM_DATA_DOI_URL_MAPPING category.
 ;
-    _item.name                 '_ihm_dataset_other.url'
+    _item.name                 '_ihm_dataset_other.doi_id'
     _item.category_id          ihm_dataset_other
-    _item.mandatory_code       no
-    _item_type.code            code
-    loop_
-    _item_dependent.dependent_name
-    '_ihm_dataset_other.doi'
+    _item.mandatory_code       yes
+    _item_type.code            int
+    _item_linked.child_name    '_ihm_dataset_other.doi_id'
+    _item_linked.parent_name   '_ihm_data_doi_url_mapping.doi_id'
     save_
 
 save__ihm_dataset_other.content_filename
@@ -2437,12 +2437,12 @@ save_ihm_starting_model_alignment_files
     _ihm_starting_model_alignment_files.ordinal_id
     _ihm_starting_model_alignment_files.starting_model_id
     _ihm_starting_model_alignment_files.starting_model_ordinal_id
+    _ihm_starting_model_alignment_files.doi_id
     _ihm_starting_model_alignment_files.doi
-    _ihm_starting_model_alignment_files.url
     _ihm_starting_model_alignment_files.filename
     _ihm_starting_model_alignment_files.format
-    1 Nup84-m1 6 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
-    2 Nup85-m1 8 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
+    1 Nup84-m1 6 1 '10.5281/zenodo.46266' 'scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
+    2 Nup85-m1 8 1 '10.5281/zenodo.46266' 'scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2500,20 +2500,18 @@ save__ihm_starting_model_alignment_files.doi
     _item_type.code               code
      save_
 
-save__ihm_starting_model_alignment_files.url
+save__ihm_starting_model_alignment_files.doi_id
     _item_description.description
-;     The Uniform Resource Locator (URL) corresponding to the DOI. This URL should link to the
-      downloadable file(s) including the alignment file. This URL is provided to
-      make it easy for automated software to download the referenced files. This URL is not
-      relevant without the DOI in _ihm_starting_model_alignment_files.doi data item.
+;    A unique id for this Digital Object Identifier (DOI). 
+     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id     
+     in the IHM_DATA_DOI_URL_MAPPING category. 
 ;
-    _item.name                  '_ihm_starting_model_alignment_files.url'
+    _item.name                  '_ihm_starting_model_alignment_files.doi_id'
     _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          no
-    _item_type.code               code
-    loop_
-    _item_dependent.dependent_name
-    '_ihm_starting_model_alignment_files.doi'
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_model_alignment_files.doi_id'
+    _item_linked.parent_name    '_ihm_data_doi_url_mapping.doi_id'
      save_
 
 save__ihm_starting_model_alignment_files.filename
@@ -2546,23 +2544,114 @@ save__ihm_starting_model_alignment_files.format
     'Other'
     save_
 
-###############################
-## IHM_MODELING_SCRIPT_FILES ##
-###############################
+#################################
+## IHM_DATA_DOI_URL_MAPPING ##
+#################################
 
-save_ihm_modeling_script_files
+save_ihm_data_doi_url_mapping
     _category.description
-;              Data items in the IHM_MODELING_SCRIPT_FILES category records the
-               details of files that correspond to the scripts used in integrative
-               modeling. These may be stored externally and linked via a DOI and can be
-               in any accepted scripting language (Python, Perl, Ruby etc). 
+;              Data items in the IHM_DATA_DOI_URL_MAPPING category maps the data 
+               referenced by an external Digital Object Identifier (DOI) to a 
+               Uniform Resource Locator (URL). The URL enables automated software
+               to download the file(s) referenced by the DOI.  
+;
+    _category.id                  ihm_data_doi_url_mapping
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_data_doi_url_mapping.doi_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    _ihm_data_doi_url_mapping.doi_id            1
+    _ihm_data_doi_url_mapping.doi_provider      'Zenodo'
+    _ihm_data_doi_url_mapping.doi               '10.5281/zenodo.46266'
+    _ihm_data_doi_url_mapping.url               'https://zenodo.org/record/46266/files/nup84-v1.0.zip'
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_data_doi_url_mapping
+     save_
+
+save__ihm_data_doi_url_mapping.doi_id
+    _item_description.description
+;     A unique identifier for the externally referenced DOI.
+;
+    _item.name                  '_ihm_data_doi_url_mapping.doi_id'
+    _item.category_id             ihm_data_doi_url_mapping
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_data_doi_url_mapping.doi_provider
+    _item_description.description
+;     The name of the DOI provider.
+;
+    _item.name                  '_ihm_data_doi_url_mapping.doi_provider'
+    _item.category_id             ihm_data_doi_url_mapping
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_examples.case
+    'Zenodo'
+    'Figshare'
+    'Crossref'
+     save_
+
+save__ihm_data_doi_url_mapping.doi
+    _item_description.description
+;     The externally referenced Digital Object Identifier (DOI).
+;
+    _item.name                  '_ihm_data_doi_url_mapping.doi'
+    _item.category_id             ihm_data_doi_url_mapping
+    _item.mandatory_code          yes
+    _item_type.code               code
+     save_
+
+save__ihm_data_doi_url_mapping.url
+    _item_description.description
+;     The Uniform Resource Locator (URL) corresponding to the DOI. This URL should link to the
+      corresponding downloadable file(s) and is provided to enable automated software to download
+      the referenced file(s). The URL is not relevant without the DOI in the 
+      _ihm_data_doi_url_mapping.doi data item.
+;
+
+    _item.name                  '_ihm_data_doi_url_mapping.url'
+    _item.category_id             ihm_data_doi_url_mapping
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_dependent.dependent_name
+    '_ihm_data_doi_url_mapping.doi'
+     save_
+
+#################################
+## IHM_MODELING_WORKFLOW_FILES ##
+#################################
+
+save_ihm_modeling_workflow_files
+    _category.description
+;              Data items in the IHM_MODELING_WORKFLOW_FILES category records the
+               details of files that correspond to the workflow, scripts and other 
+               related files used in integrative modeling. 
+               These may be stored externally and linked via a DOI. The script files
+               can be in any accepted scripting language (Python, Perl, Ruby etc). 
                The generic nature of this category allows for referencing associated
                documentation and other files related to the integrative modeling study. 
 ;
-    _category.id                  ihm_modeling_script_files
+    _category.id                  ihm_modeling_workflow_files
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_modeling_script_files.ordinal_id'
+    _category_key.name          '_ihm_modeling_workflow_files.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -2576,92 +2665,90 @@ save_ihm_modeling_script_files
 ;
 ;
     loop_
-    _ihm_modeling_script_files.ordinal_id
-    _ihm_modeling_script_files.doi
-    _ihm_modeling_script_files.url
-    _ihm_modeling_script_files.filename
-    _ihm_modeling_script_files.file_type
-    _ihm_modeling_script_files.scripting_language
-    _ihm_modeling_script_files.description
-    1 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' '/scripts/nup84_modeling.py' 'source code' 'Python' 'The main IMP/PMI modeling script'
-    2 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' '/scripts/nup84_topology.py' 'source code' 'Python' 'Script for constructing Nup84 subunits'
-    3 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' '/scripts/nup84_merge.py' 'source code' 'Python' 'Script to cluster and merge output files'
-    4 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' '/scripts/README' 'documentation' 'Other' 'README file to use the IMP modeling scripts'
+    _ihm_modeling_workflow_files.ordinal_id
+    _ihm_modeling_workflow_files.doi_id
+    _ihm_modeling_workflow_files.doi
+    _ihm_modeling_workflow_files.filename
+    _ihm_modeling_workflow_files.file_type
+    _ihm_modeling_workflow_files.scripting_language
+    _ihm_modeling_workflow_files.description
+    1 1 '10.5281/zenodo.46266' 'scripts/nup84_modeling.py' 'Source code' 'Python' 'The main integrative modeling script'
+    2 1 '10.5281/zenodo.46266' 'scripts/nup84_topology.py' 'Source code' 'Python' 'Script for constructing Nup84 subunits'
+    3 1 '10.5281/zenodo.46266' 'scripts/nup84_merge.py' 'Source code' 'Python' 'Script to cluster and merge output files'
+    4 1 '10.5281/zenodo.46266' 'scripts/README' 'Documentation' 'Other' 'README file for the modeling scripts'
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_modeling_script_files
+   _pdbx_category_context.category_id  ihm_modeling_workflow_files
      save_
 
-save__ihm_modeling_script_files.ordinal_id
+save__ihm_modeling_workflow_files.ordinal_id
     _item_description.description
-;     A unique identifier for the externally referenced modeling script file.
+;     A unique identifier for the externally referenced modeling workflow file.
 ;
-    _item.name                  '_ihm_modeling_script_files.ordinal_id'
-    _item.category_id             ihm_modeling_script_files
+    _item.name                  '_ihm_modeling_workflow_files.ordinal_id'
+    _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes  
     _item_type.code               int  
      save_
 
-save__ihm_modeling_script_files.doi
+save__ihm_modeling_workflow_files.doi
     _item_description.description
-;     The Digital Object Identifier (DOI) for the data files including the modeling script file.
+;     The Digital Object Identifier (DOI) for the data files including the modeling workflow file.
 ;
-    _item.name                  '_ihm_modeling_script_files.doi'
-    _item.category_id             ihm_modeling_script_files
+    _item.name                  '_ihm_modeling_workflow_files.doi'
+    _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes
     _item_type.code               code
      save_
 
-save__ihm_modeling_script_files.url
+save__ihm_modeling_workflow_files.doi_id
     _item_description.description
-;     The Uniform Resource Locator (URL) corresponding to the DOI. This URL should link to the
-      downloadable file(s) including the modeling script file. This URL is provided to
-      make it easy for automated software to download the referenced files. This URL is not
-      relevant without the DOI in _ihm_modeling_script_files.doi data item.
+;    A unique id for this Digital Object Identifier (DOI).
+     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id
+     in the IHM_DATA_DOI_URL_MAPPING category.
 ;
-    _item.name                  '_ihm_modeling_script_files.url'
-    _item.category_id             ihm_modeling_script_files
-    _item.mandatory_code          no
-    _item_type.code               code
-    loop_
-    _item_dependent.dependent_name
-    '_ihm_modeling_script_files.doi'   
+    _item.name                  '_ihm_modeling_workflow_files.doi_id'
+    _item.category_id             ihm_modeling_workflow_files
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_workflow_files.doi_id'
+    _item_linked.parent_name    '_ihm_data_doi_url_mapping.doi_id'
      save_
 
-save__ihm_modeling_script_files.filename
+save__ihm_modeling_workflow_files.filename
     _item_description.description
-;     The file name with full path corresponding to the modeling script file.
+;     The file name with full path corresponding to the modeling workflow file.
 ;
-    _item.name                  '_ihm_modeling_script_files.filename'
-    _item.category_id             ihm_modeling_script_files
+    _item.name                  '_ihm_modeling_workflow_files.filename'
+    _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes
     _item_type.code               code
      save_
 
-save__ihm_modeling_script_files.file_type
+save__ihm_modeling_workflow_files.file_type
     _item_description.description
 ;     The type of file being referenced. 
 ;
-    _item.name                  '_ihm_modeling_script_files.file_type'
-    _item.category_id             ihm_modeling_script_files
+    _item.name                  '_ihm_modeling_workflow_files.file_type'
+    _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          no  
     _item_type.code               line 
     loop_
     _item_enumeration.value
-    'source code'
-    'documentation'
-    'other'
+    'Source code'
+    'Documentation'
+    'Other'
      save_
 
-save__ihm_modeling_script_files.scripting_language
+save__ihm_modeling_workflow_files.scripting_language
     _item_description.description
-;     The scripting language corresponding to the script file.
+;     The scripting language corresponding to the script file, if applicable.
 ;
-    _item.name                  '_ihm_modeling_script_files.scripting_language'
-    _item.category_id             ihm_modeling_script_files
+    _item.name                  '_ihm_modeling_workflow_files.scripting_language'
+    _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes
     _item_type.code               line
     loop_
@@ -2673,18 +2760,18 @@ save__ihm_modeling_script_files.scripting_language
     'Other'
      save_
 
-save__ihm_modeling_script_files.description
+save__ihm_modeling_workflow_files.description
     _item_description.description
-;     A brief description of the what the script does. 
+;     A brief description regarding the contents of the file. 
 ;
-    _item.name                  '_ihm_modeling_script_files.description'
-    _item.category_id             ihm_modeling_script_files
+    _item.name                  '_ihm_modeling_workflow_files.description'
+    _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_examples.case         
-    'The main IMP/PMI modeling script'
-    'README file to use the modeling scripts'
+    'The main integrative modeling script'
+    'README file for the modeling scripts'
      save_
 
 ####################################
@@ -2695,7 +2782,7 @@ save_ihm_localization_density_files
     _category.description
 ;              Data items in the IHM_LOCALIZATION_DENSITY_FILES category records the
                details of files that provide information regarding localization densities
-               ensembles. These may be stored externally and linked via a DOI in and can be
+               ensembles. These may be stored externally and linked via a DOI and can be
                in a any accepted format that provide volume information (CCP4, MRC, etc.).
 ;
     _category.id                  ihm_localization_density_files
@@ -2717,14 +2804,17 @@ save_ihm_localization_density_files
     loop_
     _ihm_localization_density_files.ordinal_id
     _ihm_localization_density_files.ensemble_id
-    _ihm_localization_density_files.struct_assembly_id
+    _ihm_localization_density_files.entity_id
+    _ihm_localization_density_files.asym_id
+    _ihm_localization_density_files.seq_id_begin
+    _ihm_localization_density_files.seq_id_end
+    _ihm_localization_density_files.doi_id
     _ihm_localization_density_files.doi
-    _ihm_localization_density_files.url
     _ihm_localization_density_files.filename
     _ihm_localization_density_files.format
-    1 1 1 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'outputs/localization/cluster1/nup84.mrc'  MRC
-    2 1 2 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'outputs/localization/cluster1/nup85.mrc'  MRC
-    3 1 3 '10.5281/zenodo.46266' 'https://zenodo.org/record/46266/files/nup84-v1.0.zip' 'outputs/localization/cluster1/nup120.mrc' MRC 
+    1 1 1 A 1  726 1 '10.5281/zenodo.46266' 'outputs/localization/cluster1/nup84.mrc'  MRC
+    2 1 2 B 1  744 1 '10.5281/zenodo.46266' 'outputs/localization/cluster1/nup85.mrc'  MRC
+    3 1 3 C 1 1037 1 '10.5281/zenodo.46266' 'outputs/localization/cluster1/nup120.mrc' MRC 
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2756,17 +2846,56 @@ save__ihm_localization_density_files.ensemble_id
     _item_linked.parent_name    '_ihm_ensemble_info.ensemble_id'
      save_
 
-save__ihm_localization_density_files.struct_assembly_id
+save__ihm_localization_density_files.entity_id
     _item_description.description
-;     The identifier for the structure assembly corresponding to the localization density.
-      This data item is a pointer to _ihm_struct_assembly.assembly_id in the IHM_STRUCT_ASSEMBLY category.
+;     The entity identifier corresponding to this localization density.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
-    _item.name                  '_ihm_localization_density_files.struct_assembly_id'
+    _item.name                  '_ihm_localization_density_files.entity_id'
+    _item.category_id             ihm_localization_density_files
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_localization_density_files.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_localization_density_files.seq_id_begin
+    _item_description.description
+;     The leading sequence index corresponding to this localization density.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_localization_density_files.seq_id_begin'
     _item.category_id             ihm_localization_density_files
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_localization_density_files.struct_assembly_id'
-    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
+    _item_linked.child_name       '_ihm_localization_density_files.seq_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_localization_density_files.seq_id_end
+    _item_description.description
+;     The trailing sequence index corresponding to this localization density.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_localization_density_files.seq_id_end'
+    _item.category_id             ihm_localization_density_files
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_localization_density_files.seq_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_localization_density_files.asym_id
+    _item_description.description
+;     An asym/strand identifier corresponding to this localization density.
+      This data item is a pointer to _struct_asym.id in the STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_localization_density_files.asym_id'
+    _item.category_id             ihm_localization_density_files
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_localization_density_files.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
      save_
 
 save__ihm_localization_density_files.doi
@@ -2779,20 +2908,18 @@ save__ihm_localization_density_files.doi
     _item_type.code               code
      save_
 
-save__ihm_localization_density_files.url
+save__ihm_localization_density_files.doi_id
     _item_description.description
-;     The Uniform Resource Locator (URL) corresponding to the DOI. This URL should link to the
-      downloadable file(s) including the localization density file. This URL is provided to
-      make it easy for automated software to download the referenced files. This URL is not
-      relevant without the DOI in _ihm_localization_density_files.doi data item. 
+;    A unique id for this Digital Object Identifier (DOI).
+     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id
+     in the IHM_DATA_DOI_URL_MAPPING category.
 ;
-    _item.name                  '_ihm_localization_density_files.url'
+    _item.name                  '_ihm_localization_density_files.doi_id'
     _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          no
-    _item_type.code               code
-    loop_
-    _item_dependent.dependent_name
-    '_ihm_localization_density_files.doi'
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_localization_density_files.doi_id'
+    _item_linked.parent_name    '_ihm_data_doi_url_mapping.doi_id'
      save_
 
 save__ihm_localization_density_files.filename
@@ -2818,7 +2945,7 @@ save__ihm_localization_density_files.format
     _item_enumeration.detail
     'MRC'       'MRC format'
     'CCP4'      'CCP4 format'
-    'OTHER'     'Other format'
+    'Other'     'Other format'
      save_
 
 #########################
