@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 1-DEC-2016 Jdw/BV
+#  Date: 15-DEC-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -57,8 +57,9 @@
 #           Changed _ihm_dataset_related_db_reference.access_code to _ihm_dataset_related_db_reference.accession_code
 #           Added new categories to reference externally hosted files: IHM_LOCALIZATION_DENSITY_FILES,
 #           IHM_STARTING_MODEL_ALIGNMENT_FILES, IHM_MODELING_WORKFLOW_FILES
-#           Added IHM_DATA_DOI_URL_MAPPING category to include a URL corresponding to a DOI. This enables automated 
+#           Added IHM_DATA_DOI_URL_INFO category to include a URL corresponding to a DOI. This enables automated 
 #           download of files. 
+#           Removed redundant DOI references from several categories
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -2241,6 +2242,96 @@ save__ihm_dataset_related_db_reference.details
     'Structural Analysis of a Prokaryotic Ribosome Using a Novel Amidinating Cross-Linker and Mass Spectrometry'
      save_
  
+###########################
+## IHM_DATA_DOI_URL_INFO ##
+###########################
+
+save_ihm_data_doi_url_info
+    _category.description
+;              Data items in the IHM_DATA_DOI_URL_INFO category captures the information 
+               about the data referenced by an external Digital Object Identifier (DOI) and
+               the corresponding Uniform Resource Locator (URL). The URL enables automated 
+               software to download the file(s) referenced by the DOI.  
+;
+    _category.id                  ihm_data_doi_url_info
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_data_doi_url_info.doi_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    _ihm_data_doi_url_info.doi_id            1
+    _ihm_data_doi_url_info.doi_provider      'Zenodo'
+    _ihm_data_doi_url_info.doi               '10.5281/zenodo.46266'
+    _ihm_data_doi_url_info.url               'https://zenodo.org/record/46266/files/nup84-v1.0.zip'
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_data_doi_url_info
+     save_
+
+save__ihm_data_doi_url_info.doi_id
+    _item_description.description
+;     A unique identifier for the externally referenced DOI.
+;
+    _item.name                  '_ihm_data_doi_url_info.doi_id'
+    _item.category_id             ihm_data_doi_url_info
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_data_doi_url_info.doi_provider
+    _item_description.description
+;     The name of the DOI provider.
+;
+    _item.name                  '_ihm_data_doi_url_info.doi_provider'
+    _item.category_id             ihm_data_doi_url_info
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_examples.case
+    'Zenodo'
+    'Figshare'
+    'Crossref'
+     save_
+
+save__ihm_data_doi_url_info.doi
+    _item_description.description
+;     The externally referenced Digital Object Identifier (DOI).
+;
+    _item.name                  '_ihm_data_doi_url_info.doi'
+    _item.category_id             ihm_data_doi_url_info
+    _item.mandatory_code          yes
+    _item_type.code               code
+     save_
+
+save__ihm_data_doi_url_info.url
+    _item_description.description
+;     The Uniform Resource Locator (URL) corresponding to the DOI. This URL should link to the
+      corresponding downloadable file(s) and is provided to enable automated software to download
+      the referenced file(s). The URL is not relevant without the DOI in the 
+      _ihm_data_doi_url_info.doi data item.
+;
+
+    _item.name                  '_ihm_data_doi_url_info.url'
+    _item.category_id             ihm_data_doi_url_info
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_dependent.dependent_name
+    '_ihm_data_doi_url_info.doi'
+     save_
+
 #######################
 ## IHM_DATASET_OTHER ##
 #######################
@@ -2271,15 +2362,14 @@ save_ihm_dataset_other
  _ihm_dataset_other.dataset_list_id
  _ihm_dataset_other.data_type
  _ihm_dataset_other.doi_id
- _ihm_dataset_other.doi
  _ihm_dataset_other.content_filename
  _ihm_dataset_other.content_type
  _ihm_dataset_other.details
- 1  1  'CX-MS data'  1 '10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
- 2  2  'CX-MS data'  1 '10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
- 3  4  '2DEM class average'  1 '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm' '2DEM class average of the Nup84 sub-complex in pgm format'
- 4  5  'Comparative model'  1 '10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
- 5  4  '2DEM class average'  1 '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.mrc'  'other' '2DEM class average of the Nup84 sub-complex in MRC format'
+ 1  1  'CX-MS data'  1  'data/EDC_XL_122013.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using 1-ethyl-(dimethylaminopropyl) carbodiimide hydrochloride (EDC) crosslinker followed by mass spectrometry'
+ 2  2  'CX-MS data'  1  'data/yeast_Nup84_DSS.new.dat'  'text/plain' 'Nup84 sub-complex probed by chemical crosslinking using disuccinimidyl suberate (DSS) crosslinker followed by mass spectrometry'
+ 3  4  '2DEM class average'  1  'data/nup84_kinked_from_class2.pgm'  'image/pgm' '2DEM class average of the Nup84 sub-complex in pgm format'
+ 4  5  'Comparative model'  1  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
+ 5  4  '2DEM class average'  1  'data/nup84_kinked_from_class2.mrc'  'other' '2DEM class average of the Nup84 sub-complex in MRC format'
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2334,28 +2424,18 @@ save__ihm_dataset_other.data_type
       'unspecified'
     save_
  
-save__ihm_dataset_other.doi
-    _item_description.description
-;   A digital object identifier (DOI) for the data.
-;
-    _item.name                 '_ihm_dataset_other.doi'
-    _item.category_id          ihm_dataset_other
-    _item.mandatory_code       yes
-    _item_type.code            code
-    save_
-
 save__ihm_dataset_other.doi_id
     _item_description.description
 ;    A unique id for this Digital Object Identifier (DOI). 
-     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id
-     in the IHM_DATA_DOI_URL_MAPPING category.
+     This data item is a pointer to _ihm_data_doi_url_info.doi_id
+     in the IHM_DATA_DOI_URL_INFO category.
 ;
     _item.name                 '_ihm_dataset_other.doi_id'
     _item.category_id          ihm_dataset_other
     _item.mandatory_code       yes
     _item_type.code            int
     _item_linked.child_name    '_ihm_dataset_other.doi_id'
-    _item_linked.parent_name   '_ihm_data_doi_url_mapping.doi_id'
+    _item_linked.parent_name   '_ihm_data_doi_url_info.doi_id'
     save_
 
 save__ihm_dataset_other.content_filename
@@ -2438,11 +2518,10 @@ save_ihm_starting_model_alignment_files
     _ihm_starting_model_alignment_files.starting_model_id
     _ihm_starting_model_alignment_files.starting_model_ordinal_id
     _ihm_starting_model_alignment_files.doi_id
-    _ihm_starting_model_alignment_files.doi
     _ihm_starting_model_alignment_files.filename
     _ihm_starting_model_alignment_files.format
-    1 Nup84-m1 6 1 '10.5281/zenodo.46266' 'scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
-    2 Nup85-m1 8 1 '10.5281/zenodo.46266' 'scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
+    1 Nup84-m1 6 1 'scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
+    2 Nup85-m1 8 1 'scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2489,29 +2568,18 @@ save__ihm_starting_model_alignment_files.starting_model_ordinal_id
     _item_linked.parent_name   '_ihm_starting_model_details.ordinal_id'
      save_
 
-save__ihm_starting_model_alignment_files.doi
-    _item_description.description
-;     The Digital Object Identifier (DOI) for the data files including the alignment file used for 
-      comparative modeling.
-;
-    _item.name                  '_ihm_starting_model_alignment_files.doi'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
 save__ihm_starting_model_alignment_files.doi_id
     _item_description.description
 ;    A unique id for this Digital Object Identifier (DOI). 
-     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id     
-     in the IHM_DATA_DOI_URL_MAPPING category. 
+     This data item is a pointer to _ihm_data_doi_url_info.doi_id     
+     in the IHM_DATA_DOI_URL_INFO category. 
 ;
     _item.name                  '_ihm_starting_model_alignment_files.doi_id'
     _item.category_id             ihm_starting_model_alignment_files
     _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_model_alignment_files.doi_id'
-    _item_linked.parent_name    '_ihm_data_doi_url_mapping.doi_id'
+    _item_linked.parent_name    '_ihm_data_doi_url_info.doi_id'
      save_
 
 save__ihm_starting_model_alignment_files.filename
@@ -2543,96 +2611,6 @@ save__ihm_starting_model_alignment_files.format
     'EMBL'
     'Other'
     save_
-
-#################################
-## IHM_DATA_DOI_URL_MAPPING ##
-#################################
-
-save_ihm_data_doi_url_mapping
-    _category.description
-;              Data items in the IHM_DATA_DOI_URL_MAPPING category maps the data 
-               referenced by an external Digital Object Identifier (DOI) to a 
-               Uniform Resource Locator (URL). The URL enables automated software
-               to download the file(s) referenced by the DOI.  
-;
-    _category.id                  ihm_data_doi_url_mapping
-    _category.mandatory_code      no
-     loop_
-    _category_key.name          '_ihm_data_doi_url_mapping.doi_id'
-
-    loop_
-    _category_group.id           'inclusive_group'
-                                 'ihm_group'
-    loop_
-    _category_examples.detail
-    _category_examples.case
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-;
-    Example 1 -
-;
-;
-    _ihm_data_doi_url_mapping.doi_id            1
-    _ihm_data_doi_url_mapping.doi_provider      'Zenodo'
-    _ihm_data_doi_url_mapping.doi               '10.5281/zenodo.46266'
-    _ihm_data_doi_url_mapping.url               'https://zenodo.org/record/46266/files/nup84-v1.0.zip'
-;
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-   _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_data_doi_url_mapping
-     save_
-
-save__ihm_data_doi_url_mapping.doi_id
-    _item_description.description
-;     A unique identifier for the externally referenced DOI.
-;
-    _item.name                  '_ihm_data_doi_url_mapping.doi_id'
-    _item.category_id             ihm_data_doi_url_mapping
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
-save__ihm_data_doi_url_mapping.doi_provider
-    _item_description.description
-;     The name of the DOI provider.
-;
-    _item.name                  '_ihm_data_doi_url_mapping.doi_provider'
-    _item.category_id             ihm_data_doi_url_mapping
-    _item.mandatory_code          yes
-    _item_type.code               code
-    loop_
-    _item_examples.case
-    'Zenodo'
-    'Figshare'
-    'Crossref'
-     save_
-
-save__ihm_data_doi_url_mapping.doi
-    _item_description.description
-;     The externally referenced Digital Object Identifier (DOI).
-;
-    _item.name                  '_ihm_data_doi_url_mapping.doi'
-    _item.category_id             ihm_data_doi_url_mapping
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
-save__ihm_data_doi_url_mapping.url
-    _item_description.description
-;     The Uniform Resource Locator (URL) corresponding to the DOI. This URL should link to the
-      corresponding downloadable file(s) and is provided to enable automated software to download
-      the referenced file(s). The URL is not relevant without the DOI in the 
-      _ihm_data_doi_url_mapping.doi data item.
-;
-
-    _item.name                  '_ihm_data_doi_url_mapping.url'
-    _item.category_id             ihm_data_doi_url_mapping
-    _item.mandatory_code          no
-    _item_type.code               code
-    loop_
-    _item_dependent.dependent_name
-    '_ihm_data_doi_url_mapping.doi'
-     save_
 
 #################################
 ## IHM_MODELING_WORKFLOW_FILES ##
@@ -2667,15 +2645,14 @@ save_ihm_modeling_workflow_files
     loop_
     _ihm_modeling_workflow_files.ordinal_id
     _ihm_modeling_workflow_files.doi_id
-    _ihm_modeling_workflow_files.doi
     _ihm_modeling_workflow_files.filename
     _ihm_modeling_workflow_files.file_type
     _ihm_modeling_workflow_files.scripting_language
     _ihm_modeling_workflow_files.description
-    1 1 '10.5281/zenodo.46266' 'scripts/nup84_modeling.py' 'Source code' 'Python' 'The main integrative modeling script'
-    2 1 '10.5281/zenodo.46266' 'scripts/nup84_topology.py' 'Source code' 'Python' 'Script for constructing Nup84 subunits'
-    3 1 '10.5281/zenodo.46266' 'scripts/nup84_merge.py' 'Source code' 'Python' 'Script to cluster and merge output files'
-    4 1 '10.5281/zenodo.46266' 'scripts/README' 'Documentation' 'Other' 'README file for the modeling scripts'
+    1 1 'scripts/nup84_modeling.py' 'Source code' 'Python' 'The main integrative modeling script'
+    2 1 'scripts/nup84_topology.py' 'Source code' 'Python' 'Script for constructing Nup84 subunits'
+    3 1 'scripts/nup84_merge.py' 'Source code' 'Python' 'Script to cluster and merge output files'
+    4 1 'scripts/README' 'Documentation' 'Other' 'README file for the modeling scripts'
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2694,28 +2671,18 @@ save__ihm_modeling_workflow_files.ordinal_id
     _item_type.code               int  
      save_
 
-save__ihm_modeling_workflow_files.doi
-    _item_description.description
-;     The Digital Object Identifier (DOI) for the data files including the modeling workflow file.
-;
-    _item.name                  '_ihm_modeling_workflow_files.doi'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
 save__ihm_modeling_workflow_files.doi_id
     _item_description.description
 ;    A unique id for this Digital Object Identifier (DOI).
-     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id
-     in the IHM_DATA_DOI_URL_MAPPING category.
+     This data item is a pointer to _ihm_data_doi_url_info.doi_id
+     in the IHM_DATA_DOI_URL_INFO category.
 ;
     _item.name                  '_ihm_modeling_workflow_files.doi_id'
     _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_modeling_workflow_files.doi_id'
-    _item_linked.parent_name    '_ihm_data_doi_url_mapping.doi_id'
+    _item_linked.parent_name    '_ihm_data_doi_url_info.doi_id'
      save_
 
 save__ihm_modeling_workflow_files.filename
@@ -2809,12 +2776,11 @@ save_ihm_localization_density_files
     _ihm_localization_density_files.seq_id_begin
     _ihm_localization_density_files.seq_id_end
     _ihm_localization_density_files.doi_id
-    _ihm_localization_density_files.doi
     _ihm_localization_density_files.filename
     _ihm_localization_density_files.format
-    1 1 1 A 1  726 1 '10.5281/zenodo.46266' 'outputs/localization/cluster1/nup84.mrc'  MRC
-    2 1 2 B 1  744 1 '10.5281/zenodo.46266' 'outputs/localization/cluster1/nup85.mrc'  MRC
-    3 1 3 C 1 1037 1 '10.5281/zenodo.46266' 'outputs/localization/cluster1/nup120.mrc' MRC 
+    1 1 1 A 1  726 1 'outputs/localization/cluster1/nup84.mrc'  MRC
+    2 1 2 B 1  744 1 'outputs/localization/cluster1/nup85.mrc'  MRC
+    3 1 3 C 1 1037 1 'outputs/localization/cluster1/nup120.mrc' MRC 
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2898,28 +2864,18 @@ save__ihm_localization_density_files.asym_id
     _item_linked.parent_name      '_struct_asym.id'
      save_
 
-save__ihm_localization_density_files.doi
-    _item_description.description
-;     The Digital Object Identifier (DOI) for the data files including the localization density file. 
-;
-    _item.name                  '_ihm_localization_density_files.doi'
-    _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
 save__ihm_localization_density_files.doi_id
     _item_description.description
 ;    A unique id for this Digital Object Identifier (DOI).
-     This data item is a pointer to _ihm_data_doi_url_mapping.doi_id
-     in the IHM_DATA_DOI_URL_MAPPING category.
+     This data item is a pointer to _ihm_data_doi_url_info.doi_id
+     in the IHM_DATA_DOI_URL_INFO category.
 ;
     _item.name                  '_ihm_localization_density_files.doi_id'
     _item.category_id             ihm_localization_density_files
     _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_localization_density_files.doi_id'
-    _item_linked.parent_name    '_ihm_data_doi_url_mapping.doi_id'
+    _item_linked.parent_name    '_ihm_data_doi_url_info.doi_id'
      save_
 
 save__ihm_localization_density_files.filename
