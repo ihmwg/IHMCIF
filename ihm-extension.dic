@@ -2179,7 +2179,7 @@ save__ihm_dataset_related_db_reference.db_name
 
 save__ihm_dataset_related_db_reference.db_id
     _item_description.description
-;   Accession code for the database entry.
+;   The identifier for the database entry.
 ;
     _item.name                 '_ihm_dataset_related_db_reference.db_id'
     _item.category_id          ihm_dataset_related_db_reference
