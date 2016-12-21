@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 15-DEC-2016 Jdw/BV
+#  Date: 21-DEC-2016 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -60,6 +60,7 @@
 #           Added IHM_DATA_DOI_URL_INFO category to include a URL corresponding to a DOI. This enables automated 
 #           download of files. 
 #           Removed redundant DOI references from several categories
+#           Changed _ihm_dataset_related_db_reference.accession_code to _ihm_dataset_related_db_reference.db_id
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -2115,7 +2116,7 @@ save_ihm_dataset_related_db_reference
  _ihm_dataset_related_db_reference.id
  _ihm_dataset_related_db_reference.dataset_list_id
  _ihm_dataset_related_db_reference.db_name
- _ihm_dataset_related_db_reference.accession_code
+ _ihm_dataset_related_db_reference.db_id
  _ihm_dataset_related_db_reference.version
  _ihm_dataset_related_db_reference.data_type
  _ihm_dataset_related_db_reference.details
@@ -2176,11 +2177,11 @@ save__ihm_dataset_related_db_reference.db_name
       'Other'
      save_
 
-save__ihm_dataset_related_db_reference.accession_code
+save__ihm_dataset_related_db_reference.db_id
     _item_description.description
 ;   Accession code for the database entry.
 ;
-    _item.name                 '_ihm_dataset_related_db_reference.accession_code'
+    _item.name                 '_ihm_dataset_related_db_reference.db_id'
     _item.category_id          ihm_dataset_related_db_reference
     _item.mandatory_code       yes
     _item_type.code            line
