@@ -2483,7 +2483,7 @@ save__ihm_dataset_external_reference_details.reference_id
 
 save__ihm_dataset_external_reference_details.auxiliary_file_path
     _item_description.description
-;   The path to the file that carries the externally referenced data.
+;   The full path with the file name of the file that carries the externally referenced data.
     This is particularly useful when the DOI leads to an archive instead 
     of a single file. 
 ;
@@ -2550,8 +2550,8 @@ save_ihm_starting_model_alignment_files
     _ihm_starting_model_alignment_files.starting_model_id
     _ihm_starting_model_alignment_files.starting_model_ordinal_id
     _ihm_starting_model_alignment_files.reference_id
-    _ihm_starting_model_alignment_files.filename
-    _ihm_starting_model_alignment_files.format
+    _ihm_starting_model_alignment_files.file_path
+    _ihm_starting_model_alignment_files.file_format
     1 Nup84-m1 6 1 'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
     2 Nup85-m1 8 1 'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
     # ...abbreviated...
@@ -2614,21 +2614,21 @@ save__ihm_starting_model_alignment_files.reference_id
     _item_linked.parent_name    '_ihm_external_reference_info.reference_id'
      save_
 
-save__ihm_starting_model_alignment_files.filename
+save__ihm_starting_model_alignment_files.file_path
     _item_description.description
 ;     The file name with full path corresponding to the alignment file.
 ;
-    _item.name                  '_ihm_starting_model_alignment_files.filename'
+    _item.name                  '_ihm_starting_model_alignment_files.file_path'
     _item.category_id             ihm_starting_model_alignment_files
     _item.mandatory_code          yes
     _item_type.code               code
      save_
 
-save__ihm_starting_model_alignment_files.format
+save__ihm_starting_model_alignment_files.file_format
     _item_description.description
 ;     The file format of the corresponding alignment file.
 ;
-    _item.name                  '_ihm_starting_model_alignment_files.format'
+    _item.name                  '_ihm_starting_model_alignment_files.file_format'
     _item.category_id             ihm_starting_model_alignment_files
     _item.mandatory_code          yes
     _item_type.code               code
@@ -2677,7 +2677,7 @@ save_ihm_modeling_workflow_files
     loop_
     _ihm_modeling_workflow_files.ordinal_id
     _ihm_modeling_workflow_files.reference_id
-    _ihm_modeling_workflow_files.filename
+    _ihm_modeling_workflow_files.file_path
     _ihm_modeling_workflow_files.file_type
     _ihm_modeling_workflow_files.scripting_language
     _ihm_modeling_workflow_files.description
@@ -2717,11 +2717,11 @@ save__ihm_modeling_workflow_files.reference_id
     _item_linked.parent_name    '_ihm_external_reference_info.reference_id'
      save_
 
-save__ihm_modeling_workflow_files.filename
+save__ihm_modeling_workflow_files.file_path
     _item_description.description
 ;     The file name with full path corresponding to the modeling workflow file.
 ;
-    _item.name                  '_ihm_modeling_workflow_files.filename'
+    _item.name                  '_ihm_modeling_workflow_files.file_path'
     _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes
     _item_type.code               code
@@ -2808,8 +2808,8 @@ save_ihm_localization_density_files
     _ihm_localization_density_files.seq_id_begin
     _ihm_localization_density_files.seq_id_end
     _ihm_localization_density_files.reference_id
-    _ihm_localization_density_files.filename
-    _ihm_localization_density_files.format
+    _ihm_localization_density_files.file_path
+    _ihm_localization_density_files.file_format
     1 1 1 A 1  726 1 'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc'  MRC
     2 1 2 B 1  744 1 'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc'  MRC
     3 1 3 C 1 1037 1 'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc' MRC 
@@ -2910,21 +2910,21 @@ save__ihm_localization_density_files.reference_id
     _item_linked.parent_name    '_ihm_external_reference_info.reference_id'
      save_
 
-save__ihm_localization_density_files.filename
+save__ihm_localization_density_files.file_path
     _item_description.description
 ;     The file name with full path corresponding to the localization density file. 
 ;
-    _item.name                  '_ihm_localization_density_files.filename'
+    _item.name                  '_ihm_localization_density_files.file_path'
     _item.category_id             ihm_localization_density_files
     _item.mandatory_code          yes
     _item_type.code               code
      save_
 
-save__ihm_localization_density_files.format
+save__ihm_localization_density_files.file_format
     _item_description.description
 ;     The file format of the corresponding localization density file. 
 ;
-    _item.name                  '_ihm_localization_density_files.format'
+    _item.name                  '_ihm_localization_density_files.file_format'
     _item.category_id             ihm_localization_density_files
     _item.mandatory_code          yes
     _item_type.code               code
