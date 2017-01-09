@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 6-JAN-2017 Jdw/BV
+#  Date: 9-JAN-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -2321,6 +2321,7 @@ save__ihm_external_reference_info.reference_provider
     'Zenodo'
     'Figshare'
     'Crossref'
+    'Other'
      save_
 
 save__ihm_external_reference_info.reference_type
