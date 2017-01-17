@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 9-JAN-2017 Jdw/BV
+#  Date: 10-JAN-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -65,6 +65,7 @@
 #           _ihm_starting_model_details.starting_model_auth_asym_id
 #           Changed IHM_DOI_URL_INFO to IHM_EXTERNAL_REFERENCE_INFO; modified all downstream dependencies
 #           Changed IHM_DATASET_OTHER to IHM_DATASET_EXTERNAL_REFERENCE_DETAILS; modified all downstream dependencies
+#           Modified definitions within IHM_EXTERNAL_REFERENCE_INFO
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -2279,7 +2280,7 @@ save_ihm_external_reference_info
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 1 -
+    Example 1 - DOI
 ;
 ;
  loop_
@@ -2294,6 +2295,17 @@ save_ihm_external_reference_info
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 2 - Local Files
+;
+;
+    _ihm_external_reference_info.reference_id       2
+    _ihm_external_reference_info.reference_type     'Local Files'
+    _ihm_external_reference_info.reference          .
+    _ihm_external_reference_info.refers_to          'Other'
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     _pdbx_category_context.type         CONTRIBUTED
     _pdbx_category_context.category_id  ihm_external_reference_info
     save_
@@ -2336,6 +2348,7 @@ save__ihm_external_reference_info.reference_type
     loop_
     _item_enumeration.value
      'DOI'
+     'Local Files'
      save_
 
 save__ihm_external_reference_info.reference
@@ -2353,7 +2366,7 @@ save__ihm_external_reference_info.reference
 
 save__ihm_external_reference_info.refers_to
     _item_description.description
-;     The type of object that the external reference refers to. 
+;     The type of object that the external reference points to. 
 ;   
     _item.name                  '_ihm_external_reference_info.refers_to'
     _item.category_id             ihm_external_reference_info
@@ -2361,9 +2374,10 @@ save__ihm_external_reference_info.refers_to
     _item_type.code               code
     loop_
     _item_enumeration.value
-     'File'
-     'Archive'
-     'Other'
+    _item_enumeration.detail
+     'File'     'Refers to a single file'
+     'Archive'  'Refers to a tar and/or a compressed file'
+     'Other'    'Other'
      save_
 
 save__ihm_external_reference_info.associated_url
