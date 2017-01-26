@@ -2,7 +2,7 @@
 
 ## Goal
 
-We want to be able to deposit hybrid or integrative models into PDB-dev.
+We want to be able to deposit hybrid or integrative models into [PDB-dev](https://pdb-dev.rcsb.rutgers.edu/).
 These are models that are not necessarily atomic (e.g. parts or all of the
 system may be coarse grained) and are derived by integrating information
 from multiple sources. Examples include
@@ -31,7 +31,7 @@ since
  - mmCIF is designed to be extensible
  - PDB is already moving traditional atomic structures to mmCIF format
  - several libraries for handling mmCIF files are already available
- - there is reasonable support from viewers (e.g. UCSF Chimera)
+ - there is reasonable support from viewers (e.g. [UCSF Chimera](https://www.cgl.ucsf.edu/chimera/))
  - alternative formats for coarse-grained structures
    (e.g. [RMF](https://integrativemodeling.org/rmf/)) don't store all the
    information we're interested in, and aren't widely supported outside
@@ -39,12 +39,13 @@ since
    [Chimera](https://www.cgl.ucsf.edu/chimera/))
 
 We plan to support integrative/hybrid models by means of an mmCIF extension
-dictionary, `ihm-extension.dic`. Since this merely extends the existing mmCIF
+dictionary, [ihm-extension.dic](ihm-extension.dic). Since this merely extends the existing mmCIF
 specification, "traditional" data (such as atomic coordinates) can be stored
 just as in regular mmCIF files.
 
-An example of using the dictionary, `nup84/nup84.cif`, is provided. This
-contains the structures derived by the Sali lab for the Nup84 complex, above.
+A [number of examples](examples/) of using the dictionary are provided.
+[One such example](examples/nup84/nup84.cif) contains the structures derived by the Sali lab
+for the Nup84 complex, above.
 
 ## Extension dictionary
 
