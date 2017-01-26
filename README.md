@@ -49,6 +49,8 @@ for the Nup84 complex, above.
 
 ## Extension dictionary
 
+*For more details, see the [extension dictionary documentation](dictionary_documentation/documentation.md)*
+
 The extension dictionary aims to cover:
 
  - Input data (e.g. crosslinks, EM map, EM class average, subunit structures)
