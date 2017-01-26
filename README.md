@@ -7,7 +7,7 @@ These are models that are not necessarily atomic (e.g. parts or all of the
 system may be coarse grained) and are derived by integrating information
 from multiple sources. Examples include
 
- - Modeling of the [Nup84 subcomplex](http://salilab.org/nup84)
+ - Modeling of the [Nup84 subcomplex](https://salilab.org/nup84)
    of the Nuclear Pore Complex (Sali Lab), by combining comparative models
    with crosslinking and EM class averages, representing subunits as beads
    (1, 10, or 20 residues per bead).
@@ -33,16 +33,17 @@ since
  - several libraries for handling mmCIF files are already available
  - there is reasonable support from viewers (e.g. UCSF Chimera)
  - alternative formats for coarse-grained structures
-   (e.g. [RMF](http://integrativemodeling.org/rmf/)) don't store all the
+   (e.g. [RMF](https://integrativemodeling.org/rmf/)) don't store all the
    information we're interested in, and aren't widely supported outside
-   of UCSF (IMP, Chimera)
+   of UCSF ([IMP](https://integrativemodeling.org/),
+   [Chimera](https://www.cgl.ucsf.edu/chimera/))
 
 We plan to support integrative/hybrid models by means of an mmCIF extension
 dictionary, `ihm-extension.dic`. Since this merely extends the existing mmCIF
 specification, "traditional" data (such as atomic coordinates) can be stored
 just as in regular mmCIF files.
 
-An example of using the dictionary, `nup84-strawman-2.cif`, is provided. This
+An example of using the dictionary, `nup84/nup84.cif`, is provided. This
 contains the structures derived by the Sali lab for the Nup84 complex, above.
 
 ## Extension dictionary
