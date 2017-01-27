@@ -47,9 +47,17 @@ A [number of examples](examples/) of using the dictionary are provided.
 [One such example](examples/nup84/nup84.cif) contains the structures derived by the Sali lab
 for the Nup84 complex, above.
 
+## Deposition
+
+Ultimately, models will be deposited into [PDB-dev](https://pdb-dev.rcsb.rutgers.edu/).
+In order for this to work in a semi-automated fashion, integrative/hybrid
+modeling packages need to support the mmCIF file format and the IHM extension.
+See [the deposition directory](deposition) for the current status of
+software support.
+
 ## Extension dictionary
 
-*For more details, see the [extension dictionary documentation](dictionary_documentation/documentation.md)*
+*For more details, see the [extension dictionary documentation](dictionary_documentation/documentation.md).*
 
 The extension dictionary aims to cover:
 
