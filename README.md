@@ -19,6 +19,10 @@ from multiple sources. Examples include
 
 More examples can be found in the [Google doc](https://docs.google.com/document/d/1tuHzE6N8ENy-8NxeV8CFv9W1BDoJkRoc9VRwoK0Ic5E/edit?usp=sharing).
 
+*Note that we always need more use cases, to expose issues with the existing
+file formats. Furthermore, actual raw data for each example is vitally
+important.*
+
 Existing PDB format is not sufficient since it assumes atomic structures,
 and only supports a small number of input experimental data sources (e.g.
 X-ray crystallography, NMR).
@@ -46,6 +50,16 @@ just as in regular mmCIF files.
 A [number of examples](examples/) of using the dictionary are provided.
 [One such example](examples/nup84/nup84.cif) contains the structures derived by the Sali lab
 for the Nup84 complex, above.
+
+## Discussion
+
+Discussion on the file formats is conducted via email - please subscribe to
+[the mailing list](https://salilab.org/mailman/listinfo/ihm-repval).
+In addition, we meet weekly via Skype to discuss issues. Typical meetings
+are on Thursdays at 10am Pacific time (1pm Eastern). Any member of the
+subgroup is welcome to attend some or all of these meetings - please contact
+[Brinda Vallat at RCSB](brinda.vallat@rcsb.org) so she can add you to the Skype
+call.
 
 ## Deposition
 
@@ -126,3 +140,8 @@ to GitHub and then archived at zenodo.org, which assigns a permanent DOI,
 in this case [10.5281/zenodo.46266](http://dx.doi.org/10.5281/zenodo.46266).
 In other cases the data may be available in the supplementary information of
 a publication, in which case the publisher-assigned DOI can be used.
+
+## Visualization
+
+There is currently basic support for visualization of IHM mmCIF models
+in nightly builds of [UCSF ChimeraX](https://www.cgl.ucsf.edu/chimerax/).
