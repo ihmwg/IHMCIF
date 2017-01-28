@@ -58,7 +58,7 @@ Discussion on the file formats is conducted via email - please subscribe to
 In addition, we meet weekly via Skype to discuss issues. Typical meetings
 are on Thursdays at 10am Pacific time (1pm Eastern). Any member of the
 subgroup is welcome to attend some or all of these meetings - please contact
-[Brinda Vallat at RCSB](brinda.vallat@rcsb.org) so she can add you to the Skype
+[Brinda Vallat at RCSB](mailto:brinda.vallat@rcsb.org) so she can add you to the Skype
 call.
 
 ## Deposition
