@@ -56,7 +56,7 @@ for the Nup84 complex, above.
  - Discussion on the file formats is conducted via email - please subscribe to
    [the mailing list](https://salilab.org/mailman/listinfo/ihm-repval).
 
- - We also [meet weekly via Skype](wiki/Meetings) to discuss issues. All are
+ - We also [meet weekly via Skype](https://github.com/ihmwg/IHM-dictionary/wiki/Meetings) to discuss issues. All are
    welcome to join some or all meetings.
 
  - To get an email every time this GitHub repository is updated, please
