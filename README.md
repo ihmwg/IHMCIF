@@ -17,7 +17,7 @@ from multiple sources. Examples include
    EROS refined coarse-grained simulations (COMPLEXES, 1AA =1bead) using
    SAXS data. Ensemble of ~100 dynamic structures.
 
-More examples can be found in the [Google doc](https://docs.google.com/document/d/1tuHzE6N8ENy-8NxeV8CFv9W1BDoJkRoc9VRwoK0Ic5E/edit?usp=sharing).
+More examples can be found in the [set of use cases](https://github.com/ihmwg/IHM-dictionary/wiki/Use-cases).
 
 *Note that we always need more use cases, to expose issues with the existing
 file formats. Furthermore, actual raw data for each example is vitally
