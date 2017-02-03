@@ -53,16 +53,14 @@ for the Nup84 complex, above.
 
 ## Discussion
 
-Discussion on the file formats is conducted via email - please subscribe to
-[the mailing list](https://salilab.org/mailman/listinfo/ihm-repval).
-In addition, we meet weekly via Skype to discuss issues. Typical meetings
-are on Thursdays at 10am Pacific time (1pm Eastern). Any member of the
-subgroup is welcome to attend some or all of these meetings - please contact
-[Brinda Vallat at RCSB](mailto:brinda.vallat@rcsb.org) so she can add you
-to the Skype call.
+ - Discussion on the file formats is conducted via email - please subscribe to
+   [the mailing list](https://salilab.org/mailman/listinfo/ihm-repval).
 
-To get an email every time this GitHub repository is updated, please subscribe
-to the [IHM-mmCIF-commits mailing list](https://salilab.org/mailman/listinfo/ihm-mmcif-commits).
+ - We also [meet weekly via Skype](wiki/Meetings) to discuss issues. All are
+   welcome to join some or all meetings.
+
+ - To get an email every time this GitHub repository is updated, please
+   subscribe to the [IHM-mmCIF-commits mailing list](https://salilab.org/mailman/listinfo/ihm-mmcif-commits).
 
 ## Deposition
 
