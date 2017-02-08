@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 10-JAN-2017 Jdw/BV
+#  Date: 07-FEB-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -66,6 +66,10 @@
 #           Changed IHM_DOI_URL_INFO to IHM_EXTERNAL_REFERENCE_INFO; modified all downstream dependencies
 #           Changed IHM_DATASET_OTHER to IHM_DATASET_EXTERNAL_REFERENCE_DETAILS; modified all downstream dependencies
 #           Modified definitions within IHM_EXTERNAL_REFERENCE_INFO
+#           Added IHM_EXTERNAL_FILES category; Removed IHM_STARTING_MODEL_ALIGNMENT_FILES category
+#           Changed IHM_MODELING_WORKFLOW_FILES, IHM_LOCALIZATION_DENSITY_FILES
+#           Changed IHM_DATASET_EXTERNAL_REFERENCE_DETAILS to IHM_DATASET_EXTERNAL_REFERENCE
+#           Modified IHM_STARTING_MODEL_DETAILS category
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -110,11 +114,12 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
+        _ihm_starting_model_details.alignment_file_id
         _ihm_starting_model_details.notes
-         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  0  100.0  Nup84-m1  5  "MSE to MET conversion"
-         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  0  100.0  Nup84-m1  6  .
-         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G  0   10.0  Nup84-m1  7  .
-         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A  0   18.0  Nup84-m1  8  .
+         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  0  100.0  Nup84-m1  5  .    "MSE to MET conversion"
+         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  0  100.0  Nup84-m1  6  .    .
+         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G  0   10.0  Nup84-m1  7  6    .
+         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A  0   18.0  Nup84-m1  8  6    .
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1877,7 +1882,7 @@ save_ihm_dataset_list
    BMRB, EMDB, EMPIAR, SASBDB, PRIDE etc., or can be hosted in other
    places such as the authors website, github etc. These datasets are
    elaborated in detail in the IHM_DATASET_RELATED_DB_REFERENCE and/or 
-   the IHM_DATASET_EXTERNAL_REFERENCE_DETAILS categories. This category 
+   the IHM_DATASET_EXTERNAL_REFERENCE categories. This category 
    holds the list of all datasets used. 
 ;
     _category.id                ihm_dataset_list
@@ -2265,8 +2270,16 @@ save__ihm_dataset_related_db_reference.details
 
 save_ihm_external_reference_info
     _category.description
-;  Category holds links to other external data sources for the IHM entry. Currently,
-   only datasets with DOIs (digital object identifiers) are accepted.
+;  Category holds links to other external data sources for the I/H model entry.
+   Input datasets held in other databases such as EMDB, BMRB, SASBDB etc. 
+   are referenced in the IHM_DATASET_RELATED_DB_REFERENCE category. 
+   This data category, along with IHM_EXTERNAL_FILES category, holds information
+   regarding other non-database external data sources, such as  DOIs (digital 
+   object identifiers) or locally stored files. The DOIs can either lead to the 
+   external data file(s) directly (as in case of DOIs provided by the PDB) or 
+   might lead to an HTML landing page (as provided by Zenodo). In the latter case, 
+   additional URL (Uniform Resource Locator) information is required to retrieve 
+   the external data file(s). 
 ;
     _category.id                ihm_external_reference_info
     _category.mandatory_code    no
@@ -2333,13 +2346,13 @@ save__ihm_external_reference_info.reference_provider
     'Zenodo'
     'Figshare'
     'Crossref'
-    'Other'
      save_
 
 save__ihm_external_reference_info.reference_type
     _item_description.description
 ;     The type of external reference. 
-      Currently, only Digital Object Identifiers (DOIs) are accepted.
+      Currently, only Digital Object Identifiers (DOIs) and locally stored 
+      external files are supported.
 ;
     _item.name                  '_ihm_external_reference_info.reference_type'
     _item.category_id             ihm_external_reference_info
@@ -2347,13 +2360,14 @@ save__ihm_external_reference_info.reference_type
     _item_type.code               code
     loop_
     _item_enumeration.value
-     'DOI'
-     'Local Files'
+     'DOI' 
+     'Local Files' 
      save_
 
 save__ihm_external_reference_info.reference
     _item_description.description
 ;     The external reference or the Digital Object Identifier (DOI).
+      This field is not relevant for local files. 
 ;
     _item.name                  '_ihm_external_reference_info.reference'
     _item.category_id             ihm_external_reference_info
@@ -2366,7 +2380,8 @@ save__ihm_external_reference_info.reference
 
 save__ihm_external_reference_info.refers_to
     _item_description.description
-;     The type of object that the external reference points to. 
+;     The type of object that the external reference points to, usually
+      a single file or an archive. 
 ;   
     _item.name                  '_ihm_external_reference_info.refers_to'
     _item.category_id             ihm_external_reference_info
@@ -2382,10 +2397,9 @@ save__ihm_external_reference_info.refers_to
 
 save__ihm_external_reference_info.associated_url
     _item_description.description
-;     The Uniform Resource Locator (URL) corresponding to the externally referenced DOI. 
+;     The Uniform Resource Locator (URL) corresponding to the external reference (DOI). 
       This URL should link to the corresponding downloadable file or archive and is provided 
-      to enable automated software to download the referenced file or archive. The URL is not 
-      relevant without the DOI in the _ihm_external_reference_info.reference data item.
+      to enable automated software to download the referenced file or archive.
 ;
     _item.name                  '_ihm_external_reference_info.associated_url'
     _item.category_id             ihm_external_reference_info
@@ -2393,17 +2407,20 @@ save__ihm_external_reference_info.associated_url
     _item_type.code               code
      save_
 
-#########################################
-## IHM_DATASET_EXTERNAL_REFERENCE_DETAILS
-#########################################
+########################
+## IHM_EXTERNAL_FILES ##
+########################
 
-save_ihm_dataset_external_reference_details
+save_ihm_external_files
     _category.description
-;  Category provides additional details regarding data hosted externally at other resources.
+;  Category provides details regarding external files. The IHM_EXTERNAL_REFERENCE_INFO
+   category captures the top-level details regarding external data sources. 
+   This category captures the specific details regarding externally stored files 
+   related to the particular I/H model entry. 
 ;
-    _category.id                ihm_dataset_external_reference_details
+    _category.id                ihm_external_files
     _category.mandatory_code    no
-    _category_key.name         '_ihm_dataset_external_reference_details.id'
+    _category_key.name         '_ihm_external_files.id'
     loop_
     _category_group.id         'inclusive_group'
                                'ihm_group'
@@ -2417,54 +2434,170 @@ save_ihm_dataset_external_reference_details
 ;
 ;
  loop_
-    _ihm_dataset_external_reference_details.id
-    _ihm_dataset_external_reference_details.dataset_list_id
-    _ihm_dataset_external_reference_details.data_type
-    _ihm_dataset_external_reference_details.reference_id
-    _ihm_dataset_external_reference_details.auxiliary_file_path
-    _ihm_dataset_external_reference_details.auxiliary_file_type
-    1  1  'CX-MS data'  1  'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'text/plain' 
-    2  2  'CX-MS data'  1  'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'  'text/plain' 
-    3  4  '2DEM class average'  1  'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'  'image/pgm' 
-    4  4  '2DEM class average'  1  'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'  'other' 
-    5  5  'Comparative model'  1  'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb'  'other' 
+    _ihm_external_files.id
+    _ihm_external_files.reference_id
+    _ihm_external_files.file_path
+    _ihm_external_files.file_format
+
+    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'
+    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'
+    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'
+    4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'
+    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'
+    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
+    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
+    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84_modeling.py'   'Other'
+    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84_topology.py'   'Other'
+   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84_merge.py'  'Other'
+   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'
+   12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'
+   13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'
+   14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED 
-    _pdbx_category_context.category_id  ihm_dataset_external_reference_details
+    _pdbx_category_context.category_id  ihm_external_files
     save_
- 
-save__ihm_dataset_external_reference_details.id
+
+save__ihm_external_files.id
     _item_description.description
-;   A unique identifier. 
+;   A unique identifier for each external file. 
 ;
-    _item.name                 '_ihm_dataset_external_reference_details.id'
-    _item.category_id          ihm_dataset_external_reference_details
+    _item.name                 '_ihm_external_files.id'
+    _item.category_id          ihm_external_files
     _item.mandatory_code       yes
     _item_type.code            int
     save_
 
-save__ihm_dataset_external_reference_details.dataset_list_id
+save__ihm_external_files.reference_id
+    _item_description.description
+;   A pointer to the source of the external file - either DOI or locally stored. 
+    This data item is a pointer to _ihm_external_reference_info.reference_id in the
+    IHM_EXTERNAL_REFERENCE_INFO category. 
+;
+    _item.name                 '_ihm_external_files.reference_id'
+    _item.category_id          ihm_external_files
+    _item.mandatory_code       yes
+    _item_type.code            int
+    _item_linked.child_name    '_ihm_external_files.reference_id'
+    _item_linked.parent_name   '_ihm_external_reference_info.reference_id'
+    save_
+
+save__ihm_external_files.file_path
+    _item_description.description
+;   Full path for each external file.
+;
+    _item.name                 '_ihm_external_files.file_path'
+    _item.category_id          ihm_external_files
+    _item.mandatory_code       yes
+    _item_type.code            code
+    loop_
+    _item_examples.case
+    'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc'
+    'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali'
+    save_
+
+save__ihm_external_files.file_format
+    _item_description.description
+;   Format of the external file.
+;
+    _item.name                 '_ihm_external_files.file_format'
+    _item.category_id          ihm_external_files
+    _item.mandatory_code       no
+    _item_type.code            code
+    loop_
+    _item_enumeration.value
+    'TXT'
+    'PGM'
+    'JPG'
+    'GIF'
+    'TIF'
+    'PNG'
+    'MRC'
+    'CCP4'
+    'PDB'
+    'CIF'
+    'HDF5'
+    'FASTA'
+    'CLUSTALW'
+    'PIR/NBRF'
+    'A2M'
+    'A3M'
+    'Other'
+    save_
+
+####################################
+## IHM_DATASET_EXTERNAL_REFERENCE ##
+####################################
+
+save_ihm_dataset_external_reference
+    _category.description
+;  Category provides additional details regarding input data hosted externally 
+   at other resources. 
+;
+    _category.id                ihm_dataset_external_reference
+    _category.mandatory_code    no
+    _category_key.name         '_ihm_dataset_external_reference.id'
+    loop_
+    _category_group.id         'inclusive_group'
+                               'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+ loop_
+    _ihm_dataset_external_reference.id
+    _ihm_dataset_external_reference.dataset_list_id
+    _ihm_dataset_external_reference.data_type
+    _ihm_dataset_external_reference.file_id
+    1  1  'CX-MS data'  1  
+    2  2  'CX-MS data'  2  
+    3  4  '2DEM class average'  3
+    4  4  '2DEM class average'  4  
+    5  5  'Comparative model'  5 
+ # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    _pdbx_category_context.type         CONTRIBUTED 
+    _pdbx_category_context.category_id  ihm_dataset_external_reference
+    save_
+ 
+save__ihm_dataset_external_reference.id
+    _item_description.description
+;   A unique identifier for the external data.  
+;
+    _item.name                 '_ihm_dataset_external_reference.id'
+    _item.category_id          ihm_dataset_external_reference
+    _item.mandatory_code       yes
+    _item_type.code            int
+    save_
+
+save__ihm_dataset_external_reference.dataset_list_id
     _item_description.description
 ;   Identifier to the dataset list used in the I/H modeling.
     This data item is a pointer to the _ihm_dataset_list.id in the
     IHM_DATASET_LIST category. 
 ;
-    _item.name                 '_ihm_dataset_external_reference_details.dataset_list_id'
-    _item.category_id          ihm_dataset_external_reference_details
+    _item.name                 '_ihm_dataset_external_reference.dataset_list_id'
+    _item.category_id          ihm_dataset_external_reference
     _item.mandatory_code       yes
     _item_type.code            int
-    _item_linked.child_name    '_ihm_dataset_external_reference_details.dataset_list_id'
+    _item_linked.child_name    '_ihm_dataset_external_reference.dataset_list_id'
     _item_linked.parent_name   '_ihm_dataset_list.id'
     save_
 
-save__ihm_dataset_external_reference_details.data_type
+save__ihm_dataset_external_reference.data_type
     _item_description.description
 ;   Type of data referenced externally.
 ;
-    _item.name                 '_ihm_dataset_external_reference_details.data_type'
-    _item.category_id          ihm_dataset_external_reference_details
+    _item.name                 '_ihm_dataset_external_reference.data_type'
+    _item.category_id          ihm_dataset_external_reference
     _item.mandatory_code       yes
     _item_type.code            line
     loop_
@@ -2482,181 +2615,18 @@ save__ihm_dataset_external_reference_details.data_type
       'unspecified'
     save_
 
-save__ihm_dataset_external_reference_details.reference_id
+save__ihm_dataset_external_reference.file_id
     _item_description.description
-;   The reference id corresponding to this external data.
-    This data item is a pointer to _ihm_external_reference_info.reference_id
-    in the IHM_EXTERNAL_REFERENCE_INFO category. 
+;   The file id corresponding to this external data file.
+    This data item is a pointer to _ihm_external_files.id
+    in the IHM_EXTERNAL_FILES category. 
 ;
-    _item.name                 '_ihm_dataset_external_reference_details.reference_id'
-    _item.category_id          ihm_dataset_external_reference_details
+    _item.name                 '_ihm_dataset_external_reference.file_id'
+    _item.category_id          ihm_dataset_external_reference
     _item.mandatory_code       yes
     _item_type.code            int
-    _item_linked.child_name    '_ihm_dataset_external_reference_details.reference_id'
-    _item_linked.parent_name   '_ihm_external_reference_info.reference_id'
-    save_
-
-save__ihm_dataset_external_reference_details.auxiliary_file_path
-    _item_description.description
-;   The full path with the file name of the file that carries the externally referenced data.
-    This is particularly useful when the DOI leads to an archive instead 
-    of a single file. 
-;
-    _item.name                 '_ihm_dataset_external_reference_details.auxiliary_file_path'
-    _item.category_id          ihm_dataset_external_reference_details
-    _item.mandatory_code       no
-    _item_type.code            code
-    save_
-
-save__ihm_dataset_external_reference_details.auxiliary_file_type
-    _item_description.description
-;   The type of file refered to by _ihm_dataset_external_reference_details.auxiliary_file_path. 
-    This data item should belong to one of the MIME types.
-;
-    _item.name                 '_ihm_dataset_external_reference_details.auxiliary_file_type'
-    _item.category_id          ihm_dataset_external_reference_details
-    _item.mandatory_code       no
-    _item_type.code            code
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-      'text/plain'  'Plain text file'
-      'text/csv'    'Comma-separated text file'
-      'text/tsv'    'Tab-separated text file'
-      'text/xml'    'XML file format'
-      'text/html'   'HTML file format'
-      'image/pgm'   'Portable gray map image'
-      'image/png'   'Portable network graphics image'
-      'image/gif'   'Graphics interchange format image'
-      'image/tif'   'Tagged image file format'
-      'other'       'unspecified'
-    save_
-
-########################################
-## IHM_STARTING_MODEL_ALIGNMENT_FILES ##
-########################################
-
-save_ihm_starting_model_alignment_files
-    _category.description
-;              Data items in the IHM_STARTING_MODEL_ALIGNEMENT_FILES category records the
-               details of files that contain the multiple sequence alignments used to obtain
-               the starting comparative models described in the IHM_STARTING_MODEL_DETAILS
-               category. These may be stored externally and linked via a DOI and can be
-               in any accepted alignment format (FASTA, PIR, CLUSTAL etc.).
-;
-    _category.id                  ihm_starting_model_alignment_files
-    _category.mandatory_code      no
-     loop_
-    _category_key.name          '_ihm_starting_model_alignment_files.ordinal_id'
-
-    loop_
-    _category_group.id           'inclusive_group'
-                                 'ihm_group'
-    loop_
-    _category_examples.detail
-    _category_examples.case
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-;
-    Example 1 -
-;
-;
-    loop_
-    _ihm_starting_model_alignment_files.ordinal_id
-    _ihm_starting_model_alignment_files.starting_model_id
-    _ihm_starting_model_alignment_files.starting_model_ordinal_id
-    _ihm_starting_model_alignment_files.reference_id
-    _ihm_starting_model_alignment_files.file_path
-    _ihm_starting_model_alignment_files.file_format
-    1 Nup84-m1 6 1 'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
-    2 Nup85-m1 8 1 'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
-    # ...abbreviated...
-;
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-   _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_starting_model_alignment_files
-     save_
-
-save__ihm_starting_model_alignment_files.ordinal_id
-    _item_description.description
-;     A unique identifier for the externally referenced multiple sequence alignment file.
-;
-    _item.name                  '_ihm_starting_model_alignment_files.ordinal_id'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
-save__ihm_starting_model_alignment_files.starting_model_id
-    _item_description.description
-;     The starting model id corresponding to the alignment provided. 
-      This data item is a pointer to the _ihm_starting_model_details.starting_model_id 
-      in the IHM_STARTING_MODEL_DETAILS category. 
-;
-    _item.name                  '_ihm_starting_model_alignment_files.starting_model_id'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-    _item_linked.child_name    '_ihm_starting_model_alignment_files.starting_model_id'
-    _item_linked.parent_name   '_ihm_starting_model_details.starting_model_id'
-     save_
-
-save__ihm_starting_model_alignment_files.starting_model_ordinal_id
-    _item_description.description
-;     The unique starting model ordinal id corresponding to the alignment provided.
-      This data item is a pointer to the _ihm_starting_model_details.ordinal_id
-      in the IHM_STARTING_MODEL_DETAILS category.
-;
-    _item.name                  '_ihm_starting_model_alignment_files.starting_model_ordinal_id'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name    '_ihm_starting_model_alignment_files.starting_model_ordinal_id'
-    _item_linked.parent_name   '_ihm_starting_model_details.ordinal_id'
-     save_
-
-save__ihm_starting_model_alignment_files.reference_id
-    _item_description.description
-;    A unique id for the external reference. 
-     This data item is a pointer to _ihm_external_reference_info.reference_id     
-     in the IHM_EXTERNAL_REFERENCE_INFO category. 
-;
-    _item.name                  '_ihm_starting_model_alignment_files.reference_id'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_model_alignment_files.reference_id'
-    _item_linked.parent_name    '_ihm_external_reference_info.reference_id'
-     save_
-
-save__ihm_starting_model_alignment_files.file_path
-    _item_description.description
-;     The file name with full path corresponding to the alignment file.
-;
-    _item.name                  '_ihm_starting_model_alignment_files.file_path'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
-save__ihm_starting_model_alignment_files.file_format
-    _item_description.description
-;     The file format of the corresponding alignment file.
-;
-    _item.name                  '_ihm_starting_model_alignment_files.file_format'
-    _item.category_id             ihm_starting_model_alignment_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-    loop_
-    _item_enumeration.value
-    'FASTA'
-    'A2M'
-    'A3M'
-    'CLUSTAL'
-    'PIR/NBRF'
-    'GenBank'
-    'EMBL'
-    'Other'
+    _item_linked.child_name    '_ihm_dataset_external_reference.file_id'
+    _item_linked.parent_name   '_ihm_external_files.id'
     save_
 
 #################################
@@ -2668,15 +2638,15 @@ save_ihm_modeling_workflow_files
 ;              Data items in the IHM_MODELING_WORKFLOW_FILES category records the
                details of files that correspond to the workflow, scripts and other 
                related files used in integrative modeling. 
-               These may be stored externally and linked via a DOI. The script files
-               can be in any accepted scripting language (Python, Perl, Ruby etc). 
+               These may be stored externally as local files or linked via a DOI. 
+               The script files can be in any scripting language (Python, Perl, Ruby etc). 
                The generic nature of this category allows for referencing associated
                documentation and other files related to the integrative modeling study. 
 ;
     _category.id                  ihm_modeling_workflow_files
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_modeling_workflow_files.ordinal_id'
+    _category_key.name          '_ihm_modeling_workflow_files.file_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -2690,71 +2660,32 @@ save_ihm_modeling_workflow_files
 ;
 ;
     loop_
-    _ihm_modeling_workflow_files.ordinal_id
-    _ihm_modeling_workflow_files.reference_id
-    _ihm_modeling_workflow_files.file_path
-    _ihm_modeling_workflow_files.file_type
+    _ihm_modeling_workflow_files.file_id
     _ihm_modeling_workflow_files.scripting_language
     _ihm_modeling_workflow_files.description
-    1 1 'integrativemodeling-nup84-a69f895/scripts/nup84_modeling.py' 'Source code' 'Python' 'The main integrative modeling script'
-    2 1 'integrativemodeling-nup84-a69f895/scripts/nup84_topology.py' 'Source code' 'Python' 'Script for constructing Nup84 subunits'
-    3 1 'integrativemodeling-nup84-a69f895/scripts/nup84_merge.py' 'Source code' 'Python' 'Script to cluster and merge output files'
-    4 1 'integrativemodeling-nup84-a69f895/scripts/README' 'Documentation' 'Other' 'README file for the modeling scripts'
+     8 'Python' 'The main integrative modeling script'
+     9 'Python' 'Script for constructing Nup84 subunits'
+    10 'Python' 'Script to cluster and merge output files'
+    11 'Other'  'README file for the modeling scripts'
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_modeling_workflow_files
      save_
 
-save__ihm_modeling_workflow_files.ordinal_id
+save__ihm_modeling_workflow_files.file_id
     _item_description.description
-;     A unique identifier for the externally referenced modeling workflow file.
+;    A unique id for the externally referenced modeling workflow file.
+     This data item is a pointer to _ihm_external_files.id
+     in the IHM_EXTERNAL_FILES category.
 ;
-    _item.name                  '_ihm_modeling_workflow_files.ordinal_id'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          yes  
-    _item_type.code               int  
-     save_
-
-save__ihm_modeling_workflow_files.reference_id
-    _item_description.description
-;    A unique id for the external reference.
-     This data item is a pointer to _ihm_external_reference_info.reference_id
-     in the IHM_EXTERNAL_REFERENCE_INFO category.
-;
-    _item.name                  '_ihm_modeling_workflow_files.reference_id'
+    _item.name                  '_ihm_modeling_workflow_files.file_id'
     _item.category_id             ihm_modeling_workflow_files
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_modeling_workflow_files.reference_id'
-    _item_linked.parent_name    '_ihm_external_reference_info.reference_id'
-     save_
-
-save__ihm_modeling_workflow_files.file_path
-    _item_description.description
-;     The file name with full path corresponding to the modeling workflow file.
-;
-    _item.name                  '_ihm_modeling_workflow_files.file_path'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
-save__ihm_modeling_workflow_files.file_type
-    _item_description.description
-;     The type of file being referenced. 
-;
-    _item.name                  '_ihm_modeling_workflow_files.file_type'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          no  
-    _item_type.code               line 
-    loop_
-    _item_enumeration.value
-    'Source code'
-    'Documentation'
-    'Other'
+    _item_linked.child_name     '_ihm_modeling_workflow_files.file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
 save__ihm_modeling_workflow_files.scripting_language
@@ -2766,12 +2697,11 @@ save__ihm_modeling_workflow_files.scripting_language
     _item.mandatory_code          yes
     _item_type.code               line
     loop_
-    _item_enumeration.value
+    _item_examples.case
     'Python'
     'Perl'
     'Ruby'
     'PHP'
-    'Other'
      save_
 
 save__ihm_modeling_workflow_files.description
@@ -2796,13 +2726,14 @@ save_ihm_localization_density_files
     _category.description
 ;              Data items in the IHM_LOCALIZATION_DENSITY_FILES category records the
                details of files that provide information regarding localization densities
-               ensembles. These may be stored externally and linked via a DOI and can be
-               in a any accepted format that provide volume information (CCP4, MRC, etc.).
+               of ensembles. These may be stored externally as local files or linked via 
+               DOI and can be in any accepted format that provides volume information 
+               (CCP4, MRC, etc.).
 ;
     _category.id                  ihm_localization_density_files
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_localization_density_files.ordinal_id'
+    _category_key.name          '_ihm_localization_density_files.id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -2816,18 +2747,16 @@ save_ihm_localization_density_files
 ;
 ;
     loop_
-    _ihm_localization_density_files.ordinal_id
+    _ihm_localization_density_files.id
+    _ihm_localization_density_files.file_id
     _ihm_localization_density_files.ensemble_id
     _ihm_localization_density_files.entity_id
     _ihm_localization_density_files.asym_id
     _ihm_localization_density_files.seq_id_begin
     _ihm_localization_density_files.seq_id_end
-    _ihm_localization_density_files.reference_id
-    _ihm_localization_density_files.file_path
-    _ihm_localization_density_files.file_format
-    1 1 1 A 1  726 1 'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc'  MRC
-    2 1 2 B 1  744 1 'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc'  MRC
-    3 1 3 C 1 1037 1 'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc' MRC 
+    1 12 1 1 A 1  726 
+    2 13 1 2 B 1  744
+    3 14 1 3 C 1 1037
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2836,14 +2765,28 @@ save_ihm_localization_density_files
    _pdbx_category_context.category_id  ihm_localization_density_files
      save_
 
-save__ihm_localization_density_files.ordinal_id
+save__ihm_localization_density_files.id
     _item_description.description
-;     A unique identifier for the externally referenced localization density file.
+;     A unique identifier.
 ;
-    _item.name                  '_ihm_localization_density_files.ordinal_id'
+    _item.name                  '_ihm_localization_density_files.id'
     _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes  
-    _item_type.code               int  
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_localization_density_files.file_id
+    _item_description.description
+;    The file id for the externally stored localization density file.
+     This data item is a pointer to _ihm_external_files.id
+     in the IHM_EXTERNAL_FILES category.
+;
+    _item.name                  '_ihm_localization_density_files.file_id'
+    _item.category_id             ihm_localization_density_files
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_localization_density_files.file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
 save__ihm_localization_density_files.ensemble_id
@@ -2909,46 +2852,6 @@ save__ihm_localization_density_files.asym_id
     _item_type.code               code
     _item_linked.child_name       '_ihm_localization_density_files.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
-     save_
-
-save__ihm_localization_density_files.reference_id
-    _item_description.description
-;    A unique id for the external reference.
-     This data item is a pointer to _ihm_external_reference_info.reference_id
-     in the IHM_EXTERNAL_REFERENCE_INFO category.
-;
-    _item.name                  '_ihm_localization_density_files.reference_id'
-    _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_localization_density_files.reference_id'
-    _item_linked.parent_name    '_ihm_external_reference_info.reference_id'
-     save_
-
-save__ihm_localization_density_files.file_path
-    _item_description.description
-;     The file name with full path corresponding to the localization density file. 
-;
-    _item.name                  '_ihm_localization_density_files.file_path'
-    _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
-save__ihm_localization_density_files.file_format
-    _item_description.description
-;     The file format of the corresponding localization density file. 
-;
-    _item.name                  '_ihm_localization_density_files.file_format'
-    _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
-    _item_type.code               code
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-    'MRC'       'MRC format'
-    'CCP4'      'CCP4 format'
-    'Other'     'Other format'
      save_
 
 #########################
