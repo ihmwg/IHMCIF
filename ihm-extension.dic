@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 07-FEB-2017 Jdw/BV
+#  Date: 14-FEB-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -70,6 +70,7 @@
 #           Changed IHM_MODELING_WORKFLOW_FILES, IHM_LOCALIZATION_DENSITY_FILES
 #           Changed IHM_DATASET_EXTERNAL_REFERENCE_DETAILS to IHM_DATASET_EXTERNAL_REFERENCE
 #           Modified IHM_STARTING_MODEL_DETAILS category
+#           Added IHM_STARTING_COMPARATIVE_MODELS category
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -111,15 +112,13 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_db_code
         _ihm_starting_model_details.starting_model_auth_asym_id
         _ihm_starting_model_details.starting_model_sequence_offset
-        _ihm_starting_model_details.starting_model_sequence_identity
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-        _ihm_starting_model_details.alignment_file_id
         _ihm_starting_model_details.notes
-         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  0  100.0  Nup84-m1  5  .    "MSE to MET conversion"
-         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  0  100.0  Nup84-m1  6  .    .
-         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G  0   10.0  Nup84-m1  7  6    .
-         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A  0   18.0  Nup84-m1  8  6    .
+         2  1  Nup84  A    7   436  'experimental model'  PDB  3JRO  C  0  Nup84-m1  5  'MSE to MET conversion'
+         3  1  Nup84  A    7   436  'experimental model'  PDB  3IKO  C  0  Nup84-m1  6  .
+         4  1  Nup84  A  429   488  'comparative model'   .    .     A  0  Nup84-m1  7  .
+         6  1  Nup84  A  506   726  'comparative model'   .    .     A  0  Nup84-m1  8  .
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -139,7 +138,7 @@ save__ihm_starting_model_details.ordinal_id
 
 save__ihm_starting_model_details.entity_id
     _item_description.description
-;     A unique identifier distinct molecular entities.
+;     A unique identifier for the distinct molecular entities.
       This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
 ;
     _item.name                  '_ihm_starting_model_details.entity_id'
@@ -230,7 +229,7 @@ save__ihm_starting_model_details.starting_model_db_name
     _item_enumeration.detail
         'PDB'     'Protein Data Bank'
         'MA'      'Model Archive'
-        'Other'   'Other archive'
+        'Other'   'Other'
      save_
 
 save__ihm_starting_model_details.starting_model_db_code
@@ -241,6 +240,10 @@ save__ihm_starting_model_details.starting_model_db_code
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               line
+    loop_
+    _item_examples.case
+    '5FM1'
+    'MA-CO2KC'
      save_
 
 save__ihm_starting_model_details.starting_model_auth_asym_id
@@ -248,17 +251,18 @@ save__ihm_starting_model_details.starting_model_auth_asym_id
 ;     The author assigned chainId/auth_asym_id corresponding to this starting model. 
       This corresponds to the chainId/auth_asym_id of the experimental models in the
       PDB or comparative models in the Model Archive or the starting models referenced
-      via a DOI. 
+      via a DOI. If starting models are included in IHM_STARTING_MODEL_COORDS, then
+      this will be the same as _ihm_starting_model_details.asym_id. 
 ;
     _item.name                  '_ihm_starting_model_details.starting_model_auth_asym_id'
     _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               code
      save_
 
 save__ihm_starting_model_details.starting_model_sequence_offset
     _item_description.description
-;     The offset in residue numbering between the starting model and the deposited model, if applicable. 
+;     The offset in residue numbering between the starting model and the deposited I/H model, if applicable. 
 ;
     _item.name                  '_ihm_starting_model_details.starting_model_sequence_offset'
     _item.category_id             ihm_starting_model_details
@@ -266,19 +270,9 @@ save__ihm_starting_model_details.starting_model_sequence_offset
     _item_type.code               int
      save_
 
-save__ihm_starting_model_details.starting_model_sequence_identity
-    _item_description.description
-;     The sequence identity between the sample sequence and the starting model sequence (percent).
-;
-    _item.name                  '_ihm_starting_model_details.starting_model_sequence_identity'
-    _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
-    _item_type.code               float
-     save_
-
 save__ihm_starting_model_details.starting_model_id
     _item_description.description
-;     The identifier for the starting structural model.
+;     An identifier for the starting structural model.
 ;
     _item.name                  '_ihm_starting_model_details.starting_model_id'
     _item.category_id             ihm_starting_model_details
@@ -288,7 +282,7 @@ save__ihm_starting_model_details.starting_model_id
 
 save__ihm_starting_model_details.dataset_list_id
     _item_description.description
-;     Identifier to the starting model dataset.
+;     Identifier to the starting model used as input in the integrative modeling.
       This data item is a pointer to the _ihm_dataset_list.id in the
       IHM_DATASET_LIST category. 
 ;
@@ -311,6 +305,157 @@ save__ihm_starting_model_details.notes
     loop_
     _item_examples.case
         'MSE to MET conversion'
+     save_
+
+#####################################
+## IHM_STARTING_COMPARATIVE_MODELS ##
+#####################################
+
+save_ihm_starting_comparative_models
+    _category.description
+;              Data items in the IHM_STARTING_COMPARATIVE_MODELS category records
+               additional details about comparative models used as starting inputs in 
+               the integrative model building process.
+;
+    _category.id                  ihm_starting_comparative_models
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_starting_comparative_models.starting_model_ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+        loop_
+        _ihm_starting_comparative_models.starting_model_ordinal_id
+        _ihm_starting_comparative_models.starting_model_id
+        _ihm_starting_comparative_models.template_db_name
+        _ihm_starting_comparative_models.template_db_code
+        _ihm_starting_comparative_models.template_db_auth_asym_id
+        _ihm_starting_comparative_models.template_db_seq_begin
+        _ihm_starting_comparative_models.template_db_seq_end
+        _ihm_starting_comparative_models.template_sequence_identity
+        _ihm_starting_comparative_models.alignment_file_id
+         4  Nup84-m1  PDB  3F3F  G  482  551    10.0    7
+         6  Nup84-m1  PDB  3CQC  A  667  924    18.0    6
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_starting_comparative_models
+     save_
+
+save__ihm_starting_comparative_models.starting_model_ordinal_id
+    _item_description.description
+;     Unique identifier for the starting model record.
+      This data item is a pointer to _ihm_starting_model_details.ordinal_id in the 
+      IHM_STARTING_MODEL_DETAILS category. 
+;
+    _item.name                  '_ihm_starting_comparative_models.starting_model_ordinal_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_comparative_models.starting_model_ordinal_id'
+    _item_linked.parent_name    '_ihm_starting_model_details.ordinal_id'
+     save_
+
+save__ihm_starting_comparative_models.starting_model_id
+    _item_description.description
+;     The identifier for the starting structural model.
+      This data item is a pointer to _ihm_starting_model_details.starting_model_id 
+      in the IHM_STARTING_MODEL_DETAILS category.
+;
+    _item.name                  '_ihm_starting_comparative_models.starting_model_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_comparative_models.starting_model_id'
+    _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
+     save_
+
+save__ihm_starting_comparative_models.template_db_name
+    _item_description.description
+;     The name of the reference database corresponding to the template used to obtain the comparative model. 
+;
+    _item.name                  '_ihm_starting_comparative_models.template_db_name'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'PDB'     'Protein Data Bank'
+        'Other'   'Other'
+     save_
+
+save__ihm_starting_comparative_models.template_db_code
+    _item_description.description
+;     The accession code from reference database corresponding to the template. 
+;
+    _item.name                  '_ihm_starting_comparative_models.template_db_code'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_starting_comparative_models.template_auth_asym_id
+    _item_description.description
+;     The chainId/auth_asym_id corresponding to the template. 
+;
+    _item.name                  '_ihm_starting_comparative_models.template_auth_asym_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               code
+     save_
+
+save__ihm_starting_comparative_models.template_seq_begin
+    _item_description.description
+;     The starting residue index of the template. 
+;
+    _item.name                  '_ihm_starting_comparative_models.template_seq_begin'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               int
+     save_
+
+save__ihm_starting_comparative_models.template_seq_end
+    _item_description.description
+;     The ending residue index of the template. 
+;
+    _item.name                  '_ihm_starting_comparative_models.template_seq_end'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               int
+     save_
+
+save__ihm_starting_comparative_models.template_sequence_identity
+    _item_description.description
+;     The percentage sequence identity between the template sequence and the comparative model sequence.
+;
+    _item.name                  '_ihm_starting_comparative_models.template_sequence_identity'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_starting_comparative_models.alignment_file_id
+    _item_description.description
+;     The file id corresponding to the sequence alignment of the template sequence and the comparative model sequence. 
+      This data item is a pointer to _ihm_external_files.id in the IHM_EXTERNAL_FILES category. 
+;
+    _item.name                  '_ihm_starting_comparative_models.alignment_file_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_comparative_models.alignment_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
 ##############################
@@ -1714,20 +1859,21 @@ save_ihm_model_list
     _ihm_model_list.ordinal_id
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
+    _ihm_model_list.model_name
     _ihm_model_list.model_group_name
     _ihm_model_list.assembly_id
     _ihm_model_list.protocol_id
 
-    1    1      1    'ensemble1'     1  1 
-    2    2      1    'ensemble1'     1  1 
-    3    3      1    'ensemble1'     1  1 
-    4    4      1    'ensemble1'     1  1 
-    5    5      1    'ensemble1'     1  1 
-    6    6      2    'ensemble2'     1  1 
-    7    7      2    'ensemble2'     1  1 
-    8    8      2    'ensemble2'     1  1 
-    9    9      2    'ensemble2'     1  1 
-   10   10      2    'ensemble2'     1  1 
+    1    1      1    'Best scoring model'       'ensemble1'     1  1 
+    2    2      1    '2nd Best scoring model'   'ensemble1'     1  1 
+    3    3      1    '3rd Best scoring model'   'ensemble1'     1  1 
+    4    4      1    '4th Best scoring model'   'ensemble1'     1  1 
+    5    5      1    '5th Best scoring model'   'ensemble1'     1  1 
+    6    6      2    'Best scoring model'       'ensemble2'     1  1 
+    7    7      2    '2nd Best scoring model'   'ensemble2'     1  1 
+    8    8      2    '3rd Best scoring model'   'ensemble2'     1  1 
+    9    9      2    '4th Best scoring model'   'ensemble2'     1  1 
+   10   10      2    '5th Best scoring model'   'ensemble2'     1  1 
    # ...  abbreviated ... 
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1821,13 +1967,28 @@ save__ihm_model_list.model_group_id
     _item_type.code               int
      save_
 
+save__ihm_model_list.model_name
+    _item_description.description
+;     A decsriptive name for the model.
+;
+    _item.name                  '_ihm_model_list.model_name'
+    _item.category_id             ihm_model_list
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Best scoring model'
+    '2nd best scoring model'
+    'Cluster center'
+     save_
+
 save__ihm_model_list.model_group_name
     _item_description.description
 ;     A decsriptive name for the model group. 
 ;
     _item.name                  '_ihm_model_list.model_group_name'
     _item.category_id             ihm_model_list
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_examples.case
@@ -2445,7 +2606,7 @@ save_ihm_external_files
     4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'
     5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'
     6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
-    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup85/all_align_final3.ali' 'PIR/NBRF'
+    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'
     8   1   'integrativemodeling-nup84-a69f895/scripts/nup84_modeling.py'   'Other'
     9   1   'integrativemodeling-nup84-a69f895/scripts/nup84_topology.py'   'Other'
    10   1   'integrativemodeling-nup84-a69f895/scripts/nup84_merge.py'  'Other'
