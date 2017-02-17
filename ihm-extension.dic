@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 14-FEB-2017 Jdw/BV
+#  Date: 17-FEB-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -211,9 +211,10 @@ save__ihm_starting_model_details.starting_model_source
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-                                 'comparative model'   .
-                                 'experimental model'  .
-                                 'integrative model'   .
+                                 'comparative model'        .
+                                 'experimental model'       .
+                                 'integrative model'        .
+                                 'other ab initio models'   .
      save_
 
 save__ihm_starting_model_details.starting_model_db_name
@@ -342,9 +343,10 @@ save_ihm_starting_comparative_models
         _ihm_starting_comparative_models.template_db_seq_begin
         _ihm_starting_comparative_models.template_db_seq_end
         _ihm_starting_comparative_models.template_sequence_identity
+        _ihm_starting_comparative_models.template_sequence_identity_denominator 
         _ihm_starting_comparative_models.alignment_file_id
-         4  Nup84-m1  PDB  3F3F  G  482  551    10.0    7
-         6  Nup84-m1  PDB  3CQC  A  667  924    18.0    6
+         4  Nup84-m1  PDB  3F3F  G  482  551    10.0    1   7
+         6  Nup84-m1  PDB  3CQC  A  667  924    18.0    1   6
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -443,6 +445,26 @@ save__ihm_starting_comparative_models.template_sequence_identity
     _item.category_id             ihm_starting_comparative_models
     _item.mandatory_code          no
     _item_type.code               float
+     save_
+
+save__ihm_starting_comparative_models.template_sequence_identity_denominator
+    _item_description.description
+;     The denominator used while calculating the sequence identity provided in 
+      _ihm_starting_comparative_models.template_sequence_identity.
+;
+    _item.name                      '_ihm_starting_comparative_models.template_sequence_identity_denominator'
+    _item.category_id                 ihm_starting_comparative_models
+    _item.mandatory_code              no
+    _item_type.code                   int
+    _item_dependent.dependent_name  '_ihm_starting_comparative_models.template_sequence_identity_denominator'
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+     1  'Length of the shorter sequence'
+     2  'Number of aligned positions (including gaps)'
+     3  'Number of aligned residue pairs (not including the gaps)'
+     4  'Arithmetic mean sequence length'
+     5  'Other'
      save_
 
 save__ihm_starting_comparative_models.alignment_file_id
