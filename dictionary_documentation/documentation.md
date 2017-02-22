@@ -112,14 +112,17 @@ pointing to the primary data resource. The details of database name, accession c
 included in the `ihm_dataset_related_db_reference` data category. 
 
 Other data types that do not currently have a primary repository can be included via persistent
-digital object identifiers (DOIs) and are listed in the `ihm_dataset_other` category. DOIs can be obtained
+digital object identifiers (DOIs). The DOIs and the paths to the related external files are included 
+in the `ihm_external_reference_info` and the `ihm_external_files` categories. These are linked to the
+input datasets in `ihm_dataset_list` via the `ihm_dataset_external_reference` category. DOIs can be obtained
 for individual files or entire datasets (inputs, outputs, scripts etc.) hosted at the author wesbite
 or other websites such as [Github](https://github.com/). DOIs for such datasets can be obtained from 
 resources such as [Figshare](https://figshare.com/) or [Zenodo](http://zenodo.org/).
 
 The various kinds of input data used in the integrative modeling are listed and described in the `ihm_dataset_list`, 
-`ihm_related_datasets`, `ihm_dataset_related_db_reference` and `ihm_dataset_other` categories (examples below). 
-The restraints obtained from these data sources are handled in other data categories discussed in the following section. 
+`ihm_related_datasets`, `ihm_dataset_related_db_reference`, `ihm_external_reference_info`, `ihm_external_files`  and 
+`ihm_dataset_external_reference` categories (examples below). The restraints obtained from these data sources are 
+handled in other data categories discussed in the following section. 
 
 Example for `ihm_dataset_list` category
 
@@ -176,32 +179,62 @@ Example for `ihm_dataset_related_db_reference` category
         ;
      # ... abbreviated ...
 
-Example for `ihm_dataset_other` category
+Example for `ihm_external_reference_info` category (DOIs)
 
     loop_
-    _ihm_dataset_other.id
-    _ihm_dataset_other.dataset_list_id
-    _ihm_dataset_other.data_type
-    _ihm_dataset_other.doi
-    _ihm_dataset_other.content_filename
-    _ihm_dataset_other.content_type
-    _ihm_dataset_other.details
-     1  1  'CX-MS data'  '10.5281/zenodo.46266'  'data/EDC_XL_122013.new.dat'  'text/plain'
-        ;    Nup84 sub-complex probed by chemical crosslinking
-             using 1-ethyl-(dimethylaminopropyl) carbodiimide
-             hydrochloride (EDC) crosslinker followed by mass
-             spectrometry
-        ;
-     2  2  'CX-MS data'  '10.5281/zenodo.46266'  'data/yeast_Nup84_DSS.new.dat'  'text/plain'
-        ;    Nup84 sub-complex probed by chemical crosslinking
-             using disuccinimidyl suberate (DSS) crosslinker
-             followed by mass spectrometry
-        ;
-     3  4  '2DEM class average'  '10.5281/zenodo.46266'  'data/nup84_kinked_from_class2.pgm'  'image/pgm'
-        ;    2DEM class average of the Nup84 sub-complex
-        ;
-     4  5  'Comparative model'  '10.5281/zenodo.46266'  'data/ScSec13_2-296_new2.pdb'  'text/plain' .
-     # ... abbreviated ...
+    _ihm_external_reference_info.reference_id
+    _ihm_external_reference_info.reference_provider
+    _ihm_external_reference_info.reference_type
+    _ihm_external_reference_info.reference
+    _ihm_external_reference_info.refers_to
+    _ihm_external_reference_info.associated_url
+    1  'Zenodo' 'DOI' '10.5281/zenodo.46266'  'Archive'  'https://zenodo.org/record/46266/files/nup84-v1.0.zip'
+    # ...  abbreviated ...
+
+Example for `ihm_external_reference_info` category (Local Files)
+
+    _ihm_external_reference_info.reference_id       2
+    _ihm_external_reference_info.reference_type     'Local Files'
+    _ihm_external_reference_info.reference          .
+    _ihm_external_reference_info.refers_to          'Other'
+    # ...  abbreviated ...
+
+Exampe for `ihm_external_files` category
+
+    loop_
+    _ihm_external_files.id
+    _ihm_external_files.reference_id
+    _ihm_external_files.file_path
+    _ihm_external_files.file_format
+     1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'
+     2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'
+     3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'
+     4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'
+     5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'
+     6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
+     7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'
+     8   1   'integrativemodeling-nup84-a69f895/scripts/nup84_modeling.py'   'Other'
+     9   1   'integrativemodeling-nup84-a69f895/scripts/nup84_topology.py'   'Other'
+    10   1   'integrativemodeling-nup84-a69f895/scripts/nup84_merge.py'  'Other'
+    11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'
+    12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'
+    13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'
+    14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'
+    # ...  abbreviated ...
+
+Example for `ihm_dataset_external_reference` category
+
+    loop_
+    _ihm_dataset_external_reference.id
+    _ihm_dataset_external_reference.dataset_list_id
+    _ihm_dataset_external_reference.data_type
+    _ihm_dataset_external_reference.file_id
+    1  1  'CX-MS data'  1
+    2  2  'CX-MS data'  2
+    3  4  '2DEM class average'  3
+    4  4  '2DEM class average'  4
+    5  5  'Comparative model'  5
+    # ...  abbreviated ...
 
 ### Section 2: Input restraints derived from experiments
 
@@ -481,16 +514,36 @@ Example for `ihm_starting_model_details` category
         _ihm_starting_model_details.starting_model_source
         _ihm_starting_model_details.starting_model_db_name
         _ihm_starting_model_details.starting_model_db_code
-        _ihm_starting_model_details.starting_model_db_pdb_auth_asym_id
-        _ihm_starting_model_details.starting_model_sequence_identity
+        _ihm_starting_model_details.starting_model_auth_asym_id
+        _ihm_starting_model_details.starting_model_sequence_offset
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
         _ihm_starting_model_details.notes
-         2  1  Nup84  A    7   436  "experimental model"  PDB  3JRO  C  100.0  Nup84-m1  5  "MSE to MET conversion"
-         3  1  Nup84  A    7   436  "experimental model"  PDB  3IKO  C  100.0  Nup84-m1  6  .
-         4  1  Nup84  A  429   488  "comparative model"   PDB  3F3F  G   10.0  Nup84-m1  7  .
-         6  1  Nup84  A  506   726  "comparative model"   PDB  3CQC  A   18.0  Nup84-m1  8  .
-         # ... abbreviated ...
+         2  1  Nup84  A    7   436  'experimental model'  PDB  3JRO  C  0  Nup84-m1  5  'MSE to MET conversion'
+         3  1  Nup84  A    7   436  'experimental model'  PDB  3IKO  C  0  Nup84-m1  6  .
+         4  1  Nup84  A  429   488  'comparative model'   .    .     A  0  Nup84-m1  7  .
+         6  1  Nup84  A  506   726  'comparative model'   .    .     A  0  Nup84-m1  8  .
+         # ...  abbreviated ...
+
+The `ihm_starting_comparative_models` category captures additional details regarding the starting comparative
+models used in the integrative modeling. 
+
+Example for `ihm_starting_comparative_models` category
+
+        loop_
+        _ihm_starting_comparative_models.starting_model_ordinal_id
+        _ihm_starting_comparative_models.starting_model_id
+        _ihm_starting_comparative_models.template_db_name
+        _ihm_starting_comparative_models.template_db_code
+        _ihm_starting_comparative_models.template_db_auth_asym_id
+        _ihm_starting_comparative_models.template_db_seq_begin
+        _ihm_starting_comparative_models.template_db_seq_end
+        _ihm_starting_comparative_models.template_sequence_identity
+        _ihm_starting_comparative_models.template_sequence_identity_denominator
+        _ihm_starting_comparative_models.alignment_file_id
+         4  Nup84-m1  PDB  3F3F  G  482  551    10.0    1   7
+         6  Nup84-m1  PDB  3CQC  A  667  924    18.0    1   6
+         # ...  abbreviated ...
 
 The `ihm_starting_model_coord` records the details of the XYZ coordinates of the starting
 models described in the `ihm_starting_model_details` category. This category is similar
@@ -891,6 +944,9 @@ macromolecules described in the `ihm_struct_assembly` category. It also includes
 to indicate whether the integrative modeling experiment involves multi-scale, multi-state 
 and time-ordered ensembles. The various steps involved in the modeling and post-process, 
 such as sampling, scoring, filtering and clustering can be described in these categories. 
+The scripts and other workflow related files stored externally are included in the 
+`ihm_modeling_workflow_files` category, which links to the `ihm_external_reference_info`
+category via the `ihm_external_files` category. 
 
 ![Workflow overview](./figures/workflow.png "Workflow overview")
 
@@ -960,6 +1016,18 @@ Example for the `ihm_modeling_post_process` category
       5  1   2   3   'cluster' 'dRMSD'         6520    6520
       # ... abbreviated ...
 
+Example for `ihm_modeling_workflow_files` category
+
+    loop_
+     _ihm_modeling_workflow_files.file_id
+     _ihm_modeling_workflow_files.scripting_language
+     _ihm_modeling_workflow_files.description
+      8 'Python' 'The main integrative modeling script'
+      9 'Python' 'Script for constructing Nup84 subunits'
+     10 'Python' 'Script to cluster and merge output files'
+     11 'Other'  'README file for the modeling scripts'
+     # ... abbreviated ...
+
 ### Section 6: Output data: Ensembles, assemblies and basic validation parameters
 
 #### Inventory of deposited models
@@ -982,20 +1050,21 @@ Example 1:
     _ihm_model_list.ordinal_id
     _ihm_model_list.model_id
     _ihm_model_list.model_group_id
+    _ihm_model_list.model_name
     _ihm_model_list.model_group_name
     _ihm_model_list.assembly_id
     _ihm_model_list.protocol_id
-     1    1      1    'ensemble1'     1  1
-     2    2      1    'ensemble1'     1  1
-     3    3      1    'ensemble1'     1  1
-     4    4      1    'ensemble1'     1  1
-     5    5      1    'ensemble1'     1  1
-     6    6      2    'ensemble2'     1  1
-     7    7      2    'ensemble2'     1  1
-     8    8      2    'ensemble2'     1  1
-     9    9      2    'ensemble2'     1  1
-    10   10      2    'ensemble2'     1  1
-    # ... abbreviated ...
+     1    1      1    'Best scoring model'       'ensemble1'     1  1
+     2    2      1    '2nd Best scoring model'   'ensemble1'     1  1
+     3    3      1    '3rd Best scoring model'   'ensemble1'     1  1
+     4    4      1    '4th Best scoring model'   'ensemble1'     1  1
+     5    5      1    '5th Best scoring model'   'ensemble1'     1  1
+     6    6      2    'Best scoring model'       'ensemble2'     1  1
+     7    7      2    '2nd Best scoring model'   'ensemble2'     1  1
+     8    8      2    '3rd Best scoring model'   'ensemble2'     1  1
+     9    9      2    '4th Best scoring model'   'ensemble2'     1  1
+    10   10      2    '5th Best scoring model'   'ensemble2'     1  1
+    # ...  abbreviated ... 
 
 Example 2:
 
@@ -1266,6 +1335,26 @@ Example for the `ihm_gaussian_object_ensemble` category.
         10  1  15  15  A  1.0  1.0  1.0  1.0  96.25 0.92 -30.50 0.92 83.82 16.37 -30.50 16.37 95.80 1
         # ... abbreviated ...
 
+Alternately, *localization densities* can be stored in an external file in a standard
+format (such as CCP4 or MRC). Details of such externally stored localization density
+files are provided in the `ihm_localization_density_files` category, which is linked
+to the `ihm_external_reference_info` category via `ihm_external_files` category.
+
+Example for the `ihm_localization_density_files` category
+
+    loop_
+     _ihm_localization_density_files.id
+     _ihm_localization_density_files.file_id
+     _ihm_localization_density_files.ensemble_id
+     _ihm_localization_density_files.entity_id
+     _ihm_localization_density_files.asym_id
+     _ihm_localization_density_files.seq_id_begin
+     _ihm_localization_density_files.seq_id_end
+     1 12 1 1 A 1  726
+     2 13 1 2 B 1  744
+     3 14 1 3 C 1 1037
+     # ...abbreviated...
+
 ### Section 7: Generic categories from PDBX/mmCIF dictionary
 
 Since the integrative/hybrid methods dictionary is designed to be an extension to the existing
@@ -1303,29 +1392,36 @@ category captures the information on the atomic XYZ coordinates.
 
 ### Section 8: Summary of data categories in the I/H methods dictionary
 
-| Category name                    | Category details                              | 
-|----------------------------------|-----------------------------------------------|
-|`ihm_dataset_list`                |Inventory list of input data                   |
-|`ihm_dataset_related_db_reference`|References to data from other repositories     |
-|`ihm_dataset_other`               |References to data from external resources     |
-|`ihm_cross_link_list`             |List of crosslinks from experiments            |
-|`ihm_cross_link_restraint`        |Crosslinking restraints implemented            |
-|`ihm_2dem_class_average_restraint`|Restraints from 2DEM class average image       |
-|`ihm_3dem_restraint`              |Restraint from 3DEM maps                       |
-|`ihm_sas_restraint`               |Restraint from SAS data                        |
-|`ihm_starting_model_details`      |Details of starting structural models          |
-|`ihm_starting_model_coords`       |XYZ coordinates of starting models             |
-|`ihm_model_representation`        |Representation of multi-scale models           |
-|`ihm_sphere_obj_site`             |Description of spherical objects in the model  |
-|`ihm_gaussian_obj_site`           |Description of Gaussian objects in the model   |
-|`ihm_multi_state_modeling`        |Description of multiple conformational states  |
-|`ihm_time_ordered_ensembles`      |Description time-related models                |
-|`ihm_modeling_protocol`           |Description of modeling workflow               |
-|`ihm_modeling_post_process`       |Description of post-modeling processing        |
-|`ihm_model_list`                  |Inventory list of deposited models             |
-|`ihm_struct_assembly`             |Description of assemblies and sub-assemblies   |
-|`ihm_ensemble_info`               |Description of ensembles or clusters or models |
-|`ihm_cross_link_result`           |Description of satisfied or violated crosslinks|
-|`ihm_2dem_class_average_fitting`  |Fitting of model to 2DEM image                 |
-|`ihm_gaussian_obj_ensemble`       |Localization densities of protein domains      |
+| Category name                     | Category details                                  | 
+|-----------------------------------|---------------------------------------------------|
+|`ihm_dataset_list`                 |Inventory list of input data                       |
+|`ihm_related_datasets`             |Details of datasets derived from other datasets    |
+|`ihm_dataset_related_db_reference` |References to data from other repositories         |
+|`ihm_dataset_external_reference`   |Details of data from external sources              |
+|`ihm_external_reference_info`      |References to external data sources                |
+|`ihm_external_files`               |Details of external files that store information   |
+|`ihm_cross_link_list`              |List of crosslinks from experiments                |
+|`ihm_cross_link_restraint`         |Crosslinking restraints implemented                |
+|`ihm_2dem_class_average_restraint` |Restraints from 2DEM class average image           |
+|`ihm_3dem_restraint`               |Restraint from 3DEM maps                           |
+|`ihm_sas_restraint`                |Restraint from SAS data                            |
+|`ihm_starting_model_details`       |Details of starting structural models              |
+|`ihm_starting_comparative_models`  |Details of starting comparative models             |
+|`ihm_starting_model_coords`        |XYZ coordinates of starting models                 |
+|`ihm_model_representation`         |Representation of multi-scale models               |
+|`ihm_sphere_obj_site`              |Description of spherical objects in the model      |
+|`ihm_gaussian_obj_site`            |Description of Gaussian objects in the model       |
+|`ihm_multi_state_modeling`         |Description of multiple conformational states      |
+|`ihm_time_ordered_ensembles`       |Description time-related models                    |
+|`ihm_modeling_protocol`            |Description of modeling workflow                   |
+|`ihm_modeling_post_process`        |Description of post-modeling processing            |
+|`ihm_modeling_workflow_files`      |Modeling workflow scripts stores in external files |
+|`ihm_model_list`                   |Inventory list of deposited models                 |
+|`ihm_struct_assembly`              |Description of assemblies and sub-assemblies       |
+|`ihm_ensemble_info`                |Description of ensembles or clusters or models     |
+|`ihm_cross_link_result`            |Description of satisfied or violated crosslinks    |
+|`ihm_cross_link_result_parameters` |Results of the crosslinking parameters             |
+|`ihm_2dem_class_average_fitting`   |Fitting of model to 2DEM image                     |
+|`ihm_gaussian_obj_ensemble`        |Localization densities of protein domains          |
+|`ihm_localization_density_files`   |Localization densities stored in external files    |
 
