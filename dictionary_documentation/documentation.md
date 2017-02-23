@@ -127,17 +127,19 @@ handled in other data categories discussed in the following section.
 Example for `ihm_dataset_list` category
 
     loop_
+    _ihm_dataset_list.ordinal_id
     _ihm_dataset_list.id
     _ihm_dataset_list.group_id
     _ihm_dataset_list.data_type
     _ihm_dataset_list.database_hosted
-    _ihm_dataset_list.category_info
-     1  1  'CX-MS data'   'NO'   'ihm_dataset_other'
-     2  1  'CX-MS data'   'NO'   'ihm_dataset_other'
-     3  1  '3DEM volume'  'YES'  'ihm_related_database_reference'
-     4  1  '2DEM class average'  'NO'  'ihm_dataset_other'
-     5  1  'Comparative model'   'NO'  'ihm_dataset_other'
-     # ... abbreviated ...
+
+     1  1  1  'CX-MS data'   'NO'
+     2  2  1  'CX-MS data'   'NO'
+     3  3  1  '3DEM volume'  'YES'
+     4  4  1  '2DEM class average'  'NO'
+     5  5  1  'Comparative model'   'NO'
+     6  6  1  'EM raw micrographs'  'NO'
+     # ...  abbreviated ...
 
 Example for `ihm_related_datasets` category
 
