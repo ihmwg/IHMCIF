@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 17-FEB-2017 Jdw/BV
+#  Date: 10-MAR-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -71,7 +71,7 @@
 #           Changed IHM_DATASET_EXTERNAL_REFERENCE_DETAILS to IHM_DATASET_EXTERNAL_REFERENCE
 #           Modified IHM_STARTING_MODEL_DETAILS category
 #           Added IHM_STARTING_COMPARATIVE_MODELS category
-#
+#           Added IHM_STARTING_MODEL_SEQ_DIF category
 # -------------------------------------------------------------------------------------------------------------------------
 
 ################################
@@ -478,6 +478,190 @@ save__ihm_starting_comparative_models.alignment_file_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_comparative_models.alignment_file_id'
     _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+################################
+## IHM_STARTING_MODEL_SEQ_DIF ##
+################################
+
+save_ihm_starting_model_seq_dif
+    _category.description
+;              Data items in the IHM_STARTING_MODEL_SEQ_DIF category provide a
+               mechanism for indicating and annotating point differences
+               between the sequence of the entity or biological unit described
+               in the data block and the sequence of the starting model used in
+               the integrative modeling referenced from a database. The point
+               differences may be due to point mutations introduced in the 
+               starting model or the presence of modified amino acid residues. 
+;
+    _category.id                  ihm_starting_model_seq_dif
+    _category.mandatory_code      no
+    _category_key.name          '_ihm_starting_model_seq_dif.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 
+;
+;
+    loop_
+    _ihm_starting_model_seq_dif.ordinal_id 
+    _ihm_starting_model_seq_dif.entity_id 
+    _ihm_starting_model_seq_dif.asym_id 
+    _ihm_starting_model_seq_dif.seq_id 
+    _ihm_starting_model_seq_dif.comp_id 
+    _ihm_starting_model_seq_dif.starting_model_ordinal_id 
+    _ihm_starting_model_seq_dif.db_entity_id 
+    _ihm_starting_model_seq_dif.db_asym_id 
+    _ihm_starting_model_seq_dif.db_seq_id  
+    _ihm_starting_model_seq_dif.db_comp_id 
+    _ihm_starting_model_seq_dif.details 
+    1  1  A   1  MET  2  1  A   1  MSE  "Conversion of modified residue MSE to MET"
+    2  2  C  62  GLU  3  1  A  61  PHE  "Point change of PHE to GLU"
+    # ...abbreviated...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_starting_model_seq_dif
+     save_
+
+save__ihm_starting_model_seq_dif.ordinal_id
+    _item_description.description
+;    A unique identifier for the entry.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.ordinal_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_starting_model_seq_dif.entity_id
+    _item_description.description
+;     A unique identifier for the distinct molecular entities.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.entity_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_model_seq_dif.entity_id'
+    _item_linked.parent_name    '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_starting_model_seq_dif.asym_id
+    _item_description.description
+;   An asym/strand identifier for the entity molecule. 
+    This data item is a pointer to _struct_asym.id in the
+    STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.asym_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_starting_model_seq_dif.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_starting_model_seq_dif.seq_id
+    _item_description.description
+;     The residue index.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.seq_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_model_seq_dif.seq_id'
+    _item_linked.parent_name    '_entity_poly_seq.num'
+     save_
+
+save__ihm_starting_model_seq_dif.comp_id
+    _item_description.description
+;     The component identifier for the residue. 
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.comp_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_model_seq_dif.comp_id'
+    _item_linked.parent_name    '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_starting_model_seq_dif.starting_model_ordinal_id
+    _item_description.description
+;     Unique identifier for the starting model record.
+      This data item is a pointer to _ihm_starting_model_details.ordinal_id in the
+      IHM_STARTING_MODEL_DETAILS category.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.starting_model_ordinal_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_model_seq_dif.starting_model_ordinal_id'
+    _item_linked.parent_name    '_ihm_starting_model_details.ordinal_id'
+     save_
+
+save__ihm_starting_model_seq_dif.db_entity_id
+    _item_description.description
+;     The molecular entity of the database starting model.
+;              
+    _item.name                  '_ihm_starting_model_seq_dif.db_entity_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               code
+     save_
+
+save__ihm_starting_model_seq_dif.db_asym_id
+    _item_description.description
+;   The asym/strand identifier for the entity molecule of the database starting model.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.db_asym_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               code
+     save_
+
+save__ihm_starting_model_seq_dif.db_seq_id
+    _item_description.description
+;     The corresponding residue index of the database starting model.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.db_seq_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_starting_model_seq_dif.db_comp_id
+    _item_description.description
+;     The correspinding component identifier for the residue in the database starting model.            
+;
+    _item.name                  '_ihm_starting_model_seq_dif.db_comp_id'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_starting_model_seq_dif.details
+    _item_description.description
+;              A description of special aspects of the point differences
+               between the sequence of the entity or biological unit described
+               in the data block and that in the starting model referenced 
+               from a database.
+;
+    _item.name                  '_ihm_starting_model_seq_dif.details'
+    _item.category_id             ihm_starting_model_seq_dif
+    _item.mandatory_code          no
+    _item_type.code               text
+    loop_
+    _item_examples.case
+    'Conversion of modified residue MSE to MET'
+    'Point change of PHE to GLU'
      save_
 
 ##############################
@@ -1859,7 +2043,7 @@ save__ihm_ensemble_info.ensemble_precision_value
 save_ihm_model_list
     _category.description
 ;              Data items in the IHM_MODEL_LIST category record the
-               details of the models being being deposited.
+               details of the models being deposited.
 ;
     _category.id                  ihm_model_list
     _category.mandatory_code      no
