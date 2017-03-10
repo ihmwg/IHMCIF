@@ -71,7 +71,7 @@
 #           Changed IHM_DATASET_EXTERNAL_REFERENCE_DETAILS to IHM_DATASET_EXTERNAL_REFERENCE
 #           Modified IHM_STARTING_MODEL_DETAILS category
 #           Added IHM_STARTING_COMPARATIVE_MODELS category
-#           Added IHM_STARTING_MODEL_SEQ_DIF category
+#           Added IHM_STARTING_MODEL_SEQ_DIF category; removed _ihm_starting_model_details.notes
 # -------------------------------------------------------------------------------------------------------------------------
 
 ################################
@@ -114,11 +114,10 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_sequence_offset
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-        _ihm_starting_model_details.notes
-         2  1  Nup84  A    7   436  'experimental model'  PDB  3JRO  C  0  Nup84-m1  5  'MSE to MET conversion'
-         3  1  Nup84  A    7   436  'experimental model'  PDB  3IKO  C  0  Nup84-m1  6  .
-         4  1  Nup84  A  429   488  'comparative model'   .    .     A  0  Nup84-m1  7  .
-         6  1  Nup84  A  506   726  'comparative model'   .    .     A  0  Nup84-m1  8  .
+         2  1  Nup84  A    7   436  'experimental model'  PDB  3JRO  C  0  Nup84-m1  5  
+         3  1  Nup84  A    7   436  'experimental model'  PDB  3IKO  C  0  Nup84-m1  6  
+         4  1  Nup84  A  429   488  'comparative model'   .    .     A  0  Nup84-m1  7  
+         6  1  Nup84  A  506   726  'comparative model'   .    .     A  0  Nup84-m1  8  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -293,19 +292,6 @@ save__ihm_starting_model_details.dataset_list_id
     _item_type.code               int  
     _item_linked.child_name       '_ihm_starting_model_details.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
-     save_
-
-save__ihm_starting_model_details.notes
-    _item_description.description
-;   Additional details regarding the starting models, if any.
-;
-    _item.name                  '_ihm_starting_model_details.notes'
-    _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
-    _item_type.code               text
-    loop_
-    _item_examples.case
-        'MSE to MET conversion'
      save_
 
 #####################################
