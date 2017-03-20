@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 10-MAR-2017 Jdw/BV
+#  Date: 20-MAR-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -72,6 +72,8 @@
 #           Modified IHM_STARTING_MODEL_DETAILS category
 #           Added IHM_STARTING_COMPARATIVE_MODELS category
 #           Added IHM_STARTING_MODEL_SEQ_DIF category; removed _ihm_starting_model_details.notes
+#           Updated IHM_ENSEMBLE_INFO, IHM_EXTERNAL_FILES and IHM_EXTERNAL_REFERENCE_INFO
+#
 # -------------------------------------------------------------------------------------------------------------------------
 
 ################################
@@ -574,7 +576,7 @@ save__ihm_starting_model_seq_dif.comp_id
     _item.name                  '_ihm_starting_model_seq_dif.comp_id'
     _item.category_id             ihm_starting_model_seq_dif
     _item.mandatory_code          yes
-    _item_type.code               int
+    _item_type.code               ucode
     _item_linked.child_name     '_ihm_starting_model_seq_dif.comp_id'
     _item_linked.parent_name    '_entity_poly_seq.mon_id'
      save_
@@ -630,7 +632,7 @@ save__ihm_starting_model_seq_dif.db_comp_id
     _item.name                  '_ihm_starting_model_seq_dif.db_comp_id'
     _item.category_id             ihm_starting_model_seq_dif
     _item.mandatory_code          yes
-    _item_type.code               int
+    _item_type.code               ucode
      save_
 
 save__ihm_starting_model_seq_dif.details
@@ -1843,7 +1845,7 @@ save_ihm_ensemble_info
     _category.id                  ihm_ensemble_info
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_ensemble_info.ensemble_id'
+    _category_key.name          '_ihm_ensemble_info.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -1858,6 +1860,7 @@ save_ihm_ensemble_info
 ;
 ;
     loop_
+    _ihm_ensemble_info.ordinal_id
     _ihm_ensemble_info.ensemble_id
     _ihm_ensemble_info.ensemble_name
     _ihm_ensemble_info.post_process_id
@@ -1867,11 +1870,12 @@ save_ihm_ensemble_info
     _ihm_ensemble_info.num_ensemble_models
     _ihm_ensemble_info.num_ensemble_models_deposited
     _ihm_ensemble_info.ensemble_precision_value
+    _ihm_ensemble_info.ensemble_file_id
     
-        1  'ensemble1'   2  1  Hierarchical  dRMSD  2885   5  17.3
-        2  'ensemble2'   2  2  Hierarchical  dRMSD  1401   5  19.2
-        3  'ensemble3'   5  .  Hierarchical  dRMSD   577   0  14.8
-        4  'ensemble4'   5  .  Hierarchical  dRMSD   404   0  10.8
+     1   1  'ensemble1'   2  1  Hierarchical  dRMSD  2885   5  17.3  20
+     2   2  'ensemble2'   2  2  Hierarchical  dRMSD  1401   5  19.2  21
+     3   3  'ensemble3'   5  .  Hierarchical  dRMSD   577   0  14.8  22
+     4   4  'ensemble4'   5  .  Hierarchical  dRMSD   404   0  10.8  23
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1880,6 +1884,7 @@ save_ihm_ensemble_info
 ;
 ;
     loop_
+    _ihm_ensemble_info.ordinal_id
     _ihm_ensemble_info.ensemble_id
     _ihm_ensemble_info.ensemble_name
     _ihm_ensemble_info.post_process_id
@@ -1889,9 +1894,10 @@ save_ihm_ensemble_info
     _ihm_ensemble_info.num_ensemble_models
     _ihm_ensemble_info.num_ensemble_models_deposited
     _ihm_ensemble_info.ensemble_precision_value
-    
-        1  'open state'     .  1  Hierarchical  RMSD   2885  5  12.3
-        2  'closed state'   .  2  Hierarchical  RMSD    577  5  11.8
+    _ihm_ensemble_info.ensemble_file_id
+
+     1   1  'open state'     .  1  Hierarchical  RMSD   2885  5  12.3  20
+     2   2  'closed state'   .  2  Hierarchical  RMSD    577  5  11.8  21
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1900,9 +1906,19 @@ save_ihm_ensemble_info
    _pdbx_category_context.category_id  ihm_ensemble_info
      save_
 
+save__ihm_ensemble_info.ordinal_id
+    _item_description.description
+;     A unique id for the category.
+;
+    _item.name                  '_ihm_ensemble_info.ordinal_id'
+    _item.category_id             ihm_ensemble_info
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
 save__ihm_ensemble_info.ensemble_id
     _item_description.description
-;     A unique id for the ensemble.
+;     An id for the ensemble.
 ;
     _item.name                  '_ihm_ensemble_info.ensemble_id'
     _item.category_id             ihm_ensemble_info
@@ -2020,6 +2036,21 @@ save__ihm_ensemble_info.ensemble_precision_value
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
+     save_
+
+save__ihm_ensemble_info.ensemble_file_id
+    _item_description.description
+;     A reference to the external file containing the structural models 
+      in the ensemble.
+      This data item is a pointer to _ihm_external_files.id in the
+      IHM_EXTERNAL_FILES category.
+;
+    _item.name                  '_ihm_ensemble_info.ensemble_file_id'
+    _item.category_id             ihm_ensemble_info
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_ensemble_info.ensemble_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
 #################
@@ -2628,9 +2659,9 @@ save_ihm_external_reference_info
    are referenced in the IHM_DATASET_RELATED_DB_REFERENCE category. 
    This data category, along with IHM_EXTERNAL_FILES category, holds information
    regarding other non-database external data sources, such as  DOIs (digital 
-   object identifiers) or locally stored files. The DOIs can either lead to the 
-   external data file(s) directly (as in case of DOIs provided by the PDB) or 
-   might lead to an HTML landing page (as provided by Zenodo). In the latter case, 
+   object identifiers) or supplementary files stored locally. The DOIs can either 
+   lead to the external data file(s) directly (as in case of DOIs provided by the PDB) 
+   or might lead to an HTML landing page (as provided by Zenodo). In the latter case, 
    additional URL (Uniform Resource Locator) information is required to retrieve 
    the external data file(s). 
 ;
@@ -2662,11 +2693,11 @@ save_ihm_external_reference_info
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 2 - Local Files
+    Example 2 - Supplementary files stored locally
 ;
 ;
     _ihm_external_reference_info.reference_id       2
-    _ihm_external_reference_info.reference_type     'Local Files'
+    _ihm_external_reference_info.reference_type     'Supplementary Files'
     _ihm_external_reference_info.reference          .
     _ihm_external_reference_info.refers_to          'Other'
 ;
@@ -2704,8 +2735,8 @@ save__ihm_external_reference_info.reference_provider
 save__ihm_external_reference_info.reference_type
     _item_description.description
 ;     The type of external reference. 
-      Currently, only Digital Object Identifiers (DOIs) and locally stored 
-      external files are supported.
+      Currently, only Digital Object Identifiers (DOIs) and supplementary files 
+      stored locally are supported.
 ;
     _item.name                  '_ihm_external_reference_info.reference_type'
     _item.category_id             ihm_external_reference_info
@@ -2713,8 +2744,9 @@ save__ihm_external_reference_info.reference_type
     _item_type.code               code
     loop_
     _item_enumeration.value
-     'DOI' 
-     'Local Files' 
+    _item_enumeration.detail
+     'DOI'                      'External reference is a Digital Object Identifier'
+     'Supplementary Files'      'External reference includes supplementary files stored locally'
      save_
 
 save__ihm_external_reference_info.reference
@@ -2745,7 +2777,7 @@ save__ihm_external_reference_info.refers_to
     _item_enumeration.detail
      'File'     'Refers to a single file'
      'Archive'  'Refers to a tar and/or a compressed file'
-     'Other'    'Other'
+     'Other'    'Other kind of object'
      save_
 
 save__ihm_external_reference_info.associated_url
@@ -2783,7 +2815,7 @@ save_ihm_external_files
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 1 -
+    Example 1 - DOI Archive Files
 ;
 ;
  loop_
@@ -2791,22 +2823,41 @@ save_ihm_external_files
     _ihm_external_files.reference_id
     _ihm_external_files.file_path
     _ihm_external_files.file_format
+    _ihm_external_files.file_size_kb
 
-    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'
-    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'
-    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'
-    4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'
-    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'
-    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'
-    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'
-    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84_modeling.py'   'Other'
-    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84_topology.py'   'Other'
-   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84_merge.py'  'Other'
-   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'
-   12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'
-   13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'
-   14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'
+    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'    3.16
+    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'    4.11
+    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'   43.1
+    4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'   .
+    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'   249.0
+    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'  1.6
+    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'  5.0
+    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py'   'Other' 6.8
+    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84.topology.py'   'Other' 5.6
+   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84.merge.py'  'Other' 1.5
+   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'   5.7
+   12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'   .
+   13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'   .
+   14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'   .
  # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+;
+    Example 2 - Supplementary Local Files
+;
+;
+ loop_
+    _ihm_external_files.id
+    _ihm_external_files.reference_id
+    _ihm_external_files.file_path
+    _ihm_external_files.file_format
+    _ihm_external_files.file_size_kb
+
+     1   2   'data/EDC_XL_122013.dat' 'TXT'  2.4
+     2   2   'data/yeast_Nup84_DSS.dat'   'TXT'   3.7
+     3   2   'nup145.mrc'  'MRC'   .
+    # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED 
@@ -2839,7 +2890,15 @@ save__ihm_external_files.reference_id
 
 save__ihm_external_files.file_path
     _item_description.description
-;   Full path for each external file.
+;   The relative path (including filename) for each external file. 
+    Absolute paths (starting with "/") are not permitted. 
+    This is required for identifying individual files from within
+    a tar-zipped archive file or for identifying supplementary local
+    files organized within a directory structure.
+    If the reference leads to a single file or does not involve a 
+    directory structure, include only the filename without any relative 
+    path. This data item assumes a POSIX-like directory structure or 
+    file path. 
 ;
     _item.name                 '_ihm_external_files.file_path'
     _item.category_id          ihm_external_files
@@ -2849,6 +2908,8 @@ save__ihm_external_files.file_path
     _item_examples.case
     'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc'
     'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali'
+    'nup145.mrc'
+    'data/EDC_XL_122013.dat'
     save_
 
 save__ihm_external_files.file_format
@@ -2878,6 +2939,16 @@ save__ihm_external_files.file_format
     'A2M'
     'A3M'
     'Other'
+    save_
+
+save__ihm_external_files.file_size_kb
+    _item_description.description
+;   Size of the external file in kilo bytes (kb). 
+;
+    _item.name                 '_ihm_external_files.file_size_kb'
+    _item.category_id          ihm_external_files
+    _item.mandatory_code       no
+    _item_type.code            float
     save_
 
 ####################################
