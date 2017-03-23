@@ -73,7 +73,7 @@
 #           Added IHM_STARTING_COMPARATIVE_MODELS category
 #           Added IHM_STARTING_MODEL_SEQ_DIF category; removed _ihm_starting_model_details.notes
 #           Updated IHM_ENSEMBLE_INFO, IHM_EXTERNAL_FILES and IHM_EXTERNAL_REFERENCE_INFO
-#           Added _ihm_multi_state_modeling.experiment_type
+#           Added _ihm_multi_state_modeling.experiment_type; updated IHM_ENSEMBLE_INFO
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -1864,7 +1864,7 @@ save_ihm_ensemble_info
     _category.id                  ihm_ensemble_info
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_ensemble_info.ordinal_id'
+    _category_key.name          '_ihm_ensemble_info.ensemble_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -1879,7 +1879,6 @@ save_ihm_ensemble_info
 ;
 ;
     loop_
-    _ihm_ensemble_info.ordinal_id
     _ihm_ensemble_info.ensemble_id
     _ihm_ensemble_info.ensemble_name
     _ihm_ensemble_info.post_process_id
@@ -1891,10 +1890,10 @@ save_ihm_ensemble_info
     _ihm_ensemble_info.ensemble_precision_value
     _ihm_ensemble_info.ensemble_file_id
     
-     1   1  'ensemble1'   2  1  Hierarchical  dRMSD  2885   5  17.3  20
-     2   2  'ensemble2'   2  2  Hierarchical  dRMSD  1401   5  19.2  21
-     3   3  'ensemble3'   5  .  Hierarchical  dRMSD   577   0  14.8  22
-     4   4  'ensemble4'   5  .  Hierarchical  dRMSD   404   0  10.8  23
+     1  'ensemble1'   2  1  Hierarchical  dRMSD  2885   5  17.3  20
+     2  'ensemble2'   2  2  Hierarchical  dRMSD  1401   5  19.2  21
+     3  'ensemble3'   5  .  Hierarchical  dRMSD   577   0  14.8  22
+     4  'ensemble4'   5  .  Hierarchical  dRMSD   404   0  10.8  23
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1903,7 +1902,6 @@ save_ihm_ensemble_info
 ;
 ;
     loop_
-    _ihm_ensemble_info.ordinal_id
     _ihm_ensemble_info.ensemble_id
     _ihm_ensemble_info.ensemble_name
     _ihm_ensemble_info.post_process_id
@@ -1915,8 +1913,8 @@ save_ihm_ensemble_info
     _ihm_ensemble_info.ensemble_precision_value
     _ihm_ensemble_info.ensemble_file_id
 
-     1   1  'open state'     .  1  Hierarchical  RMSD   2885  5  12.3  20
-     2   2  'closed state'   .  2  Hierarchical  RMSD    577  5  11.8  21
+     1  'open state'     .  1  Hierarchical  RMSD   2885  5  12.3  20
+     2  'closed state'   .  2  Hierarchical  RMSD    577  5  11.8  21
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1925,19 +1923,9 @@ save_ihm_ensemble_info
    _pdbx_category_context.category_id  ihm_ensemble_info
      save_
 
-save__ihm_ensemble_info.ordinal_id
-    _item_description.description
-;     A unique id for the category.
-;
-    _item.name                  '_ihm_ensemble_info.ordinal_id'
-    _item.category_id             ihm_ensemble_info
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
 save__ihm_ensemble_info.ensemble_id
     _item_description.description
-;     An id for the ensemble.
+;     A unique id for the ensemble.
 ;
     _item.name                  '_ihm_ensemble_info.ensemble_id'
     _item.category_id             ihm_ensemble_info
@@ -2060,7 +2048,8 @@ save__ihm_ensemble_info.ensemble_precision_value
 save__ihm_ensemble_info.ensemble_file_id
     _item_description.description
 ;     A reference to the external file containing the structural models 
-      in the ensemble.
+      in the ensemble. The number of models in the external file should
+      correspond to the number of models in the ensemble. 
       This data item is a pointer to _ihm_external_files.id in the
       IHM_EXTERNAL_FILES category.
 ;
