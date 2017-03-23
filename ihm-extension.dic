@@ -77,6 +77,32 @@
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
+data_ihm-extension.dic
+
+    _datablock.id                          ihm-extension.dic
+    _datablock.description
+;
+     This data block holds the extension dictionary for intergrative hybrid methods.
+
+;
+
+    _dictionary.title           ihm-extension.dic
+    _dictionary.datablock_id    ihm-extension.dic
+    _dictionary.version         0.100
+#
+     loop_
+    _dictionary_history.version
+    _dictionary_history.update
+    _dictionary_history.revision
+  0.100   2017-03-23
+;
+  Changes (bv):
+  + Release as provisional version 0.100
+  + Added _ihm_external_files.content_type
+  + Added _ihm_external_files.details
+  + Removed IHM_MODELING_WORKFLOW_FILES
+;
+
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
 ################################
@@ -2831,22 +2857,24 @@ save_ihm_external_files
     _ihm_external_files.reference_id
     _ihm_external_files.file_path
     _ihm_external_files.file_format
+    _ihm_external_files.content_type
     _ihm_external_files.file_size_kb
+    _ihm_external_files.details
 
-    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'    3.16
-    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'    4.11
-    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'   43.1
-    4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'   .
-    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'   249.0
-    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'  1.6
-    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'  5.0
-    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py'   'Other' 6.8
-    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84.topology.py'   'Other' 5.6
-   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84.merge.py'  'Other' 1.5
-   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'   5.7
-   12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'   .
-   13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'   .
-   14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'   .
+    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'    'Input data or restraints' 3.16   'EDC crosslinks file'
+    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'    'Input data or restraints' 4.11   'DSS crosslinks file'
+    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'   'Input data or restraints'  43.1    'Nup84 2DEM class average'
+    4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'   'Input data or restraints'  .       'Nup84 2DEM class average'
+    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'   249.0   'Input data or restraints'  'Sec13 starting comparative model'
+    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'  'Input data or restraints'  1.6 'Nup84 multiple sequence alignment file'
+    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'  'Input data or restraints'  5.0 'Nup84 multiple sequence alignment file'
+    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py'   'Other' 'Modeling workflow or script'  6.8 'Python integrative modeling main script'
+    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84.topology.py'   'Other' 'Modeling workflow or script'  5.6 'Python script for constructing subunits'
+   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84.merge.py'  'Other' 'Modeling workflow or script'  1.5 'Python script to merge output files'
+   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'   'Modeling workflow or script'  5.7 'Readme file'
+   12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'   'Modeling or post-processing output'   .   'Nup84 localization density file'
+   13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'   'Modeling or post-processing output'   .   'Nup85 localization density file'
+   14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'   'Modeling or post-processing output'   .   'Nup120 localization density file'
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2860,11 +2888,13 @@ save_ihm_external_files
     _ihm_external_files.reference_id
     _ihm_external_files.file_path
     _ihm_external_files.file_format
+    _ihm_external_files.content_type
     _ihm_external_files.file_size_kb
-
-     1   2   'data/EDC_XL_122013.dat' 'TXT'  2.4
-     2   2   'data/yeast_Nup84_DSS.dat'   'TXT'   3.7
-     3   2   'nup145.mrc'  'MRC'   .
+    _ihm_external_files.details
+    
+     1   2   'data/EDC_XL_122013.dat' 'TXT'  'Input data or restraints' 2.4    'EDC crosslinks file'
+     2   2   'data/yeast_Nup84_DSS.dat'   'TXT'   'Input data or restraints'    3.7   'DSS crosslinks file'
+     3   2   'nup145.mrc'  'MRC'   'Modeling or post-processing output'    .    'Nup145 localization density file'
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2949,6 +2979,22 @@ save__ihm_external_files.file_format
     'Other'
     save_
 
+save__ihm_external_files.content_type
+    _item_description.description
+;   The type of content in the file. 
+;
+    _item.name                 '_ihm_external_files.content_type'
+    _item.category_id          ihm_external_files
+    _item.mandatory_code       yes
+    _item_type.code            line
+    loop_
+    _item_enumeration.value
+    'Input data or restraints'
+    'Modeling or post-processing output'
+    'Modeling workflow or script'
+    'Other'
+    save_
+
 save__ihm_external_files.file_size_kb
     _item_description.description
 ;   Size of the external file in kilo bytes (kb). 
@@ -2957,6 +3003,21 @@ save__ihm_external_files.file_size_kb
     _item.category_id          ihm_external_files
     _item.mandatory_code       no
     _item_type.code            float
+    save_
+
+save__ihm_external_files.details
+    _item_description.description
+;   Textual description of what the external file is. 
+;
+    _item.name                 '_ihm_external_files.details'
+    _item.category_id          ihm_external_files
+    _item.mandatory_code       no
+    _item_type.code            text
+    loop_
+    _item_examples.case
+    'Readme file'
+    'Nup84 multiple sequence alignment file'
+    'Nup84 starting comparative model file'
     save_
 
 ####################################
@@ -3060,95 +3121,6 @@ save__ihm_dataset_external_reference.file_id
     _item_linked.child_name    '_ihm_dataset_external_reference.file_id'
     _item_linked.parent_name   '_ihm_external_files.id'
     save_
-
-#################################
-## IHM_MODELING_WORKFLOW_FILES ##
-#################################
-
-save_ihm_modeling_workflow_files
-    _category.description
-;              Data items in the IHM_MODELING_WORKFLOW_FILES category records the
-               details of files that correspond to the workflow, scripts and other 
-               related files used in integrative modeling. 
-               These may be stored externally as local files or linked via a DOI. 
-               The script files can be in any scripting language (Python, Perl, Ruby etc). 
-               The generic nature of this category allows for referencing associated
-               documentation and other files related to the integrative modeling study. 
-;
-    _category.id                  ihm_modeling_workflow_files
-    _category.mandatory_code      no
-     loop_
-    _category_key.name          '_ihm_modeling_workflow_files.file_id'
-
-    loop_
-    _category_group.id           'inclusive_group'
-                                 'ihm_group'
-    loop_
-    _category_examples.detail
-    _category_examples.case
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-;
-    Example 1 -
-;
-;
-    loop_
-    _ihm_modeling_workflow_files.file_id
-    _ihm_modeling_workflow_files.scripting_language
-    _ihm_modeling_workflow_files.description
-     8 'Python' 'The main integrative modeling script'
-     9 'Python' 'Script for constructing Nup84 subunits'
-    10 'Python' 'Script to cluster and merge output files'
-    11 'Other'  'README file for the modeling scripts'
-    # ...abbreviated...
-;
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-   _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_modeling_workflow_files
-     save_
-
-save__ihm_modeling_workflow_files.file_id
-    _item_description.description
-;    A unique id for the externally referenced modeling workflow file.
-     This data item is a pointer to _ihm_external_files.id
-     in the IHM_EXTERNAL_FILES category.
-;
-    _item.name                  '_ihm_modeling_workflow_files.file_id'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_modeling_workflow_files.file_id'
-    _item_linked.parent_name    '_ihm_external_files.id'
-     save_
-
-save__ihm_modeling_workflow_files.scripting_language
-    _item_description.description
-;     The scripting language corresponding to the script file, if applicable.
-;
-    _item.name                  '_ihm_modeling_workflow_files.scripting_language'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          yes
-    _item_type.code               line
-    loop_
-    _item_examples.case
-    'Python'
-    'Perl'
-    'Ruby'
-    'PHP'
-     save_
-
-save__ihm_modeling_workflow_files.description
-    _item_description.description
-;     A brief description regarding the contents of the file. 
-;
-    _item.name                  '_ihm_modeling_workflow_files.description'
-    _item.category_id             ihm_modeling_workflow_files
-    _item.mandatory_code          no
-    _item_type.code               line
-    loop_
-    _item_examples.case         
-    'The main integrative modeling script'
-    'README file for the modeling scripts'
-     save_
 
 ####################################
 ## IHM_LOCALIZATION_DENSITY_FILES ##
