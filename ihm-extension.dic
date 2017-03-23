@@ -1465,7 +1465,7 @@ save__ihm_multi_state_modeling.experiment_type
     _item_type.code               line
     loop_
     _item_enumeration.value
-    _item_enumeration.details
+    _item_enumeration.detail
     'Fraction of bulk' 'Multiple states from a bulk sample, where a fraction of molecules are in one state and another fraction are in a different state'
     'Single molecule'  'A single molecule experiment, where the different states are adopted by the same molecule at different points in time and the experiment provides a convolution of these states'
      save_
