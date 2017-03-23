@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 20-MAR-2017 Jdw/BV
+#  Date: 23-MAR-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -73,6 +73,7 @@
 #           Added IHM_STARTING_COMPARATIVE_MODELS category
 #           Added IHM_STARTING_MODEL_SEQ_DIF category; removed _ihm_starting_model_details.notes
 #           Updated IHM_ENSEMBLE_INFO, IHM_EXTERNAL_FILES and IHM_EXTERNAL_REFERENCE_INFO
+#           Added _ihm_multi_state_modeling.experiment_type
 #
 # -------------------------------------------------------------------------------------------------------------------------
 
@@ -1308,10 +1309,11 @@ save_ihm_multi_state_modeling
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name 
     _ihm_multi_state_modeling.model_group_id
+    _ihm_multi_state_modeling.experiment_type
     _ihm_multi_state_modeling.details
 
-    1     1   1   0.5  'conformational change'  'open'        1  'open state ensemble 1'
-    2     2   1   0.5  'conformational change'  'closed'      2  'closed state ensemble 2'
+    1     1   1   0.5  'conformational change'  'open'        1  'Fraction of bulk' 'open state ensemble 1'
+    2     2   1   0.5  'conformational change'  'closed'      2  'Fraction of bulk' 'closed state ensemble 2'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1326,10 +1328,11 @@ save_ihm_multi_state_modeling
     _ihm_multi_state_modeling.state_type 
     _ihm_multi_state_modeling.state_name
     _ihm_multi_state_modeling.model_group_id
+    _ihm_multi_state_modeling.experiment_type
     _ihm_multi_state_modeling.details
 
-    1     1   1   0.25  'ligand binding'    'unbound'    1   'unbound'
-    2     2   1   0.75  'ligand binding'    'bound'      2   'bound to heme'
+    1     1   1   0.25  'ligand binding'    'unbound'    1   'Fraction of bulk' 'unbound'
+    2     2   1   0.75  'ligand binding'    'bound'      2   'Fraction of bulk' 'bound to heme'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1344,11 +1347,12 @@ save_ihm_multi_state_modeling
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name
     _ihm_multi_state_modeling.model_group_id
+    _ihm_multi_state_modeling.experiment_type
     _ihm_multi_state_modeling.details
 
-    1     1   1   .  'complex formation'    'unbound'      1  'unbound molecule 1'
-    2     2   1   .  'complex formation'    'unbound'      2  'unbound molecule 2'
-    3     3   1   .  'complex formation'    'bound'        3  'bound molecules 1 and 2'
+    1     1   1   .  'complex formation'    'unbound'      1  'Fraction of bulk'    'unbound molecule 1'
+    2     2   1   .  'complex formation'    'unbound'      2  'Fraction of bulk'    'unbound molecule 2'
+    3     3   1   .  'complex formation'    'bound'        3  'Fraction of bulk'    'bound molecules 1 and 2'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1450,6 +1454,21 @@ save__ihm_multi_state_modeling.model_group_id
     _item_linked.child_name     '_ihm_multi_state_modeling.model_group_id'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
     save_
+
+save__ihm_multi_state_modeling.experiment_type
+    _item_description.description
+;   The type of multi-state modeling experiment carried out. 
+;
+    _item.name                  '_ihm_multi_state_modeling.experiment_type'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.details
+    'Fraction of bulk' 'Multiple states from a bulk sample, where a fraction of molecules are in one state and another fraction are in a different state'
+    'Single molecule'  'A single molecule experiment, where the different states are adopted by the same molecule at different points in time and the experiment provides a convolution of these states'
+     save_
 
 save__ihm_multi_state_modeling.details
     _item_description.description
