@@ -5347,13 +5347,6 @@ G 7 Sec13
 #
 #
 loop_
-_ihm_modeling_workflow_files.file_id
-_ihm_modeling_workflow_files.scripting_language
-_ihm_modeling_workflow_files.description
-1 Python 'The main integrative modeling script'
-#
-#
-loop_
 _ihm_struct_assembly.ordinal_id
 _ihm_struct_assembly.assembly_id
 _ihm_struct_assembly.entity_description
@@ -5485,17 +5478,30 @@ loop_
 _ihm_external_files.id
 _ihm_external_files.reference_id
 _ihm_external_files.file_path
+_ihm_external_files.content_type
+_ihm_external_files.details
 1 1 integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py
+'Modeling workflow or script' 'The main integrative modeling script'
 2 1 integrativemodeling-nup84-a69f895/data/ScNup84_7-488_506-726_new.pdb
+'Input data or restraints' .
 3 1 integrativemodeling-nup84-a69f895/data/ScNup85_44-744_new.pdb
+'Input data or restraints' .
 4 1 integrativemodeling-nup84-a69f895/data/ScNup120_1-1037_new.pdb
+'Input data or restraints' .
 5 1 integrativemodeling-nup84-a69f895/data/ScNup133N_56-480_new.pdb
+'Input data or restraints' .
 6 1 integrativemodeling-nup84-a69f895/data/ScNup133C_490_1157_new.pdb
+'Input data or restraints' .
 7 1 integrativemodeling-nup84-a69f895/data/ScNup145C_126-553_new.pdb
+'Input data or restraints' .
 8 1 integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat
+'Input data or restraints' .
 9 1 integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat
-10 2 Nup84complex_particles.spd
+'Input data or restraints' .
+10 2 Nup84complex_particles.spd 'Input data or restraints'
+'Raw micrographs from which the class average was derived'
 11 1 integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm
+'Input data or restraints' .
 #
 #
 loop_
@@ -40493,8 +40499,8 @@ _ihm_model_list.model_group_id
 _ihm_model_list.model_group_name
 _ihm_model_list.assembly_id
 _ihm_model_list.protocol_id
-1 1 1 'All models' 1 1
-2 2 1 'All models' 1 1
+1 1 1 'Cluster 1' 1 1
+2 2 2 'Cluster 2' 1 1
 #
 #
 loop_

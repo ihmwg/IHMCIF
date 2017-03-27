@@ -5719,14 +5719,6 @@ M 13 MPP6
 #
 #
 loop_
-_ihm_modeling_workflow_files.file_id
-_ihm_modeling_workflow_files.scripting_language
-_ihm_modeling_workflow_files.description
-9 Python 'The main integrative modeling script'
-10 Python 'Main clustering and analysis script'
-#
-#
-loop_
 _ihm_struct_assembly.ordinal_id
 _ihm_struct_assembly.assembly_id
 _ihm_struct_assembly.entity_description
@@ -5853,17 +5845,30 @@ loop_
 _ihm_external_files.id
 _ihm_external_files.reference_id
 _ihm_external_files.file_path
+_ihm_external_files.content_type
+_ihm_external_files.details
 1 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/Rrp46_gfp.mrc
+'Modeling or post-processing output' .
 2 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/Lrp1.mrc
+'Modeling or post-processing output' .
 3 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/Rrp6.mrc
+'Modeling or post-processing output' .
 4 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/MPP6.mrc
+'Modeling or post-processing output' .
 5 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/Rrp46_gfp.mrc
+'Modeling or post-processing output' .
 6 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/Lrp1.mrc
+'Modeling or post-processing output' .
 7 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/Rrp6.mrc
+'Modeling or post-processing output' .
 8 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/MPP6.mrc
+'Modeling or post-processing output' .
 9 1 exosome-v1.0/modeling-scripts_Rrp6.1/exosome.modeling.py
-10 1 exosome-v1.0/Rrp6.analysis/clustering.py
+'Modeling workflow or script' 'The main integrative modeling script'
+10 1 exosome-v1.0/Rrp6.analysis/clustering.py 'Modeling workflow or script'
+'Main clustering and analysis script'
 11 1 exosome-v1.0/data/exosome_XLMS_column07012014.csv
+'Input data or restraints' .
 #
 #
 loop_
@@ -35919,14 +35924,14 @@ _ihm_localization_density_files.entity_id
 _ihm_localization_density_files.asym_id
 _ihm_localization_density_files.seq_id_begin
 _ihm_localization_density_files.seq_id_end
-1 1 . 9 I 1 474
-2 2 . 11 K 1 184
-3 3 . 12 L 1 733
-4 4 . 13 M 1 186
-5 5 . 9 I 1 474
-6 6 . 11 K 1 184
-7 7 . 12 L 1 733
-8 8 . 13 M 1 186
+1 1 1 9 I 1 474
+2 2 1 11 K 1 184
+3 3 1 12 L 1 733
+4 4 1 13 M 1 186
+5 5 2 9 I 1 474
+6 6 2 11 K 1 184
+7 7 2 12 L 1 733
+8 8 2 13 M 1 186
 #
 #
 loop_

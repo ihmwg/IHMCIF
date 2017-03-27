@@ -9481,14 +9481,6 @@ U 21 med16
 #
 #
 loop_
-_ihm_modeling_workflow_files.file_id
-_ihm_modeling_workflow_files.scripting_language
-_ihm_modeling_workflow_files.description
-85 Python 'The main integrative modeling script'
-86 Python 'Main clustering and analysis script'
-#
-#
-loop_
 _ihm_struct_assembly.ordinal_id
 _ihm_struct_assembly.assembly_id
 _ihm_struct_assembly.entity_description
@@ -9628,190 +9620,290 @@ loop_
 _ihm_external_files.id
 _ihm_external_files.reference_id
 _ihm_external_files.file_path
+_ihm_external_files.content_type
+_ihm_external_files.details
 1 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med6.mrc
+'Modeling or post-processing output' .
 2 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med8.mrc
+'Modeling or post-processing output' .
 3 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med11.mrc
+'Modeling or post-processing output' .
 4 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med17.mrc
+'Modeling or post-processing output' .
 5 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med18.mrc
+'Modeling or post-processing output' .
 6 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med20.mrc
+'Modeling or post-processing output' .
 7 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med22.mrc
+'Modeling or post-processing output' .
 8 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med4.mrc
+'Modeling or post-processing output' .
 9 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med7.mrc
+'Modeling or post-processing output' .
 10 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med9.mrc
+'Modeling or post-processing output' .
 11 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med31.mrc
+'Modeling or post-processing output' .
 12 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med21.mrc
+'Modeling or post-processing output' .
 13 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med10.mrc
+'Modeling or post-processing output' .
 14 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med1.mrc
+'Modeling or post-processing output' .
 15 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med14.mrc
+'Modeling or post-processing output' .
 16 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med19.mrc
+'Modeling or post-processing output' .
 17 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med2.mrc
+'Modeling or post-processing output' .
 18 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med3.mrc
+'Modeling or post-processing output' .
 19 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med5.mrc
+'Modeling or post-processing output' .
 20 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med15.mrc
+'Modeling or post-processing output' .
 21 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.0/med16.mrc
+'Modeling or post-processing output' .
 22 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med6.mrc
+'Modeling or post-processing output' .
 23 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med8.mrc
+'Modeling or post-processing output' .
 24 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med11.mrc
+'Modeling or post-processing output' .
 25 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med17.mrc
+'Modeling or post-processing output' .
 26 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med18.mrc
+'Modeling or post-processing output' .
 27 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med20.mrc
+'Modeling or post-processing output' .
 28 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med22.mrc
+'Modeling or post-processing output' .
 29 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med4.mrc
+'Modeling or post-processing output' .
 30 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med7.mrc
+'Modeling or post-processing output' .
 31 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med9.mrc
+'Modeling or post-processing output' .
 32 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med31.mrc
+'Modeling or post-processing output' .
 33 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med21.mrc
+'Modeling or post-processing output' .
 34 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med10.mrc
+'Modeling or post-processing output' .
 35 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med1.mrc
+'Modeling or post-processing output' .
 36 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med14.mrc
+'Modeling or post-processing output' .
 37 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med19.mrc
+'Modeling or post-processing output' .
 38 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med2.mrc
+'Modeling or post-processing output' .
 39 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med3.mrc
+'Modeling or post-processing output' .
 40 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med5.mrc
+'Modeling or post-processing output' .
 41 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med15.mrc
+'Modeling or post-processing output' .
 42 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.1/med16.mrc
+'Modeling or post-processing output' .
 43 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med6.mrc
+'Modeling or post-processing output' .
 44 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med8.mrc
+'Modeling or post-processing output' .
 45 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med11.mrc
+'Modeling or post-processing output' .
 46 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med17.mrc
+'Modeling or post-processing output' .
 47 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med18.mrc
+'Modeling or post-processing output' .
 48 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med20.mrc
+'Modeling or post-processing output' .
 49 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med22.mrc
+'Modeling or post-processing output' .
 50 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med4.mrc
+'Modeling or post-processing output' .
 51 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med7.mrc
+'Modeling or post-processing output' .
 52 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med9.mrc
+'Modeling or post-processing output' .
 53 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med31.mrc
+'Modeling or post-processing output' .
 54 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med21.mrc
+'Modeling or post-processing output' .
 55 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med10.mrc
+'Modeling or post-processing output' .
 56 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med1.mrc
+'Modeling or post-processing output' .
 57 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med14.mrc
+'Modeling or post-processing output' .
 58 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med19.mrc
+'Modeling or post-processing output' .
 59 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med2.mrc
+'Modeling or post-processing output' .
 60 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med3.mrc
+'Modeling or post-processing output' .
 61 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med5.mrc
+'Modeling or post-processing output' .
 62 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med15.mrc
+'Modeling or post-processing output' .
 63 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.2/med16.mrc
+'Modeling or post-processing output' .
 64 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med6.mrc
+'Modeling or post-processing output' .
 65 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med8.mrc
+'Modeling or post-processing output' .
 66 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med11.mrc
+'Modeling or post-processing output' .
 67 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med17.mrc
+'Modeling or post-processing output' .
 68 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med18.mrc
+'Modeling or post-processing output' .
 69 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med20.mrc
+'Modeling or post-processing output' .
 70 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med22.mrc
+'Modeling or post-processing output' .
 71 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med4.mrc
+'Modeling or post-processing output' .
 72 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med7.mrc
+'Modeling or post-processing output' .
 73 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med9.mrc
+'Modeling or post-processing output' .
 74 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med31.mrc
+'Modeling or post-processing output' .
 75 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med21.mrc
+'Modeling or post-processing output' .
 76 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med10.mrc
+'Modeling or post-processing output' .
 77 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med1.mrc
+'Modeling or post-processing output' .
 78 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med14.mrc
+'Modeling or post-processing output' .
 79 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med19.mrc
+'Modeling or post-processing output' .
 80 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med2.mrc
+'Modeling or post-processing output' .
 81 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med3.mrc
+'Modeling or post-processing output' .
 82 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med5.mrc
+'Modeling or post-processing output' .
 83 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med15.mrc
+'Modeling or post-processing output' .
 84 1
 integrativemodeling-mediator-a04b197/analysis/clustering/kmeans_weight_500_4/cluster.3/med16.mrc
+'Modeling or post-processing output' .
 85 1 integrativemodeling-mediator-a04b197/sampling/modeling/modeling.py
+'Modeling workflow or script' 'The main integrative modeling script'
 86 1 integrativemodeling-mediator-a04b197/analysis/clustering/clustering.py
+'Modeling workflow or script' 'Main clustering and analysis script'
 87 1
 integrativemodeling-mediator-a04b197/sampling/pdb_files/cr_mid_fullmed10.pdb
+'Input data or restraints'
+;This combines structures of Med7C-Med21 and Med7N-Med31
+from X-ray structures, with Med4-Med9 and the first 540 residues of Med16
+from comparative models.
+;
+
 88 1
 integrativemodeling-mediator-a04b197/sampling/pdb_files/med16.NTD.phyre.model.pdb
+'Input data or restraints' .
 89 1
 integrativemodeling-mediator-a04b197/sampling/CXMS_files/full_med_splitmods.txt
+'Input data or restraints' .
 90 1
 integrativemodeling-mediator-a04b197/sampling/em_map_files/asturias_middle_module_translated_resampled.mrc
+'Input data or restraints' 'Original MRC file from which the GMM was derived'
 91 1
 integrativemodeling-mediator-a04b197/sampling/em_map_files/asturias_middle_module_translated_resampled.mrc.gmm.29.txt
+'Input data or restraints' 'Segmented map covering the middle module'
 92 1
 integrativemodeling-mediator-a04b197/sampling/em_map_files/asturias_tail_module_translated_resampled.mrc
+'Input data or restraints' 'Original MRC file from which the GMM was derived'
 93 1
 integrativemodeling-mediator-a04b197/sampling/em_map_files/asturias_tail_module_translated_resampled.mrc.gmm.49.txt
+'Input data or restraints' 'Segmented map covering the tail module'
 #
 #
 loop_
@@ -38112,90 +38204,90 @@ _ihm_localization_density_files.entity_id
 _ihm_localization_density_files.asym_id
 _ihm_localization_density_files.seq_id_begin
 _ihm_localization_density_files.seq_id_end
-1 1 . 1 A 1 295
-2 2 . 2 B 1 223
-3 3 . 3 C 1 115
-4 4 . 4 D 1 687
-5 5 . 5 E 1 307
-6 6 . 6 F 1 210
-7 7 . 7 G 1 121
-8 8 . 8 H 1 284
-9 9 . 9 I 1 222
-10 10 . 10 J 1 149
-11 11 . 11 K 1 127
-12 12 . 12 L 1 140
-13 13 . 13 M 1 157
-14 14 . 14 N 1 566
-15 15 . 15 O 1 1082
-16 16 . 16 P 1 220
-17 17 . 17 Q 1 431
-18 18 . 18 R 1 397
-19 19 . 19 S 1 1146
-20 20 . 20 T 1 1081
-21 21 . 21 U 1 974
-22 22 . 1 A 1 295
-23 23 . 2 B 1 223
-24 24 . 3 C 1 115
-25 25 . 4 D 1 687
-26 26 . 5 E 1 307
-27 27 . 6 F 1 210
-28 28 . 7 G 1 121
-29 29 . 8 H 1 284
-30 30 . 9 I 1 222
-31 31 . 10 J 1 149
-32 32 . 11 K 1 127
-33 33 . 12 L 1 140
-34 34 . 13 M 1 157
-35 35 . 14 N 1 566
-36 36 . 15 O 1 1082
-37 37 . 16 P 1 220
-38 38 . 17 Q 1 431
-39 39 . 18 R 1 397
-40 40 . 19 S 1 1146
-41 41 . 20 T 1 1081
-42 42 . 21 U 1 974
-43 43 . 1 A 1 295
-44 44 . 2 B 1 223
-45 45 . 3 C 1 115
-46 46 . 4 D 1 687
-47 47 . 5 E 1 307
-48 48 . 6 F 1 210
-49 49 . 7 G 1 121
-50 50 . 8 H 1 284
-51 51 . 9 I 1 222
-52 52 . 10 J 1 149
-53 53 . 11 K 1 127
-54 54 . 12 L 1 140
-55 55 . 13 M 1 157
-56 56 . 14 N 1 566
-57 57 . 15 O 1 1082
-58 58 . 16 P 1 220
-59 59 . 17 Q 1 431
-60 60 . 18 R 1 397
-61 61 . 19 S 1 1146
-62 62 . 20 T 1 1081
-63 63 . 21 U 1 974
-64 64 . 1 A 1 295
-65 65 . 2 B 1 223
-66 66 . 3 C 1 115
-67 67 . 4 D 1 687
-68 68 . 5 E 1 307
-69 69 . 6 F 1 210
-70 70 . 7 G 1 121
-71 71 . 8 H 1 284
-72 72 . 9 I 1 222
-73 73 . 10 J 1 149
-74 74 . 11 K 1 127
-75 75 . 12 L 1 140
-76 76 . 13 M 1 157
-77 77 . 14 N 1 566
-78 78 . 15 O 1 1082
-79 79 . 16 P 1 220
-80 80 . 17 Q 1 431
-81 81 . 18 R 1 397
-82 82 . 19 S 1 1146
-83 83 . 20 T 1 1081
-84 84 . 21 U 1 974
+1 1 1 1 A 1 295
+2 2 1 2 B 1 223
+3 3 1 3 C 1 115
+4 4 1 4 D 1 687
+5 5 1 5 E 1 307
+6 6 1 6 F 1 210
+7 7 1 7 G 1 121
+8 8 1 8 H 1 284
+9 9 1 9 I 1 222
+10 10 1 10 J 1 149
+11 11 1 11 K 1 127
+12 12 1 12 L 1 140
+13 13 1 13 M 1 157
+14 14 1 14 N 1 566
+15 15 1 15 O 1 1082
+16 16 1 16 P 1 220
+17 17 1 17 Q 1 431
+18 18 1 18 R 1 397
+19 19 1 19 S 1 1146
+20 20 1 20 T 1 1081
+21 21 1 21 U 1 974
+22 22 2 1 A 1 295
+23 23 2 2 B 1 223
+24 24 2 3 C 1 115
+25 25 2 4 D 1 687
+26 26 2 5 E 1 307
+27 27 2 6 F 1 210
+28 28 2 7 G 1 121
+29 29 2 8 H 1 284
+30 30 2 9 I 1 222
+31 31 2 10 J 1 149
+32 32 2 11 K 1 127
+33 33 2 12 L 1 140
+34 34 2 13 M 1 157
+35 35 2 14 N 1 566
+36 36 2 15 O 1 1082
+37 37 2 16 P 1 220
+38 38 2 17 Q 1 431
+39 39 2 18 R 1 397
+40 40 2 19 S 1 1146
+41 41 2 20 T 1 1081
+42 42 2 21 U 1 974
+43 43 3 1 A 1 295
+44 44 3 2 B 1 223
+45 45 3 3 C 1 115
+46 46 3 4 D 1 687
+47 47 3 5 E 1 307
+48 48 3 6 F 1 210
+49 49 3 7 G 1 121
+50 50 3 8 H 1 284
+51 51 3 9 I 1 222
+52 52 3 10 J 1 149
+53 53 3 11 K 1 127
+54 54 3 12 L 1 140
+55 55 3 13 M 1 157
+56 56 3 14 N 1 566
+57 57 3 15 O 1 1082
+58 58 3 16 P 1 220
+59 59 3 17 Q 1 431
+60 60 3 18 R 1 397
+61 61 3 19 S 1 1146
+62 62 3 20 T 1 1081
+63 63 3 21 U 1 974
+64 64 4 1 A 1 295
+65 65 4 2 B 1 223
+66 66 4 3 C 1 115
+67 67 4 4 D 1 687
+68 68 4 5 E 1 307
+69 69 4 6 F 1 210
+70 70 4 7 G 1 121
+71 71 4 8 H 1 284
+72 72 4 9 I 1 222
+73 73 4 10 J 1 149
+74 74 4 11 K 1 127
+75 75 4 12 L 1 140
+76 76 4 13 M 1 157
+77 77 4 14 N 1 566
+78 78 4 15 O 1 1082
+79 79 4 16 P 1 220
+80 80 4 17 Q 1 431
+81 81 4 18 R 1 397
+82 82 4 19 S 1 1146
+83 83 4 20 T 1 1081
+84 84 4 21 U 1 974
 #
 #
 loop_
