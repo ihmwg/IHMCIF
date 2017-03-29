@@ -5468,9 +5468,11 @@ _ihm_external_reference_info.reference_type
 _ihm_external_reference_info.reference
 _ihm_external_reference_info.refers_to
 _ihm_external_reference_info.associated_url
-1 Zenodo DOI 10.5281/zenodo.46266 Archive
+1 Zenodo DOI 10.5281/zenodo.438727 Archive
+https://zenodo.org/record/438727/files/nup84_localization.zip
+2 Zenodo DOI 10.5281/zenodo.46266 Archive
 https://zenodo.org/record/46266/files/nup84-v1.0.zip
-2 Zenodo DOI 10.5281/zenodo.58025 File
+3 Zenodo DOI 10.5281/zenodo.58025 File
 https://zenodo.org/record/58025/files/Nup84complex_particles.spd
 #
 #
@@ -5480,27 +5482,41 @@ _ihm_external_files.reference_id
 _ihm_external_files.file_path
 _ihm_external_files.content_type
 _ihm_external_files.details
-1 1 integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py
+1 1 localization/cluster1/nup84.mrc 'Modeling or post-processing output' .
+2 1 localization/cluster1/nup85.mrc 'Modeling or post-processing output' .
+3 1 localization/cluster1/nup120.mrc 'Modeling or post-processing output' .
+4 1 localization/cluster1/nup133.mrc 'Modeling or post-processing output' .
+5 1 localization/cluster1/nup145c.mrc 'Modeling or post-processing output' .
+6 1 localization/cluster1/seh1.mrc 'Modeling or post-processing output' .
+7 1 localization/cluster1/sec13.mrc 'Modeling or post-processing output' .
+8 1 localization/cluster2/nup84.mrc 'Modeling or post-processing output' .
+9 1 localization/cluster2/nup85.mrc 'Modeling or post-processing output' .
+10 1 localization/cluster2/nup120.mrc 'Modeling or post-processing output' .
+11 1 localization/cluster2/nup133.mrc 'Modeling or post-processing output' .
+12 1 localization/cluster2/nup145c.mrc 'Modeling or post-processing output' .
+13 1 localization/cluster2/seh1.mrc 'Modeling or post-processing output' .
+14 1 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
+15 2 integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py
 'Modeling workflow or script' 'The main integrative modeling script'
-2 1 integrativemodeling-nup84-a69f895/data/ScNup84_7-488_506-726_new.pdb
+16 2 integrativemodeling-nup84-a69f895/data/ScNup84_7-488_506-726_new.pdb
 'Input data or restraints' .
-3 1 integrativemodeling-nup84-a69f895/data/ScNup85_44-744_new.pdb
+17 2 integrativemodeling-nup84-a69f895/data/ScNup85_44-744_new.pdb
 'Input data or restraints' .
-4 1 integrativemodeling-nup84-a69f895/data/ScNup120_1-1037_new.pdb
+18 2 integrativemodeling-nup84-a69f895/data/ScNup120_1-1037_new.pdb
 'Input data or restraints' .
-5 1 integrativemodeling-nup84-a69f895/data/ScNup133N_56-480_new.pdb
+19 2 integrativemodeling-nup84-a69f895/data/ScNup133N_56-480_new.pdb
 'Input data or restraints' .
-6 1 integrativemodeling-nup84-a69f895/data/ScNup133C_490_1157_new.pdb
+20 2 integrativemodeling-nup84-a69f895/data/ScNup133C_490_1157_new.pdb
 'Input data or restraints' .
-7 1 integrativemodeling-nup84-a69f895/data/ScNup145C_126-553_new.pdb
+21 2 integrativemodeling-nup84-a69f895/data/ScNup145C_126-553_new.pdb
 'Input data or restraints' .
-8 1 integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat
+22 2 integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat
 'Input data or restraints' .
-9 1 integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat
+23 2 integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat
 'Input data or restraints' .
-10 2 Nup84complex_particles.spd 'Input data or restraints'
+24 3 Nup84complex_particles.spd 'Input data or restraints'
 'Raw micrographs from which the class average was derived'
-11 1 integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm
+25 2 integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm
 'Input data or restraints' .
 #
 #
@@ -5550,16 +5566,16 @@ _ihm_dataset_external_reference.id
 _ihm_dataset_external_reference.dataset_list_id
 _ihm_dataset_external_reference.data_type
 _ihm_dataset_external_reference.file_id
-1 1 'Comparative model' 2
-2 2 'Comparative model' 3
-3 3 'Comparative model' 4
-4 4 'Comparative model' 5
-5 5 'Comparative model' 6
-6 6 'Comparative model' 7
-7 9 'CX-MS data' 8
-8 10 'CX-MS data' 9
-9 11 'EM raw micrographs' 10
-10 12 '2DEM class average' 11
+1 1 'Comparative model' 16
+2 2 'Comparative model' 17
+3 3 'Comparative model' 18
+4 4 'Comparative model' 19
+5 5 'Comparative model' 20
+6 6 'Comparative model' 21
+7 9 'CX-MS data' 22
+8 10 'CX-MS data' 23
+9 11 'EM raw micrographs' 24
+10 12 '2DEM class average' 25
 #
 #
 loop_
@@ -6231,30 +6247,61 @@ _ihm_starting_model_details.starting_model_source
 _ihm_starting_model_details.starting_model_db_name
 _ihm_starting_model_details.starting_model_db_code
 _ihm_starting_model_details.starting_model_auth_asym_id
-_ihm_starting_model_details.starting_model_sequence_identity
+_ihm_starting_model_details.starting_model_sequence_offset
 _ihm_starting_model_details.starting_model_id
 _ihm_starting_model_details.dataset_list_id
-1 1 Nup84 A 7 436 'comparative model' PDB 3IKO C 100.0 Nup84-m1 1
-2 1 Nup84 A 33 424 'comparative model' PDB 3JRO C 100.0 Nup84-m1 1
-3 1 Nup84 A 429 488 'comparative model' PDB 3F3F G 10.0 Nup84-m1 1
-4 1 Nup84 A 506 726 'comparative model' PDB 3CQC A 17.6 Nup84-m1 1
-5 2 Nup85 B 67 549 'comparative model' PDB 3F3F D 100.0 Nup85-m1 2
-6 2 Nup85 B 67 555 'comparative model' PDB 3EWE D 100.0 Nup85-m1 2
-7 2 Nup85 B 532 652 'comparative model' PDB 2QX5 B 15.9 Nup85-m1 2
-8 2 Nup85 B 532 743 'comparative model' PDB 4LCT D 13.4 Nup85-m1 2
-9 3 Nup120 C 1 710 'comparative model' PDB 3F7F A 99.3 Nup120-m1 3
-10 3 Nup120 C 1 710 'comparative model' PDB 3HXR A 99.4 Nup120-m1 3
-11 3 Nup120 C 711 1037 'comparative model' PDB 4FHN B 11.8 Nup120-m1 3
-12 3 Nup120 C 711 1037 'comparative model' PDB 4FHN D 12.4 Nup120-m1 3
-13 4 Nup133 D 56 480 'comparative model' PDB ? ? 45.8 Nup133-m1 4
-14 4 Nup133 D 58 480 'comparative model' PDB ? ? 46.1 Nup133-m1 4
-15 4 Nup133 D 490 1155 'comparative model' ? ? D ? Nup133-m2 5
-16 5 Nup145c E 126 544 'comparative model' PDB 3IKO B 100.0 Nup145c-m1 6
-17 5 Nup145c E 131 553 'comparative model' PDB 3BG1 B 100.0 Nup145c-m1 6
-18 5 Nup145c E 131 553 'comparative model' PDB 3BG0 B 100.0 Nup145c-m1 6
-19 5 Nup145c E 133 553 'comparative model' PDB 3JRO A 100.0 Nup145c-m1 6
-20 6 Seh1 F 1 346 'experimental model' PDB 3F3F A 100.000 Seh1-m1 7
-21 7 Sec13 G 2 296 'experimental model' PDB 2PM7 D 100.000 Sec13-m1 8
+1 1 Nup84 A 7 436 'comparative model' . . A 0 Nup84-m1 1
+2 1 Nup84 A 33 424 'comparative model' . . A 0 Nup84-m1 1
+3 1 Nup84 A 429 488 'comparative model' . . A 0 Nup84-m1 1
+4 1 Nup84 A 506 726 'comparative model' . . A 0 Nup84-m1 1
+5 2 Nup85 B 67 549 'comparative model' . . B 0 Nup85-m1 2
+6 2 Nup85 B 67 555 'comparative model' . . B 0 Nup85-m1 2
+7 2 Nup85 B 532 652 'comparative model' . . B 0 Nup85-m1 2
+8 2 Nup85 B 532 743 'comparative model' . . B 0 Nup85-m1 2
+9 3 Nup120 C 1 710 'comparative model' . . C 0 Nup120-m1 3
+10 3 Nup120 C 1 710 'comparative model' . . C 0 Nup120-m1 3
+11 3 Nup120 C 711 1037 'comparative model' . . C 0 Nup120-m1 3
+12 3 Nup120 C 711 1037 'comparative model' . . C 0 Nup120-m1 3
+13 4 Nup133 D 56 480 'comparative model' . . D 0 Nup133-m1 4
+14 4 Nup133 D 58 480 'comparative model' . . D 0 Nup133-m1 4
+15 4 Nup133 D 490 1155 'comparative model' ? ? D 0 Nup133-m2 5
+16 5 Nup145c E 126 544 'comparative model' . . E 0 Nup145c-m1 6
+17 5 Nup145c E 131 553 'comparative model' . . E 0 Nup145c-m1 6
+18 5 Nup145c E 131 553 'comparative model' . . E 0 Nup145c-m1 6
+19 5 Nup145c E 133 553 'comparative model' . . E 0 Nup145c-m1 6
+20 6 Seh1 F 1 346 'experimental model' PDB 3F3F A 0 Seh1-m1 7
+21 7 Sec13 G 2 296 'experimental model' PDB 2PM7 D 0 Sec13-m1 8
+#
+#
+loop_
+_ihm_starting_comparative_models.starting_model_ordinal_id
+_ihm_starting_comparative_models.starting_model_id
+_ihm_starting_comparative_models.template_db_name
+_ihm_starting_comparative_models.template_db_code
+_ihm_starting_comparative_models.template_db_auth_asym_id
+_ihm_starting_comparative_models.template_db_seq_begin
+_ihm_starting_comparative_models.template_db_seq_end
+_ihm_starting_comparative_models.template_sequence_identity
+_ihm_starting_comparative_models.template_sequence_identity_denominator
+_ihm_starting_comparative_models.alignment_file_id
+1 Nup84-m1 PDB 3IKO C 7 436 100.0 1 .
+2 Nup84-m1 PDB 3JRO C 33 424 100.0 1 .
+3 Nup84-m1 PDB 3F3F G 482 551 10.0 1 .
+4 Nup84-m1 PDB 3CQC A 667 913 17.6 1 .
+5 Nup85-m1 PDB 3F3F D 44 549 100.0 1 .
+6 Nup85-m1 PDB 3EWE D 65 555 100.0 1 .
+7 Nup85-m1 PDB 2QX5 B 617 742 15.9 1 .
+8 Nup85-m1 PDB 4LCT D 135 350 13.4 1 .
+9 Nup120-m1 PDB 3F7F A 1 710 99.3 1 .
+10 Nup120-m1 PDB 3HXR A 1 710 99.4 1 .
+11 Nup120-m1 PDB 4FHN B 800 1115 11.8 1 .
+12 Nup120-m1 PDB 4FHN D 800 1115 12.4 1 .
+13 Nup133-m1 PDB ? ? 61 497 45.8 1 .
+14 Nup133-m1 PDB ? ? 63 497 46.1 1 .
+16 Nup145c-m1 PDB 3IKO B 125 543 100.0 1 .
+17 Nup145c-m1 PDB 3BG1 B 130 552 100.0 1 .
+18 Nup145c-m1 PDB 3BG0 B 130 552 100.0 1 .
+19 Nup145c-m1 PDB 3JRO A 1133 1553 100.0 1 .
 #
 #
 loop_
@@ -40465,12 +40512,12 @@ _ihm_starting_model_seq_dif.db_asym_id
 _ihm_starting_model_seq_dif.db_seq_id
 _ihm_starting_model_seq_dif.db_comp_id
 _ihm_starting_model_seq_dif.details
-1 7 G 11 MET . 7 G 11 MSE 'Conversion of modified residue MSE to MET'
-2 7 G 17 MET . 7 G 17 MSE 'Conversion of modified residue MSE to MET'
-3 7 G 24 MET . 7 G 24 MSE 'Conversion of modified residue MSE to MET'
-4 7 G 80 MET . 7 G 80 MSE 'Conversion of modified residue MSE to MET'
-5 7 G 115 MET . 7 G 115 MSE 'Conversion of modified residue MSE to MET'
-6 7 G 222 MET . 7 G 222 MSE 'Conversion of modified residue MSE to MET'
+1 7 G 11 MET 21 7 D 11 MSE 'Conversion of modified residue MSE to MET'
+2 7 G 17 MET 21 7 D 17 MSE 'Conversion of modified residue MSE to MET'
+3 7 G 24 MET 21 7 D 24 MSE 'Conversion of modified residue MSE to MET'
+4 7 G 80 MET 21 7 D 80 MSE 'Conversion of modified residue MSE to MET'
+5 7 G 115 MET 21 7 D 115 MSE 'Conversion of modified residue MSE to MET'
+6 7 G 222 MET 21 7 D 222 MSE 'Conversion of modified residue MSE to MET'
 #
 #
 loop_
@@ -40490,6 +40537,56 @@ _ihm_modeling_protocol.multi_state_flag
 _ihm_modeling_protocol.time_ordered_flag
 1 1 1 1 1 . . Sampling 'Replica exchange monte carlo' 0 500 YES NO NO
 2 1 2 1 2 . . Sampling 'Replica exchange monte carlo' 500 5000 YES NO NO
+#
+#
+loop_
+_ihm_modeling_post_process.id
+_ihm_modeling_post_process.protocol_id
+_ihm_modeling_post_process.analysis_id
+_ihm_modeling_post_process.step_id
+_ihm_modeling_post_process.type
+_ihm_modeling_post_process.feature
+_ihm_modeling_post_process.num_models_begin
+_ihm_modeling_post_process.num_models_end
+1 1 1 1 cluster RMSD 15000 2267
+#
+#
+loop_
+_ihm_ensemble_info.ensemble_id
+_ihm_ensemble_info.ensemble_name
+_ihm_ensemble_info.post_process_id
+_ihm_ensemble_info.model_group_id
+_ihm_ensemble_info.ensemble_clustering_method
+_ihm_ensemble_info.ensemble_clustering_feature
+_ihm_ensemble_info.num_ensemble_models
+_ihm_ensemble_info.num_ensemble_models_deposited
+_ihm_ensemble_info.ensemble_precision_value
+1 'Cluster 1' 1 1 . dRMSD 1257 1 15.400
+2 'Cluster 2' 1 2 . dRMSD 1010 1 12.700
+#
+#
+loop_
+_ihm_localization_density_files.id
+_ihm_localization_density_files.file_id
+_ihm_localization_density_files.ensemble_id
+_ihm_localization_density_files.entity_id
+_ihm_localization_density_files.asym_id
+_ihm_localization_density_files.seq_id_begin
+_ihm_localization_density_files.seq_id_end
+1 1 1 1 A 1 726
+2 2 1 2 B 1 744
+3 3 1 3 C 1 1037
+4 4 1 4 D 1 1157
+5 5 1 5 E 1 712
+6 6 1 6 F 1 349
+7 7 1 7 G 1 297
+8 8 2 1 A 1 726
+9 9 2 2 B 1 744
+10 10 2 3 C 1 1037
+11 11 2 4 D 1 1157
+12 12 2 5 E 1 712
+13 13 2 6 F 1 349
+14 14 2 7 G 1 297
 #
 #
 loop_
