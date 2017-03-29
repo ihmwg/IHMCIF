@@ -107,6 +107,11 @@ data_ihm-extension.dic
   Changes (bv):
   + Updated _ihm_starting_model_seq_dif.db_entity_id as non-mandatory
 ;
+  0.102   2017-03-29
+;
+  Changes (bv):
+  + Updated examples in IHM_STARTING_COMPARATIVE_MODELS
+;
 
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
@@ -359,9 +364,9 @@ save_ihm_starting_comparative_models
         _ihm_starting_comparative_models.starting_model_id
         _ihm_starting_comparative_models.template_db_name
         _ihm_starting_comparative_models.template_db_code
-        _ihm_starting_comparative_models.template_db_auth_asym_id
-        _ihm_starting_comparative_models.template_db_seq_begin
-        _ihm_starting_comparative_models.template_db_seq_end
+        _ihm_starting_comparative_models.template_auth_asym_id
+        _ihm_starting_comparative_models.template_seq_begin
+        _ihm_starting_comparative_models.template_seq_end
         _ihm_starting_comparative_models.template_sequence_identity
         _ihm_starting_comparative_models.template_sequence_identity_denominator 
         _ihm_starting_comparative_models.alignment_file_id
