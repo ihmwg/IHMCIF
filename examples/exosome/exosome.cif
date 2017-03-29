@@ -35938,11 +35938,12 @@ loop_
 _ihm_model_list.ordinal_id
 _ihm_model_list.model_id
 _ihm_model_list.model_group_id
+_ihm_model_list.model_name
 _ihm_model_list.model_group_name
 _ihm_model_list.assembly_id
 _ihm_model_list.protocol_id
-1 1 1 'Cluster 1' 2 1
-2 2 2 'Cluster 2' 2 1
+1 1 1 'Best scoring model' 'Cluster 1' 2 1
+2 2 2 'Best scoring model' 'Cluster 2' 2 1
 #
 #
 loop_
