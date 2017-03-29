@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 23-MAR-2017 Jdw/BV
+#  Date: 29-MAR-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -101,6 +101,11 @@ data_ihm-extension.dic
   + Added _ihm_external_files.content_type
   + Added _ihm_external_files.details
   + Removed IHM_MODELING_WORKFLOW_FILES
+;
+  0.101   2017-03-29
+;
+  Changes (bv):
+  + Updated _ihm_starting_model_seq_dif.db_entity_id as non-mandatory
 ;
 
 ################################
@@ -628,7 +633,7 @@ save__ihm_starting_model_seq_dif.db_entity_id
 ;              
     _item.name                  '_ihm_starting_model_seq_dif.db_entity_id'
     _item.category_id             ihm_starting_model_seq_dif
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
      save_
 
