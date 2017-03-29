@@ -5468,10 +5468,10 @@ _ihm_external_reference_info.reference_type
 _ihm_external_reference_info.reference
 _ihm_external_reference_info.refers_to
 _ihm_external_reference_info.associated_url
-1 Zenodo DOI 10.5281/zenodo.438727 Archive
-https://zenodo.org/record/438727/files/nup84_localization.zip
-2 Zenodo DOI 10.5281/zenodo.46266 Archive
+1 Zenodo DOI 10.5281/zenodo.46266 Archive
 https://zenodo.org/record/46266/files/nup84-v1.0.zip
+2 Zenodo DOI 10.5281/zenodo.438727 Archive
+https://zenodo.org/record/438727/files/nup84_localization.zip
 3 Zenodo DOI 10.5281/zenodo.58025 File
 https://zenodo.org/record/58025/files/Nup84complex_particles.spd
 #
@@ -5482,41 +5482,47 @@ _ihm_external_files.reference_id
 _ihm_external_files.file_path
 _ihm_external_files.content_type
 _ihm_external_files.details
-1 1 localization/cluster1/nup84.mrc 'Modeling or post-processing output' .
-2 1 localization/cluster1/nup85.mrc 'Modeling or post-processing output' .
-3 1 localization/cluster1/nup120.mrc 'Modeling or post-processing output' .
-4 1 localization/cluster1/nup133.mrc 'Modeling or post-processing output' .
-5 1 localization/cluster1/nup145c.mrc 'Modeling or post-processing output' .
-6 1 localization/cluster1/seh1.mrc 'Modeling or post-processing output' .
-7 1 localization/cluster1/sec13.mrc 'Modeling or post-processing output' .
-8 1 localization/cluster2/nup84.mrc 'Modeling or post-processing output' .
-9 1 localization/cluster2/nup85.mrc 'Modeling or post-processing output' .
-10 1 localization/cluster2/nup120.mrc 'Modeling or post-processing output' .
-11 1 localization/cluster2/nup133.mrc 'Modeling or post-processing output' .
-12 1 localization/cluster2/nup145c.mrc 'Modeling or post-processing output' .
-13 1 localization/cluster2/seh1.mrc 'Modeling or post-processing output' .
-14 1 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
-15 2 integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py
+1 1
+integrativemodeling-nup84-a69f895/outputs/3-xray.after_cluster_on_hub.cluster1.all.pdbs.tar.gz
+'Modeling or post-processing output' .
+2 2 localization/cluster1/nup84.mrc 'Modeling or post-processing output' .
+3 2 localization/cluster1/nup85.mrc 'Modeling or post-processing output' .
+4 2 localization/cluster1/nup120.mrc 'Modeling or post-processing output' .
+5 2 localization/cluster1/nup133.mrc 'Modeling or post-processing output' .
+6 2 localization/cluster1/nup145c.mrc 'Modeling or post-processing output' .
+7 2 localization/cluster1/seh1.mrc 'Modeling or post-processing output' .
+8 2 localization/cluster1/sec13.mrc 'Modeling or post-processing output' .
+9 1
+integrativemodeling-nup84-a69f895/outputs/3-xray.after_cluster_on_hub.cluster2.all.pdbs.tar.gz
+'Modeling or post-processing output' .
+10 2 localization/cluster2/nup84.mrc 'Modeling or post-processing output' .
+11 2 localization/cluster2/nup85.mrc 'Modeling or post-processing output' .
+12 2 localization/cluster2/nup120.mrc 'Modeling or post-processing output' .
+13 2 localization/cluster2/nup133.mrc 'Modeling or post-processing output' .
+14 2 localization/cluster2/nup145c.mrc 'Modeling or post-processing output' .
+15 2 localization/cluster2/seh1.mrc 'Modeling or post-processing output' .
+16 2 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
+17 1 integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py
 'Modeling workflow or script' 'The main integrative modeling script'
-16 2 integrativemodeling-nup84-a69f895/data/ScNup84_7-488_506-726_new.pdb
+18 1 integrativemodeling-nup84-a69f895/data/ScNup84_7-488_506-726_new.pdb
 'Input data or restraints' .
-17 2 integrativemodeling-nup84-a69f895/data/ScNup85_44-744_new.pdb
+19 1 integrativemodeling-nup84-a69f895/data/ScNup85_44-744_new.pdb
 'Input data or restraints' .
-18 2 integrativemodeling-nup84-a69f895/data/ScNup120_1-1037_new.pdb
+20 1 integrativemodeling-nup84-a69f895/data/ScNup120_1-1037_new.pdb
 'Input data or restraints' .
-19 2 integrativemodeling-nup84-a69f895/data/ScNup133N_56-480_new.pdb
+21 1 integrativemodeling-nup84-a69f895/data/ScNup133N_56-480_new.pdb
 'Input data or restraints' .
-20 2 integrativemodeling-nup84-a69f895/data/ScNup133C_490_1157_new.pdb
+22 1 integrativemodeling-nup84-a69f895/data/ScNup133C_490_1157_new.pdb
 'Input data or restraints' .
-21 2 integrativemodeling-nup84-a69f895/data/ScNup145C_126-553_new.pdb
+23 1 integrativemodeling-nup84-a69f895/data/ScNup145C_126-553_new.pdb
 'Input data or restraints' .
-22 2 integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat
+24 1 integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat
 'Input data or restraints' .
-23 2 integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat
+25 1 integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat
 'Input data or restraints' .
-24 3 Nup84complex_particles.spd 'Input data or restraints'
+26 3 Nup84complex_particles.spd 'Input data or restraints'
 'Raw micrographs from which the class average was derived'
-25 2 integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm
+27 1 integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm
 'Input data or restraints' .
 #
 #
@@ -5566,16 +5572,16 @@ _ihm_dataset_external_reference.id
 _ihm_dataset_external_reference.dataset_list_id
 _ihm_dataset_external_reference.data_type
 _ihm_dataset_external_reference.file_id
-1 1 'Comparative model' 16
-2 2 'Comparative model' 17
-3 3 'Comparative model' 18
-4 4 'Comparative model' 19
-5 5 'Comparative model' 20
-6 6 'Comparative model' 21
-7 9 'CX-MS data' 22
-8 10 'CX-MS data' 23
-9 11 'EM raw micrographs' 24
-10 12 '2DEM class average' 25
+1 1 'Comparative model' 18
+2 2 'Comparative model' 19
+3 3 'Comparative model' 20
+4 4 'Comparative model' 21
+5 5 'Comparative model' 22
+6 6 'Comparative model' 23
+7 9 'CX-MS data' 24
+8 10 'CX-MS data' 25
+9 11 'EM raw micrographs' 26
+10 12 '2DEM class average' 27
 #
 #
 loop_
@@ -40507,17 +40513,16 @@ _ihm_starting_model_seq_dif.asym_id
 _ihm_starting_model_seq_dif.seq_id
 _ihm_starting_model_seq_dif.comp_id
 _ihm_starting_model_seq_dif.starting_model_ordinal_id
-_ihm_starting_model_seq_dif.db_entity_id
 _ihm_starting_model_seq_dif.db_asym_id
 _ihm_starting_model_seq_dif.db_seq_id
 _ihm_starting_model_seq_dif.db_comp_id
 _ihm_starting_model_seq_dif.details
-1 7 G 11 MET 21 7 D 11 MSE 'Conversion of modified residue MSE to MET'
-2 7 G 17 MET 21 7 D 17 MSE 'Conversion of modified residue MSE to MET'
-3 7 G 24 MET 21 7 D 24 MSE 'Conversion of modified residue MSE to MET'
-4 7 G 80 MET 21 7 D 80 MSE 'Conversion of modified residue MSE to MET'
-5 7 G 115 MET 21 7 D 115 MSE 'Conversion of modified residue MSE to MET'
-6 7 G 222 MET 21 7 D 222 MSE 'Conversion of modified residue MSE to MET'
+1 7 G 11 MET 21 D 11 MSE 'Conversion of modified residue MSE to MET'
+2 7 G 17 MET 21 D 17 MSE 'Conversion of modified residue MSE to MET'
+3 7 G 24 MET 21 D 24 MSE 'Conversion of modified residue MSE to MET'
+4 7 G 80 MET 21 D 80 MSE 'Conversion of modified residue MSE to MET'
+5 7 G 115 MET 21 D 115 MSE 'Conversion of modified residue MSE to MET'
+6 7 G 222 MET 21 D 222 MSE 'Conversion of modified residue MSE to MET'
 #
 #
 loop_
@@ -40561,8 +40566,9 @@ _ihm_ensemble_info.ensemble_clustering_feature
 _ihm_ensemble_info.num_ensemble_models
 _ihm_ensemble_info.num_ensemble_models_deposited
 _ihm_ensemble_info.ensemble_precision_value
-1 'Cluster 1' 1 1 . dRMSD 1257 1 15.400
-2 'Cluster 2' 1 2 . dRMSD 1010 1 12.700
+_ihm_ensemble_info.ensemble_file_id
+1 'Cluster 1' 1 1 . dRMSD 1257 1 15.400 1
+2 'Cluster 2' 1 2 . dRMSD 1010 1 12.700 9
 #
 #
 loop_
@@ -40573,20 +40579,20 @@ _ihm_localization_density_files.entity_id
 _ihm_localization_density_files.asym_id
 _ihm_localization_density_files.seq_id_begin
 _ihm_localization_density_files.seq_id_end
-1 1 1 1 A 1 726
-2 2 1 2 B 1 744
-3 3 1 3 C 1 1037
-4 4 1 4 D 1 1157
-5 5 1 5 E 1 712
-6 6 1 6 F 1 349
-7 7 1 7 G 1 297
-8 8 2 1 A 1 726
-9 9 2 2 B 1 744
-10 10 2 3 C 1 1037
-11 11 2 4 D 1 1157
-12 12 2 5 E 1 712
-13 13 2 6 F 1 349
-14 14 2 7 G 1 297
+1 2 1 1 A 1 726
+2 3 1 2 B 1 744
+3 4 1 3 C 1 1037
+4 5 1 4 D 1 1157
+5 6 1 5 E 1 712
+6 7 1 6 F 1 349
+7 8 1 7 G 1 297
+8 10 2 1 A 1 726
+9 11 2 2 B 1 744
+10 12 2 3 C 1 1037
+11 13 2 4 D 1 1157
+12 14 2 5 E 1 712
+13 15 2 6 F 1 349
+14 16 2 7 G 1 297
 #
 #
 loop_
