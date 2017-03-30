@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 29-MAR-2017 Jdw/BV
+#  Date: 30-MAR-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -112,6 +112,16 @@ data_ihm-extension.dic
   Changes (bv):
   + Updated examples in IHM_STARTING_COMPARATIVE_MODELS
 ;
+  0.103   2017-03-30
+;
+  Changes (bv):
+  + Updated IHM_STARTING_MODEL_DETAILS
+  + Updated IHM_STARTING_COMPARATIVE_MODELS
+  + Updated IHM_DATASET_LIST, IHM_RELATED_DATASETS
+  + Updated IHM_DATASET_RELATED_DB_REFERENCE
+  + Updated IHM_DATASET_EXTERNAL_REFERENCE
+  + Added examples to IHM_EXTERNAL_REFERENCE_INFO and IHM_EXTERNAL_FILES
+;
 
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
@@ -147,16 +157,14 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.seq_id_begin
         _ihm_starting_model_details.seq_id_end
         _ihm_starting_model_details.starting_model_source
-        _ihm_starting_model_details.starting_model_db_name
-        _ihm_starting_model_details.starting_model_db_code
         _ihm_starting_model_details.starting_model_auth_asym_id
         _ihm_starting_model_details.starting_model_sequence_offset
         _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-         2  1  Nup84  A    7   436  'experimental model'  PDB  3JRO  C  0  Nup84-m1  5  
-         3  1  Nup84  A    7   436  'experimental model'  PDB  3IKO  C  0  Nup84-m1  6  
-         4  1  Nup84  A  429   488  'comparative model'   .    .     A  0  Nup84-m1  7  
-         6  1  Nup84  A  506   726  'comparative model'   .    .     A  0  Nup84-m1  8  
+         2  1  Nup84  A    7   436  'experimental model'  C  0  Nup84-m1  5  
+         3  1  Nup84  A    7   436  'experimental model'  C  0  Nup84-m1  6  
+         4  1  Nup84  A  429   488  'comparative model'   A  0  Nup84-m1  7  
+         6  1  Nup84  A  506   726  'comparative model'   A  0  Nup84-m1  8  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -255,36 +263,6 @@ save__ihm_starting_model_details.starting_model_source
                                  'other ab initio models'   .
      save_
 
-save__ihm_starting_model_details.starting_model_db_name
-    _item_description.description
-;     The name of the reference database corresponding to this starting model. 
-;
-    _item.name                  '_ihm_starting_model_details.starting_model_db_name'
-    _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
-    _item_type.code               line
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-        'PDB'     'Protein Data Bank'
-        'MA'      'Model Archive'
-        'Other'   'Other'
-     save_
-
-save__ihm_starting_model_details.starting_model_db_code
-    _item_description.description
-;     The accession code from reference database corresponding to this starting model. 
-;
-    _item.name                  '_ihm_starting_model_details.starting_model_db_code'
-    _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
-    _item_type.code               line
-    loop_
-    _item_examples.case
-    '5FM1'
-    'MA-CO2KC'
-     save_
-
 save__ihm_starting_model_details.starting_model_auth_asym_id
     _item_description.description
 ;     The author assigned chainId/auth_asym_id corresponding to this starting model. 
@@ -321,7 +299,8 @@ save__ihm_starting_model_details.starting_model_id
 
 save__ihm_starting_model_details.dataset_list_id
     _item_description.description
-;     Identifier to the starting model used as input in the integrative modeling.
+;     Identifier to the starting model (comparative, experimental or integrative) 
+      used as input in the integrative modeling.
       This data item is a pointer to the _ihm_dataset_list.id in the
       IHM_DATASET_LIST category. 
 ;
@@ -362,16 +341,15 @@ save_ihm_starting_comparative_models
         loop_
         _ihm_starting_comparative_models.starting_model_ordinal_id
         _ihm_starting_comparative_models.starting_model_id
-        _ihm_starting_comparative_models.template_db_name
-        _ihm_starting_comparative_models.template_db_code
         _ihm_starting_comparative_models.template_auth_asym_id
         _ihm_starting_comparative_models.template_seq_begin
         _ihm_starting_comparative_models.template_seq_end
         _ihm_starting_comparative_models.template_sequence_identity
         _ihm_starting_comparative_models.template_sequence_identity_denominator 
+        _ihm_starting_comparative_models.template_dataset_list_id
         _ihm_starting_comparative_models.alignment_file_id
-         4  Nup84-m1  PDB  3F3F  G  482  551    10.0    1   7
-         6  Nup84-m1  PDB  3CQC  A  667  924    18.0    1   6
+         4  Nup84-m1  G  482  551    10.0    1    9  7
+         6  Nup84-m1  A  667  924    18.0    1   10  6
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -405,31 +383,6 @@ save__ihm_starting_comparative_models.starting_model_id
     _item_type.code               code
     _item_linked.child_name     '_ihm_starting_comparative_models.starting_model_id'
     _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
-     save_
-
-save__ihm_starting_comparative_models.template_db_name
-    _item_description.description
-;     The name of the reference database corresponding to the template used to obtain the comparative model. 
-;
-    _item.name                  '_ihm_starting_comparative_models.template_db_name'
-    _item.category_id             ihm_starting_comparative_models
-    _item.mandatory_code          no
-    _item_type.code               line
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-        'PDB'     'Protein Data Bank'
-        'Other'   'Other'
-     save_
-
-save__ihm_starting_comparative_models.template_db_code
-    _item_description.description
-;     The accession code from reference database corresponding to the template. 
-;
-    _item.name                  '_ihm_starting_comparative_models.template_db_code'
-    _item.category_id             ihm_starting_comparative_models
-    _item.mandatory_code          no
-    _item_type.code               line
      save_
 
 save__ihm_starting_comparative_models.template_auth_asym_id
@@ -490,6 +443,20 @@ save__ihm_starting_comparative_models.template_sequence_identity_denominator
      3  'Number of aligned residue pairs (not including the gaps)'
      4  'Arithmetic mean sequence length'
      5  'Other'
+     save_
+
+save__ihm_starting_comparative_models.template_dataset_list_id
+    _item_description.description
+;
+      The dataset list id corresponding to the template used to obtain the comparative model. 
+      This data item is a pointer to _ihm_dataset_list.id in the IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_starting_comparative_models.template_dataset_list_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_comparative_models.template_dataset_list_id'
+    _item_linked.parent_name    '_ihm_dataset_list.id'
      save_
 
 save__ihm_starting_comparative_models.alignment_file_id
@@ -2398,6 +2365,7 @@ save__ihm_dataset_list.data_type
       'Mass Spectrometry data'
       'Experimental model'
       'Comparative model'
+      'Integrative model'
       'De Novo model'
       'unspecified'
      save_ 
@@ -2443,14 +2411,12 @@ save_ihm_related_datasets
     loop_
     _ihm_related_datasets.ordinal_id
     _ihm_related_datasets.dataset_list_id_derived
-    _ihm_related_datasets.data_type_derived
     _ihm_related_datasets.dataset_list_id_primary
-    _ihm_related_datasets.data_type_primary
  
-    1   1   'CX-MS data'                5   'Mass Spectrometry data'
-    2   2   'CX-MS data'                6   'Mass Spectrometry data'
-    3   3   '2DEM class average'        7   'EM raw Micrographs'
-    4   4   '3DEM volume'               8   'EM raw Micrographs'
+    1   1   5 
+    2   2   6 
+    3   3   7 
+    4   4   8 
     # ... abbreviated ... #
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2482,26 +2448,6 @@ save__ihm_related_datasets.dataset_list_id_derived
     _item_linked.parent_name    '_ihm_dataset_list.id'
      save_
 
-save__ihm_related_datasets.data_type_derived
-    _item_description.description
-;    The data type for the derived dataset.
-;
-    _item.name                  '_ihm_related_datasets.data_type_derived'
-    _item.category_id             ihm_related_datasets
-    _item.mandatory_code          yes
-    _item_type.code               line
-    loop_
-    _item_enumeration.value
-      'NMR data'
-      '3DEM volume'
-      '2DEM class average'
-      'EM raw micrographs'
-      'SAS data'
-      'CX-MS data'
-      'Mass Spectrometry data'
-      'unspecified'
-     save_
-
 save__ihm_related_datasets.dataset_list_id_primary
     _item_description.description
 ;    The primary dataset list id from which the corresponding derived dataset is obtained.
@@ -2514,26 +2460,6 @@ save__ihm_related_datasets.dataset_list_id_primary
     _item_type.code               int
     _item_linked.child_name     '_ihm_related_datasets.dataset_list_id_primary'
     _item_linked.parent_name    '_ihm_dataset_list.id'
-     save_
-
-save__ihm_related_datasets.data_type_primary
-    _item_description.description
-;    The data type for the primary dataset.
-;
-    _item.name                  '_ihm_related_datasets.data_type_primary'
-    _item.category_id             ihm_related_datasets
-    _item.mandatory_code          yes
-    _item_type.code               line
-    loop_
-    _item_enumeration.value
-      'NMR data'
-      '3DEM volume'
-      '2DEM class average'
-      'EM raw micrographs'
-      'SAS data'
-      'CX-MS data'
-      'Mass Spectrometry data'
-      'unspecified'
      save_
 
 ######################################
@@ -2567,13 +2493,12 @@ save_ihm_dataset_related_db_reference
  _ihm_dataset_related_db_reference.db_name
  _ihm_dataset_related_db_reference.accession_code
  _ihm_dataset_related_db_reference.version
- _ihm_dataset_related_db_reference.data_type
  _ihm_dataset_related_db_reference.details
- 1  6  'PRIDE'  'PXD00381'  .  'CX-MS data' 'Structural Analysis of a Prokaryotic Ribosome Using a Novel Amidinating Cross-Linker and Mass Spectrometry'
- 2  3  'EMDB'  'EMD-2799'  .  '3DEM volume'  .
- 3  5  'PDB'   '5FM1'      .  'unspecified'  'STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE'
- 4  7  'BMRB'  '25766'     .  'unspecified'  .
- 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'Comparative model' 'PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING'
+ 1  6  'PRIDE'  'PXD00381' . 'Structural Analysis of a Prokaryotic Ribosome Using a Novel Amidinating Cross-Linker and Mass Spectrometry'
+ 2  3  'EMDB'  'EMD-2799'  .  .
+ 3  5  'PDB'   '5FM1'      .  'STRUCTURE OF GAMMA-TUBULIN SMALL COMPLEX BASED ON A CRYO-EM MAP, CHEMICAL CROSS-LINKS, AND A REMOTELY RELATED STRUCTURE'
+ 4  7  'BMRB'  '25766'     .  .
+ 5  8  'MODEL ARCHIVE'  'MA-CO2KC'  .  'PREDICTED STRUCTURE OF AN ALPHA NEUROTOXIN FROM TAIWAN COBRA BY HOMOLOGY MODELING'
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2655,30 +2580,6 @@ save__ihm_dataset_related_db_reference.version
     _item_type.code               code
      save_
  
-save__ihm_dataset_related_db_reference.data_type
-    _item_description.description
-;              The type of data stored in the dataset entry.
-;
-
-    _item.name                  '_ihm_dataset_related_db_reference.data_type'
-    _item.category_id             ihm_dataset_related_db_reference
-    _item.mandatory_code          yes
-    _item_type.code               line
-     loop_
-    _item_enumeration.value
-      '3D structure'
-      'NMR data'
-      '3DEM volume'
-      'EM raw micrographs'
-      'SAS data'
-      'CX-MS data'
-      'Mass Spectrometry data'
-      'Experimental model'
-      'Comparative model'
-      'De Novo model'
-      'unspecified'
-     save_
-
 save__ihm_dataset_related_db_reference.details
     _item_description.description
 ;    Details regarding the dataset entry.
@@ -2721,7 +2622,7 @@ save_ihm_external_reference_info
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 1 - DOI
+    Example 1 - DOI reference leading to an archive
 ;
 ;
  loop_
@@ -2744,6 +2645,22 @@ save_ihm_external_reference_info
     _ihm_external_reference_info.reference_type     'Supplementary Files'
     _ihm_external_reference_info.reference          .
     _ihm_external_reference_info.refers_to          'Other'
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 3 - DOI reference leading to a single file
+;
+;
+ loop_
+    _ihm_external_reference_info.reference_id
+    _ihm_external_reference_info.reference_provider
+    _ihm_external_reference_info.reference_type
+    _ihm_external_reference_info.reference
+    _ihm_external_reference_info.refers_to
+    _ihm_external_reference_info.associated_url
+
+    3 'Zenodo' 'DOI' '10.5281/zenodo.58025' 'File' 'https://zenodo.org/record/58025/files/Nup84complex_particles.spd'
+    # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -2888,7 +2805,6 @@ save_ihm_external_files
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 ;
     Example 2 - Supplementary Local Files
 ;
@@ -2905,6 +2821,22 @@ save_ihm_external_files
      1   2   'data/EDC_XL_122013.dat' 'TXT'  'Input data or restraints' 2.4    'EDC crosslinks file'
      2   2   'data/yeast_Nup84_DSS.dat'   'TXT'   'Input data or restraints'    3.7   'DSS crosslinks file'
      3   2   'nup145.mrc'  'MRC'   'Modeling or post-processing output'    .    'Nup145 localization density file'
+    # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 3 - DOI reference leading to a single file
+;
+;
+ loop_
+    _ihm_external_files.id
+    _ihm_external_files.reference_id
+    _ihm_external_files.file_path
+    _ihm_external_files.file_format
+    _ihm_external_files.content_type
+    _ihm_external_files.file_size_kb
+    _ihm_external_files.details
+     1  3  .  'Input data or restraints'  'Raw micrographs from which the class average was derived'
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2943,10 +2875,7 @@ save__ihm_external_files.file_path
     This is required for identifying individual files from within
     a tar-zipped archive file or for identifying supplementary local
     files organized within a directory structure.
-    If the reference leads to a single file or does not involve a 
-    directory structure, include only the filename without any relative 
-    path. This data item assumes a POSIX-like directory structure or 
-    file path. 
+    This data item assumes a POSIX-like directory structure or file path. 
 ;
     _item.name                 '_ihm_external_files.file_path'
     _item.category_id          ihm_external_files
@@ -3057,13 +2986,12 @@ save_ihm_dataset_external_reference
  loop_
     _ihm_dataset_external_reference.id
     _ihm_dataset_external_reference.dataset_list_id
-    _ihm_dataset_external_reference.data_type
     _ihm_dataset_external_reference.file_id
-    1  1  'CX-MS data'  1  
-    2  2  'CX-MS data'  2  
-    3  4  '2DEM class average'  3
-    4  4  '2DEM class average'  4  
-    5  5  'Comparative model'  5 
+    1  1  1  
+    2  2  2  
+    3  4  3
+    4  4  4  
+    5  5  5 
  # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -3093,29 +3021,6 @@ save__ihm_dataset_external_reference.dataset_list_id
     _item_type.code            int
     _item_linked.child_name    '_ihm_dataset_external_reference.dataset_list_id'
     _item_linked.parent_name   '_ihm_dataset_list.id'
-    save_
-
-save__ihm_dataset_external_reference.data_type
-    _item_description.description
-;   Type of data referenced externally.
-;
-    _item.name                 '_ihm_dataset_external_reference.data_type'
-    _item.category_id          ihm_dataset_external_reference
-    _item.mandatory_code       yes
-    _item_type.code            line
-    loop_
-    _item_enumeration.value
-      'NMR data'
-      '3DEM volume'
-      '2DEM class average'
-      'EM raw micrographs'
-      'SAS data'
-      'CX-MS data'
-      'Mass Spectrometry data'
-      'Experimental model'
-      'Comparative model'
-      'De Novo model'
-      'unspecified'
     save_
 
 save__ihm_dataset_external_reference.file_id
