@@ -5837,8 +5837,12 @@ _ihm_external_reference_info.reference_type
 _ihm_external_reference_info.reference
 _ihm_external_reference_info.refers_to
 _ihm_external_reference_info.associated_url
-1 Zenodo DOI 10.5281/zenodo.60731 Archive
-https://zenodo.org/record/60731/files/exosome-v1.0.zip
+1 Zenodo DOI 10.5281/zenodo.495508 Archive
+https://zenodo.org/record/495508/files/Rrp6-cluster0.zip
+2 Zenodo DOI 10.5281/zenodo.495508 Archive
+https://zenodo.org/record/495508/files/Rrp6-cluster1.zip
+3 Zenodo DOI 10.5281/zenodo.495508 Archive
+https://zenodo.org/record/495508/files/exosome-v1.0.zip
 #
 #
 loop_
@@ -5847,27 +5851,19 @@ _ihm_external_files.reference_id
 _ihm_external_files.file_path
 _ihm_external_files.content_type
 _ihm_external_files.details
-1 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/Rrp46_gfp.mrc
-'Modeling or post-processing output' .
-2 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/Lrp1.mrc
-'Modeling or post-processing output' .
-3 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/Rrp6.mrc
-'Modeling or post-processing output' .
-4 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.0/MPP6.mrc
-'Modeling or post-processing output' .
-5 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/Rrp46_gfp.mrc
-'Modeling or post-processing output' .
-6 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/Lrp1.mrc
-'Modeling or post-processing output' .
-7 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/Rrp6.mrc
-'Modeling or post-processing output' .
-8 1 exosome-v1.0/Rrp6.analysis/kmeans_weight_500_2/cluster.1/MPP6.mrc
-'Modeling or post-processing output' .
-9 1 exosome-v1.0/modeling-scripts_Rrp6.1/exosome.modeling.py
+1 1 cluster.0/Rrp46_gfp.mrc 'Modeling or post-processing output' .
+2 1 cluster.0/Lrp1.mrc 'Modeling or post-processing output' .
+3 1 cluster.0/Rrp6.mrc 'Modeling or post-processing output' .
+4 1 cluster.0/MPP6.mrc 'Modeling or post-processing output' .
+5 2 cluster.1/Rrp46_gfp.mrc 'Modeling or post-processing output' .
+6 2 cluster.1/Lrp1.mrc 'Modeling or post-processing output' .
+7 2 cluster.1/Rrp6.mrc 'Modeling or post-processing output' .
+8 2 cluster.1/MPP6.mrc 'Modeling or post-processing output' .
+9 3 exosome-v1.0/modeling-scripts_Rrp6.1/exosome.modeling.py
 'Modeling workflow or script' 'The main integrative modeling script'
-10 1 exosome-v1.0/Rrp6.analysis/clustering.py 'Modeling workflow or script'
+10 3 exosome-v1.0/Rrp6.analysis/clustering.py 'Modeling workflow or script'
 'Main clustering and analysis script'
-11 1 exosome-v1.0/data/exosome_XLMS_column07012014.csv
+11 3 exosome-v1.0/data/exosome_XLMS_column07012014.csv
 'Input data or restraints' .
 #
 #
