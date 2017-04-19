@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 30-MAR-2017 Jdw/BV
+#  Date:19-APR-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -122,7 +122,17 @@ data_ihm-extension.dic
   + Updated IHM_DATASET_EXTERNAL_REFERENCE
   + Added examples to IHM_EXTERNAL_REFERENCE_INFO and IHM_EXTERNAL_FILES
 ;
-
+    0.104   2017-04-19
+;
+  Changes (bv):
+  + Updated IHM_STARTING_MODEL_DETAILS
+  + Updated IHM_STARTING_COMPARATIVE_MODELS
+  + Updated IHM_STARTING_MODEL_SEQ_DIF
+  + Updated IHM_MODEL_REPRESENTATION
+  + Updated IHM_DATASET_LIST
+  + Added IHM_DATASET_GROUP
+  + Updated IHM_MODELING_PROTOCOL
+;
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
 ################################
@@ -136,7 +146,7 @@ save_ihm_starting_model_details
     _category.id                  ihm_starting_model_details
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_starting_model_details.ordinal_id'
+    _category_key.name          '_ihm_starting_model_details.starting_model_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -150,7 +160,7 @@ save_ihm_starting_model_details
 ;
 ;
         loop_
-        _ihm_starting_model_details.ordinal_id
+        _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.entity_id
         _ihm_starting_model_details.entity_description
         _ihm_starting_model_details.asym_id
@@ -159,12 +169,15 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.starting_model_source
         _ihm_starting_model_details.starting_model_auth_asym_id
         _ihm_starting_model_details.starting_model_sequence_offset
-        _ihm_starting_model_details.starting_model_id
         _ihm_starting_model_details.dataset_list_id
-         2  1  Nup84  A    7   436  'experimental model'  C  0  Nup84-m1  5  
-         3  1  Nup84  A    7   436  'experimental model'  C  0  Nup84-m1  6  
-         4  1  Nup84  A  429   488  'comparative model'   A  0  Nup84-m1  7  
-         6  1  Nup84  A  506   726  'comparative model'   A  0  Nup84-m1  8  
+         Nup84-m1    1 Nup84   A   7  726 'comparative model'  A 0  5
+         Nup85-m1    2 Nup85   B  67  743 'comparative model'  B 0  9
+         Nup120-m1   3 Nup120  C   1 1037 'comparative model'  C 0 13
+         Nup133-m1   4 Nup133  D  56  480 'comparative model'  D 0 15
+         Nup133-m2   4 Nup133  D 490 1155 'comparative model'  D 0 16
+         Nup145c-m1  5 Nup145c E 126  553 'comparative model'  E 0 19
+         Seh1-m1     6 Seh1    F   1  346 'experimental model' A 0 20
+         Sec13-m1    7 Sec13   G   2  296 'experimental model' D 0 21
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -172,14 +185,14 @@ save_ihm_starting_model_details
    _pdbx_category_context.category_id  ihm_starting_model_details
      save_
 
-save__ihm_starting_model_details.ordinal_id
+save__ihm_starting_model_details.starting_model_id
     _item_description.description
-;     A unique identifier for this starting model record.
+;     A unique identifier for the starting structural model.
 ;
-    _item.name                  '_ihm_starting_model_details.ordinal_id'
+    _item.name                  '_ihm_starting_model_details.starting_model_id'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          yes
-    _item_type.code               int
+    _item_type.code               code
      save_
 
 save__ihm_starting_model_details.entity_id
@@ -287,16 +300,6 @@ save__ihm_starting_model_details.starting_model_sequence_offset
     _item_type.code               int
      save_
 
-save__ihm_starting_model_details.starting_model_id
-    _item_description.description
-;     An identifier for the starting structural model.
-;
-    _item.name                  '_ihm_starting_model_details.starting_model_id'
-    _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          yes
-    _item_type.code               code
-     save_
-
 save__ihm_starting_model_details.dataset_list_id
     _item_description.description
 ;     Identifier to the starting model (comparative, experimental or integrative) 
@@ -325,7 +328,7 @@ save_ihm_starting_comparative_models
     _category.id                  ihm_starting_comparative_models
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_starting_comparative_models.starting_model_ordinal_id'
+    _category_key.name          '_ihm_starting_comparative_models.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -339,17 +342,20 @@ save_ihm_starting_comparative_models
 ;
 ;
         loop_
-        _ihm_starting_comparative_models.starting_model_ordinal_id
+        _ihm_starting_comparative_models.ordinal_id
         _ihm_starting_comparative_models.starting_model_id
+        _ihm_starting_comparative_models.starting_model_auth_asym_id
+        _ihm_starting_comparative_models.starting_model_seq_id_begin
+        _ihm_starting_comparative_models.starting_model_seq_id_end
         _ihm_starting_comparative_models.template_auth_asym_id
-        _ihm_starting_comparative_models.template_seq_begin
-        _ihm_starting_comparative_models.template_seq_end
+        _ihm_starting_comparative_models.template_seq_id_begin
+        _ihm_starting_comparative_models.template_seq_id_end
         _ihm_starting_comparative_models.template_sequence_identity
         _ihm_starting_comparative_models.template_sequence_identity_denominator 
         _ihm_starting_comparative_models.template_dataset_list_id
         _ihm_starting_comparative_models.alignment_file_id
-         4  Nup84-m1  G  482  551    10.0    1    9  7
-         6  Nup84-m1  A  667  924    18.0    1   10  6
+          3  Nup84-m1  A  429  488  G  482  551  10.0  1  3  7
+          4  Nup84-m1  A  506  726  A  667  913  17.6  1  2  6
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -357,18 +363,14 @@ save_ihm_starting_comparative_models
    _pdbx_category_context.category_id  ihm_starting_comparative_models
      save_
 
-save__ihm_starting_comparative_models.starting_model_ordinal_id
+save__ihm_starting_comparative_models.ordinal_id
     _item_description.description
-;     Unique identifier for the starting model record.
-      This data item is a pointer to _ihm_starting_model_details.ordinal_id in the 
-      IHM_STARTING_MODEL_DETAILS category. 
+;     A unique identifier for the starting comparative model. 
 ;
-    _item.name                  '_ihm_starting_comparative_models.starting_model_ordinal_id'
+    _item.name                  '_ihm_starting_comparative_models.ordinal_id'
     _item.category_id             ihm_starting_comparative_models
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_comparative_models.starting_model_ordinal_id'
-    _item_linked.parent_name    '_ihm_starting_model_details.ordinal_id'
      save_
 
 save__ihm_starting_comparative_models.starting_model_id
@@ -385,6 +387,36 @@ save__ihm_starting_comparative_models.starting_model_id
     _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
      save_
 
+save__ihm_starting_comparative_models.starting_model_auth_asym_id
+    _item_description.description
+;     The chainId/auth_asym_id corresponding to the starting model.
+;
+    _item.name                  '_ihm_starting_comparative_models.starting_model_auth_asym_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               code
+     save_
+
+save__ihm_starting_comparative_models.starting_model_seq_id_begin
+    _item_description.description
+;     The starting residue index of the starting model.
+;
+    _item.name                  '_ihm_starting_comparative_models.starting_model_seq_id_begin'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_starting_comparative_models.starting_model_seq_id_end
+    _item_description.description
+;     The ending residue index of the starting model.
+;
+    _item.name                  '_ihm_starting_comparative_models.starting_model_seq_id_end'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
 save__ihm_starting_comparative_models.template_auth_asym_id
     _item_description.description
 ;     The chainId/auth_asym_id corresponding to the template. 
@@ -395,21 +427,21 @@ save__ihm_starting_comparative_models.template_auth_asym_id
     _item_type.code               code
      save_
 
-save__ihm_starting_comparative_models.template_seq_begin
+save__ihm_starting_comparative_models.template_seq_id_begin
     _item_description.description
 ;     The starting residue index of the template. 
 ;
-    _item.name                  '_ihm_starting_comparative_models.template_seq_begin'
+    _item.name                  '_ihm_starting_comparative_models.template_seq_id_begin'
     _item.category_id             ihm_starting_comparative_models
     _item.mandatory_code          no
     _item_type.code               int
      save_
 
-save__ihm_starting_comparative_models.template_seq_end
+save__ihm_starting_comparative_models.template_seq_id_end
     _item_description.description
 ;     The ending residue index of the template. 
 ;
-    _item.name                  '_ihm_starting_comparative_models.template_seq_end'
+    _item.name                  '_ihm_starting_comparative_models.template_seq_id_end'
     _item.category_id             ihm_starting_comparative_models
     _item.mandatory_code          no
     _item_type.code               int
@@ -507,14 +539,14 @@ save_ihm_starting_model_seq_dif
     _ihm_starting_model_seq_dif.asym_id 
     _ihm_starting_model_seq_dif.seq_id 
     _ihm_starting_model_seq_dif.comp_id 
-    _ihm_starting_model_seq_dif.starting_model_ordinal_id 
+    _ihm_starting_model_seq_dif.starting_model_id 
     _ihm_starting_model_seq_dif.db_entity_id 
     _ihm_starting_model_seq_dif.db_asym_id 
     _ihm_starting_model_seq_dif.db_seq_id  
     _ihm_starting_model_seq_dif.db_comp_id 
     _ihm_starting_model_seq_dif.details 
-    1  1  A   1  MET  2  1  A   1  MSE  "Conversion of modified residue MSE to MET"
-    2  2  C  62  GLU  3  1  A  61  PHE  "Point change of PHE to GLU"
+    1  1  A   1  MET  Nup84-m1  1  A   1  MSE  "Conversion of modified residue MSE to MET"
+    2  2  C  62  GLU  Nup84-m1  1  A  61  PHE  "Point change of PHE to GLU"
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -585,18 +617,18 @@ save__ihm_starting_model_seq_dif.comp_id
     _item_linked.parent_name    '_entity_poly_seq.mon_id'
      save_
 
-save__ihm_starting_model_seq_dif.starting_model_ordinal_id
+save__ihm_starting_model_seq_dif.starting_model_id
     _item_description.description
 ;     Unique identifier for the starting model record.
-      This data item is a pointer to _ihm_starting_model_details.ordinal_id in the
+      This data item is a pointer to _ihm_starting_model_details.starting_model_id in the
       IHM_STARTING_MODEL_DETAILS category.
 ;
-    _item.name                  '_ihm_starting_model_seq_dif.starting_model_ordinal_id'
+    _item.name                  '_ihm_starting_model_seq_dif.starting_model_id'
     _item.category_id             ihm_starting_model_seq_dif
     _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_model_seq_dif.starting_model_ordinal_id'
-    _item_linked.parent_name    '_ihm_starting_model_details.ordinal_id'
+    _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_model_seq_dif.starting_model_id'
+    _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
      save_
 
 save__ihm_starting_model_seq_dif.db_entity_id
@@ -801,7 +833,7 @@ save__ihm_model_representation.seq_id_end
     _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               int
-    _item_linked.child_name       '_ihm_model_representation.seq_id_begin'
+    _item_linked.child_name       '_ihm_model_representation.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
 
@@ -1144,15 +1176,15 @@ save__ihm_modeling_protocol.struct_assembly_id
 save__ihm_modeling_protocol.dataset_group_id
     _item_description.description
 ;    An index for the dataset group being used in the modeling protocol.
-     This data item is a pointer to the _ihm_dataset_list.group_id in the
-     IHM_DATASET_LIST category.
+     This data item is a pointer to the _ihm_dataset_group.group_id in the
+     IHM_DATASET_GROUP category.
 ;
     _item.name                  '_ihm_modeling_protocol.dataset_group_id'
     _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_modeling_protocol.dataset_group_id'
-    _item_linked.parent_name    '_ihm_dataset_list.group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.group_id'
      save_
 
 save__ihm_modeling_protocol.struct_assembly_description
@@ -2282,7 +2314,7 @@ save_ihm_dataset_list
 ;
     _category.id                ihm_dataset_list
     _category.mandatory_code    no
-    _category_key.name         '_ihm_dataset_list.ordinal_id'
+    _category_key.name         '_ihm_dataset_list.id'
     loop_
     _category_group.id         'inclusive_group'
                                'ihm_group'
@@ -2296,18 +2328,16 @@ save_ihm_dataset_list
 ;
 ;
     loop_
-    _ihm_dataset_list.ordinal_id
     _ihm_dataset_list.id
-    _ihm_dataset_list.group_id
     _ihm_dataset_list.data_type
     _ihm_dataset_list.database_hosted
 
-    1  1  1  'CX-MS data'   'NO'
-    2  2  1  'CX-MS data'   'NO' 
-    3  3  1  '3DEM volume'  'YES' 
-    4  4  1  '2DEM class average'  'NO' 
-    5  5  1  'Comparative model'   'NO'
-    6  6  1  'EM raw micrographs'  'NO'
+    1  'CX-MS data'   'NO'
+    2  'CX-MS data'   'NO' 
+    3  '3DEM volume'  'YES' 
+    4  '2DEM class average'  'NO' 
+    5  'Comparative model'   'NO'
+    6  'EM raw micrographs'  'NO'
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2315,36 +2345,15 @@ save_ihm_dataset_list
    _pdbx_category_context.category_id  ihm_dataset_list
    save_
 
-save__ihm_dataset_list.ordinal_id
-    _item_description.description
-;    A unique identifier for the entry.
-;
-    _item.name                  '_ihm_dataset_list.ordinal_id'
-    _item.category_id             ihm_dataset_list
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
-
 save__ihm_dataset_list.id
     _item_description.description
-;    An identifier for the dataset.
+;    A unique identifier for the dataset.
 ;
     _item.name                  '_ihm_dataset_list.id'
     _item.category_id             ihm_dataset_list
     _item.mandatory_code          yes
     _item_type.code               int
      save_ 
-
-save__ihm_dataset_list.group_id
-    _item_description.description
-;    An identifier for a collection of input datasets to form a group. 
-     Allows for organization of datasets into subsets for easier reference.  
-;
-    _item.name                  '_ihm_dataset_list.group_id'
-    _item.category_id             ihm_dataset_list
-    _item.mandatory_code          yes
-    _item_type.code               int
-     save_
 
 save__ihm_dataset_list.data_type
     _item_description.description
@@ -2383,6 +2392,79 @@ save__ihm_dataset_list.database_hosted
     _item_enumeration.value
       'YES'
       'NO'
+     save_
+
+#######################
+## IHM_DATASET_GROUP ##
+#######################
+
+save_ihm_dataset_group
+    _category.description
+;  Category provides a mechanism to group datasets. 
+;
+    _category.id                ihm_dataset_group
+    _category.mandatory_code    no
+    _category_key.name         '_ihm_dataset_group.ordinal_id'
+    loop_
+    _category_group.id         'inclusive_group'
+                               'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1
+;
+;
+    loop_
+    _ihm_dataset_group.ordinal_id
+    _ihm_dataset_group.group_id
+    _ihm_dataset_group.dataset_list_id
+     1  1  1 
+     2  1  2 
+     3  1  3
+     4  2  3
+     5  2  4
+     6  2  5
+    # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_dataset_group
+    save_
+
+save__ihm_dataset_group.ordinal_id
+    _item_description.description
+;    A unique identifier for the entry.
+;
+    _item.name                  '_ihm_dataset_group.ordinal_id'
+    _item.category_id             ihm_dataset_group
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_ 
+
+save__ihm_dataset_group.group_id
+    _item_description.description
+;    An identifier for the dataset group.
+;
+    _item.name                  '_ihm_dataset_group.group_id'
+    _item.category_id             ihm_dataset_group
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_dataset_group.dataset_list_id
+    _item_description.description
+;    An identifier to the dataset. This data item is a pointer to
+     _ihm_dataset_list.id in the IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_dataset_group.dataset_list_id'
+    _item.category_id             ihm_dataset_group
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_dataset_group.dataset_list_id'
+    _item_linked.parent_name    '_ihm_dataset_list.id'
      save_
 
 ##########################
