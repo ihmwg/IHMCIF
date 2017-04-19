@@ -5868,15 +5868,23 @@ _ihm_external_files.details
 #
 #
 loop_
-_ihm_dataset_list.ordinal_id
 _ihm_dataset_list.id
-_ihm_dataset_list.group_id
 _ihm_dataset_list.data_type
 _ihm_dataset_list.database_hosted
-1 1 1 'Experimental model' YES
-2 2 1 'Experimental model' YES
-3 3 1 'Experimental model' YES
-4 4 1 'CX-MS data' NO
+1 'Experimental model' YES
+2 'Experimental model' YES
+3 'Experimental model' YES
+4 'CX-MS data' NO
+#
+#
+loop_
+_ihm_dataset_group.ordinal_id
+_ihm_dataset_group.group_id
+_ihm_dataset_group.dataset_list_id
+1 1 1
+2 1 2
+3 1 3
+4 1 4
 #
 #
 loop_
@@ -6627,7 +6635,7 @@ _ihm_cross_link_result_parameters.sigma_2
 # to be added manually below.
 #
 loop_
-_ihm_starting_model_details.ordinal_id
+_ihm_starting_model_details.starting_model_id
 _ihm_starting_model_details.entity_id
 _ihm_starting_model_details.entity_description
 _ihm_starting_model_details.asym_id
@@ -6636,21 +6644,20 @@ _ihm_starting_model_details.seq_id_end
 _ihm_starting_model_details.starting_model_source
 _ihm_starting_model_details.starting_model_auth_asym_id
 _ihm_starting_model_details.starting_model_sequence_offset
-_ihm_starting_model_details.starting_model_id
 _ihm_starting_model_details.dataset_list_id
-1 1 Dis3 A 9 1001 'experimental model' J 0 Dis3-m1 1
-2 2 Rrp45 B 2 301 'experimental model' A 0 Rrp45-m1 1
-3 3 Rrp4 C 2 357 'experimental model' H 0 Rrp4-m1 1
-4 4 Csl4 D 1 291 'experimental model' I 0 Csl4-m1 1
-5 5 Mtr3 E 4 248 'experimental model' F 0 Mtr3-m1 1
-6 6 Rrp40 F 1 236 'experimental model' G 0 Rrp40-m1 1
-7 7 Rrp42 G 1 265 'experimental model' E 0 Rrp42-m1 1
-8 8 Ski6 H 1 242 'experimental model' B 0 Ski6-m1 1
-9 9 Rrp46_gfp I 1 223 'experimental model' D 0 Rrp46_gfp-m1 1
-10 9 Rrp46_gfp I 493 721 'experimental model' A 246 Rrp46_gfp-m2 2
-11 10 Rrp43 J 7 394 'experimental model' C 0 Rrp43-m1 1
-12 12 Rrp6 L 127 516 'experimental model' A 0 Rrp6-m1 3
-13 12 Rrp6 L 532 619 'experimental model' K 0 Rrp6-m2 1
+Dis3-m1 1 Dis3 A 9 1001 'experimental model' J 0 1
+Rrp45-m1 2 Rrp45 B 2 301 'experimental model' A 0 1
+Rrp4-m1 3 Rrp4 C 2 357 'experimental model' H 0 1
+Csl4-m1 4 Csl4 D 1 291 'experimental model' I 0 1
+Mtr3-m1 5 Mtr3 E 4 248 'experimental model' F 0 1
+Rrp40-m1 6 Rrp40 F 1 236 'experimental model' G 0 1
+Rrp42-m1 7 Rrp42 G 1 265 'experimental model' E 0 1
+Ski6-m1 8 Ski6 H 1 242 'experimental model' B 0 1
+Rrp46_gfp-m1 9 Rrp46_gfp I 1 223 'experimental model' D 0 1
+Rrp46_gfp-m2 9 Rrp46_gfp I 493 721 'experimental model' A 246 2
+Rrp43-m1 10 Rrp43 J 7 394 'experimental model' C 0 1
+Rrp6-m1 12 Rrp6 L 127 516 'experimental model' A 0 3
+Rrp6-m2 12 Rrp6 L 532 619 'experimental model' K 0 1
 #
 #
 loop_
