@@ -9613,15 +9613,15 @@ _ihm_external_reference_info.reference
 _ihm_external_reference_info.refers_to
 _ihm_external_reference_info.associated_url
 1 Zenodo DOI 10.5281/zenodo.556216 Archive
-https://zenodo.org/record/556216/files/integrativemodeling/cluster0.zip
+https://zenodo.org/record/556216/files/cluster0.zip
 2 Zenodo DOI 10.5281/zenodo.556216 Archive
-https://zenodo.org/record/556216/files/integrativemodeling/cluster1.zip
+https://zenodo.org/record/556216/files/cluster1.zip
 3 Zenodo DOI 10.5281/zenodo.556216 Archive
-https://zenodo.org/record/556216/files/integrativemodeling/cluster2.zip
+https://zenodo.org/record/556216/files/cluster2.zip
 4 Zenodo DOI 10.5281/zenodo.556216 Archive
-https://zenodo.org/record/556216/files/integrativemodeling/cluster3.zip
+https://zenodo.org/record/556216/files/cluster3.zip
 5 Zenodo DOI 10.5281/zenodo.556216 Archive
-https://zenodo.org/record/556216/files/integrativemodeling/mediator-v1.0.2.zip
+https://zenodo.org/record/556216/files/mediator-v1.0.2.zip
 6 . DOI 10.1093/nar/gkt704 Other .
 #
 #
