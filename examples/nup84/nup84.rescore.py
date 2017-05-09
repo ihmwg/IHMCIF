@@ -162,14 +162,14 @@ simo.setup_component_geometry("Nup145c")
 #-----------------
 simo.create_component("Seh1",color=0.5)
 simo.add_component_sequence("Seh1", seh1_fastafile)
-Seh1=simo.autobuild_model("Seh1",seh1_pdbfile,"F", resrange=(1,349),resolutions=[1,10],missingbeadsize=beadsize)
+Seh1=simo.autobuild_model("Seh1",seh1_pdbfile,"A", resrange=(1,349),resolutions=[1,10],missingbeadsize=beadsize)
 
 simo.show_component_table("Seh1")
 simo.setup_component_geometry("Seh1")
 #-----------------
 simo.create_component("Sec13",color=0.6)
 simo.add_component_sequence("Sec13", sec13_fastafile)
-Sec13=simo.autobuild_model("Sec13",sec13_pdbfile,"G", resrange=(1,297),resolutions=[1,10],missingbeadsize=beadsize)
+Sec13=simo.autobuild_model("Sec13",sec13_pdbfile,"D", resrange=(1,297),resolutions=[1,10],missingbeadsize=beadsize)
 
 simo.show_component_table("Sec13")
 simo.setup_component_geometry("Sec13")
