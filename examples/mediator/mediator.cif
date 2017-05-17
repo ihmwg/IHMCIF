@@ -9631,95 +9631,179 @@ _ihm_external_files.reference_id
 _ihm_external_files.file_path
 _ihm_external_files.content_type
 _ihm_external_files.details
-1 1 cluster.0/med6.mrc 'Modeling or post-processing output' .
-2 1 cluster.0/med8.mrc 'Modeling or post-processing output' .
-3 1 cluster.0/med11.mrc 'Modeling or post-processing output' .
-4 1 cluster.0/med17.mrc 'Modeling or post-processing output' .
-5 1 cluster.0/med18.mrc 'Modeling or post-processing output' .
-6 1 cluster.0/med20.mrc 'Modeling or post-processing output' .
-7 1 cluster.0/med22.mrc 'Modeling or post-processing output' .
-8 1 cluster.0/med4.mrc 'Modeling or post-processing output' .
-9 1 cluster.0/med7.mrc 'Modeling or post-processing output' .
-10 1 cluster.0/med9.mrc 'Modeling or post-processing output' .
-11 1 cluster.0/med31.mrc 'Modeling or post-processing output' .
-12 1 cluster.0/med21.mrc 'Modeling or post-processing output' .
-13 1 cluster.0/med10.mrc 'Modeling or post-processing output' .
-14 1 cluster.0/med1.mrc 'Modeling or post-processing output' .
-15 1 cluster.0/med14.mrc 'Modeling or post-processing output' .
-16 1 cluster.0/med19.mrc 'Modeling or post-processing output' .
-17 1 cluster.0/med2.mrc 'Modeling or post-processing output' .
-18 1 cluster.0/med3.mrc 'Modeling or post-processing output' .
-19 1 cluster.0/med5.mrc 'Modeling or post-processing output' .
-20 1 cluster.0/med15.mrc 'Modeling or post-processing output' .
-21 1 cluster.0/med16.mrc 'Modeling or post-processing output' .
-22 2 cluster.1/med6.mrc 'Modeling or post-processing output' .
-23 2 cluster.1/med8.mrc 'Modeling or post-processing output' .
-24 2 cluster.1/med11.mrc 'Modeling or post-processing output' .
-25 2 cluster.1/med17.mrc 'Modeling or post-processing output' .
-26 2 cluster.1/med18.mrc 'Modeling or post-processing output' .
-27 2 cluster.1/med20.mrc 'Modeling or post-processing output' .
-28 2 cluster.1/med22.mrc 'Modeling or post-processing output' .
-29 2 cluster.1/med4.mrc 'Modeling or post-processing output' .
-30 2 cluster.1/med7.mrc 'Modeling or post-processing output' .
-31 2 cluster.1/med9.mrc 'Modeling or post-processing output' .
-32 2 cluster.1/med31.mrc 'Modeling or post-processing output' .
-33 2 cluster.1/med21.mrc 'Modeling or post-processing output' .
-34 2 cluster.1/med10.mrc 'Modeling or post-processing output' .
-35 2 cluster.1/med1.mrc 'Modeling or post-processing output' .
-36 2 cluster.1/med14.mrc 'Modeling or post-processing output' .
-37 2 cluster.1/med19.mrc 'Modeling or post-processing output' .
-38 2 cluster.1/med2.mrc 'Modeling or post-processing output' .
-39 2 cluster.1/med3.mrc 'Modeling or post-processing output' .
-40 2 cluster.1/med5.mrc 'Modeling or post-processing output' .
-41 2 cluster.1/med15.mrc 'Modeling or post-processing output' .
-42 2 cluster.1/med16.mrc 'Modeling or post-processing output' .
-43 3 cluster.2/med6.mrc 'Modeling or post-processing output' .
-44 3 cluster.2/med8.mrc 'Modeling or post-processing output' .
-45 3 cluster.2/med11.mrc 'Modeling or post-processing output' .
-46 3 cluster.2/med17.mrc 'Modeling or post-processing output' .
-47 3 cluster.2/med18.mrc 'Modeling or post-processing output' .
-48 3 cluster.2/med20.mrc 'Modeling or post-processing output' .
-49 3 cluster.2/med22.mrc 'Modeling or post-processing output' .
-50 3 cluster.2/med4.mrc 'Modeling or post-processing output' .
-51 3 cluster.2/med7.mrc 'Modeling or post-processing output' .
-52 3 cluster.2/med9.mrc 'Modeling or post-processing output' .
-53 3 cluster.2/med31.mrc 'Modeling or post-processing output' .
-54 3 cluster.2/med21.mrc 'Modeling or post-processing output' .
-55 3 cluster.2/med10.mrc 'Modeling or post-processing output' .
-56 3 cluster.2/med1.mrc 'Modeling or post-processing output' .
-57 3 cluster.2/med14.mrc 'Modeling or post-processing output' .
-58 3 cluster.2/med19.mrc 'Modeling or post-processing output' .
-59 3 cluster.2/med2.mrc 'Modeling or post-processing output' .
-60 3 cluster.2/med3.mrc 'Modeling or post-processing output' .
-61 3 cluster.2/med5.mrc 'Modeling or post-processing output' .
-62 3 cluster.2/med15.mrc 'Modeling or post-processing output' .
-63 3 cluster.2/med16.mrc 'Modeling or post-processing output' .
-64 4 cluster.3/med6.mrc 'Modeling or post-processing output' .
-65 4 cluster.3/med8.mrc 'Modeling or post-processing output' .
-66 4 cluster.3/med11.mrc 'Modeling or post-processing output' .
-67 4 cluster.3/med17.mrc 'Modeling or post-processing output' .
-68 4 cluster.3/med18.mrc 'Modeling or post-processing output' .
-69 4 cluster.3/med20.mrc 'Modeling or post-processing output' .
-70 4 cluster.3/med22.mrc 'Modeling or post-processing output' .
-71 4 cluster.3/med4.mrc 'Modeling or post-processing output' .
-72 4 cluster.3/med7.mrc 'Modeling or post-processing output' .
-73 4 cluster.3/med9.mrc 'Modeling or post-processing output' .
-74 4 cluster.3/med31.mrc 'Modeling or post-processing output' .
-75 4 cluster.3/med21.mrc 'Modeling or post-processing output' .
-76 4 cluster.3/med10.mrc 'Modeling or post-processing output' .
-77 4 cluster.3/med1.mrc 'Modeling or post-processing output' .
-78 4 cluster.3/med14.mrc 'Modeling or post-processing output' .
-79 4 cluster.3/med19.mrc 'Modeling or post-processing output' .
-80 4 cluster.3/med2.mrc 'Modeling or post-processing output' .
-81 4 cluster.3/med3.mrc 'Modeling or post-processing output' .
-82 4 cluster.3/med5.mrc 'Modeling or post-processing output' .
-83 4 cluster.3/med15.mrc 'Modeling or post-processing output' .
-84 4 cluster.3/med16.mrc 'Modeling or post-processing output' .
+1 1 cluster.0/med6.mrc 'Modeling or post-processing output'
+'Localization density for med6'
+2 1 cluster.0/med8.mrc 'Modeling or post-processing output'
+'Localization density for med8'
+3 1 cluster.0/med11.mrc 'Modeling or post-processing output'
+'Localization density for med11'
+4 1 cluster.0/med17.mrc 'Modeling or post-processing output'
+'Localization density for med17'
+5 1 cluster.0/med18.mrc 'Modeling or post-processing output'
+'Localization density for med18'
+6 1 cluster.0/med20.mrc 'Modeling or post-processing output'
+'Localization density for med20'
+7 1 cluster.0/med22.mrc 'Modeling or post-processing output'
+'Localization density for med22'
+8 1 cluster.0/med4.mrc 'Modeling or post-processing output'
+'Localization density for med4'
+9 1 cluster.0/med7.mrc 'Modeling or post-processing output'
+'Localization density for med7'
+10 1 cluster.0/med9.mrc 'Modeling or post-processing output'
+'Localization density for med9'
+11 1 cluster.0/med31.mrc 'Modeling or post-processing output'
+'Localization density for med31'
+12 1 cluster.0/med21.mrc 'Modeling or post-processing output'
+'Localization density for med21'
+13 1 cluster.0/med10.mrc 'Modeling or post-processing output'
+'Localization density for med10'
+14 1 cluster.0/med1.mrc 'Modeling or post-processing output'
+'Localization density for med1'
+15 1 cluster.0/med14.mrc 'Modeling or post-processing output'
+'Localization density for med14'
+16 1 cluster.0/med19.mrc 'Modeling or post-processing output'
+'Localization density for med19'
+17 1 cluster.0/med2.mrc 'Modeling or post-processing output'
+'Localization density for med2'
+18 1 cluster.0/med3.mrc 'Modeling or post-processing output'
+'Localization density for med3'
+19 1 cluster.0/med5.mrc 'Modeling or post-processing output'
+'Localization density for med5'
+20 1 cluster.0/med15.mrc 'Modeling or post-processing output'
+'Localization density for med15'
+21 1 cluster.0/med16.mrc 'Modeling or post-processing output'
+'Localization density for med16'
+22 2 cluster.1/med6.mrc 'Modeling or post-processing output'
+'Localization density for med6'
+23 2 cluster.1/med8.mrc 'Modeling or post-processing output'
+'Localization density for med8'
+24 2 cluster.1/med11.mrc 'Modeling or post-processing output'
+'Localization density for med11'
+25 2 cluster.1/med17.mrc 'Modeling or post-processing output'
+'Localization density for med17'
+26 2 cluster.1/med18.mrc 'Modeling or post-processing output'
+'Localization density for med18'
+27 2 cluster.1/med20.mrc 'Modeling or post-processing output'
+'Localization density for med20'
+28 2 cluster.1/med22.mrc 'Modeling or post-processing output'
+'Localization density for med22'
+29 2 cluster.1/med4.mrc 'Modeling or post-processing output'
+'Localization density for med4'
+30 2 cluster.1/med7.mrc 'Modeling or post-processing output'
+'Localization density for med7'
+31 2 cluster.1/med9.mrc 'Modeling or post-processing output'
+'Localization density for med9'
+32 2 cluster.1/med31.mrc 'Modeling or post-processing output'
+'Localization density for med31'
+33 2 cluster.1/med21.mrc 'Modeling or post-processing output'
+'Localization density for med21'
+34 2 cluster.1/med10.mrc 'Modeling or post-processing output'
+'Localization density for med10'
+35 2 cluster.1/med1.mrc 'Modeling or post-processing output'
+'Localization density for med1'
+36 2 cluster.1/med14.mrc 'Modeling or post-processing output'
+'Localization density for med14'
+37 2 cluster.1/med19.mrc 'Modeling or post-processing output'
+'Localization density for med19'
+38 2 cluster.1/med2.mrc 'Modeling or post-processing output'
+'Localization density for med2'
+39 2 cluster.1/med3.mrc 'Modeling or post-processing output'
+'Localization density for med3'
+40 2 cluster.1/med5.mrc 'Modeling or post-processing output'
+'Localization density for med5'
+41 2 cluster.1/med15.mrc 'Modeling or post-processing output'
+'Localization density for med15'
+42 2 cluster.1/med16.mrc 'Modeling or post-processing output'
+'Localization density for med16'
+43 3 cluster.2/med6.mrc 'Modeling or post-processing output'
+'Localization density for med6'
+44 3 cluster.2/med8.mrc 'Modeling or post-processing output'
+'Localization density for med8'
+45 3 cluster.2/med11.mrc 'Modeling or post-processing output'
+'Localization density for med11'
+46 3 cluster.2/med17.mrc 'Modeling or post-processing output'
+'Localization density for med17'
+47 3 cluster.2/med18.mrc 'Modeling or post-processing output'
+'Localization density for med18'
+48 3 cluster.2/med20.mrc 'Modeling or post-processing output'
+'Localization density for med20'
+49 3 cluster.2/med22.mrc 'Modeling or post-processing output'
+'Localization density for med22'
+50 3 cluster.2/med4.mrc 'Modeling or post-processing output'
+'Localization density for med4'
+51 3 cluster.2/med7.mrc 'Modeling or post-processing output'
+'Localization density for med7'
+52 3 cluster.2/med9.mrc 'Modeling or post-processing output'
+'Localization density for med9'
+53 3 cluster.2/med31.mrc 'Modeling or post-processing output'
+'Localization density for med31'
+54 3 cluster.2/med21.mrc 'Modeling or post-processing output'
+'Localization density for med21'
+55 3 cluster.2/med10.mrc 'Modeling or post-processing output'
+'Localization density for med10'
+56 3 cluster.2/med1.mrc 'Modeling or post-processing output'
+'Localization density for med1'
+57 3 cluster.2/med14.mrc 'Modeling or post-processing output'
+'Localization density for med14'
+58 3 cluster.2/med19.mrc 'Modeling or post-processing output'
+'Localization density for med19'
+59 3 cluster.2/med2.mrc 'Modeling or post-processing output'
+'Localization density for med2'
+60 3 cluster.2/med3.mrc 'Modeling or post-processing output'
+'Localization density for med3'
+61 3 cluster.2/med5.mrc 'Modeling or post-processing output'
+'Localization density for med5'
+62 3 cluster.2/med15.mrc 'Modeling or post-processing output'
+'Localization density for med15'
+63 3 cluster.2/med16.mrc 'Modeling or post-processing output'
+'Localization density for med16'
+64 4 cluster.3/med6.mrc 'Modeling or post-processing output'
+'Localization density for med6'
+65 4 cluster.3/med8.mrc 'Modeling or post-processing output'
+'Localization density for med8'
+66 4 cluster.3/med11.mrc 'Modeling or post-processing output'
+'Localization density for med11'
+67 4 cluster.3/med17.mrc 'Modeling or post-processing output'
+'Localization density for med17'
+68 4 cluster.3/med18.mrc 'Modeling or post-processing output'
+'Localization density for med18'
+69 4 cluster.3/med20.mrc 'Modeling or post-processing output'
+'Localization density for med20'
+70 4 cluster.3/med22.mrc 'Modeling or post-processing output'
+'Localization density for med22'
+71 4 cluster.3/med4.mrc 'Modeling or post-processing output'
+'Localization density for med4'
+72 4 cluster.3/med7.mrc 'Modeling or post-processing output'
+'Localization density for med7'
+73 4 cluster.3/med9.mrc 'Modeling or post-processing output'
+'Localization density for med9'
+74 4 cluster.3/med31.mrc 'Modeling or post-processing output'
+'Localization density for med31'
+75 4 cluster.3/med21.mrc 'Modeling or post-processing output'
+'Localization density for med21'
+76 4 cluster.3/med10.mrc 'Modeling or post-processing output'
+'Localization density for med10'
+77 4 cluster.3/med1.mrc 'Modeling or post-processing output'
+'Localization density for med1'
+78 4 cluster.3/med14.mrc 'Modeling or post-processing output'
+'Localization density for med14'
+79 4 cluster.3/med19.mrc 'Modeling or post-processing output'
+'Localization density for med19'
+80 4 cluster.3/med2.mrc 'Modeling or post-processing output'
+'Localization density for med2'
+81 4 cluster.3/med3.mrc 'Modeling or post-processing output'
+'Localization density for med3'
+82 4 cluster.3/med5.mrc 'Modeling or post-processing output'
+'Localization density for med5'
+83 4 cluster.3/med15.mrc 'Modeling or post-processing output'
+'Localization density for med15'
+84 4 cluster.3/med16.mrc 'Modeling or post-processing output'
+'Localization density for med16'
 85 5 mediator-v1.0.2/sampling/modeling/modeling.py 'Modeling workflow or script'
 'The main integrative modeling script'
 86 5 mediator-v1.0.2/analysis/clustering/clustering.py
 'Modeling workflow or script' 'Main clustering and analysis script'
-87 6 . 'Input data or restraints' .
+87 6 . 'Input data or restraints' 'Starting comparative model structure'
 88 5 mediator-v1.0.2/sampling/pdb_files/med4_med9.pdb 'Input data or restraints'
 'MED4 AND MED9 STRUCTURE TAKEN FROM LARIVIERE ET AL, NUCLEIC ACIDS RESEARCH. 2013;41:9266-9273. DOI: 10.1093/nar/gkt704. THE MED10 STRUCTURE ALSO PROPOSED IN THAT WORK IS NOT USED IN THIS STUDY.'
 89 5 mediator-v1.0.2/sampling/pdb_files/med7n_med31.pdb
@@ -9729,9 +9813,9 @@ _ihm_external_files.details
 'Input data or restraints'
 'MED7C AND MED21 STRUCTURES FROM PDB ENTRY 1YKH, ROTATED AND TRANSLATED TO ALIGN WITH THE MED4-MED9 MODEL'
 91 5 mediator-v1.0.2/sampling/pdb_files/med16.NTD.phyre.model.pdb
-'Input data or restraints' .
+'Input data or restraints' 'Starting model structure'
 92 5 mediator-v1.0.2/sampling/CXMS_files/full_med_splitmods.txt
-'Input data or restraints' .
+'Input data or restraints' Crosslinks
 93 5
 mediator-v1.0.2/sampling/em_map_files/asturias_middle_module_translated_resampled.mrc
 'Input data or restraints' 'Original MRC file from which the GMM was derived'
@@ -21351,7 +21435,7 @@ _ihm_starting_comparative_models.template_sequence_identity
 _ihm_starting_comparative_models.template_sequence_identity_denominator
 _ihm_starting_comparative_models.template_dataset_list_id
 _ihm_starting_comparative_models.alignment_file_id
-1 med16-m1 A 8 538 A 13 334 11 1 8 .
+1 med16-m1 A 8 538 A 13 334 11 1 8 ?
 #
 #
 loop_
