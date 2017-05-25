@@ -5837,12 +5837,16 @@ _ihm_external_reference_info.reference_type
 _ihm_external_reference_info.reference
 _ihm_external_reference_info.refers_to
 _ihm_external_reference_info.associated_url
-1 Zenodo DOI 10.5281/zenodo.495508 Archive
-https://zenodo.org/record/495508/files/Rrp6-cluster0.zip
-2 Zenodo DOI 10.5281/zenodo.495508 Archive
-https://zenodo.org/record/495508/files/Rrp6-cluster1.zip
-3 Zenodo DOI 10.5281/zenodo.495508 Archive
-https://zenodo.org/record/495508/files/exosome-v1.0.zip
+1 Zenodo DOI 10.5281/zenodo.583313 Archive
+https://zenodo.org/record/583313/files/Rrp6-cluster0.zip
+2 Zenodo DOI 10.5281/zenodo.583313 Archive
+https://zenodo.org/record/583313/files/Rrp6-cluster1.zip
+3 Zenodo DOI 10.5281/zenodo.583313 File
+https://zenodo.org/record/583313/files/Rrp6-cluster0.dcd
+4 Zenodo DOI 10.5281/zenodo.583313 File
+https://zenodo.org/record/583313/files/Rrp6-cluster1.dcd
+5 Zenodo DOI 10.5281/zenodo.583313 Archive
+https://zenodo.org/record/583313/files/exosome-v1.0.1.zip
 #
 #
 loop_
@@ -5867,11 +5871,13 @@ _ihm_external_files.details
 'Localization density for Rrp6'
 8 2 cluster.1/MPP6.mrc 'Modeling or post-processing output'
 'Localization density for MPP6'
-9 3 exosome-v1.0/modeling-scripts_Rrp6.1/exosome.modeling.py
+9 3 . 'Modeling or post-processing output' 'All models in cluster 1'
+10 4 . 'Modeling or post-processing output' 'All models in cluster 2'
+11 5 exosome-v1.0.1/modeling-scripts_Rrp6.1/exosome.modeling.py
 'Modeling workflow or script' 'The main integrative modeling script'
-10 3 exosome-v1.0/Rrp6.analysis/clustering.py 'Modeling workflow or script'
+12 5 exosome-v1.0.1/Rrp6.analysis/clustering.py 'Modeling workflow or script'
 'Main clustering and analysis script'
-11 3 exosome-v1.0/data/exosome_XLMS_column07012014.csv
+13 5 exosome-v1.0.1/data/exosome_XLMS_column07012014.csv
 'Input data or restraints' Crosslinks
 #
 #
@@ -5899,7 +5905,7 @@ loop_
 _ihm_dataset_external_reference.id
 _ihm_dataset_external_reference.dataset_list_id
 _ihm_dataset_external_reference.file_id
-1 4 11
+1 4 13
 #
 #
 loop_
@@ -35919,8 +35925,8 @@ _ihm_ensemble_info.num_ensemble_models
 _ihm_ensemble_info.num_ensemble_models_deposited
 _ihm_ensemble_info.ensemble_precision_value
 _ihm_ensemble_info.ensemble_file_id
-1 'Cluster 1' 1 1 . RMSD 69 1 24.374 .
-2 'Cluster 2' 1 2 . RMSD 131 1 19.258 .
+1 'Cluster 1' 1 1 . RMSD 69 1 24.374 9
+2 'Cluster 2' 1 2 . RMSD 131 1 19.258 10
 #
 #
 loop_
