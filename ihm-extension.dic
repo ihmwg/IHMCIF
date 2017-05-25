@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:19-APR-2017 Jdw/BV
+#  Date:25-MAY-2017 Jdw/BV
 #
 #  Draft dictionary extension for integrative/hybrid models.
 #
@@ -133,6 +133,17 @@ data_ihm-extension.dic
   + Added IHM_DATASET_GROUP
   + Updated IHM_MODELING_PROTOCOL
 ;
+    0.105   2017-05-25
+;
+  Changes (bv):
+  + Added item description to _ihm_ensemble_info.ensemble_file_id
+  + Added item description to _ihm_2dem_class_average_restraint.pixel_size_width
+  + Added item description to _ihm_2dem_class_average_restraint.pixel_size_height
+  + Added category description to ihm_2dem_class_average_fitting
+  + Added enumeration 'DCD' to _ihm_external_files.file_format
+  + Changed _ihm_external_files.file_size_kb to _ihm_external_files.file_size_bytes
+;
+
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
 ################################
@@ -2084,9 +2095,15 @@ save__ihm_ensemble_info.ensemble_file_id
     _item_description.description
 ;     A reference to the external file containing the structural models 
       in the ensemble. The number of models in the external file should
-      correspond to the number of models in the ensemble. 
-      This data item is a pointer to _ihm_external_files.id in the
-      IHM_EXTERNAL_FILES category.
+      correspond to the number of models in the ensemble. This data item 
+      is a pointer to _ihm_external_files.id in the IHM_EXTERNAL_FILES 
+      category.
+      It is recommended that the large ensemble files be stored as separate 
+      zip files within the same DOI. It is also recommended that large sphere 
+      model ensembles be in binary format, which facilitates faster access. 
+      Currently, a binary dump of co-ordinates in dcd format is suggested. 
+      The topology can be inferred from the IHM_SPHERE_OBJ_SITE and the
+      ATOM_SITE categories in the corresponding mmCIF file. 
 ;
     _item.name                  '_ihm_ensemble_info.ensemble_file_id'
     _item.category_id             ihm_ensemble_info
@@ -2867,20 +2884,20 @@ save_ihm_external_files
     _ihm_external_files.file_path
     _ihm_external_files.file_format
     _ihm_external_files.content_type
-    _ihm_external_files.file_size_kb
+    _ihm_external_files.file_size_bytes
     _ihm_external_files.details
 
-    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'    'Input data or restraints' 3.16   'EDC crosslinks file'
-    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'    'Input data or restraints' 4.11   'DSS crosslinks file'
-    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'   'Input data or restraints'  43.1    'Nup84 2DEM class average'
+    1   1   'integrativemodeling-nup84-a69f895/data/EDC_XL_122013.new.dat'  'TXT'    'Input data or restraints' .   'EDC crosslinks file'
+    2   1   'integrativemodeling-nup84-a69f895/data/yeast_Nup84_DSS.new.dat'    'TXT'    'Input data or restraints' .   'DSS crosslinks file'
+    3   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.pgm'   'PGM'   'Input data or restraints'  .    'Nup84 2DEM class average'
     4   1   'integrativemodeling-nup84-a69f895/data/nup84_kinked_from_class2.mrc'   'MRC'   'Input data or restraints'  .       'Nup84 2DEM class average'
-    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'   249.0   'Input data or restraints'  'Sec13 starting comparative model'
-    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'  'Input data or restraints'  1.6 'Nup84 multiple sequence alignment file'
-    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'  'Input data or restraints'  5.0 'Nup84 multiple sequence alignment file'
-    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py'   'Other' 'Modeling workflow or script'  6.8 'Python integrative modeling main script'
-    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84.topology.py'   'Other' 'Modeling workflow or script'  5.6 'Python script for constructing subunits'
-   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84.merge.py'  'Other' 'Modeling workflow or script'  1.5 'Python script to merge output files'
-   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'   'Modeling workflow or script'  5.7 'Readme file'
+    5   1   'integrativemodeling-nup84-a69f895/data/ScSec13_2-296_new2.pdb' 'PDB'   'Input data or restraints'  . 'Sec13 starting comparative model'
+    6   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final2.ali' 'PIR/NBRF'  'Input data or restraints'  . 'Nup84 multiple sequence alignment file'
+    7   1   'integrativemodeling-nup84-a69f895/scripts/MODELLER_scripts/Nup84/all_align_final1.ali' 'PIR/NBRF'  'Input data or restraints'  . 'Nup84 multiple sequence alignment file'
+    8   1   'integrativemodeling-nup84-a69f895/scripts/nup84.isd.modeling.py'   'Other' 'Modeling workflow or script'  . 'Python integrative modeling main script'
+    9   1   'integrativemodeling-nup84-a69f895/scripts/nup84.topology.py'   'Other' 'Modeling workflow or script'  . 'Python script for constructing subunits'
+   10   1   'integrativemodeling-nup84-a69f895/scripts/nup84.merge.py'  'Other' 'Modeling workflow or script'  . 'Python script to merge output files'
+   11   1   'integrativemodeling-nup84-a69f895/scripts/README'  'TXT'   'Modeling workflow or script'  . 'Readme file'
    12   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc' 'MRC'   'Modeling or post-processing output'   .   'Nup84 localization density file'
    13   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup85.mrc' 'MRC'   'Modeling or post-processing output'   .   'Nup85 localization density file'
    14   1   'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup120.mrc'    'MRC'   'Modeling or post-processing output'   .   'Nup120 localization density file'
@@ -2897,11 +2914,11 @@ save_ihm_external_files
     _ihm_external_files.file_path
     _ihm_external_files.file_format
     _ihm_external_files.content_type
-    _ihm_external_files.file_size_kb
+    _ihm_external_files.file_size_bytes
     _ihm_external_files.details
     
-     1   2   'data/EDC_XL_122013.dat' 'TXT'  'Input data or restraints' 2.4    'EDC crosslinks file'
-     2   2   'data/yeast_Nup84_DSS.dat'   'TXT'   'Input data or restraints'    3.7   'DSS crosslinks file'
+     1   2   'data/EDC_XL_122013.dat' 'TXT'  'Input data or restraints'   .    'EDC crosslinks file'
+     2   2   'data/yeast_Nup84_DSS.dat'   'TXT'   'Input data or restraints'   .   'DSS crosslinks file'
      3   2   'nup145.mrc'  'MRC'   'Modeling or post-processing output'    .    'Nup145 localization density file'
     # ...  abbreviated ...
 ;
@@ -2914,9 +2931,7 @@ save_ihm_external_files
     _ihm_external_files.id
     _ihm_external_files.reference_id
     _ihm_external_files.file_path
-    _ihm_external_files.file_format
     _ihm_external_files.content_type
-    _ihm_external_files.file_size_kb
     _ihm_external_files.details
      1  3  .  'Input data or restraints'  'Raw micrographs from which the class average was derived'
     # ...  abbreviated ...
@@ -2992,6 +3007,7 @@ save__ihm_external_files.file_format
     'PDB'
     'CIF'
     'HDF5'
+    'DCD'
     'FASTA'
     'CLUSTALW'
     'PIR/NBRF'
@@ -3016,11 +3032,11 @@ save__ihm_external_files.content_type
     'Other'
     save_
 
-save__ihm_external_files.file_size_kb
+save__ihm_external_files.file_size_bytes
     _item_description.description
-;   Size of the external file in kilo bytes (kb). 
+;   Storage size of the external file in bytes. 
 ;
-    _item.name                 '_ihm_external_files.file_size_kb'
+    _item.name                 '_ihm_external_files.file_size_bytes'
     _item.category_id          ihm_external_files
     _item.mandatory_code       no
     _item_type.code            float
@@ -4118,6 +4134,8 @@ save__ihm_2dem_class_average_restraint.number_raw_micrographs
 save__ihm_2dem_class_average_restraint.pixel_size_width
     _item_description.description
 ;     Pixel size width of the 2dem class average image.
+      While fitting the model to the image, _ihm_2dem_class_average_restraint.pixel_size_width
+      is used along with _ihm_2dem_class_average_restraint.pixel_size_height to scale the image.
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.pixel_size_width'
     _item.category_id             ihm_2dem_class_average_restraint
@@ -4129,6 +4147,8 @@ save__ihm_2dem_class_average_restraint.pixel_size_width
 save__ihm_2dem_class_average_restraint.pixel_size_height
     _item_description.description
 ;     Pixel size height of the 2dem class average image.
+      While fitting the model to the image, _ihm_2dem_class_average_restraint.pixel_size_height
+      is used along with _ihm_2dem_class_average_restraint.pixel_size_width to scale the image.
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.pixel_size_height'
     _item.category_id             ihm_2dem_class_average_restraint
@@ -4220,7 +4240,20 @@ save_ihm_2dem_class_average_fitting
     _category.description
 ;              Data items in the IHM_2DEM_CLASS_AVERAGE_FITTING category records the
                details of the fitting of the model to the 2DEM class averages 
-               used in the IHM modeling.
+               used in the IHM modeling. The following conventions are recommended 
+               while generating the rotation matrix and translation vector for
+               transformation. 
+              
+               - The model is rotated and translated to fit to the 2DEM image. 
+               - The 2DEM image should be in the XY plane.  
+               - The lower left image corner (image pixel index 0,0) should be at x,y,z = (0,0,0).
+               - The 2D image is scaled by the _ihm_2dem_class_average_restraint.pixel_size_width 
+                 and _ihm_2dem_class_average_restraint.pixel_size_height from the 
+                 IHM_2DEM_CLASS_AVERAGE_RESTRAINT table.
+               - The transformation is applied after the scaling and hence the translation vector 
+                 should account for the scaling.
+               - There are no specifications for Z translations i.e., how far the image should be 
+                 from the model while projecting. It may be set to zero. 
 ;
     _category.id                  ihm_2dem_class_average_fitting
     _category.mandatory_code      no
