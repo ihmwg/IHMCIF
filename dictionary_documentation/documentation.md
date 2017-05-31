@@ -85,7 +85,7 @@ The integrative modeling algorithm can involve any combination of the following 
    or ligand bound and unbound states. 
  - A time-ordered ensemble representing a trajectory, reaction cycle or metabolic pathway.
 
-The dictionary also includes defitions for the integrative modeling workflow, which can be 
+The dictionary also includes definitions for the integrative modeling workflow, which can be 
 complex involving multiple stages of sampling, scoring and post-processing (such as filtering 
 and clustering). The structural details of the ensembles of macromolecular assemblies obtained 
 through integrative modeling are also captured in the I/H methods dictionary.
