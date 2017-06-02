@@ -5485,79 +5485,80 @@ _ihm_external_files.id
 _ihm_external_files.reference_id
 _ihm_external_files.file_path
 _ihm_external_files.content_type
+_ihm_external_files.file_size_bytes
 _ihm_external_files.details
 1 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup84/all_align_final1.ali
-'Input data or restraints' 'Alignment for starting comparative model'
+'Input data or restraints' 5039 'Alignment for starting comparative model'
 2 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup84/all_align_final2.ali
-'Input data or restraints' 'Alignment for starting comparative model'
+'Input data or restraints' 1553 'Alignment for starting comparative model'
 3 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup85/all_align_final.ali
-'Input data or restraints' 'Alignment for starting comparative model'
+'Input data or restraints' 6789 'Alignment for starting comparative model'
 4 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup120/all_align_final1.ali
-'Input data or restraints' 'Alignment for starting comparative model'
+'Input data or restraints' 9328 'Alignment for starting comparative model'
 5 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup133/all_align_final1.ali
-'Input data or restraints' 'Alignment for starting comparative model'
+'Input data or restraints' 1486 'Alignment for starting comparative model'
 6 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup145C/all_align_final1.ali
-'Input data or restraints' 'Alignment for starting comparative model'
-7 2 . 'Modeling or post-processing output'
+'Input data or restraints' 6291 'Alignment for starting comparative model'
+7 2 . 'Modeling or post-processing output' .
 'All ensemble structures for cluster 1'
-8 3 localization/cluster1/nup84.mrc 'Modeling or post-processing output'
+8 3 localization/cluster1/nup84.mrc 'Modeling or post-processing output' .
 'Localization density for Nup84'
-9 3 localization/cluster1/nup85.mrc 'Modeling or post-processing output'
+9 3 localization/cluster1/nup85.mrc 'Modeling or post-processing output' .
 'Localization density for Nup85'
-10 3 localization/cluster1/nup120.mrc 'Modeling or post-processing output'
+10 3 localization/cluster1/nup120.mrc 'Modeling or post-processing output' .
 'Localization density for Nup120'
-11 3 localization/cluster1/nup133.mrc 'Modeling or post-processing output'
+11 3 localization/cluster1/nup133.mrc 'Modeling or post-processing output' .
 'Localization density for Nup133'
-12 3 localization/cluster1/nup145c.mrc 'Modeling or post-processing output'
+12 3 localization/cluster1/nup145c.mrc 'Modeling or post-processing output' .
 'Localization density for Nup145c'
-13 3 localization/cluster1/seh1.mrc 'Modeling or post-processing output'
+13 3 localization/cluster1/seh1.mrc 'Modeling or post-processing output' .
 'Localization density for Seh1'
-14 3 localization/cluster1/sec13.mrc 'Modeling or post-processing output'
+14 3 localization/cluster1/sec13.mrc 'Modeling or post-processing output' .
 'Localization density for Sec13'
-15 4 . 'Modeling or post-processing output'
+15 4 . 'Modeling or post-processing output' .
 'All ensemble structures for cluster 2'
-16 2 localization/cluster2/nup84.mrc 'Modeling or post-processing output'
+16 2 localization/cluster2/nup84.mrc 'Modeling or post-processing output' .
 'Localization density for Nup84'
-17 2 localization/cluster2/nup85.mrc 'Modeling or post-processing output'
+17 2 localization/cluster2/nup85.mrc 'Modeling or post-processing output' .
 'Localization density for Nup85'
-18 2 localization/cluster2/nup120.mrc 'Modeling or post-processing output'
+18 2 localization/cluster2/nup120.mrc 'Modeling or post-processing output' .
 'Localization density for Nup120'
-19 2 localization/cluster2/nup133.mrc 'Modeling or post-processing output'
+19 2 localization/cluster2/nup133.mrc 'Modeling or post-processing output' .
 'Localization density for Nup133'
-20 2 localization/cluster2/nup145c.mrc 'Modeling or post-processing output'
+20 2 localization/cluster2/nup145c.mrc 'Modeling or post-processing output' .
 'Localization density for Nup145c'
-21 2 localization/cluster2/seh1.mrc 'Modeling or post-processing output'
+21 2 localization/cluster2/seh1.mrc 'Modeling or post-processing output' .
 'Localization density for Seh1'
-22 2 localization/cluster2/sec13.mrc 'Modeling or post-processing output'
+22 2 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
 'Localization density for Sec13'
 23 1 nup84-v1.0.2/scripts/nup84.isd.modeling.withXrayInterface.py
-'Modeling workflow or script' 'The main integrative modeling script'
-24 1 nup84-v1.0.2/data/ScNup84N_7-488_new2.pdb 'Input data or restraints'
+'Modeling workflow or script' 12356 'The main integrative modeling script'
+24 1 nup84-v1.0.2/data/ScNup84N_7-488_new2.pdb 'Input data or restraints' 280882
 'Starting model structure'
 25 1 nup84-v1.0.2/data/ScNup84C_506-726_new2.pdb 'Input data or restraints'
+135305 'Starting model structure'
+26 1 nup84-v1.0.2/data/ScNup85_44-744_new.pdb 'Input data or restraints' 384420
 'Starting model structure'
-26 1 nup84-v1.0.2/data/ScNup85_44-744_new.pdb 'Input data or restraints'
-'Starting model structure'
-27 1 nup84-v1.0.2/data/ScNup120_1-1037_new.pdb 'Input data or restraints'
+27 1 nup84-v1.0.2/data/ScNup120_1-1037_new.pdb 'Input data or restraints' 599300
 'Starting model structure'
 28 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup133/15133B.pdb
-'Input data or restraints' 'Template for comparative modeling'
+'Input data or restraints' 491422 'Template for comparative modeling'
 29 1 nup84-v1.0.2/scripts/MODELLER_scripts/Nup133/15133A.pdb
-'Input data or restraints' 'Template for comparative modeling'
+'Input data or restraints' 492543 'Template for comparative modeling'
 30 1 nup84-v1.0.2/data/ScNup133N_56-480_new.pdb 'Input data or restraints'
-'Starting model structure'
+236074 'Starting model structure'
 31 1 nup84-v1.0.2/data/ScNup133C_490_1157_new.pdb 'Input data or restraints'
-'Starting model structure'
+427958 'Starting model structure'
 32 1 nup84-v1.0.2/data/ScNup145C_126-553_new2.pdb 'Input data or restraints'
-'Starting model structure'
-33 1 nup84-v1.0.2/data/yeast_Nup84_DSS.new.dat 'Input data or restraints'
+269620 'Starting model structure'
+33 1 nup84-v1.0.2/data/yeast_Nup84_DSS.new.dat 'Input data or restraints' 4211
 Crosslinks
-34 1 nup84-v1.0.2/data/EDC_XL_122013.new.dat 'Input data or restraints'
+34 1 nup84-v1.0.2/data/EDC_XL_122013.new.dat 'Input data or restraints' 3240
 Crosslinks
-35 5 Nup84complex_particles.spd 'Input data or restraints'
+35 5 Nup84complex_particles.spd 'Input data or restraints' .
 'Raw micrographs from which the class average was derived'
 36 1 nup84-v1.0.2/data/nup84_kinked_from_class2.pgm 'Input data or restraints'
-'Electron microscopy class average'
+14415 'Electron microscopy class average'
 #
 #
 loop_

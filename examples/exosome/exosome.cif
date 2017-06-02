@@ -5854,31 +5854,32 @@ _ihm_external_files.id
 _ihm_external_files.reference_id
 _ihm_external_files.file_path
 _ihm_external_files.content_type
+_ihm_external_files.file_size_bytes
 _ihm_external_files.details
-1 1 cluster.0/Rrp46_gfp.mrc 'Modeling or post-processing output'
+1 1 cluster.0/Rrp46_gfp.mrc 'Modeling or post-processing output' 285856
 'Localization density for Rrp46_gfp'
-2 1 cluster.0/Lrp1.mrc 'Modeling or post-processing output'
+2 1 cluster.0/Lrp1.mrc 'Modeling or post-processing output' 2527912
 'Localization density for Lrp1'
-3 1 cluster.0/Rrp6.mrc 'Modeling or post-processing output'
+3 1 cluster.0/Rrp6.mrc 'Modeling or post-processing output' 3181624
 'Localization density for Rrp6'
-4 1 cluster.0/MPP6.mrc 'Modeling or post-processing output'
+4 1 cluster.0/MPP6.mrc 'Modeling or post-processing output' 24437800
 'Localization density for MPP6'
-5 2 cluster.1/Rrp46_gfp.mrc 'Modeling or post-processing output'
+5 2 cluster.1/Rrp46_gfp.mrc 'Modeling or post-processing output' 498976
 'Localization density for Rrp46_gfp'
-6 2 cluster.1/Lrp1.mrc 'Modeling or post-processing output'
+6 2 cluster.1/Lrp1.mrc 'Modeling or post-processing output' 2441968
 'Localization density for Lrp1'
-7 2 cluster.1/Rrp6.mrc 'Modeling or post-processing output'
+7 2 cluster.1/Rrp6.mrc 'Modeling or post-processing output' 4202188
 'Localization density for Rrp6'
-8 2 cluster.1/MPP6.mrc 'Modeling or post-processing output'
+8 2 cluster.1/MPP6.mrc 'Modeling or post-processing output' 24065152
 'Localization density for MPP6'
-9 3 . 'Modeling or post-processing output' 'All models in cluster 1'
-10 4 . 'Modeling or post-processing output' 'All models in cluster 2'
+9 3 . 'Modeling or post-processing output' . 'All models in cluster 1'
+10 4 . 'Modeling or post-processing output' . 'All models in cluster 2'
 11 5 exosome-v1.0.1/modeling-scripts_Rrp6.1/exosome.modeling.py
-'Modeling workflow or script' 'The main integrative modeling script'
+'Modeling workflow or script' 11423 'The main integrative modeling script'
 12 5 exosome-v1.0.1/Rrp6.analysis/clustering.py 'Modeling workflow or script'
-'Main clustering and analysis script'
+4300 'Main clustering and analysis script'
 13 5 exosome-v1.0.1/data/exosome_XLMS_column07012014.csv
-'Input data or restraints' Crosslinks
+'Input data or restraints' 9462 Crosslinks
 #
 #
 loop_
