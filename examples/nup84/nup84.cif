@@ -5468,14 +5468,14 @@ _ihm_external_reference_info.reference_type
 _ihm_external_reference_info.reference
 _ihm_external_reference_info.refers_to
 _ihm_external_reference_info.associated_url
-1 Zenodo DOI 10.5281/zenodo.583173 Archive
-https://zenodo.org/record/583173/files/nup84-v1.0.2.zip
-2 Zenodo DOI 10.5281/zenodo.583173 File
-https://zenodo.org/record/583173/files/clus.1.dcd
+1 Zenodo DOI 10.5281/zenodo.820724 Archive
+https://zenodo.org/record/820724/files/nup84-v1.0.2.zip
+2 Zenodo DOI 10.5281/zenodo.820724 File
+https://zenodo.org/record/820724/files/clus.1.aligned.dcd
 3 Zenodo DOI 10.5281/zenodo.438727 Archive
 https://zenodo.org/record/438727/files/nup84_localization.zip
-4 Zenodo DOI 10.5281/zenodo.583173 File
-https://zenodo.org/record/583173/files/clus.2.dcd
+4 Zenodo DOI 10.5281/zenodo.820724 File
+https://zenodo.org/record/820724/files/clus.2.aligned.dcd
 5 Zenodo DOI 10.5281/zenodo.58025 File
 https://zenodo.org/record/58025/files/Nup84complex_particles.spd
 #
@@ -5532,7 +5532,7 @@ _ihm_external_files.details
 22 2 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
 'Localization density for Sec13'
 23 1 nup84-v1.0.2/scripts/nup84.isd.modeling.withXrayInterface.py
-'Modeling workflow or script' 12356 'The main integrative modeling script'
+'Modeling workflow or script' 12364 'The main integrative modeling script'
 24 1 nup84-v1.0.2/data/ScNup84N_7-488_new2.pdb 'Input data or restraints' 280882
 'Starting model structure'
 25 1 nup84-v1.0.2/data/ScNup84C_506-726_new2.pdb 'Input data or restraints'
