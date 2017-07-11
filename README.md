@@ -2,7 +2,7 @@
 
 ## Goal
 
-We want to be able to deposit hybrid or integrative models into [PDB-dev](https://pdb-dev.rcsb.rutgers.edu/).
+We want to be able to deposit hybrid or integrative models into [PDB-dev](https://pdb-dev.wwpdb.org).
 These are models that are not necessarily atomic (e.g. parts or all of the
 system may be coarse grained) and are derived by integrating information
 from multiple sources. Examples include
@@ -64,7 +64,7 @@ for the Nup84 complex, above.
 
 ## Deposition
 
-Ultimately, models will be deposited into [PDB-dev](https://pdb-dev.rcsb.rutgers.edu/).
+Ultimately, models will be deposited into [PDB-dev](https://pdb-dev.wwpdb.org).
 In order for this to work in a semi-automated fashion, integrative/hybrid
 modeling packages need to support the mmCIF file format and the IHM extension.
 See [the deposition directory](deposition) for the current status of
