@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:13-July-2017 Jdw/BV
+#  Date:13-July-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.105
+    _dictionary.version         0.106
 #
      loop_
     _dictionary_history.version
@@ -151,6 +151,11 @@ data_ihm-extension.dic
   + Added category description to ihm_2dem_class_average_fitting
   + Added enumeration 'DCD' to _ihm_external_files.file_format
   + Changed _ihm_external_files.file_size_kb to _ihm_external_files.file_size_bytes
+;
+    0.106   2017-07-13
+;
+  Changes (bv):
+  + Updated dictionary description and version history
 ;
 
 ################################
