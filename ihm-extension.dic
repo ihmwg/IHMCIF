@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:17-July-2017
+#  Date:12-SEP-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.107
+    _dictionary.version         0.108
 #
      loop_
     _dictionary_history.version
@@ -161,6 +161,12 @@ data_ihm-extension.dic
 ;
   Changes (ep/bv):
   + Added category_group_list, item_type_list and item_units_list categories
+;
+    0.108   2017-09-12
+;
+  Changes (bv):
+  + Added IHM_STRUCT_ASSEMBLY_CLASS, IHM_STRUCT_ASSEMBLY_CLASS_LIST
+  + Added _ihm_struct_assembly.parent_assembly_id
 ;
 
 #########################
@@ -1045,33 +1051,60 @@ save_ihm_struct_assembly
     _category_examples.case
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 1 -
+    Example 1 - Non-hierarchical assemblies with self-parent
 ;
 ;
     loop_
     _ihm_struct_assembly.ordinal_id
     _ihm_struct_assembly.assembly_id
+    _ihm_struct_assembly.parent_assembly_id
     _ihm_struct_assembly.entity_description
     _ihm_struct_assembly.entity_id
     _ihm_struct_assembly.asym_id
     _ihm_struct_assembly.seq_id_begin
     _ihm_struct_assembly.seq_id_end
 
-         1   1    Nup84   1  A  1   726 
-         2   1    Nup85   2  B  1   744 
-         3   1   Nup120   3  C  1  1037 
-         4   1   Nup133   4  D  1  1157 
-         5   1   Nup145   5  E  1   712 
-         6   1     Seh1   6  F  1   349 
-         7   1    Sec13   7  G  1   297 
-         8   2    Nup84   1  A  1   726 
-         9   2    Nup85   2  B  1   744 
-        10   2   Nup145   5  E  1   712 
-        11   2     Seh1   6  F  1   349 
-        12   2    Sec13   7  G  1   297 
+         1   1   1   Nup84   1  A  1   726 
+         2   1   1   Nup85   2  B  1   744 
+         3   1   1  Nup120   3  C  1  1037 
+         4   2   2  Nup133   4  D  1  1157 
+         5   2   2  Nup145   5  E  1   712 
+         6   3   3    Seh1   6  F  1   349 
+         7   3   3   Sec13   7  G  1   297 
+         #...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 2 - Hierarchical assembly
+;
+;
+    loop_
+    _ihm_struct_assembly.ordinal_id
+    _ihm_struct_assembly.assembly_id
+    _ihm_struct_assembly.parent_assembly_id
+    _ihm_struct_assembly.entity_description
+    _ihm_struct_assembly.entity_id
+    _ihm_struct_assembly.asym_id
+    _ihm_struct_assembly.seq_id_begin
+    _ihm_struct_assembly.seq_id_end
 
+         1   0   0   Nup84   1  A  1   726
+         2   0   0   Nup85   2  B  1   744
+         3   0   0  Nup120   3  C  1  1037
+         4   0   0  Nup133   4  D  1  1157
+         5   0   0  Nup145   5  E  1   712
+         6   0   0    Seh1   6  F  1   349 
+         7   0   0   Sec13   7  G  1   297
+         8   1   0   Nup84   1  A  1   726 
+         9   1   0   Nup85   2  B  1   744
+        10   1   0  Nup145   5  E  1   712 
+        11   1   0    Seh1   6  F  1   349 
+        12   1   0   Sec13   7  G  1   297 
+        13   2   1   Nup84   1  A  1   726
+        14   2   1   Nup85   2  B  1   744
+        #...abbreviated...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_struct_assembly
      save_
@@ -1096,6 +1129,27 @@ save__ihm_struct_assembly.assembly_id
     _item.category_id             ihm_struct_assembly
     _item.mandatory_code          yes
     _item_type.code               int
+     save_
+
+save__ihm_struct_assembly.parent_assembly_id
+    _item_description.description
+;     The parent of this assembly in a hierarchy. 
+      This data item is an internal category pointer to 
+      _ihm_struct_assembly.assembly_id 
+      This data item should point to the assembly id of the immediate
+      parent in a hierarchy. 
+      By convention, the full assembly (top of hierarchy) is assigned parent id 0 (zero).
+      In case of assemblies that do not conform to a hierarchy, 
+      _ihm_struct_assembly.parent_assembly_id is the same as 
+      _ihm_struct_assembly.assembly_id indicating a self-parent. 
+
+;
+    _item.name                  '_ihm_struct_assembly.parent_assembly_id'
+    _item.category_id             ihm_struct_assembly
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_struct_assembly.parent_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
      save_
 
 save__ihm_struct_assembly.entity_description
@@ -1160,6 +1214,178 @@ save__ihm_struct_assembly.seq_id_end
     _item_type.code               int
     _item_linked.child_name       '_ihm_struct_assembly.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+####################################
+## IHM_STRUCT_ASSEMBLY_CLASS_LIST ##
+####################################
+
+save_ihm_struct_assembly_class_list
+    _category.description
+;              Data items in the IHM_STRUCT_ASSEMBLY_CLASS_LIST category lists
+               all the structural assembly classes relevant to the entry. This
+               category provides a mechanism to define classes of the 
+               structural assemblies. 
+;
+    _category.id                  ihm_struct_assembly_class_list
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_struct_assembly_class_list.class_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    loop_
+    _ihm_struct_assembly_class_list.class_id
+    _ihm_struct_assembly_class_list.name
+    _ihm_struct_assembly_class_list.type
+    _ihm_struct_assembly_class_list.description
+         1     "TAD"        "Structural Hierarchy"  .
+         2     "CHROMATIN"  "Structural Hierarchy"  .
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_struct_assembly_class_list
+     save_
+
+save__ihm_struct_assembly_class_list.class_id
+    _item_description.description
+;     A unique identifier for the structural assembly class.
+;
+    _item.name                  '_ihm_struct_assembly_class_list.class_id'
+    _item.category_id             ihm_struct_assembly_class_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_struct_assembly_class_list.name
+    _item_description.description
+;     A user provided name for the class. 
+;
+    _item.name                  '_ihm_struct_assembly_class_list.name'
+    _item.category_id             ihm_struct_assembly_class_list
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    "TAD"
+    "Chromatin"
+     save_
+
+save__ihm_struct_assembly_class_list.type
+    _item_description.description
+;     The type of classifier. 
+;
+    _item.name                  '_ihm_struct_assembly_class_list.type'
+    _item.category_id             ihm_struct_assembly_class_list
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    "Structural Hierarchy"
+    "Functional"
+    "Other"
+     save_
+
+save__ihm_struct_assembly_class_list.description
+    _item_description.description
+;     Additional description regarding the class.
+;
+    _item.name                  '_ihm_struct_assembly_class_list.description'
+    _item.category_id             ihm_struct_assembly_class_list
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+###############################
+## IHM_STRUCT_ASSEMBLY_CLASS ##
+###############################
+
+save_ihm_struct_assembly_class
+    _category.description
+;              Data items in the IHM_STRUCT_ASSEMBLY_CLASS category provides
+               details regarding the structural assembly classes. This
+               category provides a mechanism to identify the classes to which
+               structural assemblies belong.
+;
+    _category.id                  ihm_struct_assembly_class
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_struct_assembly_class.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    loop_
+    _ihm_struct_assembly_class.ordinal_id
+    _ihm_struct_assembly_class.class_id
+    _ihm_struct_assembly_class.assembly_id
+         1 1 1 
+         2 1 2
+         3 1 3
+         4 2 4
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_struct_assembly_class
+     save_
+
+save__ihm_struct_assembly_class.ordinal_id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_struct_assembly_class.ordinal_id'
+    _item.category_id             ihm_struct_assembly_class
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_struct_assembly_class.class_id
+    _item_description.description
+;     An identifier for the structural assembly class.
+      This data item is a pointer to _ihm_struct_assembly_class_list.class_id
+      in the IHM_STRUCT_ASSEMBLY_CLASS_LIST category. 
+;
+    _item.name                  '_ihm_struct_assembly_class.class_id'
+    _item.category_id             ihm_struct_assembly_class
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_struct_assembly_class.class_id'
+    _item_linked.parent_name    '_ihm_struct_assembly_class_list.class_id'
+     save_
+
+save__ihm_struct_assembly_class.assembly_id
+    _item_description.description
+;     An identifier for the structural assembly.
+      This data item is a pointer to _ihm_struct_assembly.assembly_id
+      in the IHM_STRUCT_ASSEMBLY category.
+;
+    _item.name                  '_ihm_struct_assembly_class.assembly_id'
+    _item.category_id             ihm_struct_assembly_class
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_struct_assembly_class.assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
      save_
 
 #############################
