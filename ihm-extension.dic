@@ -192,6 +192,12 @@ data_ihm-extension.dic
   + Removed _ihm_cross_link_restraint.linker_type
   + Updated enumerations to _ihm_cross_link_restraint.restraint_type
 ;
+    0.112   2017-10-04
+;
+  Changes (bv):
+  + Added _ihm_dataset_list.details
+  + Added enumeration to _ihm_dataset_list.data_type
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -2772,13 +2778,25 @@ save__ihm_dataset_list.data_type
       'SAS data'
       'CX-MS data'
       'Mass Spectrometry data'
+      'Single molecule FRET data'
       'Experimental model'
       'Comparative model'
       'Integrative model'
       'De Novo model'
       'Predicted contacts'
-      'unspecified'
+      'Other'
      save_ 
+
+save__ihm_dataset_list.details
+    _item_description.description
+;    Details regarding the dataset, especially those types not listed in
+     _ihm_dataset_list.data_type. 
+;
+    _item.name                  '_ihm_dataset_list.details'
+    _item.category_id             ihm_dataset_list
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
 
 save__ihm_dataset_list.database_hosted
     _item_description.description
