@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:06-OCT-2017
+#  Date:09-OCT-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -204,6 +204,11 @@ data_ihm-extension.dic
   + Added IHM_MODEL_REPRESENTATIVE
   + Added enumeration to _ihm_cross_link_list.linker_type
   + Updated item description for _ihm_predicted_contact_restraint.probability
+;
+    0.114   2017-10-09
+;
+  Changes (bv):
+  + Fixed typos and syntax
 ;
 
 #########################
@@ -2728,6 +2733,7 @@ save_ihm_model_representative
      3  2  6  'best scoring model'
      4  2  7  'medioid'
      #...abbreviated...#
+;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_model_representative
@@ -2775,13 +2781,13 @@ save__ihm_model_representative.selection_criteria
     _item_description.description
 ;     The selection criteria based on which the representative is chosen. 
 ;
-    _item.name                  '_ihm_model_representative.selection_criteris'
+    _item.name                  '_ihm_model_representative.selection_criteria'
     _item.category_id             ihm_model_representative
     _item.mandatory_code          yes
     _item_type.code               line
     loop_
     _item_enumeration.value
-    _item_enumaration.detail
+    _item_enumeration.detail
        'medoid'                       'most similar to other models'
        'closest to the average'       .
        'lowest energy'                .
@@ -2790,7 +2796,7 @@ save__ihm_model_representative.selection_criteria
        'minimized average structure'  .
        'best scoring model'           .
        'centroid'                     'centroid of a cluster'
-       'other selction criteria'
+       'other selction criteria'      .
      save_
 
 ###############
