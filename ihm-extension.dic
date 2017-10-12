@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:09-OCT-2017
+#  Date:12-OCT-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -209,6 +209,12 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Fixed typos and syntax
+;
+    0.115   2017-10-12
+;
+  Changes (bv):
+  + Added _ihm_modeling_post_process.feature_name
+  + Fixed enumeration for _ihm_cross_link_list.linker_type
 ;
 
 #########################
@@ -2243,6 +2249,20 @@ save__ihm_modeling_post_process.feature
     'dRMSD'         .
     'other'         .
     'none'          .
+     save_
+
+save__ihm_modeling_post_process.feature_name
+    _item_description.description
+;    The name of the parameter/feature used in the post modeling analysis.
+;
+    _item.name                  '_ihm_modeling_post_process.feature_name'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Rosetta energy'
+    'GOAP (orientation-dependent all-atom statistical potential)'
      save_
 
 save__ihm_modeling_post_process.num_models_begin
@@ -4338,7 +4358,7 @@ save__ihm_cross_link_list.linker_type
                  'BS3'      'bis(sulfosuccinimidyl) suberate crosslinker'
                  'BS2G'     'Bis-(sulfosuccinimidyl) glutarate crosslinker'
                  'DST'      'disuccinimidyl tartrate'
-                 'sulfo-SDA'  'sulfosuccinimidyl 4,4′-azipentanoate, heterobifunctional'
+                 'sulfo-SDA'  "sulfosuccinimidyl 4,4'-azipentanoate, heterobifunctional"
                  'Other'    'Other type of crosslinker'
      save_
 
