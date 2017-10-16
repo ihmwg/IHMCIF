@@ -2630,7 +2630,7 @@ save__ihm_model_list.model_id
     _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.parent_name    '_ihm_model_list.model_id'
-    _item_linked.child_name     '_atom.site.pdbx_PDB_model_num'
+    _item_linked.child_name     '_atom_site.pdbx_PDB_model_num'
      save_
 
 save__ihm_model_list.model_group_id
