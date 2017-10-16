@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:12-OCT-2017
+#  Date:16-OCT-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -215,6 +215,13 @@ data_ihm-extension.dic
   Changes (bv):
   + Added _ihm_modeling_post_process.feature_name
   + Fixed enumeration for _ihm_cross_link_list.linker_type
+;
+    0.116   2017-10-16
+;
+  Changes (bv):
+  + Updated _item_description.description for _ihm_model_list.model_group_id
+  + Updated enumerations for _ihm_dataset_list.data_type
+  + Updated parent-child relationships within _ihm_model_list.model_id
 ;
 
 #########################
@@ -2622,6 +2629,8 @@ save__ihm_model_list.model_id
     _item.category_id             ihm_model_list
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_linked.parent_name    '_ihm_model_list.model_id'
+    _item_linked.child_name     '_atom.site.pdbx_PDB_model_num'
      save_
 
 save__ihm_model_list.model_group_id
@@ -2630,8 +2639,16 @@ save__ihm_model_list.model_group_id
       This data item can be used to group models into structural clusters
       or using other criteria based on experimental data or other
       relationships such as those belonging to the same state or time stamp.
-      If the models do not need to be grouped into collections, then the 
-      _ihm_model_list.model_group_id is the same as _ihm_model_list.model_id. 
+      An ensemble of models and its representative can either be grouped together 
+      or can be separate groups in the ihm_model_list table. The choice between 
+      the two options should be decided based on how the modeling was carried out 
+      and how the representative was chosen. If the representative is a member of 
+      the ensemble (i.e., best scoring model), then it is recommended that the 
+      representative and the ensemble belong to the same model group. If the 
+      representative is calculated from the ensemble (i.e., centroid), then it is 
+      recommended that the representative be separated into a different group. 
+      If the models do not need to be grouped into collections, then the
+      _ihm_model_list.model_group_id is the same as _ihm_model_list.model_id.
 ;
     _item.name                  '_ihm_model_list.model_group_id'
     _item.category_id             ihm_model_list
@@ -2911,6 +2928,7 @@ save__ihm_dataset_list.data_type
       'SAS data'
       'CX-MS data'
       'Mass Spectrometry data'
+      'EPR data'
       'Single molecule FRET data'
       'Experimental model'
       'Comparative model'
