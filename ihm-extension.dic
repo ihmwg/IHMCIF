@@ -5618,7 +5618,7 @@ save_ihm_sas_restraint
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_3dem_restraint
+   _pdbx_category_context.category_id  ihm_sas_restraint
      save_
 
 save__ihm_sas_restraint.ordinal_id
