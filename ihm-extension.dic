@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:16-OCT-2017
+#  Date:9-NOV-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -222,6 +222,11 @@ data_ihm-extension.dic
   + Updated _item_description.description for _ihm_model_list.model_group_id
   + Updated enumerations for _ihm_dataset_list.data_type
   + Updated parent-child relationships within _ihm_model_list.model_id
+;
+    0.117   2017-11-09
+;
+  Changes (bv):
+  + Updated description for _ihm_starting_model_details.starting_model_sequence_offset 
 ;
 
 #########################
@@ -465,6 +470,7 @@ save__ihm_starting_model_details.starting_model_auth_asym_id
 save__ihm_starting_model_details.starting_model_sequence_offset
     _item_description.description
 ;     The offset in residue numbering between the starting model and the deposited I/H model, if applicable. 
+      I/H model residue number = Starting model residue number + offset
 ;
     _item.name                  '_ihm_starting_model_details.starting_model_sequence_offset'
     _item.category_id             ihm_starting_model_details
