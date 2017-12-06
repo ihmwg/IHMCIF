@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:9-NOV-2017
+#  Date:6-DEC-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -227,6 +227,14 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Updated description for _ihm_starting_model_details.starting_model_sequence_offset 
+;
+    0.118   2017-12-06
+;
+  Changes (bv):
+  + Changed ihm_time_ordered_ensemble to ihm_ordered_ensemble with appropriate revisions to the category
+  + Changed _ihm_modeling_protocol.time_ordered_flag to _ihm_modeling_protocol.ordered_flag
+  + Changed mandatory code for _ihm_model_list.representation_id
+  + Added an example to ihm_model_list category
 ;
 
 #########################
@@ -1487,7 +1495,7 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.num_models_end
     _ihm_modeling_protocol.multi_scale_flag
     _ihm_modeling_protocol.multi_state_flag
-    _ihm_modeling_protocol.time_ordered_flag
+    _ihm_modeling_protocol.ordered_flag
 
     1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 'YES' 'NO' 'NO'
     2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 'YES' 'NO' 'NO'
@@ -1510,7 +1518,7 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.num_models_end
     _ihm_modeling_protocol.multi_scale_flag
     _ihm_modeling_protocol.multi_state_flag
-    _ihm_modeling_protocol.time_ordered_flag
+    _ihm_modeling_protocol.ordered_flag
 
     1   1   1   1   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO'
     2   1   1   2   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO'
@@ -1693,11 +1701,11 @@ save__ihm_modeling_protocol.multi_state_flag
         'NO'   . 
      save_
 
-save__ihm_modeling_protocol.time_ordered_flag
+save__ihm_modeling_protocol.ordered_flag
     _item_description.description
-;    A flag to indicate if the modeling provides a time ordered ensemble.
+;    A flag to indicate if the modeling involves an ensemble ordered by time or other order.
 ;   
-    _item.name                  '_ihm_modeling_protocol.time_ordered_flag'
+    _item.name                  '_ihm_modeling_protocol.ordered_flag'
     _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
     _item_type.code               code
@@ -1918,19 +1926,22 @@ save__ihm_multi_state_modeling.details
         'bound to heme'
      save_
 
-############################
-## IHM_TIME_ORDERED_ENSEMBLE
-############################
+##########################
+## IHM_ORDERED_ENSEMBLE ##
+##########################
 
-save_ihm_time_ordered_ensemble
+save_ihm_ordered_ensemble
     _category.description
-;   Data items in the IHM_TIME_ORDERED_ENSEMBLE category records the
-    details of the time ordered ensemble being modeled. 
+;   Data items in the IHM_ORDERED_ENSEMBLE category records the
+    details of the ensembles ordered by time or other order. 
+    Ordered ensembles are described as directed graphs with
+    edges between nodes representing models or model groups. 
 ;
-    _category.id                  ihm_time_ordered_ensemble
+    _category.id                  ihm_ordered_ensemble
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_time_ordered_ensemble.ordinal_id'
+    _category_key.name          '_ihm_ordered_ensemble.edge_id'
+                                '_ihm_ordered_ensemble.ordered_process_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -1941,196 +1952,181 @@ save_ihm_time_ordered_ensemble
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 1 - 
+    Example 1 - Linear process
 ;
 ;
     loop_
-    _ihm_time_ordered_ensemble.ordinal_id
-    _ihm_time_ordered_ensemble.time_step_id
-    _ihm_time_ordered_ensemble.time_begin
-    _ihm_time_ordered_ensemble.time_end
-    _ihm_time_ordered_ensemble.time_unit
-    _ihm_time_ordered_ensemble.model_group_id_begin
-    _ihm_time_ordered_ensemble.model_group_id_end
-    _ihm_time_ordered_ensemble.state_group_id_begin
-    _ihm_time_ordered_ensemble.state_group_id_end
+    _ihm_ordered_ensemble.ordered_process_id
+    _ihm_ordered_ensemble.ordered_process_description
+    _ihm_ordered_ensemble.edge_id
+    _ihm_ordered_ensemble.edge_description
+    _ihm_ordered_ensemble.step_id
+    _ihm_ordered_ensemble.step_description
+    _ihm_ordered_ensemble.ordered_by
+    _ihm_ordered_ensemble.model_group_id_begin
+    _ihm_ordered_ensemble.model_group_id_end
 
-    1     1   0   1   nanosecond  .  .   1   2
-    2     2   1   2   nanosecond  .  .   2   3
-    3     3   2   3   nanosecond  .  .   3   4
-    4     4   3   4   nanosecond  .  .   4   5
+    1  .  1   .   1   .  'time steps'  1   2
+    1  .  2   .   2   .  'time steps'  2   3
+    1  .  3   .   3   .  'time steps'  3   4
+    1  .  4   .   4   .  'time steps'  4   5
+    # ... abbreviated ... 
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 2 - cyclic process
+    Example 2 - Cyclic process
 ;
 ;
     loop_
-    _ihm_time_ordered_ensemble.ordinal_id
-    _ihm_time_ordered_ensemble.time_step_id
-    _ihm_time_ordered_ensemble.time_begin
-    _ihm_time_ordered_ensemble.time_end
-    _ihm_time_ordered_ensemble.time_unit
-    _ihm_time_ordered_ensemble.model_group_id_begin
-    _ihm_time_ordered_ensemble.model_group_id_end
-    _ihm_time_ordered_ensemble.state_group_id_begin
-    _ihm_time_ordered_ensemble.state_group_id_end
+    _ihm_ordered_ensemble.ordered_process_id
+    _ihm_ordered_ensemble.edge_id
+    _ihm_ordered_ensemble.step_id
+    _ihm_ordered_ensemble.ordered_by
+    _ihm_ordered_ensemble.model_group_id_begin
+    _ihm_ordered_ensemble.model_group_id_end
 
-    1     1   0   1   nanosecond  1   2   .   .
-    2     2   1   2   nanosecond  2   3   .   .
-    3     3   2   3   nanosecond  3   4   .   .
-    4     4   3   4   nanosecond  4   1   .   .
+    1  1  1   'time steps'  1   2 
+    1  2  2   'time steps'  2   3 
+    1  3  3   'time steps'  3   4 
+    1  4  4   'time steps'  4   1 
+    # ... abbreviated ... 
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 3 - branched process
+    Example 3 - Branched process
 ;
 ;  
     loop_
-    _ihm_time_ordered_ensemble.ordinal_id
-    _ihm_time_ordered_ensemble.time_step_id
-    _ihm_time_ordered_ensemble.time_begin
-    _ihm_time_ordered_ensemble.time_end
-    _ihm_time_ordered_ensemble.time_unit
-    _ihm_time_ordered_ensemble.model_group_id_begin
-    _ihm_time_ordered_ensemble.model_group_id_end
-    _ihm_time_ordered_ensemble.state_group_id_begin
-    _ihm_time_ordered_ensemble.state_group_id_end
+    _ihm_ordered_ensemble.ordered_process_id
+    _ihm_ordered_ensemble.edge_id
+    _ihm_ordered_ensemble.step_id
+    _ihm_ordered_ensemble.ordered_by
+    _ihm_ordered_ensemble.model_group_id_begin
+    _ihm_ordered_ensemble.model_group_id_end
 
-    1     1   0   1   picosecond  1   2   .   .
-    2     2   1   2   picosecond  2   3   .   .
-    3     2   1   2   picosecond  2   4   .   .
-    4     3   2   3   picosecond  3   5   .   .
-    5     3   2   3   picosecond  4   6   .   .
+    1  1  1   'time steps'  1   2 
+    1  2  2   'time steps'  2   3 
+    1  3  2   'time steps'  2   4 
+    1  4  3   'time steps'  3   5 
+    1  5  3   'time steps'  4   6 
+    # ... abbreviated ... 
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_time_ordered_ensemble
+   _pdbx_category_context.category_id  ihm_ordered_ensemble
      save_
 
-save__ihm_time_ordered_ensemble.ordinal_id
+save__ihm_ordered_ensemble.ordered_process_id
     _item_description.description
-;    A unique identifier to the time ordered modeling. 
+;    An identifier for the ordered process. 
+     Forms the category key together with _ihm_ordered_ensemble.edge_id. 
 ;
-    _item.name                  '_ihm_time_ordered_ensemble.ordinal_id'
-    _item.category_id             ihm_time_ordered_ensemble
+    _item.name                  '_ihm_ordered_ensemble.ordered_process_id'
+    _item.category_id             ihm_ordered_ensemble
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_time_ordered_ensemble.time_step_id
+save__ihm_ordered_ensemble.ordered_process_description
     _item_description.description
-;    An identifier to the particular time step in the time ordered modeling.             
+;    Description of the ordered process. 
 ;
-    _item.name                  '_ihm_time_ordered_ensemble.time_step_id'
-    _item.category_id             ihm_time_ordered_ensemble
+    _item.name                  '_ihm_ordered_ensemble.ordered_process_description'
+    _item.category_id             ihm_ordered_ensemble
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_ordered_ensemble.edge_id
+    _item_description.description
+;    An identifier that describes an edge in a directed graph, which
+     represents an ordered ensemble. 
+     Forms the category key together with _ihm_ordered_ensemble.ordered_process_id. 
+;
+    _item.name                  '_ihm_ordered_ensemble.edge_id'
+    _item.category_id             ihm_ordered_ensemble
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_time_ordered_ensemble.time_begin
+save__ihm_ordered_ensemble.edge_description
     _item_description.description
-;    Time stamp at the beginning of the step. 
+;    Description of the edge.
 ;   
-    _item.name                  '_ihm_time_ordered_ensemble.time_begin'
-    _item.category_id             ihm_time_ordered_ensemble
+    _item.name                  '_ihm_ordered_ensemble.edge_description'
+    _item.category_id             ihm_ordered_ensemble
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_ordered_ensemble.step_id
+    _item_description.description
+;    Identifier for a particular step in the ordered process. 
+;   
+    _item.name                  '_ihm_ordered_ensemble.step_id'
+    _item.category_id             ihm_ordered_ensemble
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_time_ordered_ensemble.time_end
+save__ihm_ordered_ensemble.step_description
     _item_description.description
-;    Time stamp at the end of the step.
+;    Description of the step. 
 ;   
-    _item.name                  '_ihm_time_ordered_ensemble.time_end'
-    _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          yes
-    _item_type.code               int
+    _item.name                  '_ihm_ordered_ensemble.step_description'
+    _item.category_id             ihm_ordered_ensemble
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
-save__ihm_time_ordered_ensemble.time_unit
+save__ihm_ordered_ensemble.ordered_by
     _item_description.description
-;    The unit corresponding to _ihm_time_ordered_ensemble.time_begin 
-     and _ihm_time_ordered_ensemble.time_end data items above.
-;   
-    _item.name                  '_ihm_time_ordered_ensemble.time_unit'
-    _item.category_id             ihm_time_ordered_ensemble
+;    The parameter based on which the ordering is carried out. 
+;  
+    _item.name                  '_ihm_ordered_ensemble.ordered_by'
+    _item.category_id             ihm_ordered_ensemble
     _item.mandatory_code          yes
-    _item_type.code               code
+    _item_type.code               line
     loop_
     _item_examples.case
-        'picosecond'
-        'nanosecond'
-        'microsecond'
-        'millisecond'
+    'time steps'
+    'steps in an assembly process'
+    'steps in a metabolic pathway'
+    'steps in an interaction pathway'
      save_
     
-save__ihm_time_ordered_ensemble.model_group_id_begin
+save__ihm_ordered_ensemble.model_group_id_begin
     _item_description.description
-;    The model group id corresponding to the time stamp at the beginning of the step. 
+;    The model group id corresponding to the node at the origin of directed edge. 
      This data item is a pointer to _ihm_model_list.model_group_id in the
      IHM_MODEL_LIST category. 
-     If the time stamp corresponds to a single model instead of a collection of models, 
+     If the node involves a single model instead of a collection of models, 
      then the _ihm_model_list.model_group_id is the same as the _ihm_model_list.model_id.
 ;   
-    _item.name                  '_ihm_time_ordered_ensemble.model_group_id_begin'
-    _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          no  
+    _item.name                  '_ihm_ordered_ensemble.model_group_id_begin'
+    _item.category_id             ihm_ordered_ensemble
+    _item.mandatory_code          yes  
     _item_type.code               int  
-    _item_linked.child_name     '_ihm_time_ordered_ensemble.model_group_id_begin'
+    _item_linked.child_name     '_ihm_ordered_ensemble.model_group_id_begin'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
     save_
 
-save__ihm_time_ordered_ensemble.model_group_id_end
+save__ihm_ordered_ensemble.model_group_id_end
     _item_description.description
-;    The model group id corresponding to the time stamp at the end of the step.
+;    The model group id corresponding to the node at the end of the directed edge.
      This data item is a pointer to _ihm_model_list.model_group_id in the
      IHM_MODEL_LIST category.
-     If the time stamp corresponds to a single model instead of a collection of models, 
+     If the node involves a single model instead of a collection of models, 
      then the _ihm_model_list.model_group_id is the same as the _ihm_model_list.model_id.
 ;   
-    _item.name                  '_ihm_time_ordered_ensemble.model_group_id_end'
-    _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          no
+    _item.name                  '_ihm_ordered_ensemble.model_group_id_end'
+    _item.category_id             ihm_ordered_ensemble
+    _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_time_ordered_ensemble.model_group_id_end'
+    _item_linked.child_name     '_ihm_ordered_ensemble.model_group_id_end'
     _item_linked.parent_name    '_ihm_model_list.model_group_id'
      save_
-
-save__ihm_time_ordered_ensemble.state_group_id_begin
-    _item_description.description
-;    The state group id corresponding to the time stamp at the beginning of the step.
-     This data item is a pointer to _ihm_multi_state_modeling.state_group_id in the
-     IHM_MULTI_STATE_MODELING category. 
-     If the time stamp corresponds to a single state instead of a collection of states,
-     then the _ihm_multi_state_modeling.state_group_id is the same as the
-     _ihm_multi_state_modeling.state_id.
-;   
-    _item.name                  '_ihm_time_ordered_ensemble.state_group_id_begin'
-    _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_time_ordered_ensemble.state_group_id_begin'
-    _item_linked.parent_name    '_ihm_multi_state_modeling.state_group_id'
-    save_
-
-save__ihm_time_ordered_ensemble.state_group_id_end
-    _item_description.description
-;    The state group id corresponding to the time stamp at the end of the step.
-     This data item is a pointer to _ihm_multi_state_modeling.state_group_id in the
-     IHM_MULTI_STATE_MODELING category.
-     If the time stamp corresponds to a single state instead of a collection of states,
-     then the _ihm_multi_state_modeling.state_group_id is the same as the
-     _ihm_multi_state_modeling.state_id.
-;   
-    _item.name                  '_ihm_time_ordered_ensemble.state_group_id_end'
-    _item.category_id             ihm_time_ordered_ensemble
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_time_ordered_ensemble.state_group_id_end'
-    _item_linked.parent_name    '_ihm_multi_state_modeling.state_group_id'
-    save_
 
 ############################
 ## IHM_MODELING_POST_PROCESS
@@ -2573,17 +2569,18 @@ save_ihm_model_list
     _ihm_model_list.model_group_name
     _ihm_model_list.assembly_id
     _ihm_model_list.protocol_id
+    _ihm_model_list.representation_id
 
-     1    1      1    'open state'       1  1 
-     2    2      1    'open state'       1  1 
-     3    3      1    'open state'       1  1 
-     4    4      1    'open state'       1  1 
-     5    5      1    'open state'       1  1 
-     6    6      2    'closed state'     1  1 
-     7    7      2    'closed state'     1  1 
-     8    8      2    'closed state'     1  1 
-     9    9      2    'closed state'     1  1 
-    10   10      2    'closed state'     1  1 
+     1    1      1    'open state'       1  1  1
+     2    2      1    'open state'       1  1  1
+     3    3      1    'open state'       1  1  1
+     4    4      1    'open state'       1  1  1
+     5    5      1    'open state'       1  1  1
+     6    6      2    'closed state'     1  1  1
+     7    7      2    'closed state'     1  1  1
+     8    8      2    'closed state'     1  1  1
+     9    9      2    'closed state'     1  1  1
+    10   10      2    'closed state'     1  1  1
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -2598,21 +2595,54 @@ save_ihm_model_list
     _ihm_model_list.model_group_name
     _ihm_model_list.assembly_id 
     _ihm_model_list.protocol_id
+     _ihm_model_list.representation_id
 
-     1    1      1    'Bound state ensemble 1'         1    1 
-     2    2      1    'Bound state ensemble 1'         1    1 
-     3    3      1    'Bound state ensemble 1'         1    1 
-     4    4      1    'Bound state ensemble 1'         1    1 
-     5    5      1    'Bound state ensemble 1'         1    1 
-     6    6      2    'Unbound state ensemble 2'       2    1 
-     7    7      2    'Unbound state ensemble 2'       2    1 
-     8    8      2    'Unbound state ensemble 2'       2    1 
-     9    9      2    'Unbound state ensemble 2'       2    1 
-    10   10      2    'Unbound state ensemble 2'       2    1 
+     1    1      1    'Bound state ensemble 1'         1    1   1
+     2    2      1    'Bound state ensemble 1'         1    1   1
+     3    3      1    'Bound state ensemble 1'         1    1   1
+     4    4      1    'Bound state ensemble 1'         1    1   1
+     5    5      1    'Bound state ensemble 1'         1    1   1
+     6    6      2    'Unbound state ensemble 2'       2    1   2
+     7    7      2    'Unbound state ensemble 2'       2    1   2
+     8    8      2    'Unbound state ensemble 2'       2    1   2
+     9    9      2    'Unbound state ensemble 2'       2    1   2
+    10   10      2    'Unbound state ensemble 2'       2    1   2
     # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 4 - Multi-scale, multi-state and time-ordered ensemble
+;
+;
+    loop_
+    _ihm_model_list.ordinal_id
+    _ihm_model_list.model_id
+    _ihm_model_list.model_group_id
+    _ihm_model_list.model_name
+    _ihm_model_list.model_group_name
+    _ihm_model_list.assembly_id
+    _ihm_model_list.protocol_id
+    _ihm_model_list.representation_id
 
+    1    1    1    'Best scoring model'       'Open state'     1  1  1
+    2    2    1    '2nd Best scoring model'   'Open state'     1  1  1
+    3    3    2    'Best scoring model'       'Closed state'   1  1  1
+    4    4    2    '2nd Best scoring model'   'Closed state'   1  1  1
+    5    1    3    'Best scoring model'       'Time step 1'    1  1  1
+    6    2    3    '2nd Best scoring model'   'Time step 1'    1  1  1
+    7    3    3    '3rd Best scoring model'   'Time step 1'    1  1  1
+    8    4    3    '4th Best scoring model'   'Time step 1'    1  1  1
+    9    5    4    'Best scoring model'       'Open state'     1  1  1
+   10    6    4    '2nd Best scoring model'   'Open state'     1  1  1
+   11    7    5    'Best scoring model'       'Closed state'   1  1  1
+   12    8    5    '2nd Best scoring model'   'Closed state'   1  1  1
+   13    5    6    'Best scoring model'       'Time step 2'    1  1  1
+   14    6    6    '2nd Best scoring model'   'Time step 2'    1  1  1
+   15    7    6    '3rd Best scoring model'   'Time step 2'    1  1  1
+   16    8    6    '4th Best scoring model'   'Time step 2'    1  1  1
+   # ...  abbreviated ... 
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_model_list
      save_
@@ -2735,7 +2765,7 @@ save__ihm_model_list.representation_id
 ;
     _item.name                  '_ihm_model_list.representation_id'
     _item.category_id             ihm_model_list
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_model_list.representation_id'
     _item_linked.parent_name    '_ihm_model_representation.representation_id'
