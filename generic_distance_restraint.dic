@@ -16,7 +16,7 @@ save_ihm_feature_selection_atom
     _category.id                  ihm_feature_selection_atom
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_feature_selection_atom.feature_id'
+    _category_key.name          '_ihm_feature_selection_atom.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -30,30 +30,41 @@ save_ihm_feature_selection_atom
 ;
 ;
         loop_
+        _ihm_feature_selection_atom.ordinal_id
         _ihm_feature_selection_atom.feature_id
         _ihm_feature_selection_atom.entity_id
         _ihm_feature_selection_atom.asym_id
         _ihm_feature_selection_atom.seq_id
         _ihm_feature_selection_atom.comp_id
         _ihm_feature_selection_atom.atom_id
-          1  3  C   17  LYS  CB  
-          2  3  C  206  LYS  CB  
-          3  3  C   38  LYS  CB  
-          4  3  C  400  LYS  CB  
-          5  3  C  400  LYS  CB  
-          6  3  C  400  LYS  CB  
-          7  3  C  735  LYS  CB  
-          8  3  C  735  LYS  CB  
-          9  3  C  865  LYS  CB  
-         10  3  C  865  LYS  CB  
-         11  4  D  103  LYS  CB  
-         12  4  D  103  LYS  CB  
+          1   1  3  C   17  LYS  CB  
+          2   2  3  C  206  LYS  CB  
+          3   3  3  C   38  LYS  CB  
+          4   4  3  C  400  LYS  CB  
+          5   5  3  C  400  LYS  CB  
+          6   6  3  C  400  LYS  CB  
+          7   7  3  C  735  LYS  CB  
+          8   8  3  C  735  LYS  CB  
+          9   9  3  C  865  LYS  CB  
+         10  10  3  C  865  LYS  CB  
+         11  11  4  D  103  LYS  CB  
+         12  12  4  D  103  LYS  CB  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_feature_selection_atom
+     save_
+
+save__ihm_feature_selection_atom.ordinal_id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_feature_selection_atom.ordinal_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               int
      save_
 
 save__ihm_feature_selection_atom.feature_id
@@ -122,14 +133,14 @@ save__ihm_feature_selection_atom.seq_id
 save__ihm_feature_selection_atom.atom_id
     _item_description.description
 ;     The identifier of the atom. 
-      This data item is a pointer to _atom_site.label_atom_id in the ATOM_SITE category.
+      This data item is a pointer to _chem_comp_atom.atom_id in the CHEM_COMP_ATOM category.
 ;
     _item.name                  '_ihm_feature_selection_atom.atom_id'
     _item.category_id             ihm_feature_selection_atom
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_feature_selection_atom.atom_id'
-    _item_linked.parent_name      '_atom_site.label_atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
 
 ###################################
@@ -139,12 +150,13 @@ save__ihm_feature_selection_atom.atom_id
 save_ihm_feature_selection_residue
     _category.description
 ;              Data items in the IHM_FEATURE_SELECTION_RESIDUE category provides the defintions
-               required to select a specific residue or a set of residues in a contiguous range.
+               required to select a specific residue or a set of residues that may or may not be 
+               in a contiguous range.
 ;
     _category.id                  ihm_feature_selection_residue
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_feature_selection_residue.feature_id'
+    _category_key.name          '_ihm_feature_selection_residue.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -158,6 +170,7 @@ save_ihm_feature_selection_residue
 ;
 ;
         loop_
+        _ihm_feature_selection_residue.ordinal_id
         _ihm_feature_selection_residue.feature_id
         _ihm_feature_selection_residue.entity_id
         _ihm_feature_selection_residue.asym_id
@@ -165,19 +178,29 @@ save_ihm_feature_selection_residue
         _ihm_feature_selection_residue.comp_id_begin
         _ihm_feature_selection_residue.seq_id_end
         _ihm_feature_selection_residue.comp_id_end
-          1  3  C   17  LYS   17  LYS   # Single residue selection
-          2  3  C  206  LYS  206  LYS
-          3  3  C   38  THR   54  ALA   # Residue range selection
-          4  3  C  400  LEU  428  PHE
-          5  3  C  429  GLN  429  GLN
-          6  3  C  461  LEU  478  ARG
-          7  3  C  735  ASP  735  ASP
-          8  3  C  865  SER  891  VAL
+          1  1  3  C   17  LYS   17  LYS   # Single residue selection
+          2  2  3  C  206  LYS  206  LYS
+          3  3  3  C   38  THR   54  ALA   # Residue range selection
+          4  4  3  C  400  LEU  428  PHE
+          5  5  3  C  429  GLN  429  GLN
+          6  6  3  C  461  LEU  478  ARG
+          7  7  3  C  735  ASP  735  ASP
+          8  8  3  C  865  SER  891  VAL
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_feature_selection_residue
+     save_
+
+save__ihm_feature_selection_residue.ordinal_id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_feature_selection_residue.ordinal_id'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               int
      save_
 
 save__ihm_feature_selection_residue.feature_id
@@ -224,7 +247,7 @@ save__ihm_feature_selection_residue.comp_id_begin
 ;
     _item.name                  '_ihm_feature_selection_residue.comp_id_begin'
     _item.category_id             ihm_feature_selection_residue
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_feature_selection_residue.comp_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
@@ -237,7 +260,7 @@ save__ihm_feature_selection_residue.comp_id_end
 ;
     _item.name                  '_ihm_feature_selection_residue.comp_id_end'
     _item.category_id             ihm_feature_selection_residue
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_feature_selection_residue.comp_id_end'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
@@ -379,8 +402,9 @@ save__ihm_derived_distance_restraint.feature_type_1
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-    'atom'                          'feature is an atom'
-    'residue or residue range'      'feature is a residue or a set of residues in a contiguous range'
+    'atom'                          'feature is an atom or a set of atoms'
+    'residue'                       'feature is a residue or a set of residues, each represented by the alpha carbon atom'
+    'residue range'                 'feature is a set of residues in a contiguous range, each represented by the alpha carbon atom'
      save_
 
 save__ihm_derived_distance_restraint.feature_type_2
@@ -394,8 +418,25 @@ save__ihm_derived_distance_restraint.feature_type_2
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-    'atom'                          'feature is an atom'
-    'residue or residue range'      'feature is a residue or a set of residues in a contiguous range'
+    'atom'                          'feature is an atom or a set of atoms'
+    'residue'                       'feature is a residue or a set of residues, each represented by the alpha carbon atom'
+    'residue range'                 'feature is a set of residues in a contiguous range, each represented by the alpha carbon atom'
+     save_
+
+save__ihm_derived_distance_restraint.conditionality
+    _item_description.description
+;     If the feature is a set of atoms or a set of residues, the conditionality
+      based on which the restraint in applied in the modeling. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.conditionality'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'ALL'  'All distances among the group of atoms or residues are restrained'
+        'ANY'  'Any one of the distances among the group of atoms or residues could be satisfied'
      save_
 
 save__ihm_derived_distance_restraint.distance_lower_limit

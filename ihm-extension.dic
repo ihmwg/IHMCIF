@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:6-DEC-2017
+#  Date:7-DEC-2017
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -235,6 +235,15 @@ data_ihm-extension.dic
   + Changed _ihm_modeling_protocol.time_ordered_flag to _ihm_modeling_protocol.ordered_flag
   + Changed mandatory code for _ihm_model_list.representation_id
   + Added an example to ihm_model_list category
+;
+    0.119   2017-12-07
+;
+  Changes (bv):
+  + Changed ihm_ordered_ensemble.ordered_process_id to ihm_ordered_ensemble.process_id
+  + Changed ihm_ordered_ensemble.ordered_process_description to ihm_ordered_ensemble.process_description. 
+  + Changed parent-child relationships for _ihm_predicted_contact_restraint.atom_id_1,
+    _ihm_predicted_contact_restraint.atom_id_2, _ihm_cross_link_restraint.atom_id_1, 
+    _ihm_cross_link_restraint.atom_id_2, _ihm_starting_model_coord.atom_id
 ;
 
 #########################
@@ -1941,7 +1950,7 @@ save_ihm_ordered_ensemble
     _category.mandatory_code      no
      loop_
     _category_key.name          '_ihm_ordered_ensemble.edge_id'
-                                '_ihm_ordered_ensemble.ordered_process_id'
+                                '_ihm_ordered_ensemble.process_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -1956,8 +1965,8 @@ save_ihm_ordered_ensemble
 ;
 ;
     loop_
-    _ihm_ordered_ensemble.ordered_process_id
-    _ihm_ordered_ensemble.ordered_process_description
+    _ihm_ordered_ensemble.process_id
+    _ihm_ordered_ensemble.process_description
     _ihm_ordered_ensemble.edge_id
     _ihm_ordered_ensemble.edge_description
     _ihm_ordered_ensemble.step_id
@@ -1978,7 +1987,7 @@ save_ihm_ordered_ensemble
 ;
 ;
     loop_
-    _ihm_ordered_ensemble.ordered_process_id
+    _ihm_ordered_ensemble.process_id
     _ihm_ordered_ensemble.edge_id
     _ihm_ordered_ensemble.step_id
     _ihm_ordered_ensemble.ordered_by
@@ -1997,7 +2006,7 @@ save_ihm_ordered_ensemble
 ;
 ;  
     loop_
-    _ihm_ordered_ensemble.ordered_process_id
+    _ihm_ordered_ensemble.process_id
     _ihm_ordered_ensemble.edge_id
     _ihm_ordered_ensemble.step_id
     _ihm_ordered_ensemble.ordered_by
@@ -2017,22 +2026,22 @@ save_ihm_ordered_ensemble
    _pdbx_category_context.category_id  ihm_ordered_ensemble
      save_
 
-save__ihm_ordered_ensemble.ordered_process_id
+save__ihm_ordered_ensemble.process_id
     _item_description.description
 ;    An identifier for the ordered process. 
      Forms the category key together with _ihm_ordered_ensemble.edge_id. 
 ;
-    _item.name                  '_ihm_ordered_ensemble.ordered_process_id'
+    _item.name                  '_ihm_ordered_ensemble.process_id'
     _item.category_id             ihm_ordered_ensemble
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_ordered_ensemble.ordered_process_description
+save__ihm_ordered_ensemble.process_description
     _item_description.description
 ;    Description of the ordered process. 
 ;
-    _item.name                  '_ihm_ordered_ensemble.ordered_process_description'
+    _item.name                  '_ihm_ordered_ensemble.process_description'
     _item.category_id             ihm_ordered_ensemble
     _item.mandatory_code          no
     _item_type.code               text
@@ -2042,7 +2051,7 @@ save__ihm_ordered_ensemble.edge_id
     _item_description.description
 ;    An identifier that describes an edge in a directed graph, which
      represents an ordered ensemble. 
-     Forms the category key together with _ihm_ordered_ensemble.ordered_process_id. 
+     Forms the category key together with _ihm_ordered_ensemble.process_id. 
 ;
     _item.name                  '_ihm_ordered_ensemble.edge_id'
     _item.category_id             ihm_ordered_ensemble
@@ -4078,27 +4087,29 @@ save__ihm_predicted_contact_restraint.seq_id_2
 save__ihm_predicted_contact_restraint.atom_id_1
     _item_description.description
 ;     The atom id of the first partner in the predicted contact.
-      This data item is a pointer to _atom_site.label_atom_id in the ATOM_SITE category.
+      This data item is a pointer to _chem_comp_atom.atom_id in the 
+      CHEM_COMP_ATOM category. 
 ;
     _item.name                  '_ihm_predicted_contact_restraint.atom_id_1'
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_predicted_contact_restraint.atom_id_1'
-    _item_linked.parent_name      '_atom_site.label_atom_id'
+    _item_linked.parent_name      'chem_comp_atom.atom_id'
      save_
 
 save__ihm_predicted_contact_restraint.atom_id_2
     _item_description.description
 ;     The atom id of the second partner in the predicted contact.
-      This data item is a pointer to _atom_site.label_atom_id in the ATOM_SITE category.
+      This data item is a pointer to _chem_comp_atom.atom_id in the 
+      CHEM_COMP_ATOM category.
 ;
     _item.name                  '_ihm_predicted_contact_restraint.atom_id_2'
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_predicted_contact_restraint.atom_id_2'
-    _item_linked.parent_name      '_atom_site.label_atom_id'
+    _item_linked.parent_name      'chem_comp_atom.atom_id'
      save_
 
 save__ihm_predicted_contact_restraint.distance_lower_limit
@@ -4642,29 +4653,29 @@ save__ihm_cross_link_restraint.seq_id_2
 save__ihm_cross_link_restraint.atom_id_1
     _item_description.description
 ;     The atom identifier for the first monomer partner in the cross link.
-      This data item is a pointer to _atom_site.label_atom_id in the
-      ATOM_SITE category.
+      This data item is a pointer to _chem_comp_atom.atom_id in the 
+      CHEM_COMP_ATOM category.
 ;
     _item.name                  '_ihm_cross_link_restraint.atom_id_1'
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_cross_link_restraint.atom_id_1'
-    _item_linked.parent_name      '_atom_site.label_atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
 
 save__ihm_cross_link_restraint.atom_id_2
     _item_description.description
 ;     The atom identifier for the second monomer partner in the cross link.
-      This data item is a pointer to _atom_site.label_atom_id in the
-      ATOM_SITE category.
+      This data item is a pointer to _chem_comp_atom.atom_id in the 
+      CHEM_COMP_ATOM category.
 ;   
     _item.name                  '_ihm_cross_link_restraint.atom_id_2'
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_cross_link_restraint.atom_id_2'
-    _item_linked.parent_name      '_atom_site.label_atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
 
 save__ihm_cross_link_restraint.restraint_type
@@ -5946,14 +5957,17 @@ save__ihm_starting_model_coord.entity_id
 save__ihm_starting_model_coord.atom_id
     _item_description.description
 ;     The atom identifier/name corresponding to this coordinate position.
-
+      This data item is a pointer to _chem_comp_atom.atom_id in the 
+      CHEM_COMP_ATOM category. 
 ;
     _item.name                  '_ihm_starting_model_coord.atom_id'
     _item.category_id             ihm_starting_model_coord
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_linked.child_name       '_ihm_starting_model_coord.atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
-
+    
 save__ihm_starting_model_coord.comp_id
     _item_description.description
 ;     The component identifier corresponding to this coordinate position.
