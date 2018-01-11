@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:7-DEC-2017
+#  Date:10-JAN-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -245,6 +245,14 @@ data_ihm-extension.dic
     _ihm_predicted_contact_restraint.atom_id_2, _ihm_cross_link_restraint.atom_id_1, 
     _ihm_cross_link_restraint.atom_id_2, _ihm_starting_model_coord.atom_id
 ;
+    0.120   2018-01-10
+;
+  Changes (bv):
+  + Added ihm_feature_selection_atom, ihm_feature_selection_residue, ihm_derived_distance_restraint
+  + Fixed typos in the parent name of _ihm_predicted_contact_restraint.atom_id_1 and
+    _ihm_predicted_contact_restraint.atom_id_2
+  + Fixed _item_type.code in _ihm_starting_model_coord.atom_id
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -475,7 +483,7 @@ save__ihm_starting_model_details.starting_model_auth_asym_id
 ;     The author assigned chainId/auth_asym_id corresponding to this starting model. 
       This corresponds to the chainId/auth_asym_id of the experimental models in the
       PDB or comparative models in the Model Archive or the starting models referenced
-      via a DOI. If starting models are included in IHM_STARTING_MODEL_COORDS, then
+      via a DOI. If starting models are included in IHM_STARTING_MODEL_COORD, then
       this will be the same as _ihm_starting_model_details.asym_id. 
 ;
     _item.name                  '_ihm_starting_model_details.starting_model_auth_asym_id'
@@ -4095,7 +4103,7 @@ save__ihm_predicted_contact_restraint.atom_id_1
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_predicted_contact_restraint.atom_id_1'
-    _item_linked.parent_name      'chem_comp_atom.atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
 
 save__ihm_predicted_contact_restraint.atom_id_2
@@ -4109,7 +4117,7 @@ save__ihm_predicted_contact_restraint.atom_id_2
     _item.mandatory_code          no
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_predicted_contact_restraint.atom_id_2'
-    _item_linked.parent_name      'chem_comp_atom.atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
 
 save__ihm_predicted_contact_restraint.distance_lower_limit
@@ -5963,7 +5971,7 @@ save__ihm_starting_model_coord.atom_id
     _item.name                  '_ihm_starting_model_coord.atom_id'
     _item.category_id             ihm_starting_model_coord
     _item.mandatory_code          yes
-    _item_type.code               code
+    _item_type.code               atcode
     _item_linked.child_name       '_ihm_starting_model_coord.atom_id'
     _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
@@ -6825,5 +6833,510 @@ save__ihm_gaussian_obj_ensemble.ensemble_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_gaussian_obj_ensemble.ensemble_id'
     _item_linked.parent_name    '_ihm_ensemble_info.ensemble_id'
+     save_
+
+################################
+## IHM_FEATURE_SELECTION_ATOM ##
+################################
+
+save_ihm_feature_selection_atom
+    _category.description
+;              Data items in the IHM_FEATURE_SELECTION_ATOM category provides the defintions
+               required to select specific atoms. 
+;
+    _category.id                  ihm_feature_selection_atom
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_feature_selection_atom.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_feature_selection_atom.ordinal_id
+        _ihm_feature_selection_atom.feature_id
+        _ihm_feature_selection_atom.entity_id
+        _ihm_feature_selection_atom.asym_id
+        _ihm_feature_selection_atom.seq_id
+        _ihm_feature_selection_atom.comp_id
+        _ihm_feature_selection_atom.atom_id
+          1   1  3  C   17  LYS  CB  
+          2   2  3  C  206  LYS  CB  
+          3   3  3  C   38  LYS  CB  
+          4   4  3  C  400  LYS  CB  
+          5   5  3  C  400  LYS  CB  
+          6   6  3  C  400  LYS  CB  
+          7   7  3  C  735  LYS  CB  
+          8   8  3  C  735  LYS  CB  
+          9   9  3  C  865  LYS  CB  
+         10  10  3  C  865  LYS  CB  
+         11  11  4  D  103  LYS  CB  
+         12  12  4  D  103  LYS  CB  
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_feature_selection_atom
+     save_
+
+save__ihm_feature_selection_atom.ordinal_id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_feature_selection_atom.ordinal_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_feature_selection_atom.feature_id
+    _item_description.description
+;     An identifier for the selected atom feature.
+;
+    _item.name                  '_ihm_feature_selection_atom.feature_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_feature_selection_atom.entity_id
+    _item_description.description
+;     The entity identifier of the atom. 
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_atom.entity_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_feature_selection_atom.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_feature_selection_atom.asym_id
+    _item_description.description
+;              An asym/strand identifier of the atom. 
+               This data item is a pointer to _struct_asym.id in the
+               STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_feature_selection_atom.asym_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_feature_selection_atom.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_feature_selection_atom.comp_id
+    _item_description.description
+;     The component identifier of the atom. 
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_atom.comp_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_linked.child_name       '_ihm_feature_selection_atom.comp_id'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_feature_selection_atom.seq_id
+    _item_description.description
+;     The sequence index of the residue to which the atom belongs. 
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_atom.seq_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_feature_selection_atom.seq_id'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_feature_selection_atom.atom_id
+    _item_description.description
+;     The identifier of the atom. 
+      This data item is a pointer to _chem_comp_atom.atom_id in the CHEM_COMP_ATOM category.
+;
+    _item.name                  '_ihm_feature_selection_atom.atom_id'
+    _item.category_id             ihm_feature_selection_atom
+    _item.mandatory_code          no
+    _item_type.code               atcode
+    _item_linked.child_name       '_ihm_feature_selection_atom.atom_id'
+    _item_linked.parent_name      '_chem_comp_atom.atom_id'
+     save_
+
+###################################
+## IHM_FEATURE_SELECTION_RESIDUE ##
+###################################
+
+save_ihm_feature_selection_residue
+    _category.description
+;              Data items in the IHM_FEATURE_SELECTION_RESIDUE category provides the defintions
+               required to select a specific residue or a set of residues that may or may not be 
+               in a contiguous range.
+;
+    _category.id                  ihm_feature_selection_residue
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_feature_selection_residue.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_feature_selection_residue.ordinal_id
+        _ihm_feature_selection_residue.feature_id
+        _ihm_feature_selection_residue.entity_id
+        _ihm_feature_selection_residue.asym_id
+        _ihm_feature_selection_residue.seq_id_begin
+        _ihm_feature_selection_residue.comp_id_begin
+        _ihm_feature_selection_residue.seq_id_end
+        _ihm_feature_selection_residue.comp_id_end
+          1  1  3  C   17  LYS   17  LYS   # Single residue selection
+          2  2  3  C  206  LYS  206  LYS
+          3  3  3  C   38  THR   54  ALA   # Residue range selection
+          4  4  3  C  400  LEU  428  PHE
+          5  5  3  C  429  GLN  429  GLN
+          6  6  3  C  461  LEU  478  ARG
+          7  7  3  C  735  ASP  735  ASP
+          8  8  3  C  865  SER  891  VAL
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_feature_selection_residue
+     save_
+
+save__ihm_feature_selection_residue.ordinal_id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_feature_selection_residue.ordinal_id'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_feature_selection_residue.feature_id
+    _item_description.description
+;     An identifier for the selected residue / residue range feature.
+;
+    _item.name                  '_ihm_feature_selection_residue.feature_id'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_feature_selection_residue.entity_id
+    _item_description.description
+;     The entity identifier for residue / residue range.
+      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_residue.entity_id'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_feature_selection_residue.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_feature_selection_residue.asym_id
+    _item_description.description
+;              An asym/strand identifier for the residue / residue range.
+               This data item is a pointer to _struct_asym.id in the
+               STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_feature_selection_residue.asym_id'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_feature_selection_residue.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_feature_selection_residue.comp_id_begin
+    _item_description.description
+;     The component identifier of the beginning residue / residue range.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_residue.comp_id_begin'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    _item_linked.child_name       '_ihm_feature_selection_residue.comp_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_feature_selection_residue.comp_id_end
+    _item_description.description
+;     The component identifier of the ending residue / residue range.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_residue.comp_id_end'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    _item_linked.child_name       '_ihm_feature_selection_residue.comp_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_feature_selection_residue.seq_id_begin
+    _item_description.description
+;     The sequence index of the beginning residue / residue range.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_residue.seq_id_begin'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_feature_selection_residue.seq_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+    save_
+
+save__ihm_feature_selection_residue.seq_id_end
+    _item_description.description
+;     The sequence index of the ending residue / residue range.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_feature_selection_residue.seq_id_end'
+    _item.category_id             ihm_feature_selection_residue
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_feature_selection_residue.seq_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+    save_
+
+####################################
+## IHM_DERIVED_DISTANCE_RESTRAINT ##
+####################################
+
+save_ihm_derived_distance_restraint
+    _category.description
+;              Data items in the IHM_DERIVED_DISTANCE_RESTRAINT category records the
+               list of distance restraints used in the integrative modeling experiment. 
+               These distance redistance restraints may be derived from various kinds of experiments. 
+;
+    _category.id                  ihm_derived_distance_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_derived_distance_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_derived_distance_restraint.id
+        _ihm_derived_distance_restraint.feature_id_1
+        _ihm_derived_distance_restraint.feature_type_1
+        _ihm_derived_distance_restraint.feature_id_2
+        _ihm_derived_distance_restraint.feature_type_2
+        _ihm_derived_distance_restraint.restraint_type
+        _ihm_derived_distance_restraint.distance_upper_limit
+        _ihm_derived_distance_restraint.probability
+        _ihm_derived_distance_restraint.dataset_list_id
+          1    7  'residue'  21  'residue'  'upper bound'  8.0  0.8  1  
+          2   16  'residue'  19  'residue'  'upper bound'  8.0  0.5  1  
+          3    8  'residue'  40  'residue'  'upper bound'  8.0  0.8  1  
+          4   35  'residue'  43  'residue'  'upper bound'  8.0  0.6  1  
+          5   23  'residue'  45  'residue'  'upper bound'  8.0  0.7  1  
+          6   86  'residue'  94  'residue'  'upper bound'  8.0  0.7  1  
+          7   63  'residue'  80  'residue'  'upper bound'  8.0  0.5  1  
+          8   15  'residue'  33  'residue'  'upper bound'  8.0  0.5  1  
+          9   41  'residue'  52  'residue'  'upper bound'  8.0  0.9  1  
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_derived_distance_restraint
+     save_
+
+save__ihm_derived_distance_restraint.id
+    _item_description.description
+;     A unique identifier for the derived distance restraint.
+;
+    _item.name                  '_ihm_derived_distance_restraint.id'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_derived_distance_restraint.group_id
+    _item_description.description
+;     An identifier to group the distance restraints. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.group_id'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               int  
+     save_
+
+save__ihm_derived_distance_restraint.feature_id_1
+    _item_description.description
+;     The feature identifier for the first partner in the distance restraint. 
+      This is a child of either _ihm_feature_selection_atom.feature_id or 
+      ihm_feature_selection_residue.feature_id depending on the data in 
+      _ihm_derived_distance_restraint.feature_type_1.  
+;
+    _item.name                  '_ihm_derived_distance_restraint.feature_id_1'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_derived_distance_restraint.feature_id_2
+    _item_description.description
+;     The feature identifier for the second partner in the distance restraint.
+      This is a child of either _ihm_feature_selection_atom.feature_id or
+      ihm_feature_selection_residue.feature_id depending on the data in
+      _ihm_derived_distance_restraint.feature_type_2. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.feature_id_2'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_derived_distance_restraint.feature_type_1
+    _item_description.description
+;     The type of feature for the first partner in the distance restraint.
+;
+    _item.name                  '_ihm_derived_distance_restraint.feature_type_1'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'atom'                          'feature is an atom or a set of atoms'
+    'residue'                       'feature is a residue or a set of residues, each represented by the alpha carbon atom'
+    'residue range'                 'feature is a set of residues in a contiguous range, each represented by the alpha carbon atom'
+     save_
+
+save__ihm_derived_distance_restraint.feature_type_2
+    _item_description.description
+;     The type of feature for the second partner in the distance restraint.
+;
+    _item.name                  '_ihm_derived_distance_restraint.feature_type_2'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'atom'                          'feature is an atom or a set of atoms'
+    'residue'                       'feature is a residue or a set of residues, each represented by the alpha carbon atom'
+    'residue range'                 'feature is a set of residues in a contiguous range, each represented by the alpha carbon atom'
+     save_
+
+save__ihm_derived_distance_restraint.conditionality
+    _item_description.description
+;     If the feature is a set of atoms or a set of residues, the conditionality
+      based on which the restraint in applied in the modeling. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.conditionality'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'ALL'  'All distances among the group of atoms or residues are restrained'
+        'ANY'  'Any one of the distances among the group of atoms or residues could be satisfied'
+     save_
+
+save__ihm_derived_distance_restraint.distance_lower_limit
+    _item_description.description
+;     The lower limit to the distance threshold applied to this distance restraint
+      in the intergrative modeling task. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.distance_lower_limit'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_derived_distance_restraint.distance_upper_limit
+    _item_description.description
+;     The upper limit to the distance threshold applied to this distance restraint
+      in the intergrative modeling task. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_derived_distance_restraint.probability
+    _item_description.description
+;      The real number that indicates the probability that the distance restraint 
+       is correct. This number should fall between 0.0 and 1.0. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.probability'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    loop_
+    _item_range.minimum
+    _item_range.maximum
+        0.0   0.0
+        0.0   1.0
+        1.0   1.0
+     save_
+
+save__ihm_derived_distance_restraint.restraint_type
+    _item_description.description
+;     The type of distance restraint applied. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.restraint_type'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+        'lower bound' 
+        'upper bound' 
+        'lower and upper bound' 
+     save_
+
+save__ihm_derived_distance_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the input data from which the distance restraint is derived.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.dataset_list_id'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_derived_distance_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
      save_
 
