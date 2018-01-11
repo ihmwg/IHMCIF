@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.108
+    _dictionary.version         0.120
 #
      loop_
     _dictionary_history.version
