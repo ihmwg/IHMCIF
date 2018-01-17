@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:10-JAN-2018
+#  Date:17-JAN-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.120
+    _dictionary.version         0.121
 #
      loop_
     _dictionary_history.version
@@ -252,6 +252,14 @@ data_ihm-extension.dic
   + Fixed typos in the parent name of _ihm_predicted_contact_restraint.atom_id_1 and
     _ihm_predicted_contact_restraint.atom_id_2
   + Fixed _item_type.code in _ihm_starting_model_coord.atom_id
+;
+    0.121   2018-01-17
+;
+  Changes (bv):
+  + Added _ihm_derived_distance_restraint.distance_upper_limit_std and 
+    _ihm_derived_distance_restraint.distance_lower_limit_std
+  + Updated _item_type.code for _ihm_external_reference_info.reference_type and
+    _ihm_external_reference_info.reference_provider
 ;
 
 #########################
@@ -3390,7 +3398,7 @@ save__ihm_external_reference_info.reference_provider
     _item.name                  '_ihm_external_reference_info.reference_provider'
     _item.category_id             ihm_external_reference_info
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               line
     loop_
     _item_examples.case
     'Zenodo'
@@ -3407,7 +3415,7 @@ save__ihm_external_reference_info.reference_type
     _item.name                  '_ihm_external_reference_info.reference_type'
     _item.category_id             ihm_external_reference_info
     _item.mandatory_code          yes
-    _item_type.code               code
+    _item_type.code               line
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -7288,6 +7296,30 @@ save__ihm_derived_distance_restraint.distance_upper_limit
       in the intergrative modeling task. 
 ;
     _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_derived_distance_restraint.distance_lower_limit_std
+    _item_description.description
+;     The standard deviation of the lower limit distance threshold applied to this distance restraint
+      in the intergrative modeling task.
+;
+    _item.name                  '_ihm_derived_distance_restraint.distance_lower_limit_std'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_derived_distance_restraint.distance_upper_limit_std
+    _item_description.description
+;     The standard deviation of the upper limit distance threshold applied to this distance restraint
+      in the intergrative modeling task.
+;
+    _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit_std'
     _item.category_id             ihm_derived_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
