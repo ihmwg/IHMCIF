@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:17-JAN-2018
+#  Date:22-JAN-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.121
+    _dictionary.version         0.122
 #
      loop_
     _dictionary_history.version
@@ -260,6 +260,19 @@ data_ihm-extension.dic
     _ihm_derived_distance_restraint.distance_lower_limit_std
   + Updated _item_type.code for _ihm_external_reference_info.reference_type and
     _ihm_external_reference_info.reference_provider
+;
+    0.122   2018-01-22
+;
+  Changes (bv):
+  + Updated parent-child relationships for _ihm_model_representation.entity_id,
+    _ihm_struct_assembly.entity_id, _ihm_feature_selection_atom.entity_id, 
+    _ihm_feature_selection_residue.entity_id
+  + Changed _ihm_derived_distance_restraint.distance_lower_limit_std to 
+    _ihm_derived_distance_restraint.distance_lower_limit_esd
+  + Changed _ihm_derived_distance_restraint.distance_upper_limit_std to 
+    _ihm_derived_distance_restraint.distance_upper_limit_esd
+  + Added enumeration for _ihm_external_reference_info.refers_to and 
+    _ihm_external_files.file_format
 ;
 
 #########################
@@ -989,14 +1002,14 @@ save__ihm_model_representation.segment_id
 save__ihm_model_representation.entity_id
     _item_description.description
 ;     A unique identifier distinct molecular entities.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_model_representation.entity_id'
     _item.category_id             ihm_model_representation
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_model_representation.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 
@@ -1260,14 +1273,14 @@ save__ihm_struct_assembly.entity_description
 save__ihm_struct_assembly.entity_id
     _item_description.description
 ;     A unique identifier for distinct molecular entities.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_struct_assembly.entity_id'
     _item.category_id             ihm_struct_assembly
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_struct_assembly.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_struct_assembly.asym_id
@@ -3449,9 +3462,10 @@ save__ihm_external_reference_info.refers_to
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-     'File'     'Refers to a single file'
-     'Archive'  'Refers to a tar and/or a compressed file'
-     'Other'    'Other kind of object'
+     'File'         'Refers to a single file'
+     'Archive'      'Refers to a tar and/or a compressed file'
+     'Publication'  'Refers to data from previously published work'
+     'Other'        'Other kind of object'
      save_
 
 save__ihm_external_reference_info.associated_url
@@ -3538,7 +3552,7 @@ save_ihm_external_files
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
-    Example 3 - DOI reference leading to a single file
+    Example 3 - DOI reference leading to a single file or data from previously published work
 ;
 ;
  loop_
@@ -3627,6 +3641,7 @@ save__ihm_external_files.file_format
     'PIR/NBRF'
     'A2M'
     'A3M'
+    'PDF'
     'Other'
     save_
 
@@ -6919,14 +6934,14 @@ save__ihm_feature_selection_atom.feature_id
 save__ihm_feature_selection_atom.entity_id
     _item_description.description
 ;     The entity identifier of the atom. 
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_feature_selection_atom.entity_id'
     _item.category_id             ihm_feature_selection_atom
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_feature_selection_atom.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_feature_selection_atom.asym_id
@@ -7055,14 +7070,14 @@ save__ihm_feature_selection_residue.feature_id
 save__ihm_feature_selection_residue.entity_id
     _item_description.description
 ;     The entity identifier for residue / residue range.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_feature_selection_residue.entity_id'
     _item.category_id             ihm_feature_selection_residue
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_feature_selection_residue.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_feature_selection_residue.asym_id
@@ -7302,24 +7317,24 @@ save__ihm_derived_distance_restraint.distance_upper_limit
     _item_units.code              angstroms
      save_
 
-save__ihm_derived_distance_restraint.distance_lower_limit_std
+save__ihm_derived_distance_restraint.distance_lower_limit_esd
     _item_description.description
-;     The standard deviation of the lower limit distance threshold applied to this distance restraint
+;     The estimated standard deviation of the lower limit distance threshold applied to this distance restraint
       in the intergrative modeling task.
 ;
-    _item.name                  '_ihm_derived_distance_restraint.distance_lower_limit_std'
+    _item.name                  '_ihm_derived_distance_restraint.distance_lower_limit_esd'
     _item.category_id             ihm_derived_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-save__ihm_derived_distance_restraint.distance_upper_limit_std
+save__ihm_derived_distance_restraint.distance_upper_limit_esd
     _item_description.description
-;     The standard deviation of the upper limit distance threshold applied to this distance restraint
+;     The estimated standard deviation of the upper limit distance threshold applied to this distance restraint
       in the intergrative modeling task.
 ;
-    _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit_std'
+    _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit_esd'
     _item.category_id             ihm_derived_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
