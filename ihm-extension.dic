@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:22-JAN-2018
+#  Date:24-JAN-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.122
+    _dictionary.version         0.123
 #
      loop_
     _dictionary_history.version
@@ -275,6 +275,16 @@ data_ihm-extension.dic
     _ihm_external_files.file_format
 ;
 
+    0.123   2018-01-24
+;
+  Changes (bv):
+  + Added _ihm_struct_assembly.assembly_description
+  + Updated parent-child relationships for _ihm_starting_model_details.entity_description,
+    _ihm_model_representation.entity_description, _ihm_struct_assembly.entity_description,
+    _ihm_predicted_contact_restraint.entity_description_1, _ihm_cross_link_list.entity_description_1,
+    _ihm_predicted_contact_restraint.entity_description_2, _ihm_cross_link_list.entity_description_2
+;
+
 #########################
 ## CATEGORY_GROUP_LIST ##
 #########################
@@ -440,6 +450,8 @@ save__ihm_starting_model_details.entity_description
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               line
+    _item_linked.child_name     '_ihm_starting_model_details.entity_description'
+    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_starting_model_details.asym_id
@@ -1012,7 +1024,6 @@ save__ihm_model_representation.entity_id
     _item_linked.parent_name      '_entity.id'
      save_
 
-
 save__ihm_model_representation.entity_description
     _item_description.description
 ;     A text description of the molecuar molecular entity
@@ -1021,6 +1032,8 @@ save__ihm_model_representation.entity_description
     _item.category_id             ihm_model_representation
     _item.mandatory_code          no
     _item_type.code               line
+    _item_linked.child_name     '_ihm_model_representation.entity_description'
+    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_model_representation.entity_asym_id
@@ -1265,6 +1278,19 @@ save__ihm_struct_assembly.entity_description
 
 ;
     _item.name                  '_ihm_struct_assembly.entity_description'
+    _item.category_id             ihm_struct_assembly
+    _item.mandatory_code          no
+    _item_type.code               line
+    _item_linked.child_name     '_ihm_struct_assembly.entity_description'
+    _item_linked.parent_name    '_entity.pdbx_description'
+     save_
+
+save__ihm_struct_assembly.assembly_description
+    _item_description.description
+;     A text description of the assembly
+
+;
+    _item.name                  '_ihm_struct_assembly.assembly_description'
     _item.category_id             ihm_struct_assembly
     _item.mandatory_code          no
     _item_type.code               line
@@ -3996,6 +4022,8 @@ save__ihm_predicted_contact_restraint.entity_description_1
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no   
     _item_type.code               line 
+    _item_linked.child_name     '_ihm_predicted_contact_restraint.entity_description_1'
+    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_predicted_contact_restraint.entity_description_2
@@ -4007,6 +4035,8 @@ save__ihm_predicted_contact_restraint.entity_description_2
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no
     _item_type.code               line
+    _item_linked.child_name     '_ihm_predicted_contact_restraint.entity_description_2'
+    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_predicted_contact_restraint.entity_id_1
@@ -4341,6 +4371,8 @@ save__ihm_cross_link_list.entity_description_1
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          no   
     _item_type.code               line 
+    _item_linked.child_name     '_ihm_cross_link_list.entity_description_1'
+    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_cross_link_list.entity_description_2
@@ -4352,6 +4384,8 @@ save__ihm_cross_link_list.entity_description_2
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          no
     _item_type.code               line
+    _item_linked.child_name     '_ihm_cross_link_list.entity_description_2'
+    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_cross_link_list.entity_id_1
