@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:1-FEB-2018
+#  Date:5-FEB-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.123
+    _dictionary.version         0.125
 #
      loop_
     _dictionary_history.version
@@ -293,6 +293,14 @@ data_ihm-extension.dic
   + Changed IHM_FEATUTE_SELECTION_ATOM to IHM_POLY_ATOM_FEATURE. 
   + Changed IHM_FEATUTE_SELECTION_RESDIUE to IHM_POLY_RESIDUE_FEATURE.
   + Updated IHM_DERIVED_DISTANCE_RESTRAINT
+;
+    0.125   2018-02-05
+;
+  Changes (bv):
+  + Added _ihm_derived_distance_restraint.random_exclusion_fraction
+  + Changed _ihm_derived_distance_restraint.conditionality to
+    _ihm_derived_distance_restraint.group_conditionality
+  + Updated description for _ihm_derived_distance_restraint.group_conditionality 
 ;
 
 #########################
@@ -7526,6 +7534,8 @@ save__ihm_derived_distance_restraint.id
 save__ihm_derived_distance_restraint.group_id
     _item_description.description
 ;     An identifier to group the distance restraints. 
+      This can be the same as the _ihm_derived_distance_restraint.id in case
+      the some of the restraints are not grouped.  
 ;
     _item.name                  '_ihm_derived_distance_restraint.group_id'
     _item.category_id             ihm_derived_distance_restraint
@@ -7561,12 +7571,12 @@ save__ihm_derived_distance_restraint.feature_id_2
     _item_linked.parent_name    '_ihm_feature_list.feature_id'
      save_
 
-save__ihm_derived_distance_restraint.conditionality
+save__ihm_derived_distance_restraint.group_conditionality
     _item_description.description
-;     If the feature is a set of atoms or a set of residues, the conditionality
-      based on which the restraint in applied in the modeling. 
+;     If a group of atoms or residues are restrained, this data item defines 
+      the conditionality based on which the restraint is applied in the modeling. 
 ;
-    _item.name                  '_ihm_derived_distance_restraint.conditionality'
+    _item.name                  '_ihm_derived_distance_restraint.group_conditionality'
     _item.category_id             ihm_derived_distance_restraint
     _item.mandatory_code          no
     _item_type.code               code
@@ -7575,6 +7585,18 @@ save__ihm_derived_distance_restraint.conditionality
     _item_enumeration.detail
         'ALL'  'All distances among the group of atoms or residues are restrained'
         'ANY'  'Any one of the distances among the group of atoms or residues could be satisfied'
+     save_
+
+save__ihm_derived_distance_restraint.random_exclusion_fraction
+    _item_description.description
+;    The fraction of randomly excluded distance restraints during modeling. 
+     In HADDOCK, this is used along with ambiguous interface restraints (AIRs) 
+     to account for uncertainties in AIRs. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.random_exclusion_fraction'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
      save_
 
 save__ihm_derived_distance_restraint.distance_lower_limit
