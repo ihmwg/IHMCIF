@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:5-FEB-2018
+#  Date:6-FEB-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.125
+    _dictionary.version         0.126
 #
      loop_
     _dictionary_history.version
@@ -301,6 +301,11 @@ data_ihm-extension.dic
   + Changed _ihm_derived_distance_restraint.conditionality to
     _ihm_derived_distance_restraint.group_conditionality
   + Updated description for _ihm_derived_distance_restraint.group_conditionality 
+;
+    0.126    2018-02-06
+;
+  Changes (bv): 
+  + Updated enumeration list for _ihm_dataset_list.data_type
 ;
 
 #########################
@@ -1045,7 +1050,7 @@ save__ihm_model_representation.entity_id
 
 save__ihm_model_representation.entity_description
     _item_description.description
-;     A text description of the molecuar molecular entity
+;     A text description of the molecular entity
 ;
     _item.name                  '_ihm_model_representation.entity_description'
     _item.category_id             ihm_model_representation
@@ -3109,12 +3114,15 @@ save__ihm_dataset_list.data_type
       'CX-MS data'
       'Mass Spectrometry data'
       'EPR data'
+      'H/D exchange data'
       'Single molecule FRET data'
       'Experimental model'
       'Comparative model'
       'Integrative model'
       'De Novo model'
       'Predicted contacts'
+      'Mutagenesis data'
+      'DNA footprinting data'
       'Other'
      save_ 
 
