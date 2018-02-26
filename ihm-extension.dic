@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:6-FEB-2018
+#  Date:26-FEB-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.126
+    _dictionary.version         0.127
 #
      loop_
     _dictionary_history.version
@@ -306,6 +306,13 @@ data_ihm-extension.dic
 ;
   Changes (bv): 
   + Updated enumeration list for _ihm_dataset_list.data_type
+;
+
+    0.127    2018-02-26
+;
+  Changes (bv):
+  + Added _ihm_poly_residue_feature.residue_range_granularity, _ihm_poly_residue_feature.rep_atom
+  + Updated enumeration for _ihm_cross_link_list.linker_type, _ihm_external_files.content_type
 ;
 
 #########################
@@ -3772,6 +3779,7 @@ save__ihm_external_files.content_type
     'Input data or restraints'
     'Modeling or post-processing output'
     'Modeling workflow or script'
+    'Visualization script'
     'Other'
     save_
 
@@ -4577,6 +4585,7 @@ save__ihm_cross_link_list.linker_type
                  'BS2G'     'Bis-(sulfosuccinimidyl) glutarate crosslinker'
                  'DST'      'disuccinimidyl tartrate'
                  'sulfo-SDA'  "sulfosuccinimidyl 4,4'-azipentanoate, heterobifunctional"
+                 'sulfo-SMCC' "sulfosuccinimidyl 4-(N-maleimidomethyl)cyclohexane-1-carboxylate"
                  'Other'    'Other type of crosslinker'
      save_
 
@@ -7355,6 +7364,38 @@ save__ihm_poly_residue_feature.seq_id_end
     _item_type.code               int
     _item_linked.child_name       '_ihm_poly_residue_feature.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
+    save_
+
+save__ihm_poly_residue_feature.residue_range_granularity
+    _item_description.description
+;     The coarse-graining information, if the feature is a residue range.
+;
+    _item.name                  '_ihm_poly_residue_feature.residue_range_granularity'
+    _item.category_id             ihm_poly_residue_feature
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+                 'by-residue'    'Residue range represented by individual residues in the residue range'
+                 'by-feature'    'Residue range represented using the closest primitive object with the highest resolution'
+     save_
+
+save__ihm_poly_residue_feature.rep_atom
+    _item_description.description
+;     If _ihm_poly_residue_feature.granularity is by-residue, then indicate the atom used to represent 
+      the residue in three-dimension. Default is the C-alpha atom.  
+;
+    _item.name                  '_ihm_poly_residue_feature.rep_atom'
+    _item.category_id             ihm_poly_residue_feature
+    _item.mandatory_code          no
+    _item_type.code               code
+    _item_default.value           CA
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    CA  'C-alpha for all residues'
+    CB  'C-beta for all residues except Glycine; Default value of C-alpha for Glycine'
     save_
 
 ###############################
