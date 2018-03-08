@@ -12,7 +12,7 @@ data_ihm-extension.dic
     _datablock.id                          ihm-extension.dic
     _datablock.description
 ;
-     This data block holds the extension dictionary for Intergrative/Hybrid (I/H) methods.
+     This data block holds the extension dictionary for Integrative/Hybrid (I/H) methods.
      This extension is based on the PDBx/mmCIF dictionary. 
      This resource is actively developed and maintained in a github repository available at 
      https://github.com/ihmwg/IHM-dictionary.
@@ -1139,7 +1139,7 @@ save__ihm_model_representation.starting_model_id
 
 save__ihm_model_representation.model_mode
     _item_description.description
-;     The manner in which the seqment is modeled.
+;     The manner in which the segment is modeled.
 ;
     _item.name                  '_ihm_model_representation.model_mode'
     _item.category_id             ihm_model_representation
@@ -4272,7 +4272,7 @@ save__ihm_predicted_contact_restraint.atom_id_2
 save__ihm_predicted_contact_restraint.distance_lower_limit
     _item_description.description
 ;     The lower limit to the distance threshold applied to this predicted contact restraint
-      in the intergrative modeling task. 
+      in the integrative modeling task.
 ;
     _item.name                  '_ihm_predicted_contact_restraint.distance_lower_limit'
     _item.category_id             ihm_predicted_contact_restraint
@@ -4284,7 +4284,7 @@ save__ihm_predicted_contact_restraint.distance_lower_limit
 save__ihm_predicted_contact_restraint.distance_upper_limit
     _item_description.description
 ;     The upper limit to the distance threshold applied to this predicted contact restraint
-      in the intergrative modeling task. 
+      in the integrative modeling task.
 ;
     _item.name                  '_ihm_predicted_contact_restraint.distance_upper_limit'
     _item.category_id             ihm_predicted_contact_restraint
@@ -7651,7 +7651,7 @@ save__ihm_derived_distance_restraint.random_exclusion_fraction
 save__ihm_derived_distance_restraint.distance_lower_limit
     _item_description.description
 ;     The lower limit to the distance threshold applied to this distance restraint
-      in the intergrative modeling task. 
+      in the integrative modeling task.
 ;
     _item.name                  '_ihm_derived_distance_restraint.distance_lower_limit'
     _item.category_id             ihm_derived_distance_restraint
@@ -7663,7 +7663,7 @@ save__ihm_derived_distance_restraint.distance_lower_limit
 save__ihm_derived_distance_restraint.distance_upper_limit
     _item_description.description
 ;     The upper limit to the distance threshold applied to this distance restraint
-      in the intergrative modeling task. 
+      in the integrative modeling task.
 ;
     _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit'
     _item.category_id             ihm_derived_distance_restraint
@@ -7675,7 +7675,7 @@ save__ihm_derived_distance_restraint.distance_upper_limit
 save__ihm_derived_distance_restraint.distance_lower_limit_esd
     _item_description.description
 ;     The estimated standard deviation of the lower limit distance threshold applied to this distance restraint
-      in the intergrative modeling task.
+      in the integrative modeling task.
 ;
     _item.name                  '_ihm_derived_distance_restraint.distance_lower_limit_esd'
     _item.category_id             ihm_derived_distance_restraint
@@ -7687,7 +7687,7 @@ save__ihm_derived_distance_restraint.distance_lower_limit_esd
 save__ihm_derived_distance_restraint.distance_upper_limit_esd
     _item_description.description
 ;     The estimated standard deviation of the upper limit distance threshold applied to this distance restraint
-      in the intergrative modeling task.
+      in the integrative modeling task.
 ;
     _item.name                  '_ihm_derived_distance_restraint.distance_upper_limit_esd'
     _item.category_id             ihm_derived_distance_restraint
