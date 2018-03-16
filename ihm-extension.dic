@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:26-FEB-2018
+#  Date:16-MAR-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.127
+    _dictionary.version         0.128
 #
      loop_
     _dictionary_history.version
@@ -313,6 +313,14 @@ data_ihm-extension.dic
   Changes (bv):
   + Added _ihm_poly_residue_feature.residue_range_granularity, _ihm_poly_residue_feature.rep_atom
   + Updated enumeration for _ihm_cross_link_list.linker_type, _ihm_external_files.content_type
+;
+
+    0.128    2018-03-16
+;
+  Changes (bv):
+  + Added _ihm_dataset_group.application and _ihm_dataset_group.details
+  + Updated enumeration for _ihm_modeling_post_process.type  
+  + Fixed typos 
 ;
 
 #########################
@@ -2391,11 +2399,12 @@ save__ihm_modeling_post_process.type
     loop_ 
    _item_enumeration.value
    _item_enumeration.detail
-    'filter'    'post processing step involves filtering of models'
-    'cluster'   'post processing step involves clustering of models'
-    'rescore'   'post processing step involves rescoring of the models'
-    'other'     'post processing step involves a different kind of analysis'
-    'none'      'no post processing is carried out'
+    'filter'        'post processing step involves filtering of models'
+    'cluster'       'post processing step involves clustering of models'
+    'rescore'       'post processing step involves rescoring of the models'
+    'validation'    'post processing step involves validation of the models'
+    'other'         'post processing step involves a different kind of analysis'
+    'none'          'no post processing is carried out'
      save_
 
 save__ihm_modeling_post_process.feature
@@ -3230,6 +3239,35 @@ save__ihm_dataset_group.dataset_list_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_dataset_group.dataset_list_id'
     _item_linked.parent_name    '_ihm_dataset_list.id'
+     save_
+
+save__ihm_dataset_group.application
+    _item_description.description
+;    The application / utilization of the dataset group in modeling.
+;
+    _item.name                  '_ihm_dataset_group.application'
+    _item.category_id             ihm_dataset_group
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'restraint'         'dataset used as input spatial restraints in modeling'
+    'validation'        'dataset used for validation'
+    'filter'            'dataset used for filtering sampled models'
+    'representation'    'dataset used in model representation'
+    'sampling'          'dataset used to bias sampling'
+    'other'             'dataset used in other ways'
+     save_
+
+save__ihm_dataset_group.details
+    _item_description.description
+;    Additional details regarding the dataset group. 
+;
+    _item.name                  '_ihm_dataset_group.details'
+    _item.category_id             ihm_dataset_group
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ##########################
@@ -5816,7 +5854,7 @@ save_ihm_sas_restraint
     _ihm_sas_restraint.dataset_list_id                 6
     _ihm_sas_restraint.model_id                        1
     _ihm_sas_restraint.struct_assembly_id              1
-    _ihm_sas_restraint.profile_segment_flag            No
+    _ihm_sas_restraint.profile_segment_flag            NO
     _ihm_sas_restraint.fitting_atom_type               'Heavy atoms'
     _ihm_sas_restraint.fitting_method                  'FoXS'
     _ihm_sas_restraint.fitting_state                   'Single'
