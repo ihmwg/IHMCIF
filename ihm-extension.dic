@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:16-MAR-2018
+#  Date:22-MAR-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.128
+    _dictionary.version         0.129
 #
      loop_
     _dictionary_history.version
@@ -321,6 +321,13 @@ data_ihm-extension.dic
   + Added _ihm_dataset_group.application and _ihm_dataset_group.details
   + Updated enumeration for _ihm_modeling_post_process.type  
   + Fixed typos 
+;
+
+    0.129    2018-03-22
+;
+  Changes (bv):
+  + Added _ihm_modeling_post_process.struct_assembly_id and _ihm_modeling_post_process.dataset_group_id
+  + Added ihm_residues_not_modeled
 ;
 
 #########################
@@ -2386,6 +2393,36 @@ save__ihm_modeling_post_process.step_id
     _item.category_id             ihm_modeling_post_process
     _item.mandatory_code          yes
     _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.struct_assembly_id
+    _item_description.description
+;    An index for the structural assembly being processed.
+     This is an indicator to whether the whole assembly is processed
+     or if only a subset of the structural assembly is processed.
+     This data item is a pointer to _ihm_struct_assembly.assembly_id in the
+     IHM_STRUCT_ASSEMBLY category. 
+;
+    _item.name                  '_ihm_modeling_post_process.struct_assembly_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_post_process.struct_assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.assembly_id'
+    save_
+
+save__ihm_modeling_post_process.dataset_group_id
+    _item_description.description
+;    An index for the dataset group being used in the post modeling process.
+     This data item is a pointer to the _ihm_dataset_group.group_id in the
+     IHM_DATASET_GROUP category.
+;
+    _item.name                  '_ihm_modeling_post_process.dataset_group_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_post_process.dataset_group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.group_id'
      save_
 
 save__ihm_modeling_post_process.type
@@ -7025,6 +7062,173 @@ save__ihm_gaussian_obj_ensemble.ensemble_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_gaussian_obj_ensemble.ensemble_id'
     _item_linked.parent_name    '_ihm_ensemble_info.ensemble_id'
+     save_
+
+##############################
+## IHM_RESIDUES_NOT_MODELED ##
+##############################
+
+save_ihm_residues_not_modeled
+    _category.description
+;              Data items in the IHM_RESIDUES_NOT_MODELED category record the
+               details of the residues that are defined in the 
+               IHM_STRUCT_ASSEMBLY category but are missing in the 
+               three-dimensional model (ATOM_SITE, IHM_SPHERE_OBJ_SITE, 
+               IHM_GAUSSIAN_OBJ_SITE categories) i.e., residues in the
+               assembly that are not modeled.  
+;
+    _category.id                  ihm_residues_not_modeled
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_residues_not_modeled.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 
+;
+;
+    loop_
+    _ihm_residues_not_modeled.ordinal_id
+    _ihm_residues_not_modeled.model_id
+    _ihm_residues_not_modeled.entity_description
+    _ihm_residues_not_modeled.entity_id
+    _ihm_residues_not_modeled.asym_id
+    _ihm_residues_not_modeled.seq_id_begin
+    _ihm_residues_not_modeled.seq_id_end
+    _ihm_residues_not_modeled.reason
+         1   1   Nup84   1  A     1    14   'Highly variable models with poor precision'
+         2   1   Nup85   2  B   740   744   'Highly variable models with poor precision'
+         3   1  Nup133   4  D     5    26   'Highly variable models with poor precision'
+         4   1  Nup145   5  E   707   712   'Highly variable models with poor precision'
+         #...abbreviated...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_residues_not_modeled
+     save_
+
+save__ihm_residues_not_modeled.ordinal_id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_residues_not_modeled.ordinal_id'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_residues_not_modeled.model_id
+    _item_description.description
+;     An identifier for the structural model. 
+      This data item is a pointer to _ihm_model_list.model_id
+      in the IHM_MODEL_LIST category. 
+;
+    _item.name                  '_ihm_residues_not_modeled.model_id'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_residues_not_modeled.model_id'
+    _item_linked.parent_name    '_ihm_model_list.model_id'
+     save_
+
+save__ihm_residues_not_modeled.entity_description
+    _item_description.description
+;     A text description of the molecular entity, whose residues are not modeled. 
+      This data item is a pointer to _entity.pdbx_description in the ENTITY category. 
+;
+    _item.name                  '_ihm_residues_not_modeled.entity_description'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          no
+    _item_type.code               line
+    _item_linked.child_name     '_ihm_residues_not_modeled.entity_description'
+    _item_linked.parent_name    '_entity.pdbx_description'
+     save_
+
+save__ihm_residues_not_modeled.entity_id
+    _item_description.description
+;     A unique identifier to the molecular entity, whose residues are not modeled.
+      This data item is a pointer to _entity_poly_seq.entity_id in the 
+      ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_residues_not_modeled.entity_id'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_residues_not_modeled.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_residues_not_modeled.asym_id
+    _item_description.description
+;     An asym/strand identifier. 
+      This data item is a pointer to _struct_asym.id in the
+      STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_residues_not_modeled.asym_id'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_residues_not_modeled.asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_residues_not_modeled.seq_id_begin
+    _item_description.description
+;     The starting residue index for the sequence segment of missing residues. 
+      This data item is a pointer to _entity_poly_seq.num in the
+      ENTITY_POLY_SEQ category. 
+;
+    _item.name                  '_ihm_residues_not_modeled.seq_id_begin'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_residues_not_modeled.seq_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_residues_not_modeled.seq_id_end
+    _item_description.description
+;     The ending residue index for the sequence segment of missing residues.  
+      This data item is a pointer to _entity_poly_seq.num in the
+      ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_residues_not_modeled.seq_id_end'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_residues_not_modeled.seq_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_residues_not_modeled.reason
+    _item_description.description
+;     The reason why the residues are missing in the structural model. 
+;     
+    _item.name                  '_ihm_residues_not_modeled.reason'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    'Highly variable models with poor precision'
+    'Models do not adequately satisfy input data'
+    'Other'
+     save_
+
+save__ihm_residues_not_modeled.details
+    _item_description.description
+;     Additional details regarding the missing segments. 
+;
+    _item.name                  '_ihm_residues_not_modeled.details'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ######################

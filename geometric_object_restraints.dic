@@ -193,13 +193,13 @@ save_ihm_geometric_object_transformation
     _category.description
 ;              Data items in the IHM_GEOMETRIC_OBJECT_TRANSFORMATION category records the
                details of the Euler angles of rotation applied to a goemtric object along
-               with any translation along the x, y and z axis as well as scaling applied 
-               to the object. 
+               with any translation along the x, y and z axis. 
                
                The conventions for the Euler angles are as follows: 
                - Alpha represents the rotation around the z axis;  0<=Alpha<=360. 
                - Beta represents the rotation aroung the x' axis;  0<=Beta<=180. 
                - Gamma represents the rotation around the z" axis; 0<=Gamma<=360. 
+               - The rotations are applied clock-wise. 
 ;
     _category.id                  ihm_geometric_object_transformation
     _category.mandatory_code      no
@@ -224,7 +224,6 @@ save_ihm_geometric_object_transformation
     _ihm_geometric_object_transformation.tr_x                            0.0
     _ihm_geometric_object_transformation.tr_y                            0.0
     _ihm_geometric_object_transformation.tr_z                            0.0
-    _ihm_geometric_object_transformation.sc_factor                       1.0
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -330,16 +329,6 @@ save__ihm_geometric_object_transformation.tr_z
     _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_transformation.sc_factor
-    _item_description.description
-;    The scaling factor applied. 
-;
-    _item.name                  '_ihm_geometric_object_transformation.sc_factor'
-    _item.category_id             ihm_geometric_object_transformation
-    _item.mandatory_code          no
-    _item_type.code               float
-     save_
-
 #################################
 ## IHM_GEOMETRIC_OBJECT_SPHERE ##
 #################################
@@ -442,7 +431,9 @@ save__ihm_geometric_object_sphere.radius_r
 save_ihm_geometric_object_torus
     _category.description
 ;              Data items in the IHM_GEOMETRIC_OBJECT_TORUS category records the parameters of
-               a torus. 
+               a torus. By definition, the base plane of the torus is the XY plane. The
+               `ihm_geometric_object_transformation` category can be used to generate
+               transformations to any other plane. 
 ;
     _category.id                  ihm_geometric_object_torus
     _category.mandatory_code      no
@@ -466,9 +457,8 @@ save_ihm_geometric_object_torus
         _ihm_geometric_object_torus.transformation_id
         _ihm_geometric_object_torus.major_radius_R
         _ihm_geometric_object_torus.minor_radius_r
-        _ihm_geometric_object_torus.base_plane
-          1  1  1  5.0  1.0  xy-plane
-          2  2  2  5.0  2.0  xy-plane
+          1  1  1  5.0  1.0  
+          2  2  2  5.0  2.0  
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -539,21 +529,6 @@ save__ihm_geometric_object_torus.minor_radius_r
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
-     save_
-
-save__ihm_geometric_object_torus.base_plane
-    _item_description.description
-;    The plane where the torus lies.
-;
-    _item.name                  '_ihm_geometric_object_torus.base_plane'
-    _item.category_id             ihm_geometric_object_torus
-    _item.mandatory_code          yes
-    _item_type.code               code
-    loop_
-    _item_enumeration.value
-    xy-plane
-    yz-plane
-    xz-plane
      save_
 
 #####################################
