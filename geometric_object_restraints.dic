@@ -192,14 +192,8 @@ save__ihm_geometric_object_center.zcoord
 save_ihm_geometric_object_transformation
     _category.description
 ;              Data items in the IHM_GEOMETRIC_OBJECT_TRANSFORMATION category records the
-               details of the Euler angles of rotation applied to a goemtric object along
-               with any translation along the x, y and z axis. 
-               
-               The conventions for the Euler angles are as follows: 
-               - Alpha represents the rotation around the z axis;  0<=Alpha<=360. 
-               - Beta represents the rotation aroung the x' axis;  0<=Beta<=180. 
-               - Gamma represents the rotation around the z" axis; 0<=Gamma<=360. 
-               - The rotations are applied clock-wise. 
+               details of the rotation matrix and translation vector applied for transforming
+               the geometric object. 
 ;
     _category.id                  ihm_geometric_object_transformation
     _category.mandatory_code      no
@@ -218,12 +212,18 @@ save_ihm_geometric_object_transformation
 ;
 ;
     _ihm_geometric_object_transformation.id                              1
-    _ihm_geometric_object_transformation.euler_alpha                     0.0
-    _ihm_geometric_object_transformation.euler_beta                      0.0
-    _ihm_geometric_object_transformation.euler_gamma                     0.0
-    _ihm_geometric_object_transformation.tr_x                            0.0
-    _ihm_geometric_object_transformation.tr_y                            0.0
-    _ihm_geometric_object_transformation.tr_z                            0.0
+    _ihm_geometric_object_transformation.rot_matrix[1][1]                1.0
+    _ihm_geometric_object_transformation.rot_matrix[2][1]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[3][1]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[1][2]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[2][2]                1.0
+    _ihm_geometric_object_transformation.rot_matrix[3][2]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[1][3]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[2][3]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[3][3]                1.0
+    _ihm_geometric_object_transformation.tr_vector[1]                    0.0
+    _ihm_geometric_object_transformation.tr_vector[2]                    0.0
+    _ihm_geometric_object_transformation.tr_vector[3]                    0.0
 ;
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -242,91 +242,124 @@ save__ihm_geometric_object_transformation.id
     _item_type.code               int
      save_
 
-save__ihm_geometric_object_transformation.euler_alpha
+save__ihm_geometric_object_transformation.rot_matrix[1][1]
     _item_description.description
-;     Euler angle alpha. 
-      Alpha represents the rotation around the z axis;  0<=Alpha<=360.
+;     Data item [1][1] of the rotation matrix used in the transformation.
 ;
-    _item.name                  '_ihm_geometric_object_transformation.euler_alpha'
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[1][1]'
     _item.category_id             ihm_geometric_object_transformation
     _item.mandatory_code          no
     _item_type.code               float
-    _item_units.code              degrees
-    loop_
-    _item_range.minimum
-    _item_range.maximum
-        0.0     0.0
-        0.0   360.0
-      360.0   360.0
      save_
 
-save__ihm_geometric_object_transformation.euler_beta
+save__ihm_geometric_object_transformation.rot_matrix[2][1]
     _item_description.description
-;     Euler angle beta.
-      Beta represents the rotation around the x' axis;  0<=Beta<=180.
+;     Data item [2][1] of the rotation matrix used in the transformation.
 ;
-    _item.name                  '_ihm_geometric_object_transformation.euler_beta'
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[2][1]'
     _item.category_id             ihm_geometric_object_transformation
     _item.mandatory_code          no
     _item_type.code               float
-    _item_units.code              degrees
-    loop_
-    _item_range.minimum
-    _item_range.maximum
-        0.0     0.0
-        0.0   180.0
-      180.0   180.0
      save_
 
-save__ihm_geometric_object_transformation.euler_gamma
+save__ihm_geometric_object_transformation.rot_matrix[3][1]
     _item_description.description
-;     Euler angle gamma.
-      Gamma represents the rotation around the z" axis;  0<=Gamma<=360.
+;     Data item [3][1] of the rotation matrix used in the transformation.
 ;
-    _item.name                  '_ihm_geometric_object_transformation.euler_gamma'
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[3][1]'
     _item.category_id             ihm_geometric_object_transformation
     _item.mandatory_code          no
     _item_type.code               float
-    _item_units.code              degrees
-    loop_
-    _item_range.minimum
-    _item_range.maximum
-        0.0     0.0
-        0.0   360.0
-      360.0   360.0
      save_
 
-save__ihm_geometric_object_transformation.tr_x
+save__ihm_geometric_object_transformation.rot_matrix[1][2]
     _item_description.description
-;     Translation along the x-axis. 
+;     Data item [1][2] of the rotation matrix used in the transformation.
 ;
-    _item.name                  '_ihm_geometric_object_transformation.tr_x'
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[1][2]'
     _item.category_id             ihm_geometric_object_transformation
     _item.mandatory_code          no
     _item_type.code               float
-    _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_transformation.tr_y
+save__ihm_geometric_object_transformation.rot_matrix[2][2]
     _item_description.description
-;     Translation along the y-axis. 
+;     Data item [2][2] of the rotation matrix used in the transformation.
 ;
-    _item.name                  '_ihm_geometric_object_transformation.tr_y'
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[2][2]'
     _item.category_id             ihm_geometric_object_transformation
     _item.mandatory_code          no
     _item_type.code               float
-    _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_transformation.tr_z
+save__ihm_geometric_object_transformation.rot_matrix[3][2]
     _item_description.description
-;     Translation along the z-axis. 
+;     Data item [3][2] of the rotation matrix used in the transformation.
 ;
-    _item.name                  '_ihm_geometric_object_transformation.tr_z'
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[3][2]'
     _item.category_id             ihm_geometric_object_transformation
     _item.mandatory_code          no
     _item_type.code               float
-    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[1][3]
+    _item_description.description
+;     Data item [1][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[1][3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[2][3]
+    _item_description.description
+;     Data item [2][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[2][3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[3][3]
+    _item_description.description
+;     Data item [3][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[3][3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.tr_vector[1]
+    _item_description.description
+;     Data item [1] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.tr_vector[1]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.tr_vector[2]
+    _item_description.description
+;     Data item [2] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.tr_vector[2]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.tr_vector[3]
+    _item_description.description
+;     Data item [3] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.tr_vector[3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
      save_
 
 #################################
