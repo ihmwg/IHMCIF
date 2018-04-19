@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:22-MAR-2018
+#  Date:19-APR-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.129
+    _dictionary.version         0.130
 #
      loop_
     _dictionary_history.version
@@ -328,6 +328,10 @@ data_ihm-extension.dic
   Changes (bv):
   + Added _ihm_modeling_post_process.struct_assembly_id and _ihm_modeling_post_process.dataset_group_id
   + Added ihm_residues_not_modeled
+;
+    0.130   2018-04-19
+;
+  + Updated enumeration for ihm_dataset_related_db_reference.db_name and ihm_dataset_list.data_type
 ;
 
 #########################
@@ -3176,6 +3180,7 @@ save__ihm_dataset_list.data_type
       'Predicted contacts'
       'Mutagenesis data'
       'DNA footprinting data'
+      'Yeast two-hybrid screening data'
       'Other'
      save_ 
 
@@ -3470,6 +3475,7 @@ save__ihm_dataset_related_db_reference.db_name
       'PRIDE'
       'MODEL ARCHIVE'
       'MASSIVE'
+      'BioGRID'
       'Other'
      save_
 
