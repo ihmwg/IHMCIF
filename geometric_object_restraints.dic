@@ -194,6 +194,7 @@ save_ihm_geometric_object_transformation
 ;              Data items in the IHM_GEOMETRIC_OBJECT_TRANSFORMATION category records the
                details of the rotation matrix and translation vector applied for transforming
                the geometric object. 
+               If no transformation is provide, identity transformation is assumed. 
 ;
     _category.id                  ihm_geometric_object_transformation
     _category.mandatory_code      no
@@ -437,6 +438,7 @@ save__ihm_geometric_object_sphere.transformation_id
 ;     Identifier to the description of the transformation.
       This data item is a pointer to the _ihm_geometric_object_transformation.id in the
       IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
 ;
     _item.name                  '_ihm_geometric_object_sphere.transformation_id'
     _item.category_id             ihm_geometric_object_sphere
@@ -533,6 +535,7 @@ save__ihm_geometric_object_torus.transformation_id
 ;     Identifier to the description of the transformation.
       This data item is a pointer to the _ihm_geometric_object_transformation.id in the
       IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
 ;
     _item.name                  '_ihm_geometric_object_torus.transformation_id'
     _item.category_id             ihm_geometric_object_torus
@@ -643,17 +646,6 @@ save__ihm_geometric_object_half_torus.section
     'other'
      save_
 
-save__ihm_geometric_object_half_torus.other_details
-    _item_description.description
-;     Additional details about the half-torus geometric object,
-      especially if _ihm_geometric_object_half_torus.section is "other".
-;
-    _item.name                  '_ihm_geometric_object_half_torus.other_details'
-    _item.category_id             ihm_geometric_object_half_torus
-    _item.mandatory_code          no
-    _item_type.code               text
-     save_
-
 ###############################
 ## IHM_GEOMETRIC_OBJECT_AXIS ##
 ###############################
@@ -720,6 +712,21 @@ save__ihm_geometric_object_axis.axis_type
     x-axis
     y-axis
     z-axis
+     save_
+
+save__ihm_geometric_object_axis.transformation_id
+    _item_description.description
+;     Identifier to the description of the transformation.
+      This data item is a pointer to the _ihm_geometric_object_transformation.id in the
+      IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
+;
+    _item.name                  '_ihm_geometric_object_axis.transformation_id'
+    _item.category_id             ihm_geometric_object_axis
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_axis.transformation_id'
+    _item_linked.parent_name      '_ihm_geometric_object_transformation.id'
      save_
 
 ################################
@@ -790,20 +797,41 @@ save__ihm_geometric_object_plane.plane_type
     xz-plane
      save_
 
-############################################
-## IHM_GEOMETRIC_OBJECT_SPATIAL_RESTRAINT ##
-############################################
-
-save_ihm_geometric_object_spatial_restraint
-    _category.description
-;              Data items in the IHM_GEOMETRIC_OBJECT_SPATIAL_RESTRAINT category records the
-               details of geometric object spatial restraints used in the integrative modeling experiment.
-               These restraints may be derived from various kinds of experiments.
+save__ihm_geometric_object_plane.transformation_id
+    _item_description.description
+;     Identifier to the description of the transformation.
+      This data item is a pointer to the _ihm_geometric_object_transformation.id in the
+      IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
 ;
-    _category.id                  ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_plane.transformation_id'
+    _item.category_id             ihm_geometric_object_plane
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_plane.transformation_id'
+    _item_linked.parent_name      '_ihm_geometric_object_transformation.id'
+     save_
+
+#############################################
+## IHM_GEOMETRIC_OBJECT_DISTANCE_RESTRAINT ##
+#############################################
+
+save_ihm_geometric_object_distance_restraint
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_DISTANCE_RESTRAINT category records the
+               details of distance restraints involving geometric objects.
+        
+               If the geometric object involved is a plane, then the distance 
+               is along the normal following the right-hand rule. 
+               So for the xy plane, distance is along the z axis in the positive
+               direction, 'above' the plane such that negative distances
+               corresponded to positions below the plane.
+
+;
+    _category.id                  ihm_geometric_object_distance_restraint
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_geometric_object_spatial_restraint.id'
+    _category_key.name          '_ihm_geometric_object_distance_restraint.id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -817,13 +845,13 @@ save_ihm_geometric_object_spatial_restraint
 ;
 ;
         loop_
-        _ihm_geometric_object_spatial_restraint.id
-        _ihm_geometric_object_spatial_restraint.object_id
-        _ihm_geometric_object_spatial_restraint.feature_id
-        _ihm_geometric_object_spatial_restraint.object_characteristic
-        _ihm_geometric_object_spatial_restraint.restraint_type
-        _ihm_geometric_object_spatial_restraint.harmonic_force_constant
-        _ihm_geometric_object_spatial_restraint.dataset_list_id
+        _ihm_geometric_object_distance_restraint.id
+        _ihm_geometric_object_distance_restraint.object_id
+        _ihm_geometric_object_distance_restraint.feature_id
+        _ihm_geometric_object_distance_restraint.object_characteristic
+        _ihm_geometric_object_distance_restraint.restraint_type
+        _ihm_geometric_object_distance_restraint.harmonic_force_constant
+        _ihm_geometric_object_distance_restraint.dataset_list_id
           1   1    21    'inner surface'    'harmonic'  1.0  1
           2   1    22    'inner surface'    'harmonic'  1.0  1
           3   1    23    'inner surface'    'harmonic'  1.0  1
@@ -833,97 +861,98 @@ save_ihm_geometric_object_spatial_restraint
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_geometric_object_spatial_restraint
+   _pdbx_category_context.category_id  ihm_geometric_object_distance_restraint
      save_
 
-save__ihm_geometric_object_spatial_restraint.id
+save__ihm_geometric_object_distance_restraint.id
     _item_description.description
-;     A unique id for the geomtric object spatial restraint. 
+;     A unique id for the geometric object distance restraint. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.id'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.id'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_geometric_object_spatial_restraint.object_id
+save__ihm_geometric_object_distance_restraint.object_id
     _item_description.description
-;     Identifier to the geometric object involved in the spatial restraint.
+;     Identifier to the geometric object involved in the distance restraint.
       This data item is a pointer to the _ihm_geometric_object_list.object_id in the
       IHM_GEOMETRIC_OBJECT_LIST category.
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.object_id'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.object_id'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_geometric_object_spatial_restraint.object_id'
+    _item_linked.child_name       '_ihm_geometric_object_distance_restraint.object_id'
     _item_linked.parent_name      '_ihm_geometric_object_list.object_id'
      save_
 
-save__ihm_geometric_object_spatial_restraint.feature_id
+save__ihm_geometric_object_distance_restraint.feature_id
     _item_description.description
-;     Identifier to the molecular feature involved in the spatial restraint.
+;     Identifier to the molecular feature involved in the distance restraint.
       This data item is a pointer to the _ihm_feature_list.feature_id in the
       IHM_FEATURE_LIST category.
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.feature_id'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.feature_id'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_geometric_object_spatial_restraint.feature_id'
+    _item_linked.child_name       '_ihm_geometric_object_distance_restraint.feature_id'
     _item_linked.parent_name      '_ihm_feature_list.feature_id'
      save_
 
-save__ihm_geometric_object_spatial_restraint.object_characteristic
+save__ihm_geometric_object_distance_restraint.object_characteristic
     _item_description.description
 ;     The characteristic of the geometric object used in the restraint.
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.object_characteristic'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.object_characteristic'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_enumeration.value
-    'center'
-    'inner surface'
-    'outer surface'
-    'other'
+    'center'              
+    'inner surface'      
+    'outer surface'     
+    'axis'
+    'plane'     
+    'other'           
      save_
 
-save__ihm_geometric_object_spatial_restraint.restraint_type
+save__ihm_geometric_object_distance_restraint.restraint_type
     _item_description.description
 ;     The type of restraint applied. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.restraint_type'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.restraint_type'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          yes
     _item_type.code               line
     loop_
     _item_enumeration.value
-    'distance restraint upper bound'
-    'distance restraint lower bound'
-    'distance restraint upper and lower bound'
-    'harmonic restraint'
+    'upper bound'
+    'lower bound'
+    'upper and lower bound'
     'other'
      save_
 
-save__ihm_geometric_object_spatial_restraint.harmonic_force_constant
+save__ihm_geometric_object_distance_restraint.harmonic_force_constant
     _item_description.description
 ;    The harmonic force constant, if applicable. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.harmonic_force_constant'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.harmonic_force_constant'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
      save_
 
-save__ihm_geometric_object_spatial_restraint.group_conditionality
+save__ihm_geometric_object_distance_restraint.group_conditionality
     _item_description.description
 ;     If a group of atoms or residues are restrained, this data item defines
       the conditionality based on which the restraint is applied in the modeling.
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.group_conditionality'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.group_conditionality'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               code
     loop_
@@ -933,57 +962,57 @@ save__ihm_geometric_object_spatial_restraint.group_conditionality
         'ANY'  'Any one of the distances among the group of atoms or residues could be satisfied'
      save_
 
-save__ihm_geometric_object_spatial_restraint.distance_lower_limit
+save__ihm_geometric_object_distance_restraint.distance_lower_limit
     _item_description.description
 ;     The lower limit to the distance threshold, if applicable. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.distance_lower_limit'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_lower_limit'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_spatial_restraint.distance_upper_limit
+save__ihm_geometric_object_distance_restraint.distance_upper_limit
     _item_description.description
 ;     The upper limit to the distance threshold, if applicable. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.distance_upper_limit'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_upper_limit'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_spatial_restraint.distance_lower_limit_esd
+save__ihm_geometric_object_distance_restraint.distance_lower_limit_esd
     _item_description.description
 ;     The estimated standard deviation of the lower limit distance threshold, if applicable. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.distance_lower_limit_esd'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_lower_limit_esd'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_spatial_restraint.distance_upper_limit_esd
+save__ihm_geometric_object_distance_restraint.distance_upper_limit_esd
     _item_description.description
 ;     The estimated standard deviation of the upper limit distance threshold, if applicable. 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.distance_upper_limit_esd'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_upper_limit_esd'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-save__ihm_geometric_object_spatial_restraint.distance_probability
+save__ihm_geometric_object_distance_restraint.distance_probability
     _item_description.description
 ;      The real number that indicates the probability that the distance restraint
        is correct. This number should fall between 0.0 and 1.0.
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.distance_probability'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_probability'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
     loop_
@@ -994,28 +1023,28 @@ save__ihm_geometric_object_spatial_restraint.distance_probability
         1.0   1.0
      save_
 
-save__ihm_geometric_object_spatial_restraint.dataset_list_id
+save__ihm_geometric_object_distance_restraint.dataset_list_id
     _item_description.description
 ;     Identifier to the input data from which the restraint is derived.
       This data item is a pointer to the _ihm_dataset_list.id in the
       IHM_DATASET_LIST category.
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.dataset_list_id'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.dataset_list_id'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               int
-    _item_linked.child_name       '_ihm_geometric_object_spatial_restraint.dataset_list_id'
+    _item_linked.child_name       '_ihm_geometric_object_distance_restraint.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
      save_
 
-save__ihm_geometric_object_spatial_restraint.other_details
+save__ihm_geometric_object_distance_restraint.other_details
     _item_description.description
-;     Additional details about the geometric object spatial restraints, 
-      especially if _ihm_geometric_object_spatial_restraint.restraint_type or
-      _ihm_geometric_object_spatial_restraint.object_characteristic is "other". 
+;     Additional details about the geometric object distance restraints, 
+      especially if _ihm_geometric_object_distance_restraint.restraint_type or
+      _ihm_geometric_object_distance_restraint.object_characteristic is "other". 
 ;
-    _item.name                  '_ihm_geometric_object_spatial_restraint.other_details'
-    _item.category_id             ihm_geometric_object_spatial_restraint
+    _item.name                  '_ihm_geometric_object_distance_restraint.other_details'
+    _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               text
      save_
