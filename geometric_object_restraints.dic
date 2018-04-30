@@ -932,7 +932,8 @@ save__ihm_geometric_object_distance_restraint.restraint_type
     _item_enumeration.value
     'upper bound'
     'lower bound'
-    'upper and lower bound'
+    'lower and upper bound'
+    'harmonic'
     'other'
      save_
 
