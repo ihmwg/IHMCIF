@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:19-APR-2018
+#  Date:21-MAY-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -333,6 +333,15 @@ data_ihm-extension.dic
 ;
   + Updated enumeration for ihm_dataset_related_db_reference.db_name and ihm_dataset_list.data_type
 ;
+    0.131   2018-05-21
+;
+  + Added _ihm_modeling_post_process.software_id, _ihm_modeling_protocol.software_id
+  + Added _ihm_multi_state_modeling.population_fraction_sd
+  + Added _ihm_starting_comparative_models.software_id, _ihm_starting_comparative_models.script_file_id
+  + Updated enumeration for _ihm_starting_model_details.starting_model_source
+  + Updated _item.mandatory_code for _ihm_starting_comparative_models.starting_model_seq_id_begin
+  + Updated _item.mandatory_code for _ihm_starting_comparative_models.starting_model_seq_id_end
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -557,7 +566,8 @@ save__ihm_starting_model_details.starting_model_source
                                  'comparative model'        .
                                  'experimental model'       .
                                  'integrative model'        .
-                                 'other ab initio models'   .
+                                 'ab initio model'          .
+                                 'other'                    .
      save_
 
 save__ihm_starting_model_details.starting_model_auth_asym_id
@@ -688,7 +698,7 @@ save__ihm_starting_comparative_models.starting_model_seq_id_begin
 ;
     _item.name                  '_ihm_starting_comparative_models.starting_model_seq_id_begin'
     _item.category_id             ihm_starting_comparative_models
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
      save_
 
@@ -698,7 +708,7 @@ save__ihm_starting_comparative_models.starting_model_seq_id_end
 ;
     _item.name                  '_ihm_starting_comparative_models.starting_model_seq_id_end'
     _item.category_id             ihm_starting_comparative_models
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
      save_
 
@@ -787,6 +797,33 @@ save__ihm_starting_comparative_models.alignment_file_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_comparative_models.alignment_file_id'
     _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+save__ihm_starting_comparative_models.script_file_id
+    _item_description.description
+;     The file id corresponding to the script used in the modeling. 
+      This data item is a pointer to _ihm_external_files.id in the IHM_EXTERNAL_FILES category.
+;
+    _item.name                  '_ihm_starting_comparative_models.script_file_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_comparative_models.script_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+save__ihm_starting_comparative_models.software_id
+    _item_description.description
+;     Identifier to the software used in comparative modeling.
+      This data item is a pointer to the _software.pdbx_ordinal in the
+      SOFTWARE category.
+;
+    _item.name                  '_ihm_starting_comparative_models.software_id'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_starting_comparative_models.software_id'
+    _item_linked.parent_name    '_software.pdbx_ordinal'
      save_
 
 ################################
@@ -1891,6 +1928,20 @@ save__ihm_modeling_protocol.ordered_flag
         'NO'   .
      save_
 
+save__ihm_modeling_protocol.software_id
+    _item_description.description
+;     Identifier to the software used in the modeling protocol step. 
+      This data item is a pointer to the _software.pdbx_ordinal in the
+      SOFTWARE category. 
+;
+    _item.name                  '_ihm_modeling_protocol.software_id'
+    _item.category_id             ihm_modeling_protocol
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_protocol.software_id'
+    _item_linked.parent_name    '_software.pdbx_ordinal'
+     save_
+
 ###########################
 ## IHM_MULTI_STATE_MODELING
 ###########################
@@ -2014,6 +2065,16 @@ save__ihm_multi_state_modeling.population_fraction
 ;    A fraction representing the population of the particular state.
 ;
     _item.name                  '_ihm_multi_state_modeling.population_fraction'
+    _item.category_id             ihm_multi_state_modeling
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_multi_state_modeling.population_fraction_sd
+    _item_description.description
+;    The standard deviation of the population fraction. 
+;
+    _item.name                  '_ihm_multi_state_modeling.population_fraction_sd'
     _item.category_id             ihm_multi_state_modeling
     _item.mandatory_code          no
     _item_type.code               float
@@ -2498,6 +2559,20 @@ save__ihm_modeling_post_process.num_models_end
     _item.category_id             ihm_modeling_post_process
     _item.mandatory_code          no
     _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.software_id
+    _item_description.description
+;     Identifier to the software used in the post processing step. 
+      This data item is a pointer to the _software.pdbx_ordinal in the
+      SOFTWARE category.
+;
+    _item.name                  '_ihm_modeling_post_process.software_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_post_process.software_id'
+    _item_linked.parent_name    '_software.pdbx_ordinal'
      save_
 
 #######################
