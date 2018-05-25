@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:21-MAY-2018
+#  Date:25-MAY-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.130
+    _dictionary.version         0.132
 #
      loop_
     _dictionary_history.version
@@ -341,6 +341,12 @@ data_ihm-extension.dic
   + Updated enumeration for _ihm_starting_model_details.starting_model_source
   + Updated _item.mandatory_code for _ihm_starting_comparative_models.starting_model_seq_id_begin
   + Updated _item.mandatory_code for _ihm_starting_comparative_models.starting_model_seq_id_end
+;
+    0.132   2018-05-25
+;
+  + Added IHM_STARTING_COMPUTATIONAL_MODELS
+  + Removed _ihm_starting_comparative_models.software_id, _ihm_starting_comparative_models.script_file_id
+  + Added _ihm_modeling_post_process.script_file_id, _ihm_modeling_protocol.script_file_id
 ;
 
 #########################
@@ -799,30 +805,82 @@ save__ihm_starting_comparative_models.alignment_file_id
     _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
-save__ihm_starting_comparative_models.script_file_id
+#######################################
+## IHM_STARTING_COMPUTATIONAL_MODELS ##
+#######################################
+
+save_ihm_starting_computational_models
+    _category.description
+;              Data items in the IHM_STARTING_COMPUTATIONAL_MODELS category records
+               additional details about computational models used as starting inputs in 
+               the integrative model building process.
+;
+    _category.id                  ihm_starting_computational_models
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_starting_computational_models.starting_model_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+        loop_
+        _ihm_starting_computational_models.starting_model_id
+        _ihm_starting_computational_models.script_file_id
+        _ihm_starting_computational_models.software_id
+          1  8  2
+          2  9  2 
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_starting_computational_models
+     save_
+
+save__ihm_starting_computational_models.starting_model_id
     _item_description.description
-;     The file id corresponding to the script used in the modeling. 
+;     The identifier for the starting structural model.
+      This data item is a pointer to _ihm_starting_model_details.starting_model_id 
+      in the IHM_STARTING_MODEL_DETAILS category.
+;
+    _item.name                  '_ihm_starting_computational_models.starting_model_id'
+    _item.category_id             ihm_starting_computational_models
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name     '_ihm_starting_computational_models.starting_model_id'
+    _item_linked.parent_name    '_ihm_starting_model_details.starting_model_id'
+     save_
+
+save__ihm_starting_computational_models.script_file_id
+    _item_description.description
+;     The file id corresponding to the script used in the computational modeling. 
       This data item is a pointer to _ihm_external_files.id in the IHM_EXTERNAL_FILES category.
 ;
-    _item.name                  '_ihm_starting_comparative_models.script_file_id'
-    _item.category_id             ihm_starting_comparative_models
-    _item.mandatory_code          no
+    _item.name                  '_ihm_starting_computational_models.script_file_id'
+    _item.category_id             ihm_starting_computational_models
+    _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_comparative_models.script_file_id'
+    _item_linked.child_name     '_ihm_starting_computational_models.script_file_id'
     _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
-save__ihm_starting_comparative_models.software_id
+save__ihm_starting_computational_models.software_id
     _item_description.description
-;     Identifier to the software used in comparative modeling.
-      This data item is a pointer to the _software.pdbx_ordinal in the
-      SOFTWARE category.
+;     An identifier to the software used in computational modeling. 
+      This data item is a pointer to _software.pdbx_ordinal in the SOFTWARE category.
 ;
-    _item.name                  '_ihm_starting_comparative_models.software_id'
-    _item.category_id             ihm_starting_comparative_models
-    _item.mandatory_code          no
+    _item.name                  '_ihm_starting_computational_models.software_id'
+    _item.category_id             ihm_starting_computational_models
+    _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_comparative_models.software_id'
+    _item_linked.child_name     '_ihm_starting_computational_models.software_id'
     _item_linked.parent_name    '_software.pdbx_ordinal'
      save_
 
@@ -1928,6 +1986,19 @@ save__ihm_modeling_protocol.ordered_flag
         'NO'   .
      save_
 
+save__ihm_modeling_protocol.script_file_id
+    _item_description.description
+;     The file id corresponding to the script used in the modeling protocol step.
+      This data item is a pointer to _ihm_external_files.id in the IHM_EXTERNAL_FILES category.
+;
+    _item.name                  '_ihm_modeling_protocol.script_file_id'
+    _item.category_id             ihm_modeling_protocol
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_protocol.script_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
 save__ihm_modeling_protocol.software_id
     _item_description.description
 ;     Identifier to the software used in the modeling protocol step. 
@@ -2559,6 +2630,19 @@ save__ihm_modeling_post_process.num_models_end
     _item.category_id             ihm_modeling_post_process
     _item.mandatory_code          no
     _item_type.code               int
+     save_
+
+save__ihm_modeling_post_process.script_file_id
+    _item_description.description
+;     The file id corresponding to the script used in the post processing step.
+      This data item is a pointer to _ihm_external_files.id in the IHM_EXTERNAL_FILES category.
+;
+    _item.name                  '_ihm_modeling_post_process.script_file_id'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_modeling_post_process.script_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
 save__ihm_modeling_post_process.software_id
