@@ -37,7 +37,7 @@ The I/H methods dictionary currently has over 30 new data categories and 300 new
 [extension dictionary documentation](dictionary_documentation/documentation.md).*
 
 *For tips on structuring integrative modeling studies to be amenable to
-deposition, see [this page](dictionary_documentation/modeling-tips.md).
+deposition, see [this page](dictionary_documentation/modeling-tips.md).*
 
 Browse the [wiki page](https://github.com/ihmwg/IHM-dictionary/wiki) for information regarding
 [weekly meetings](https://github.com/ihmwg/IHM-dictionary/wiki/Meetings) and descriptions of 
