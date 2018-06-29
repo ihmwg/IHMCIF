@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:25-MAY-2018
+#  Date:29-JUNE-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -347,6 +347,12 @@ data_ihm-extension.dic
   + Added IHM_STARTING_COMPUTATIONAL_MODELS
   + Removed _ihm_starting_comparative_models.software_id, _ihm_starting_comparative_models.script_file_id
   + Added _ihm_modeling_post_process.script_file_id, _ihm_modeling_protocol.script_file_id
+;
+    0.133   2018-06-29
+;
+  + Added IHM_GEOMETRIC_OBJECT_LIST, IHM_GEOMETRIC_OBJECT_CENTER, IHM_GEOMETRIC_OBJECT_TRANSFORMATION
+  + Added IHM_GEOMETRIC_OBJECT_SPHERE, IHM_GEOMETRIC_OBJECT_TORUS, IHM_GEOMETRIC_OBJECT_HALF_TORUS
+  + Added IHM_GEOMETRIC_OBJECT_AXIS, IHM_GEOMETRIC_OBJECT_PLANE, IHM_GEOMETRIC_OBJECT_DISTANCE_RESTRAINT
 ;
 
 #########################
@@ -8147,5 +8153,1057 @@ save__ihm_derived_distance_restraint.dataset_list_id
     _item_type.code               int
     _item_linked.child_name       '_ihm_derived_distance_restraint.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+###############################
+## IHM_GEOMETRIC_OBJECT_LIST ##
+###############################
+
+save_ihm_geometric_object_list
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_LIST category records the list of
+               geometric objects used as restraints in the integrative modeling study. 
+;
+    _category.id                  ihm_geometric_object_list
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_list.object_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_list.object_id
+        _ihm_geometric_object_list.object_type
+        _ihm_geometric_object_list.object_name
+        _ihm_geometric_object_list.object_description
+          1   sphere            .                   . 
+          2   half-torus    'Nuclear membrane'   'Half-torus representing the nuclear membrane'
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_list
+     save_
+
+save__ihm_geometric_object_list.object_id
+    _item_description.description
+;     A unique identifier for the geometric object.
+;
+    _item.name                  '_ihm_geometric_object_list.object_id'
+    _item.category_id             ihm_geometric_object_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_geometric_object_list.object_type
+    _item_description.description
+;     The type of geomtric object. 
+;
+    _item.name                  '_ihm_geometric_object_list.object_type'
+    _item.category_id             ihm_geometric_object_list
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+      'sphere'
+      'axis'
+      'plane'
+      'torus'
+      'half-torus'
+      'other'
+    save_
+
+save__ihm_geometric_object_list.object_name
+    _item_description.description
+;     User-provided name for the object. 
+;
+    _item.name                  '_ihm_geometric_object_list.object_name'
+    _item.category_id             ihm_geometric_object_list
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Nuclear membrane'
+     save_
+
+save__ihm_geometric_object_list.object_description
+    _item_description.description
+;     Brief description of the geometric object. 
+;
+    _item.name                  '_ihm_geometric_object_list.object_description'
+    _item.category_id             ihm_geometric_object_list
+    _item.mandatory_code          no
+    _item_type.code               text
+    loop_
+    _item_examples.case
+    'Half-torus representing the nuclear membrane'
+     save_
+
+save__ihm_geometric_object_list.other_details
+    _item_description.description
+;     Additional details about the geometric object, especially if
+      _ihm_geometric_object_list.object_type is "other". 
+;
+    _item.name                  '_ihm_geometric_object_list.other_details'
+    _item.category_id             ihm_geometric_object_list
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+#################################
+## IHM_GEOMETRIC_OBJECT_CENTER ##
+#################################
+
+save_ihm_geometric_object_center
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_CENTER category records the center of
+               geometric objects used as restraints in the integrative modeling study.
+;
+    _category.id                  ihm_geometric_object_center
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_center.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_center.id
+        _ihm_geometric_object_center.xcoord
+        _ihm_geometric_object_center.ycoord
+        _ihm_geometric_object_center.zcoord
+          1  0.0 0.0 0.0
+          2  1.0 0.0 0.0
+          3  0.0 1.0 0.0
+          4  0.0 0.0 1.0
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_center
+     save_
+
+save__ihm_geometric_object_center.id
+    _item_description.description
+;     A unique identifier for the center.
+;
+    _item.name                  '_ihm_geometric_object_center.id'
+    _item.category_id             ihm_geometric_object_center
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_geometric_object_center.xcoord
+    _item_description.description
+;     The x-coordinate of the center.  
+;
+    _item.name                  '_ihm_geometric_object_center.xcoord'
+    _item.category_id             ihm_geometric_object_center
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_center.ycoord
+    _item_description.description
+;     The y-coordinate of the center. 
+;
+    _item.name                  '_ihm_geometric_object_center.ycoord'
+    _item.category_id             ihm_geometric_object_center
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_center.zcoord
+    _item_description.description
+;     The z-coordinate of the center. 
+;
+    _item.name                  '_ihm_geometric_object_center.zcoord'
+    _item.category_id             ihm_geometric_object_center
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+#########################################
+## IHM_GEOMETRIC_OBJECT_TRANSFORMATION ##
+#########################################
+
+save_ihm_geometric_object_transformation
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_TRANSFORMATION category records the
+               details of the rotation matrix and translation vector applied for transforming
+               the geometric object. 
+               If no transformation is provide, identity transformation is assumed. 
+;
+    _category.id                  ihm_geometric_object_transformation
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_transformation.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    _ihm_geometric_object_transformation.id                              1
+    _ihm_geometric_object_transformation.rot_matrix[1][1]                1.0
+    _ihm_geometric_object_transformation.rot_matrix[2][1]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[3][1]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[1][2]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[2][2]                1.0
+    _ihm_geometric_object_transformation.rot_matrix[3][2]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[1][3]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[2][3]                0.0
+    _ihm_geometric_object_transformation.rot_matrix[3][3]                1.0
+    _ihm_geometric_object_transformation.tr_vector[1]                    0.0
+    _ihm_geometric_object_transformation.tr_vector[2]                    0.0
+    _ihm_geometric_object_transformation.tr_vector[3]                    0.0
+;
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_transformation
+     save_
+
+save__ihm_geometric_object_transformation.id
+    _item_description.description
+;     A unique identifier for the transformation. 
+;
+    _item.name                  '_ihm_geometric_object_transformation.id'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[1][1]
+    _item_description.description
+;     Data item [1][1] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[1][1]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[2][1]
+    _item_description.description
+;     Data item [2][1] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[2][1]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[3][1]
+    _item_description.description
+;     Data item [3][1] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[3][1]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[1][2]
+    _item_description.description
+;     Data item [1][2] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[1][2]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[2][2]
+    _item_description.description
+;     Data item [2][2] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[2][2]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[3][2]
+    _item_description.description
+;     Data item [3][2] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[3][2]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[1][3]
+    _item_description.description
+;     Data item [1][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[1][3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[2][3]
+    _item_description.description
+;     Data item [2][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[2][3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.rot_matrix[3][3]
+    _item_description.description
+;     Data item [3][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.rot_matrix[3][3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.tr_vector[1]
+    _item_description.description
+;     Data item [1] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.tr_vector[1]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.tr_vector[2]
+    _item_description.description
+;     Data item [2] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.tr_vector[2]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_transformation.tr_vector[3]
+    _item_description.description
+;     Data item [3] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_geometric_object_transformation.tr_vector[3]'
+    _item.category_id             ihm_geometric_object_transformation
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+#################################
+## IHM_GEOMETRIC_OBJECT_SPHERE ##
+#################################
+
+save_ihm_geometric_object_sphere
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_SPHERE category records the parameters of
+               a sphere. 
+;
+    _category.id                  ihm_geometric_object_sphere
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_sphere.object_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_sphere.object_id
+        _ihm_geometric_object_sphere.center_id
+        _ihm_geometric_object_sphere.transformation_id
+        _ihm_geometric_object_sphere.radius_r
+          1  1  1  1.0 
+          2  2  2  2.0 
+          3  3  3  3.0 
+          4  4  4  4.0 
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_sphere
+     save_
+
+save__ihm_geometric_object_sphere.object_id
+    _item_description.description
+;     Identifier to the geometric object.
+      This data item is a pointer to the _ihm_geometric_object_list.object_id in the
+      IHM_GEOMETRIC_OBJECT_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_sphere.object_id'
+    _item.category_id             ihm_geometric_object_sphere
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_sphere.object_id'
+    _item_linked.parent_name      '_ihm_geometric_object_list.object_id'
+     save_
+
+save__ihm_geometric_object_sphere.center_id
+    _item_description.description
+;     Identifier to the description of the center.
+      This data item is a pointer to the _ihm_geometric_object_center.id in the
+      IHM_GEOMETRIC_OBJECT_CENTER category.
+;
+    _item.name                  '_ihm_geometric_object_sphere.center_id'
+    _item.category_id             ihm_geometric_object_sphere
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_sphere.center_id'
+    _item_linked.parent_name      '_ihm_geometric_object_center.id'
+     save_
+
+save__ihm_geometric_object_sphere.transformation_id
+    _item_description.description
+;     Identifier to the description of the transformation.
+      This data item is a pointer to the _ihm_geometric_object_transformation.id in the
+      IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
+;
+    _item.name                  '_ihm_geometric_object_sphere.transformation_id'
+    _item.category_id             ihm_geometric_object_sphere
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_sphere.transformation_id'
+    _item_linked.parent_name      '_ihm_geometric_object_transformation.id'
+     save_
+
+save__ihm_geometric_object_sphere.radius_r
+    _item_description.description
+;     Radius "r" of the sphere. 
+;
+    _item.name                  '_ihm_geometric_object_sphere.radius_r'
+    _item.category_id             ihm_geometric_object_sphere
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+################################
+## IHM_GEOMETRIC_OBJECT_TORUS ##
+################################
+
+save_ihm_geometric_object_torus
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_TORUS category records the parameters of
+               a torus. By definition, the base plane of the torus is the XY plane. The
+               `ihm_geometric_object_transformation` category can be used to generate
+               transformations to any other plane. 
+;
+    _category.id                  ihm_geometric_object_torus
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_torus.object_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_torus.object_id
+        _ihm_geometric_object_torus.center_id
+        _ihm_geometric_object_torus.transformation_id
+        _ihm_geometric_object_torus.major_radius_R
+        _ihm_geometric_object_torus.minor_radius_r
+          1  1  1  5.0  1.0  
+          2  2  2  5.0  2.0  
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_torus
+     save_
+
+save__ihm_geometric_object_torus.object_id
+    _item_description.description
+;     Identifier to the geometric object.
+      This data item is a pointer to the _ihm_geometric_object_list.object_id in the
+      IHM_GEOMETRIC_OBJECT_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_torus.object_id'
+    _item.category_id             ihm_geometric_object_torus
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_torus.object_id'
+    _item_linked.parent_name      '_ihm_geometric_object_list.object_id'
+     save_
+
+save__ihm_geometric_object_torus.center_id
+    _item_description.description
+;     Identifier to the description of the center.
+      This data item is a pointer to the _ihm_geometric_object_center.id in the
+      IHM_GEOMETRIC_OBJECT_CENTER category.
+;
+    _item.name                  '_ihm_geometric_object_torus.center_id'
+    _item.category_id             ihm_geometric_object_torus
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_torus.center_id'
+    _item_linked.parent_name      '_ihm_geometric_object_center.id'
+     save_
+
+save__ihm_geometric_object_torus.transformation_id
+    _item_description.description
+;     Identifier to the description of the transformation.
+      This data item is a pointer to the _ihm_geometric_object_transformation.id in the
+      IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
+;
+    _item.name                  '_ihm_geometric_object_torus.transformation_id'
+    _item.category_id             ihm_geometric_object_torus
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_torus.transformation_id'
+    _item_linked.parent_name      '_ihm_geometric_object_transformation.id'
+     save_
+
+save__ihm_geometric_object_torus.major_radius_R
+    _item_description.description
+;     Major radius "R" of the torus. 
+;
+    _item.name                  '_ihm_geometric_object_torus.major_radius_R'
+    _item.category_id             ihm_geometric_object_torus
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_torus.minor_radius_r
+    _item_description.description
+;     Minor radius "r" of the torus.
+;
+    _item.name                  '_ihm_geometric_object_torus.minor_radius_r'
+    _item.category_id             ihm_geometric_object_torus
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+#####################################
+## IHM_GEOMETRIC_OBJECT_HALF_TORUS ##
+#####################################
+
+save_ihm_geometric_object_half_torus
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_HALF_TORUS category records the parameters of
+               half-torus that represents a membrane. 
+;
+    _category.id                  ihm_geometric_object_half_torus
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_half_torus.object_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_half_torus.object_id
+        _ihm_geometric_object_half_torus.thickness_th
+        _ihm_geometric_object_half_torus.section
+          1  1.0  inner
+          2  2.0  inner
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_half_torus
+     save_
+
+save__ihm_geometric_object_half_torus.object_id
+    _item_description.description
+;     Identifier to the geometric object.
+      This data item is a pointer to the _ihm_geometric_object_torus.object_id in the
+      IHM_GEOMETRIC_OBJECT_TORUS category.
+;
+    _item.name                  '_ihm_geometric_object_half_torus.object_id'
+    _item.category_id             ihm_geometric_object_half_torus
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_half_torus.object_id'
+    _item_linked.parent_name      '_ihm_geometric_object_torus.object_id'
+     save_
+
+save__ihm_geometric_object_half_torus.thickness_th
+    _item_description.description
+;     Thickness "th" of the half-torus.
+;
+    _item.name                  '_ihm_geometric_object_half_torus.thickness_th'
+    _item.category_id             ihm_geometric_object_half_torus
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_half_torus.section
+    _item_description.description
+;    The section of the torus representing the half-torus.
+;
+    _item.name                  '_ihm_geometric_object_half_torus.section'
+    _item.category_id             ihm_geometric_object_half_torus
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    'inner half'
+    'outer half'
+    'other'
+     save_
+
+###############################
+## IHM_GEOMETRIC_OBJECT_AXIS ##
+###############################
+
+save_ihm_geometric_object_axis
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_AXIS category records the details of
+               an axis used in a spatial restraint.  
+;
+    _category.id                  ihm_geometric_object_axis
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_axis.object_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_axis.object_id
+        _ihm_geometric_object_axis.axis_type
+          1  x-axis
+          2  y-axis
+          3  z-axis
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_axis
+     save_
+
+save__ihm_geometric_object_axis.object_id
+    _item_description.description
+;     Identifier to the geometric object.
+      This data item is a pointer to the _ihm_geometric_object_list.object_id in the
+      IHM_GEOMETRIC_OBJECT_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_axis.object_id'
+    _item.category_id             ihm_geometric_object_axis
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_axis.object_id'
+    _item_linked.parent_name      '_ihm_geometric_object_list.object_id'
+     save_
+
+save__ihm_geometric_object_axis.axis_type
+    _item_description.description
+;     The type of axis. 
+;
+    _item.name                  '_ihm_geometric_object_axis.axis_type'
+    _item.category_id             ihm_geometric_object_axis
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    x-axis
+    y-axis
+    z-axis
+     save_
+
+save__ihm_geometric_object_axis.transformation_id
+    _item_description.description
+;     Identifier to the description of the transformation.
+      This data item is a pointer to the _ihm_geometric_object_transformation.id in the
+      IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
+;
+    _item.name                  '_ihm_geometric_object_axis.transformation_id'
+    _item.category_id             ihm_geometric_object_axis
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_axis.transformation_id'
+    _item_linked.parent_name      '_ihm_geometric_object_transformation.id'
+     save_
+
+################################
+## IHM_GEOMETRIC_OBJECT_PLANE ##
+################################
+
+save_ihm_geometric_object_plane
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_PLANE category records the details of
+               a plane used in a spatial restraint.  
+;
+    _category.id                  ihm_geometric_object_plane
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_plane.object_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_plane.object_id
+        _ihm_geometric_object_plane.plane_type
+          1  xy-plane
+          2  yz-plane
+          3  xz-plane
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_plane
+     save_
+
+save__ihm_geometric_object_plane.object_id
+    _item_description.description
+;     Identifier to the geometric object.
+      This data item is a pointer to the _ihm_geometric_object_list.object_id in the
+      IHM_GEOMETRIC_OBJECT_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_plane.object_id'
+    _item.category_id             ihm_geometric_object_plane
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_plane.object_id'
+    _item_linked.parent_name      '_ihm_geometric_object_list.object_id'
+     save_
+
+save__ihm_geometric_object_plane.plane_type
+    _item_description.description
+;     The type of plane. 
+;
+    _item.name                  '_ihm_geometric_object_plane.plane_type'
+    _item.category_id             ihm_geometric_object_plane
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    xy-plane
+    yz-plane
+    xz-plane
+     save_
+
+save__ihm_geometric_object_plane.transformation_id
+    _item_description.description
+;     Identifier to the description of the transformation.
+      This data item is a pointer to the _ihm_geometric_object_transformation.id in the
+      IHM_GEOMETRIC_OBJECT_TRANSFORMATION category.
+      If no transformation is provide, identity transformation is assumed.
+;
+    _item.name                  '_ihm_geometric_object_plane.transformation_id'
+    _item.category_id             ihm_geometric_object_plane
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_plane.transformation_id'
+    _item_linked.parent_name      '_ihm_geometric_object_transformation.id'
+     save_
+
+#############################################
+## IHM_GEOMETRIC_OBJECT_DISTANCE_RESTRAINT ##
+#############################################
+
+save_ihm_geometric_object_distance_restraint
+    _category.description
+;              Data items in the IHM_GEOMETRIC_OBJECT_DISTANCE_RESTRAINT category records the
+               details of distance restraints involving geometric objects.
+        
+               If the geometric object involved is a plane, then the distance 
+               is along the normal following the right-hand rule. 
+               So for the xy plane, distance is along the z axis in the positive
+               direction, 'above' the plane such that negative distances
+               corresponded to positions below the plane.
+
+;
+    _category.id                  ihm_geometric_object_distance_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_geometric_object_distance_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_geometric_object_distance_restraint.id
+        _ihm_geometric_object_distance_restraint.object_id
+        _ihm_geometric_object_distance_restraint.feature_id
+        _ihm_geometric_object_distance_restraint.object_characteristic
+        _ihm_geometric_object_distance_restraint.restraint_type
+        _ihm_geometric_object_distance_restraint.harmonic_force_constant
+        _ihm_geometric_object_distance_restraint.dataset_list_id
+          1   1    21    'inner surface'    'harmonic'  1.0  1
+          2   1    22    'inner surface'    'harmonic'  1.0  1
+          3   1    23    'inner surface'    'harmonic'  1.0  1
+          4   1    24    'inner surface'    'harmonic'  1.0  1
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_geometric_object_distance_restraint
+     save_
+
+save__ihm_geometric_object_distance_restraint.id
+    _item_description.description
+;     A unique id for the geometric object distance restraint. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.id'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_geometric_object_distance_restraint.object_id
+    _item_description.description
+;     Identifier to the geometric object involved in the distance restraint.
+      This data item is a pointer to the _ihm_geometric_object_list.object_id in the
+      IHM_GEOMETRIC_OBJECT_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.object_id'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_distance_restraint.object_id'
+    _item_linked.parent_name      '_ihm_geometric_object_list.object_id'
+     save_
+
+save__ihm_geometric_object_distance_restraint.feature_id
+    _item_description.description
+;     Identifier to the molecular feature involved in the distance restraint.
+      This data item is a pointer to the _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.feature_id'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_distance_restraint.feature_id'
+    _item_linked.parent_name      '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_geometric_object_distance_restraint.object_characteristic
+    _item_description.description
+;     The characteristic of the geometric object used in the restraint.
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.object_characteristic'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    'center'              
+    'inner surface'      
+    'outer surface'     
+    'axis'
+    'plane'     
+    'other'           
+     save_
+
+save__ihm_geometric_object_distance_restraint.restraint_type
+    _item_description.description
+;     The type of restraint applied. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.restraint_type'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    'upper bound'
+    'lower bound'
+    'lower and upper bound'
+    'harmonic'
+    'other'
+     save_
+
+save__ihm_geometric_object_distance_restraint.harmonic_force_constant
+    _item_description.description
+;    The harmonic force constant, if applicable. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.harmonic_force_constant'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_geometric_object_distance_restraint.group_conditionality
+    _item_description.description
+;     If a group of atoms or residues are restrained, this data item defines
+      the conditionality based on which the restraint is applied in the modeling.
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.group_conditionality'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'ALL'  'All distances among the group of atoms or residues are restrained'
+        'ANY'  'Any one of the distances among the group of atoms or residues could be satisfied'
+     save_
+
+save__ihm_geometric_object_distance_restraint.distance_lower_limit
+    _item_description.description
+;     The lower limit to the distance threshold, if applicable. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_lower_limit'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_distance_restraint.distance_upper_limit
+    _item_description.description
+;     The upper limit to the distance threshold, if applicable. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_upper_limit'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_distance_restraint.distance_lower_limit_esd
+    _item_description.description
+;     The estimated standard deviation of the lower limit distance threshold, if applicable. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_lower_limit_esd'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_distance_restraint.distance_upper_limit_esd
+    _item_description.description
+;     The estimated standard deviation of the upper limit distance threshold, if applicable. 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_upper_limit_esd'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_geometric_object_distance_restraint.distance_probability
+    _item_description.description
+;      The real number that indicates the probability that the distance restraint
+       is correct. This number should fall between 0.0 and 1.0.
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.distance_probability'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    loop_
+    _item_range.minimum
+    _item_range.maximum
+        0.0   0.0
+        0.0   1.0
+        1.0   1.0
+     save_
+
+save__ihm_geometric_object_distance_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the input data from which the restraint is derived.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.dataset_list_id'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_geometric_object_distance_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_geometric_object_distance_restraint.other_details
+    _item_description.description
+;     Additional details about the geometric object distance restraints, 
+      especially if _ihm_geometric_object_distance_restraint.restraint_type or
+      _ihm_geometric_object_distance_restraint.object_characteristic is "other". 
+;
+    _item.name                  '_ihm_geometric_object_distance_restraint.other_details'
+    _item.category_id             ihm_geometric_object_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
