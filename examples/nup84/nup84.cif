@@ -11,22 +11,22 @@ _software.description
 _software.version
 _software.type
 _software.location
-1 'Integrative Modeling Platform (IMP)' 'integrative model building'
+1 'IMP PMI module' 'integrative model building' 'integrative model building'
+develop-5abded4c39 program https://integrativemodeling.org
+2 'Integrative Modeling Platform (IMP)' 'integrative model building'
 'integrative model building' develop-5abded4c39 program
 https://integrativemodeling.org
-2 'IMP PMI module' 'integrative model building' 'integrative model building'
-develop-5abded4c39 program https://integrativemodeling.org
-3 MODELLER 'comparative modeling'
-'Comparative modeling by satisfaction of spatial restraints, build 2014/02/10 22:21:34'
-9.12 program https://salilab.org/modeller/
-4 HHpred 'protein homology detection'
+3 HHpred 'protein homology detection'
 'Protein homology detection by HMM-HMM comparison' 2.0.16 program
 https://toolkit.tuebingen.mpg.de/hhpred
-5 PSIPRED 'secondary structure prediction'
+4 PSIPRED 'secondary structure prediction'
 'Protein secondary structure prediction based on position-specific scoring matrices'
 4.0 program http://bioinf.cs.ucl.ac.uk/psipred/
-6 DISOPRED 'disorder prediction' 'prediction of protein disorder' 3 program
+5 DISOPRED 'disorder prediction' 'prediction of protein disorder' 3 program
 http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1
+6 MODELLER 'comparative modeling'
+'Comparative modeling by satisfaction of spatial restraints, build 2014/02/10 22:21:34'
+9.12 program https://salilab.org/modeller/
 #
 #
 loop_
@@ -10440,7 +10440,7 @@ _ihm_external_files.content_type
 _ihm_external_files.file_size_bytes
 _ihm_external_files.details
 1 1 nup84-v1.0.3/scripts/nup84.isd.modeling.withXrayInterface.py
-'Modeling workflow or script' 12644 'The main integrative modeling script'
+'Modeling workflow or script' 12670 'The main integrative modeling script'
 2 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_align_final1.ali
 'Input data or restraints' 5039 'Alignment for starting comparative model'
 3 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_align_final2.ali
@@ -10459,20 +10459,20 @@ _ihm_external_files.details
 'All ensemble structures for cluster 1'
 10 3 . 'Modeling or post-processing output' .
 'All ensemble structures for cluster 2'
-11 1 nup84-v1.0.3/data/ScNup84N_7-488_new2.pdb 'Input data or restraints' 280882
+11 1 nup84-v1.0.3/data/ScNup84N_7-488_new2.pdb 'Input data or restraints' 280955
 'Starting model structure'
 12 1 nup84-v1.0.3/data/ScNup84C_506-726_new2.pdb 'Input data or restraints'
-135305 'Starting model structure'
-13 1 nup84-v1.0.3/data/ScNup85_44-744_new.pdb 'Input data or restraints' 384420
+135378 'Starting model structure'
+13 1 nup84-v1.0.3/data/ScNup85_44-744_new.pdb 'Input data or restraints' 384492
 'Starting model structure'
-14 1 nup84-v1.0.3/data/ScNup120_1-1037_new.pdb 'Input data or restraints' 599300
+14 1 nup84-v1.0.3/data/ScNup120_1-1037_new.pdb 'Input data or restraints' 599374
 'Starting model structure'
 15 1 nup84-v1.0.3/data/ScNup133N_56-480_new.pdb 'Input data or restraints'
-235916 'Starting model structure'
+235990 'Starting model structure'
 16 1 nup84-v1.0.3/data/ScNup133C_490_1157_new.pdb 'Input data or restraints'
-428265 'Starting model structure'
+428339 'Starting model structure'
 17 1 nup84-v1.0.3/data/ScNup145C_126-553_new2.pdb 'Input data or restraints'
-269620 'Starting model structure'
+269694 'Starting model structure'
 18 1 nup84-v1.0.3/data/yeast_Nup84_DSS.new.dat 'Input data or restraints' 4211
 Crosslinks
 19 1 nup84-v1.0.3/data/EDC_XL_122013.new.dat 'Input data or restraints' 3240
@@ -10509,6 +10509,20 @@ Crosslinks
 'Localization density for Seh1'
 35 2 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
 'Localization density for Sec13'
+36 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_sjkim_final1.py
+'Modeling workflow or script' 14035 'Script for starting comparative model'
+37 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_sjkim_final2.py
+'Modeling workflow or script' 15121 'Script for starting comparative model'
+38 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup85/all_sjkim_final.py
+'Modeling workflow or script' 15395 'Script for starting comparative model'
+39 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup120/all_sjkim_final1.py
+'Modeling workflow or script' 16238 'Script for starting comparative model'
+40 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup133/all_sjkim_final1.py
+'Modeling workflow or script' 15318 'Script for starting comparative model'
+41 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup133/all_sjkim_final2.py
+'Modeling workflow or script' 9074 'Script for starting comparative model'
+42 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup145C/all_sjkim_final.py
+'Modeling workflow or script' 16012 'Script for starting comparative model'
 #
 #
 loop_
@@ -10792,6 +10806,19 @@ _ihm_starting_model_details.dataset_list_id
 7 5 Nup145c E 126 553 'comparative model' E 0 22
 8 6 Seh1 F 1 346 'experimental model' A 0 23
 9 7 Sec13 G 2 296 'experimental model' D 0 24
+#
+#
+loop_
+_ihm_starting_computational_models.starting_model_id
+_ihm_starting_computational_models.software_id
+_ihm_starting_computational_models.script_file_id
+1 6 36
+2 6 37
+3 6 38
+4 6 39
+5 6 40
+6 6 41
+7 6 42
 #
 #
 loop_
@@ -45059,10 +45086,12 @@ _ihm_modeling_protocol.num_models_end
 _ihm_modeling_protocol.multi_scale_flag
 _ihm_modeling_protocol.multi_state_flag
 _ihm_modeling_protocol.ordered_flag
+_ihm_modeling_protocol.software_id
+_ihm_modeling_protocol.script_file_id
 1 1 1 1 1 'All known components & All components modeled by IMP' . Sampling
-'Replica exchange monte carlo' 0 500 YES NO NO
+'Replica exchange monte carlo' 0 500 YES NO NO 1 .
 2 1 2 1 2 'All known components & All components modeled by IMP' . Sampling
-'Replica exchange monte carlo' 500 5000 YES NO NO
+'Replica exchange monte carlo' 500 5000 YES NO NO 1 .
 #
 #
 loop_
@@ -45076,7 +45105,9 @@ _ihm_modeling_post_process.num_models_begin
 _ihm_modeling_post_process.num_models_end
 _ihm_modeling_post_process.struct_assembly_id
 _ihm_modeling_post_process.dataset_group_id
-1 1 1 1 cluster RMSD 15000 2267 . .
+_ihm_modeling_post_process.software_id
+_ihm_modeling_post_process.script_file_id
+1 1 1 1 cluster RMSD 15000 2267 . . . .
 #
 #
 loop_
