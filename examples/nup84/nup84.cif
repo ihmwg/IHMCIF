@@ -10440,7 +10440,7 @@ _ihm_external_files.content_type
 _ihm_external_files.file_size_bytes
 _ihm_external_files.details
 1 1 nup84-v1.0.3/scripts/nup84.isd.modeling.withXrayInterface.py
-'Modeling workflow or script' 12670 'The main integrative modeling script'
+'Modeling workflow or script' 12615 'The main integrative modeling script'
 2 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_align_final1.ali
 'Input data or restraints' 5039 'Alignment for starting comparative model'
 3 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_align_final2.ali
@@ -10495,19 +10495,19 @@ Crosslinks
 'Localization density for Seh1'
 28 5 localization/cluster1/sec13.mrc 'Modeling or post-processing output' .
 'Localization density for Sec13'
-29 2 localization/cluster2/nup84.mrc 'Modeling or post-processing output' .
+29 5 localization/cluster2/nup84.mrc 'Modeling or post-processing output' .
 'Localization density for Nup84'
-30 2 localization/cluster2/nup85.mrc 'Modeling or post-processing output' .
+30 5 localization/cluster2/nup85.mrc 'Modeling or post-processing output' .
 'Localization density for Nup85'
-31 2 localization/cluster2/nup120.mrc 'Modeling or post-processing output' .
+31 5 localization/cluster2/nup120.mrc 'Modeling or post-processing output' .
 'Localization density for Nup120'
-32 2 localization/cluster2/nup133.mrc 'Modeling or post-processing output' .
+32 5 localization/cluster2/nup133.mrc 'Modeling or post-processing output' .
 'Localization density for Nup133'
-33 2 localization/cluster2/nup145c.mrc 'Modeling or post-processing output' .
+33 5 localization/cluster2/nup145c.mrc 'Modeling or post-processing output' .
 'Localization density for Nup145c'
-34 2 localization/cluster2/seh1.mrc 'Modeling or post-processing output' .
+34 5 localization/cluster2/seh1.mrc 'Modeling or post-processing output' .
 'Localization density for Seh1'
-35 2 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
+35 5 localization/cluster2/sec13.mrc 'Modeling or post-processing output' .
 'Localization density for Sec13'
 36 1 nup84-v1.0.3/scripts/MODELLER_scripts/Nup84/all_sjkim_final1.py
 'Modeling workflow or script' 14035 'Script for starting comparative model'
