@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:18-JULY-2018
+#  Date:3-OCT-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.134
+    _dictionary.version         0.135
 #
      loop_
     _dictionary_history.version
@@ -363,6 +363,17 @@ data_ihm-extension.dic
   Changes (bv):
   + Updated _item_sub_category.id for matrices and vectors 
 ;
+    0.135   2018-10-3
+;
+  Changes (bv):
+  + Added DSSO crosslinker
+  + Updated parent-child relationships for several data items: 
+    _ihm_starting_model_details.entity_id, _ihm_model_representation.entity_id,
+    _ihm_struct_assembly.entity_id, _ihm_localization_density_files.entity_id,
+    _ihm_starting_model_coord.entity_id, _ihm_starting_model_coord.comp_id, 
+    _ihm_sphere_obj_site.entity_id, _ihm_gaussian_obj_site.entity_id,
+    _ihm_gaussian_obj_ensemble.entity_id
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -510,14 +521,14 @@ save__ihm_starting_model_details.starting_model_id
 save__ihm_starting_model_details.entity_id
     _item_description.description
 ;     A unique identifier for the distinct molecular entities.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_starting_model_details.entity_id'
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name     '_ihm_starting_model_details.entity_id'
-    _item_linked.parent_name    '_entity_poly_seq.entity_id'
+    _item_linked.parent_name    '_entity.id'
      save_
 
 save__ihm_starting_model_details.entity_description
@@ -1173,15 +1184,15 @@ save__ihm_model_representation.segment_id
 save__ihm_model_representation.entity_id
     _item_description.description
 ;     A unique identifier distinct molecular entities.
-      This data item is a pointer to _entity_poly_seq.entity_id in the
-      ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity.id in the
+      ENTITY category.
 ;
     _item.name                  '_ihm_model_representation.entity_id'
     _item.category_id             ihm_model_representation
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_model_representation.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_model_representation.entity_description
@@ -1213,6 +1224,7 @@ save__ihm_model_representation.entity_asym_id
 save__ihm_model_representation.seq_id_begin
     _item_description.description
 ;     The leading residue index for the sequence segment modeled using this starting model.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
 ;
     _item.name                  '_ihm_model_representation.seq_id_begin'
     _item.category_id             ihm_model_representation
@@ -1225,6 +1237,7 @@ save__ihm_model_representation.seq_id_begin
 save__ihm_model_representation.seq_id_end
     _item_description.description
 ;     The trailing residue index for the sequence segment modeled using this starting model.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
 ;
     _item.name                  '_ihm_model_representation.seq_id_end'
     _item.category_id             ihm_model_representation
@@ -1448,15 +1461,15 @@ save__ihm_struct_assembly.entity_description
 save__ihm_struct_assembly.entity_id
     _item_description.description
 ;     A unique identifier for distinct molecular entities.
-      This data item is a pointer to _entity_poly_seq.entity_id in the 
-      ENTITY_POLY_SEQ category.
+      This data item is a pointer to _entity.id in the 
+      ENTITY category.
 ;
     _item.name                  '_ihm_struct_assembly.entity_id'
     _item.category_id             ihm_struct_assembly
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_struct_assembly.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_struct_assembly.asym_id
@@ -1477,6 +1490,7 @@ save__ihm_struct_assembly.seq_id_begin
     _item_description.description
 ;     The starting residue index for the sequence segment of the entity instance 
       that is part of the assembly.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
 ;
     _item.name                  '_ihm_struct_assembly.seq_id_begin'
     _item.category_id             ihm_struct_assembly
@@ -1490,6 +1504,7 @@ save__ihm_struct_assembly.seq_id_end
     _item_description.description
 ;     The ending residue index for the sequence segment of the entity instance 
       that is part of the assembly.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
 ;
     _item.name                  '_ihm_struct_assembly.seq_id_end'
     _item.category_id             ihm_struct_assembly
@@ -4228,14 +4243,14 @@ save__ihm_localization_density_files.ensemble_id
 save__ihm_localization_density_files.entity_id
     _item_description.description
 ;     The entity identifier corresponding to this localization density.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_localization_density_files.entity_id'
     _item.category_id             ihm_localization_density_files
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_localization_density_files.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_localization_density_files.seq_id_begin
@@ -4841,6 +4856,7 @@ save__ihm_cross_link_list.linker_type
                  'DST'      'disuccinimidyl tartrate'
                  'sulfo-SDA'  "sulfosuccinimidyl 4,4'-azipentanoate, heterobifunctional"
                  'sulfo-SMCC' "sulfosuccinimidyl 4-(N-maleimidomethyl)cyclohexane-1-carboxylate"
+                 'DSSO'     'disuccinimidyl sulfoxide (DSSO) crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
@@ -6373,14 +6389,14 @@ save__ihm_starting_model_coord.type_symbol
 save__ihm_starting_model_coord.entity_id
     _item_description.description
 ;     The entity identifier corresponding to this coordinate position.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_starting_model_coord.entity_id'
     _item.category_id             ihm_starting_model_coord
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_starting_model_coord.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_starting_model_coord.atom_id
@@ -6400,14 +6416,14 @@ save__ihm_starting_model_coord.atom_id
 save__ihm_starting_model_coord.comp_id
     _item_description.description
 ;     The component identifier corresponding to this coordinate position.
-      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY category.
+      This data item is a pointer to _chem_comp.id in the CHEM_COMP category. 
 ;
     _item.name                  '_ihm_starting_model_coord.comp_id'
     _item.category_id             ihm_starting_model_coord
     _item.mandatory_code          yes
     _item_type.code               ucode
     _item_linked.child_name       '_ihm_starting_model_coord.comp_id'
-    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+    _item_linked.parent_name      '_chem_comp.id'
      save_
 
 save__ihm_starting_model_coord.seq_id
@@ -6559,14 +6575,14 @@ save__ihm_sphere_obj_site.ordinal_id
 save__ihm_sphere_obj_site.entity_id
     _item_description.description
 ;     The entity identifier corresponding to this sphere object.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_sphere_obj_site.entity_id'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_sphere_obj_site.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_sphere_obj_site.seq_id_begin
@@ -6765,14 +6781,14 @@ save__ihm_gaussian_obj_site.ordinal_id
 save__ihm_gaussian_obj_site.entity_id
     _item_description.description
 ;     The entity identifier corresponding to this gaussian object.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_gaussian_obj_site.entity_id'
     _item.category_id             ihm_gaussian_obj_site
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_gaussian_obj_site.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_gaussian_obj_site.seq_id_begin
@@ -7057,14 +7073,14 @@ save__ihm_gaussian_obj_ensemble.ordinal_id
 save__ihm_gaussian_obj_ensemble.entity_id
     _item_description.description
 ;     The entity identifier corresponding to this gaussian object.
-      This data item is a pointer to _entity_poly_seq.entity_id in the ENTITY_POLY category.
+      This data item is a pointer to _entity.id in the ENTITY category.
 ;
     _item.name                  '_ihm_gaussian_obj_ensemble.entity_id'
     _item.category_id             ihm_gaussian_obj_ensemble
     _item.mandatory_code          yes
     _item_type.code               code
     _item_linked.child_name       '_ihm_gaussian_obj_ensemble.entity_id'
-    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+    _item_linked.parent_name      '_entity.id'
      save_
 
 save__ihm_gaussian_obj_ensemble.seq_id_begin
