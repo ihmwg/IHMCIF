@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:3-OCT-2018
+#  Date:4-OCT-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -363,7 +363,7 @@ data_ihm-extension.dic
   Changes (bv):
   + Updated _item_sub_category.id for matrices and vectors 
 ;
-    0.135   2018-10-3
+    0.135   2018-10-4
 ;
   Changes (bv):
   + Added DSSO crosslinker
@@ -373,6 +373,7 @@ data_ihm-extension.dic
     _ihm_starting_model_coord.entity_id, _ihm_starting_model_coord.comp_id, 
     _ihm_sphere_obj_site.entity_id, _ihm_gaussian_obj_site.entity_id,
     _ihm_gaussian_obj_ensemble.entity_id
+  + Updated _item_type.code for _ihm_external_files.file_path
 ;
 
 #########################
@@ -3996,7 +3997,7 @@ save__ihm_external_files.file_path
     _item.name                 '_ihm_external_files.file_path'
     _item.category_id          ihm_external_files
     _item.mandatory_code       yes
-    _item_type.code            code
+    _item_type.code            line
     loop_
     _item_examples.case
     'integrativemodeling-nup84-a69f895/outputs/localization/cluster1/nup84.mrc'
