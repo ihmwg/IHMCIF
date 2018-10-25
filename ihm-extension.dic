@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:5-OCT-2018
+#  Date:25-OCT-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.136
+    _dictionary.version         0.137
 #
      loop_
     _dictionary_history.version
@@ -379,6 +379,11 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Added ihm_hydroxyl_radical_fp_restraint
+;
+    0.137   2018-10-25
+;
+  Changes (bv): 
+  + Renamed IHM_NON_POLY_ATOM_FEATURE to IHM_NON_POLY_FEATURE
 ;
 
 #########################
@@ -8093,19 +8098,19 @@ save__ihm_poly_residue_feature.rep_atom
     CB  'C-beta for all residues except Glycine; Default value of C-alpha for Glycine'
     save_
 
-###############################
-## IHM_NON_POLY_ATOM_FEATURE ##
-###############################
+##########################
+## IHM_NON_POLY_FEATURE ##
+##########################
 
-save_ihm_non_poly_atom_feature
+save_ihm_non_poly_feature
     _category.description
-;              Data items in the IHM_NON_POLY_ATOM_FEATURE category provides the defintions
-               required to select specific atoms from a non-polymer (ligand) component.  
+;              Data items in the IHM_NON_POLY_FEATURE category provides the defintions
+               required to select a non-polymeric (ligand) feature.  
 ;
-    _category.id                  ihm_non_poly_atom_feature
+    _category.id                  ihm_non_poly_feature
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_non_poly_atom_feature.ordinal_id'
+    _category_key.name          '_ihm_non_poly_feature.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -8119,12 +8124,12 @@ save_ihm_non_poly_atom_feature
 ;
 ;
         loop_
-        _ihm_non_poly_atom_feature.ordinal_id
-        _ihm_non_poly_atom_feature.feature_id
-        _ihm_non_poly_atom_feature.entity_id
-        _ihm_non_poly_atom_feature.asym_id
-        _ihm_non_poly_atom_feature.comp_id
-        _ihm_non_poly_atom_feature.atom_id
+        _ihm_non_poly_feature.ordinal_id
+        _ihm_non_poly_feature.feature_id
+        _ihm_non_poly_feature.entity_id
+        _ihm_non_poly_feature.asym_id
+        _ihm_non_poly_feature.comp_id
+        _ihm_non_poly_feature.atom_id
           1   1  6  F  FES  FE1
           2   2  6  F  FES  FE2
           3   3  6  F  FES  S1
@@ -8134,83 +8139,83 @@ save_ihm_non_poly_atom_feature
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_non_poly_atom_feature
+   _pdbx_category_context.category_id  ihm_non_poly_feature
      save_
 
-save__ihm_non_poly_atom_feature.ordinal_id
+save__ihm_non_poly_feature.ordinal_id
     _item_description.description
 ;     A unique identifier for the category. 
 ;
-    _item.name                  '_ihm_non_poly_atom_feature.ordinal_id'
-    _item.category_id             ihm_non_poly_atom_feature
+    _item.name                  '_ihm_non_poly_feature.ordinal_id'
+    _item.category_id             ihm_non_poly_feature
     _item.mandatory_code          yes
     _item_type.code               int
      save_
 
-save__ihm_non_poly_atom_feature.feature_id
+save__ihm_non_poly_feature.feature_id
     _item_description.description
-;     An identifier for the selected atom feature.
+;     An identifier for the selected non-polymer feature.
       This data item is a pointer to _ihm_feature_list.feature_id in the
       IHM_FEATURE_LIST category.
 ;
-    _item.name                  '_ihm_non_poly_atom_feature.feature_id'
-    _item.category_id             ihm_non_poly_atom_feature
+    _item.name                  '_ihm_non_poly_feature.feature_id'
+    _item.category_id             ihm_non_poly_feature
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_non_poly_atom_feature.feature_id'
+    _item_linked.child_name     '_ihm_non_poly_feature.feature_id'
     _item_linked.parent_name    '_ihm_feature_list.feature_id' 
     save_
 
-save__ihm_non_poly_atom_feature.entity_id
+save__ihm_non_poly_feature.entity_id
     _item_description.description
-;     The entity identifier of the atom. 
+;     The entity identifier of the non-polymer feature. 
       This data item is a pointer to _entity.id in the ENTITY category.
 ;
-    _item.name                  '_ihm_non_poly_atom_feature.entity_id'
-    _item.category_id             ihm_non_poly_atom_feature
+    _item.name                  '_ihm_non_poly_feature.entity_id'
+    _item.category_id             ihm_non_poly_feature
     _item.mandatory_code          yes
     _item_type.code               code
-    _item_linked.child_name       '_ihm_non_poly_atom_feature.entity_id'
+    _item_linked.child_name       '_ihm_non_poly_feature.entity_id'
     _item_linked.parent_name      '_entity.id'
      save_
 
-save__ihm_non_poly_atom_feature.asym_id
+save__ihm_non_poly_feature.asym_id
     _item_description.description
-;              An asym/strand identifier of the atom. 
+;              An asym/strand identifier of the non-polymer feature. 
                This data item is a pointer to _struct_asym.id in the
                STRUCT_ASYM category.
 ;
-    _item.name                  '_ihm_non_poly_atom_feature.asym_id'
-    _item.category_id             ihm_non_poly_atom_feature
+    _item.name                  '_ihm_non_poly_feature.asym_id'
+    _item.category_id             ihm_non_poly_feature
     _item.mandatory_code          yes
     _item_type.code               code
-    _item_linked.child_name       '_ihm_non_poly_atom_feature.asym_id'
+    _item_linked.child_name       '_ihm_non_poly_feature.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
      save_
 
-save__ihm_non_poly_atom_feature.comp_id
+save__ihm_non_poly_feature.comp_id
     _item_description.description
-;     The component identifier of the atom. 
+;     The component identifier of the non-polymer feature. 
       This data item is a pointer to _chem_comp.id in the CHEM_COMP category. 
 ;
-    _item.name                  '_ihm_non_poly_atom_feature.comp_id'
-    _item.category_id             ihm_non_poly_atom_feature
+    _item.name                  '_ihm_non_poly_feature.comp_id'
+    _item.category_id             ihm_non_poly_feature
     _item.mandatory_code          yes
     _item_type.code               ucode
-    _item_linked.child_name       '_ihm_non_poly_atom_feature.comp_id'
+    _item_linked.child_name       '_ihm_non_poly_feature.comp_id'
     _item_linked.parent_name      '_chem_comp.id'
      save_
 
-save__ihm_non_poly_atom_feature.atom_id
+save__ihm_non_poly_feature.atom_id
     _item_description.description
-;     The identifier of the atom. 
+;     The identifier of the non-polymeric atom, if applicable. 
       This data item is a pointer to _chem_comp_atom.atom_id in the CHEM_COMP_ATOM category.
 ;
-    _item.name                  '_ihm_non_poly_atom_feature.atom_id'
-    _item.category_id             ihm_non_poly_atom_feature
+    _item.name                  '_ihm_non_poly_feature.atom_id'
+    _item.category_id             ihm_non_poly_feature
     _item.mandatory_code          no
     _item_type.code               atcode
-    _item_linked.child_name       '_ihm_non_poly_atom_feature.atom_id'
+    _item_linked.child_name       '_ihm_non_poly_feature.atom_id'
     _item_linked.parent_name      '_chem_comp_atom.atom_id'
      save_
 
