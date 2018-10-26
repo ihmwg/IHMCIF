@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:25-OCT-2018
+#  Date:26-OCT-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -380,7 +380,7 @@ data_ihm-extension.dic
   Changes (bv):
   + Added ihm_hydroxyl_radical_fp_restraint
 ;
-    0.137   2018-10-25
+    0.137   2018-10-26
 ;
   Changes (bv): 
   + Renamed IHM_NON_POLY_ATOM_FEATURE to IHM_NON_POLY_FEATURE
@@ -7752,9 +7752,9 @@ save__ihm_feature_list.feature_type
     loop_
     _item_enumeration.value
     _item_enumeration.detail
-    'atom'                          'feature is an atom or a set of atoms'
-    'residue'                       'feature is a residue or a set of residues, each represented by the alpha carbon atom'
-    'residue range'                 'feature is a set of residues in a contiguous range, each represented by the alpha carbon atom'
+    'atom'                          'feature is an atom or a set of atoms from a polymeric or non-polymeric entity'
+    'residue'                       'feature is a residue or a set of residues from a polymeric entity, each represented by the alpha carbon atom'
+    'residue range'                 'feature is a set of residues in a contiguous range from a polymeric entity, each represented by the alpha carbon atom'
     'ligand'                        'feature is an instance of a non-polymeric entity'
      save_
 
