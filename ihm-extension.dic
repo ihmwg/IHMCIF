@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date:26-OCT-2018
+#  Date: 20-DEC-2018
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.137
+    _dictionary.version         0.138
 #
      loop_
     _dictionary_history.version
@@ -387,6 +387,21 @@ data_ihm-extension.dic
   + Updated _ihm_feature_list.feature_type
   + Added IHM_FEATURE_PSEUDO_SITE
 ;
+    0.138   2018-12-20
+;
+  Changes (bv):
+  + Added _ihm_modeling_protocol.ensemble_flag
+  + Changed _item.type_code from code to ucode for: 
+    _ihm_modeling_protocol.multi_scale_flag
+    _ihm_modeling_protocol.multi_state_flag
+    _ihm_modeling_protocol.ordered_flag
+    _ihm_dataset_list.database_hosted
+    _ihm_2dem_class_average_restraint.image_segment_flag
+    _ihm_3dem_restraint.map_segment_flag
+    _ihm_sas_restraint.profile_segment_flag
+  + Updated definitions for _ihm_feature_list.entity_type
+  + Updated enumeration list for _ihm_feature_list.feature_type
+;   
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -1811,9 +1826,10 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.multi_scale_flag
     _ihm_modeling_protocol.multi_state_flag
     _ihm_modeling_protocol.ordered_flag
+    _ihm_modeling_protocol.ensemble_flag
 
-    1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 'YES' 'NO' 'NO'
-    2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 'YES' 'NO' 'NO'
+    1 1 1 1 1 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 0 7500 'YES' 'NO' 'NO' 'NO'
+    2 1 2 1 2 'Nup84 sub-complex' 'Multi-scale modeling' 'Sampling' 'Replica exchange monte carlo' 7500 15000 'YES' 'NO' 'NO' 'NO'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -1834,9 +1850,10 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.multi_scale_flag
     _ihm_modeling_protocol.multi_state_flag
     _ihm_modeling_protocol.ordered_flag
+    _ihm_modeling_protocol.ensemble_flag
 
-    1   1   1   1   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO'
-    2   1   1   2   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO'
+    1   1   1   1   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO' 'YES'
+    2   1   1   2   1   'PhoQ' 'Multi-state modeling'  'Sampling'  'Monte carlo'   0    5000  'NO'  'YES'  'NO' 'YES'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1993,7 +2010,7 @@ save__ihm_modeling_protocol.multi_scale_flag
     _item.name                  '_ihm_modeling_protocol.multi_scale_flag'
     _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               ucode
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -2008,7 +2025,7 @@ save__ihm_modeling_protocol.multi_state_flag
     _item.name                  '_ihm_modeling_protocol.multi_state_flag'
     _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               ucode
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -2023,7 +2040,22 @@ save__ihm_modeling_protocol.ordered_flag
     _item.name                  '_ihm_modeling_protocol.ordered_flag'
     _item.category_id             ihm_modeling_protocol
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'YES'  .
+        'NO'   .
+     save_
+
+save__ihm_modeling_protocol.ensemble_flag
+    _item_description.description
+;    A flag to indicate if the modeling involves an ensemble. 
+;  
+    _item.name                  '_ihm_modeling_protocol.ensemble_flag'
+    _item.category_id             ihm_modeling_protocol
+    _item.mandatory_code          no
+    _item_type.code               ucode
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -3408,7 +3440,7 @@ save__ihm_dataset_list.database_hosted
     _item.name                  '_ihm_dataset_list.database_hosted'
     _item.category_id             ihm_dataset_list
     _item.mandatory_code          yes
-    _item_type.code               code
+    _item_type.code               ucode
     loop_
     _item_enumeration.value
       'YES'
@@ -5819,7 +5851,7 @@ save__ihm_2dem_class_average_restraint.image_segment_flag
     _item.name                  '_ihm_2dem_class_average_restraint.image_segment_flag'
     _item.category_id             ihm_2dem_class_average_restraint
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               ucode
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -6255,7 +6287,7 @@ save__ihm_3dem_restraint.map_segment_flag
     _item.name                  '_ihm_3dem_restraint.map_segment_flag'
     _item.category_id             ihm_3dem_restraint
     _item.mandatory_code          no   
-    _item_type.code               code  
+    _item_type.code               ucode  
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -6413,7 +6445,7 @@ save__ihm_sas_restraint.profile_segment_flag
     _item.name                  '_ihm_sas_restraint.profile_segment_flag'
     _item.category_id             ihm_sas_restraint
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               ucode
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -7756,19 +7788,23 @@ save__ihm_feature_list.feature_type
     'residue'                       'feature is a residue or a set of residues from a polymeric entity, each represented by the alpha carbon atom'
     'residue range'                 'feature is a set of residues in a contiguous range from a polymeric entity, each represented by the alpha carbon atom'
     'ligand'                        'feature is an instance of a non-polymeric entity'
+    'pseudo site'                   'feature is a pseudo site'
      save_
 
 save__ihm_feature_list.entity_type
     _item_description.description
 ;     The type of entity.
-      This data item is a pointer to _entity.type in the ENTITY category. 
 ;
     _item.name                  '_ihm_feature_list.entity_type'
     _item.category_id             ihm_feature_list
     _item.mandatory_code          yes
-    _item_type.code               ucode
-    _item_linked.child_name     '_ihm_feature_list.entity_type'
-    _item_linked.parent_name    '_entity.type'
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    'polymer'
+    'non-polymer'
+    'water'
+    'other'
      save_
 
 #############################
