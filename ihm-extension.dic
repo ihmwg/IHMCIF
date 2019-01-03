@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 20-DEC-2018
+#  Date: 03-JAN-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.138
+    _dictionary.version         0.139
 #
      loop_
     _dictionary_history.version
@@ -402,6 +402,11 @@ data_ihm-extension.dic
   + Updated definitions for _ihm_feature_list.entity_type
   + Updated enumeration list for _ihm_feature_list.feature_type
 ;   
+    0.139   2019-01-03
+;
+  Changes (bv): 
+  + Changed IHM_FEATURE_PSEUDO_SITE to IHM_PSEUDO_SITE_FEATURE
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -7808,18 +7813,18 @@ save__ihm_feature_list.entity_type
      save_
 
 #############################
-## IHM_FEATURE_PSEUDO_SITE ##
+## IHM_PSEUDO_SITE_FEATURE ##
 #############################
 
-save_ihm_feature_pseudo_site
+save_ihm_pseudo_site_feature
     _category.description
-;              Data items in the IHM_FEATURE_PSEUDO_SITE category records the details
+;              Data items in the IHM_PSEUDO_SITE_FEATURE category records the details
                of pseudo positions for the features listed in IHM_FEATURE_LIST. 
 ;
-    _category.id                  ihm_feature_pseudo_site
+    _category.id                  ihm_pseudo_site_feature
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_feature_pseudo_site.feature_id'
+    _category_key.name          '_ihm_pseudo_site_feature.feature_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -7833,11 +7838,11 @@ save_ihm_feature_pseudo_site
 ;
 ;
         loop_
-        _ihm_feature_pseudo_site.feature_id
-        _ihm_feature_pseudo_site.Cartn_x
-        _ihm_feature_pseudo_site.Cartn_y
-        _ihm_feature_pseudo_site.Cartn_z
-        _ihm_feature_pseudo_site.radius
+        _ihm_pseudo_site_feature.feature_id
+        _ihm_pseudo_site_feature.Cartn_x
+        _ihm_pseudo_site_feature.Cartn_y
+        _ihm_pseudo_site_feature.Cartn_z
+        _ihm_pseudo_site_feature.radius
            1  1.0  1.0  1.0  1.0 
            2  1.0  1.0  1.0  1.0 
            3  1.0  1.0  1.0  1.0 
@@ -7847,85 +7852,85 @@ save_ihm_feature_pseudo_site
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
-   _pdbx_category_context.category_id  ihm_feature_pseudo_site
+   _pdbx_category_context.category_id  ihm_pseudo_site_feature
      save_
 
-save__ihm_feature_pseudo_site.feature_id
+save__ihm_pseudo_site_feature.feature_id
     _item_description.description
 ;     The feature identifier corresponding to this pseudo site.
       This data item is a pointer to _ihm_feature_list.feature_id 
       in the IHM_FEATURE_LIST category.
 ;
-    _item.name                  '_ihm_feature_pseudo_site.feature_id'
-    _item.category_id             ihm_feature_pseudo_site
+    _item.name                  '_ihm_pseudo_site_feature.feature_id'
+    _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_feature_pseudo_site.feature_id'
+    _item_linked.child_name       '_ihm_pseudo_site_feature.feature_id'
     _item_linked.parent_name      '_ihm_feature_list.feature_id'
      save_
 
-save__ihm_feature_pseudo_site.Cartn_x
+save__ihm_pseudo_site_feature.Cartn_x
     _item_description.description
 ;     The Cartesian X component corresponding to this pseudo site.
 ;
-    _item.name                  '_ihm_feature_pseudo_site.Cartn_x'
-    _item.category_id             ihm_feature_pseudo_site
+    _item.name                  '_ihm_pseudo_site_feature.Cartn_x'
+    _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
     loop_
     _item_dependent.dependent_name
-        '_ihm_feature_pseudo_site.Cartn_y'
-        '_ihm_feature_pseudo_site.Cartn_z'
+        '_ihm_pseudo_site_feature.Cartn_y'
+        '_ihm_pseudo_site_feature.Cartn_z'
      save_
 
-save__ihm_feature_pseudo_site.Cartn_y
+save__ihm_pseudo_site_feature.Cartn_y
     _item_description.description
 ;     The Cartesian Y component corresponding to this pseudo site.
 ;
-    _item.name                  '_ihm_feature_pseudo_site.Cartn_y'
-    _item.category_id             ihm_feature_pseudo_site
+    _item.name                  '_ihm_pseudo_site_feature.Cartn_y'
+    _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
     loop_
     _item_dependent.dependent_name
-        '_ihm_feature_pseudo_site.Cartn_x'
-        '_ihm_feature_pseudo_site.Cartn_z'
+        '_ihm_pseudo_site_feature.Cartn_x'
+        '_ihm_pseudo_site_feature.Cartn_z'
      save_
 
-save__ihm_feature_pseudo_site.Cartn_z
+save__ihm_pseudo_site_feature.Cartn_z
     _item_description.description
 ;     The Cartesian Z component corresponding to this pseudo site.
 ;
-    _item.name                  '_ihm_feature_pseudo_site.Cartn_z'
-    _item.category_id             ihm_feature_pseudo_site
+    _item.name                  '_ihm_pseudo_site_feature.Cartn_z'
+    _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          yes
     _item_type.code               float
     _item_units.code              angstroms
     loop_
     _item_dependent.dependent_name
-        '_ihm_feature_pseudo_site.Cartn_x'
-        '_ihm_feature_pseudo_site.Cartn_y'
+        '_ihm_pseudo_site_feature.Cartn_x'
+        '_ihm_pseudo_site_feature.Cartn_y'
      save_
 
-save__ihm_feature_pseudo_site.radius
+save__ihm_pseudo_site_feature.radius
     _item_description.description
 ;     The radius associated with the feature at this position, if applicable.
 ;
-    _item.name                  '_ihm_feature_pseudo_site.radius'
-    _item.category_id             ihm_feature_pseudo_site
+    _item.name                  '_ihm_pseudo_site_feature.radius'
+    _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          no
     _item_type.code               float
     _item_units.code              angstroms
      save_
 
-save__ihm_feature_pseudo_site.description
+save__ihm_pseudo_site_feature.description
     _item_description.description
 ;     Textual description of the pseudo site representing the specific feature. 
 ;
-    _item.name                  '_ihm_feature_pseudo_site.description'
-    _item.category_id             ihm_feature_pseudo_site
+    _item.name                  '_ihm_pseudo_site_feature.description'
+    _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          no
     _item_type.code               text
     loop_
