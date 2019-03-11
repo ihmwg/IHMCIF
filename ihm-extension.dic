@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 03-JAN-2019
+#  Date: 11-MAR-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.139
+    _dictionary.version         0.140
 #
      loop_
     _dictionary_history.version
@@ -406,6 +406,14 @@ data_ihm-extension.dic
 ;
   Changes (bv): 
   + Changed IHM_FEATURE_PSEUDO_SITE to IHM_PSEUDO_SITE_FEATURE
+;
+    0.140   2019-03-11
+;
+  Changes (bv):
+  + Added IHM_INTERFACE_RESIDUE_FEATURE
+  + Added _ihm_poly_residue_feature.interface_residue_flag
+  + Updated item_mandatory.code for _ihm_poly_residue_feature.asym_id
+    _ihm_poly_atom_feature.asym_id, _ihm_non_poly_feature.asym_id
 ;
 
 #########################
@@ -8031,13 +8039,13 @@ save__ihm_poly_atom_feature.entity_id
 
 save__ihm_poly_atom_feature.asym_id
     _item_description.description
-;              An asym/strand identifier of the atom. 
+;              An asym/strand identifier of the atom, if applicable. 
                This data item is a pointer to _struct_asym.id in the
                STRUCT_ASYM category.
 ;
     _item.name                  '_ihm_poly_atom_feature.asym_id'
     _item.category_id             ihm_poly_atom_feature
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
     _item_linked.child_name       '_ihm_poly_atom_feature.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
@@ -8117,14 +8125,15 @@ save_ihm_poly_residue_feature
         _ihm_poly_residue_feature.comp_id_begin
         _ihm_poly_residue_feature.seq_id_end
         _ihm_poly_residue_feature.comp_id_end
-          1  1  3  C   17  LYS   17  LYS   # Single residue selection
-          2  2  3  C  206  LYS  206  LYS
-          3  3  3  C   38  THR   54  ALA   # Residue range selection
-          4  4  3  C  400  LEU  428  PHE
-          5  5  3  C  429  GLN  429  GLN
-          6  6  3  C  461  LEU  478  ARG
-          7  7  3  C  735  ASP  735  ASP
-          8  8  3  C  865  SER  891  VAL
+        _ihm_poly_residue_feature.interface_residue_flag
+          1  1  3  C   17  LYS   17  LYS   NO   # Single residue selection
+          2  2  3  C  206  LYS  206  LYS   NO
+          3  3  3  C   38  THR   54  ALA   NO   # Residue range selection
+          4  4  3  C  400  LEU  428  PHE   NO
+          5  5  3  C  429  GLN  429  GLN   NO
+          6  6  3  C  461  LEU  478  ARG   NO
+          7  7  3  C  735  ASP  735  ASP   NO
+          8  8  3  C  865  SER  891  VAL   NO
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -8172,13 +8181,13 @@ save__ihm_poly_residue_feature.entity_id
 
 save__ihm_poly_residue_feature.asym_id
     _item_description.description
-;              An asym/strand identifier for the residue / residue range.
+;              An asym/strand identifier for the residue / residue range, if applicable.
                This data item is a pointer to _struct_asym.id in the
                STRUCT_ASYM category.
 ;
     _item.name                  '_ihm_poly_residue_feature.asym_id'
     _item.category_id             ihm_poly_residue_feature
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
     _item_linked.child_name       '_ihm_poly_residue_feature.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
@@ -8268,6 +8277,22 @@ save__ihm_poly_residue_feature.rep_atom
     CB  'C-beta for all residues except Glycine; Default value of C-alpha for Glycine'
     save_
 
+save__ihm_poly_residue_feature.interface_residue_flag
+    _item_description.description
+;     A flag to indicate if the feature is an interface residue, identified by experiments and
+      therefore, used to build spatial restraints during modeling.  
+;
+    _item.name                  '_ihm_poly_residue_feature.interface_residue_flag'
+    _item.category_id             ihm_poly_residue_feature
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+     'YES'    .
+     'NO'     .
+     save_
+
 ##########################
 ## IHM_NON_POLY_FEATURE ##
 ##########################
@@ -8351,13 +8376,13 @@ save__ihm_non_poly_feature.entity_id
 
 save__ihm_non_poly_feature.asym_id
     _item_description.description
-;              An asym/strand identifier of the non-polymer feature. 
+;              An asym/strand identifier of the non-polymer feature, if applicable. 
                This data item is a pointer to _struct_asym.id in the
                STRUCT_ASYM category.
 ;
     _item.name                  '_ihm_non_poly_feature.asym_id'
     _item.category_id             ihm_non_poly_feature
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
     _item_linked.child_name       '_ihm_non_poly_feature.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
@@ -8387,6 +8412,133 @@ save__ihm_non_poly_feature.atom_id
     _item_type.code               atcode
     _item_linked.child_name       '_ihm_non_poly_feature.atom_id'
     _item_linked.parent_name      '_chem_comp_atom.atom_id'
+     save_
+
+###################################
+## IHM_INTERFACE_RESIDUE_FEATURE ##
+###################################
+
+save_ihm_interface_residue_feature
+    _category.description
+;              Data items in the IHM_INTERFACE_RESIDUE_FEATURE category captures the
+               details of residues that are identified to be at the binding interface 
+               from experiments. This information is used by modeling software such as
+               HADDOCK to create a set of ambiguous distance restraints at the binding
+               interface between the molecular entities involved. 
+;
+    _category.id                  ihm_interface_residue_feature
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_interface_residue_feature.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_interface_residue_feature.ordinal_id
+        _ihm_interface_residue_feature.feature_id
+        _ihm_interface_residue_feature.binding_partner_entity_id
+        _ihm_interface_residue_feature.binding_partner_asym_id
+        _ihm_interface_residue_feature.dataset_list_id
+        _ihm_interface_residue_feature.details
+          1    1    2    B  5   .
+          2    2    2    B  5   .
+          3    3    2    B  5   .
+          4    4    2    B  5   . 
+          5    5    1    A  4   .
+          6    6    1    A  4   .
+          7    7    1    A  4   .
+          8    8    1    A  4   .
+          9    9    1    A  4   .
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_interface_residue_feature
+     save_
+
+save__ihm_interface_residue_feature.ordinal_id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_interface_residue_feature.ordinal_id'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_interface_residue_feature.feature_id
+    _item_description.description
+;     Identifier for the interface residue feature that defines the interface residue.
+      This data item is a pointer to _ihm_poly_residue_feature.feature_id in the
+      IHM_POLY_RESIDUE_FEATURE category.
+;
+    _item.name                  '_ihm_interface_residue_feature.feature_id'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_interface_residue_feature.feature_id'
+    _item_linked.parent_name    '_ihm_poly_residue_feature.feature_id'
+     save_
+
+save__ihm_interface_residue_feature.binding_partner_entity_id
+    _item_description.description
+;     The entity identifier of the binding partner at the interface.
+      This data item is a pointer to _entity.id in the ENTITY category. 
+;
+    _item.name                  '_ihm_interface_residue_feature.binding_partner_entity_id'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_interface_residue_feature.binding_partner_entity_id'
+    _item_linked.parent_name      '_entity.id'
+     save_
+
+save__ihm_interface_residue_feature.binding_partner_asym_id
+    _item_description.description
+;              An asym/strand identifier for the binding partner at the interface, if applicable.
+               This data item is a pointer to _struct_asym.id in the
+               STRUCT_ASYM category.
+;
+    _item.name                  '_ihm_interface_residue_feature.binding_partner_asym_id'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          no
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_interface_residue_feature.binding_partner_asym_id'
+    _item_linked.parent_name      '_struct_asym.id'
+     save_
+
+save__ihm_interface_residue_feature.dataset_list_id
+    _item_description.description
+;     Identifier to the input data from which the interface residue is determined.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_interface_residue_feature.dataset_list_id'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_interface_residue_feature.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_interface_residue_feature.details
+    _item_description.description
+;     Additional details regarding the interface residue. 
+;
+    _item.name                  '_ihm_interface_residue_feature.details'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ####################################
@@ -8603,6 +8755,10 @@ save__ihm_derived_distance_restraint.dataset_list_id
 ;     Identifier to the input data from which the distance restraint is derived.
       This data item is a pointer to the _ihm_dataset_list.id in the
       IHM_DATASET_LIST category. 
+      This data item may not be applicable for all cases. For example, in case of
+      ambiguous interface restraints where the interface residues are identified
+      from multiple experiments, the reference to the _ihm_dataset_list.id is 
+      handled in the IHM_INTERFACE_RESIDUE_FEATURE category rather than here. 
 ;
     _item.name                  '_ihm_derived_distance_restraint.dataset_list_id'
     _item.category_id             ihm_derived_distance_restraint
