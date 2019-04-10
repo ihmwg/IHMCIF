@@ -8721,7 +8721,7 @@ save_ihm_interface_residue_feature
     _category.id                  ihm_interface_residue_feature
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_interface_residue_feature.feature_id'
+    _category_key.name          '_ihm_interface_residue_feature.ordinal_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -8735,26 +8735,36 @@ save_ihm_interface_residue_feature
 ;
 ;
         loop_
+        _ihm_interface_residue_feature.ordinal_id
         _ihm_interface_residue_feature.feature_id
         _ihm_interface_residue_feature.binding_partner_entity_id
         _ihm_interface_residue_feature.binding_partner_asym_id
         _ihm_interface_residue_feature.dataset_list_id
         _ihm_interface_residue_feature.details
-             1    2    B  5   .
-             2    2    B  5   .
-             3    2    B  5   .
-             4    2    B  5   . 
-             5    1    A  4   .
-             6    1    A  4   .
-             7    1    A  4   .
-             8    1    A  4   .
-             9    1    A  4   .
+          1   1    2    B  5   .
+          2   2    2    B  5   .
+          3   3    2    B  5   .
+          4   4    2    B  5   . 
+          5   5    1    A  4   .
+          6   6    1    A  4   .
+          7   7    1    A  4   .
+          8   8    1    A  4   .
+          9   9    1    A  4   .
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_interface_residue_feature
+     save_
+
+save__ihm_interface_residue_feature.ordinal_id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_interface_residue_feature.ordinal_id'
+    _item.category_id             ihm_interface_residue_feature
+    _item.mandatory_code          yes
+    _item_type.code               int
      save_
 
 save__ihm_interface_residue_feature.feature_id
