@@ -1897,14 +1897,10 @@ save_ihm_modeling_protocol
     _ihm_modeling_protocol.id
     _ihm_modeling_protocol.num_steps
     _ihm_modeling_protocol.protocol_name
-    _ihm_modeling_protocol.multi_scale_flag
-    _ihm_modeling_protocol.multi_state_flag
-    _ihm_modeling_protocol.ordered_flag
-    _ihm_modeling_protocol.ensemble_flag
     _ihm_modeling_protocol.details
 
-    1 2 'Multi-scale modeling of the Nup84 sub-complex' 'YES' 'NO' 'NO' 'NO' .
-    2 3 'Multi-scale modeling of the Nuclear pore complex' 'YES' 'NO' 'NO' 'NO' .
+    1 2 'Multi-scale modeling of the Nup84 sub-complex' ?
+    2 3 'Multi-scale modeling of the Nuclear pore complex' ?
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
@@ -1943,66 +1939,6 @@ save__ihm_modeling_protocol.protocol_name
     _item_examples.case
     'Multi-scale modeling of the Nuclear Pore Complex'
     'Multi-state modeling of the RNA 4-Way Junction'
-     save_
-
-save__ihm_modeling_protocol.multi_scale_flag
-    _item_description.description
-;    A flag to indicate if the modeling is multi scale. 
-;
-    _item.name                  '_ihm_modeling_protocol.multi_scale_flag'
-    _item.category_id             ihm_modeling_protocol
-    _item.mandatory_code          no
-    _item_type.code               ucode
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-        'YES'  .
-        'NO'   .
-     save_
-
-save__ihm_modeling_protocol.multi_state_flag
-    _item_description.description
-;    A flag to indicate if the modeling is multi state. 
-;   
-    _item.name                  '_ihm_modeling_protocol.multi_state_flag'
-    _item.category_id             ihm_modeling_protocol
-    _item.mandatory_code          no
-    _item_type.code               ucode
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-        'YES'  .   
-        'NO'   . 
-     save_
-
-save__ihm_modeling_protocol.ordered_flag
-    _item_description.description
-;    A flag to indicate if the modeling involves an ensemble ordered by time or other order.
-;   
-    _item.name                  '_ihm_modeling_protocol.ordered_flag'
-    _item.category_id             ihm_modeling_protocol
-    _item.mandatory_code          no
-    _item_type.code               ucode
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-        'YES'  .
-        'NO'   .
-     save_
-
-save__ihm_modeling_protocol.ensemble_flag
-    _item_description.description
-;    A flag to indicate if the modeling involves an ensemble. 
-;  
-    _item.name                  '_ihm_modeling_protocol.ensemble_flag'
-    _item.category_id             ihm_modeling_protocol
-    _item.mandatory_code          no
-    _item_type.code               ucode
-    loop_
-    _item_enumeration.value
-    _item_enumeration.detail
-        'YES'  .
-        'NO'   .
      save_
 
 save__ihm_modeling_protocol.details
@@ -2050,9 +1986,13 @@ save_ihm_modeling_protocol_details
     _ihm_modeling_protocol_details.step_method
     _ihm_modeling_protocol_details.num_models_begin
     _ihm_modeling_protocol_details.num_models_end
+    _ihm_modeling_protocol_details.multi_scale_flag
+    _ihm_modeling_protocol_details.multi_state_flag
+    _ihm_modeling_protocol_details.ordered_flag
+    _ihm_modeling_protocol_details.ensemble_flag
 
-    1 1 1 1 1 'Nup84 sub-complex' 'Sampling' 'Replica exchange monte carlo' 0 7500 
-    2 1 2 1 2 'Nup84 sub-complex' 'Sampling' 'Replica exchange monte carlo' 7500 15000 
+    1 1 1 1 1 'Nup84 sub-complex' 'Sampling' 'Replica exchange monte carlo' 0 7500 YES NO NO YES
+    2 1 2 1 2 'Nup84 sub-complex' 'Sampling' 'Replica exchange monte carlo' 7500 15000 YES NO NO YES
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -2069,9 +2009,13 @@ save_ihm_modeling_protocol_details
     _ihm_modeling_protocol_details.step_method
     _ihm_modeling_protocol_details.num_models_begin
     _ihm_modeling_protocol_details.num_models_end
+    _ihm_modeling_protocol_details.multi_scale_flag
+    _ihm_modeling_protocol_details.multi_state_flag
+    _ihm_modeling_protocol_details.ordered_flag
+    _ihm_modeling_protocol_details.ensemble_flag
 
-    1   1   1   1   1   'PhoQ' 'Sampling'  'Monte carlo'   0    5000 
-    2   1   1   2   1   'PhoQ' 'Sampling'  'Monte carlo'   0    5000 
+    1   1   1   1   1   'PhoQ' 'Sampling'  'Monte carlo'   0    5000  YES YES NO YES
+    2   1   1   2   1   'PhoQ' 'Sampling'  'Monte carlo'   0    5000  YES YES NO YES
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
@@ -2207,6 +2151,66 @@ save__ihm_modeling_protocol_details.num_models_end
     _item.category_id             ihm_modeling_protocol_details
     _item.mandatory_code          no
     _item_type.code               int
+     save_
+
+save__ihm_modeling_protocol_details.multi_scale_flag
+    _item_description.description
+;    A flag to indicate if the modeling is multi scale.
+;
+    _item.name                  '_ihm_modeling_protocol_details.multi_scale_flag'
+    _item.category_id             ihm_modeling_protocol_details
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'YES'  .
+        'NO'   .
+     save_
+
+save__ihm_modeling_protocol_details.multi_state_flag
+    _item_description.description
+;    A flag to indicate if the modeling is multi state.
+;  
+    _item.name                  '_ihm_modeling_protocol_details.multi_state_flag'
+    _item.category_id             ihm_modeling_protocol_details
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'YES'  .
+        'NO'   .
+     save_
+
+save__ihm_modeling_protocol_details.ordered_flag
+    _item_description.description
+;    A flag to indicate if the modeling involves an ensemble ordered by time or other order.
+;
+    _item.name                  '_ihm_modeling_protocol_details.ordered_flag'
+    _item.category_id             ihm_modeling_protocol_details
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'YES'  .
+        'NO'   .
+     save_
+
+save__ihm_modeling_protocol_details.ensemble_flag
+    _item_description.description
+;    A flag to indicate if the modeling involves an ensemble.
+;
+    _item.name                  '_ihm_modeling_protocol_details.ensemble_flag'
+    _item.category_id             ihm_modeling_protocol_details
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'YES'  .
+        'NO'   .
      save_
 
 save__ihm_modeling_protocol_details.script_file_id
@@ -2638,9 +2642,9 @@ save__ihm_ordered_ensemble.model_group_id_end
     _item_linked.parent_name    '_ihm_model_group.id'
      save_
 
-############################
-## IHM_MODELING_POST_PROCESS
-############################
+###############################
+## IHM_MODELING_POST_PROCESS ##
+###############################
 
 save_ihm_modeling_post_process
     _category.description
