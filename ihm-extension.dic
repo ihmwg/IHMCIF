@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 08-APR-2019
+#  Date: 11-APR-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -415,10 +415,10 @@ data_ihm-extension.dic
   + Updated item_mandatory.code for _ihm_poly_residue_feature.asym_id
     _ihm_poly_atom_feature.asym_id, _ihm_non_poly_feature.asym_id
 ;
-    0.141   2019-04-08
+    0.141   2019-04-11
 ;
   Changes (bv):
-  + Updated several categories to fix primary key information
+  + Updated several categories to fix primary key information and parent-child relationships
 ;
 
 #########################
@@ -436,6 +436,16 @@ data_ihm-extension.dic
               'ihm_group'
               'inclusive_group'
 ;              Categories that describe the integrative/hybrid (I/H) methods extension dictionary.
+;
+##################
+## SUB_CATEGORY ##
+##################
+
+     loop_
+    _sub_category.id
+    _sub_category.description
+              'mm_poly_res_label'
+;              The collection of entity id, comp id and seq id components of the label for a residue in a polymer. 
 ;
 
 ####################
@@ -504,6 +514,188 @@ data_ihm-extension.dic
      '8pi2_angstroms_squared' '8pi^2^ * Angstroms squared (metres * 10^(-10)^)^2^'
      'reciprocal_seconds'     'reciprocal seconds (seconds^(-1)^)'
 
+#####################
+## ENTITY_POLY_SEQ ##
+#####################
+
+save__entity_poly_seq.entity_id
+    _item_description.description
+;              This data item is a pointer to _entity.id in the ENTITY category.
+;
+    _item.name                  '_entity_poly_seq.entity_id'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_linked.child_name     '_entity_poly_seq.entity_id'
+    _item_linked.parent_name    '_entity.id'
+     save_
+
+save__entity_poly_seq.mon_id
+    _item_description.description
+;              This data item is a pointer to _chem_comp.id in the CHEM_COMP
+               category.
+;
+    _item.name                  '_entity_poly_seq.mon_id'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_linked.child_name     '_entity_poly_seq.mon_id'
+    _item_linked.parent_name    '_chem_comp.id'
+     save_
+
+save__entity_poly_seq.num
+    _item_description.description
+;              The value of _entity_poly_seq.num must uniquely and sequentially
+               identify a record in the ENTITY_POLY_SEQ list.
+
+               Note that this item must be a number and that the sequence
+               numbers must progress in increasing numerical order.
+;
+    _item.name                  '_entity_poly_seq.num'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+     save_
+
+#############################
+## IHM_ENTITY_POLY_SEGMENT ##
+#############################
+
+save_ihm_entity_poly_segment
+    _category.description
+;              Data items in the IHM_ENTITY_POLY_SEGMENT category identifies
+               segments of polymeric entities. 
+               
+;
+    _category.id                  ihm_entity_poly_segment
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_entity_poly_segment.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+        loop_
+        _ihm_entity_poly_segment.id
+        _ihm_entity_poly_segment.entity_id
+        _ihm_entity_poly_segment.seq_id_begin
+        _ihm_entity_poly_segment.seq_id_end
+        _ihm_entity_poly_segment.comp_id_begin
+        _ihm_entity_poly_segment.comp_id_end
+         1  1   1     6   MET THR
+         2  1   7    20   TYR LYS
+         3  1  21    26   GLU GLN
+         4  1  27    80   ASN LEU
+         5  1  81    95   LEU GLU
+         6  1  96   126   LEU LEU
+         7  1 127   135   LYS ARG
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_entity_poly_segment
+     save_
+
+save__ihm_entity_poly_segment.id
+    _item_description.description
+;     A unique identifier for the polymeric segment.
+;
+    _item.name                  '_ihm_entity_poly_segment.id'
+    _item.category_id             ihm_entity_poly_segment
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_entity_poly_segment.entity_id
+    _item_description.description
+;     A unique identifier for the polymeric entity. 
+      This data item is a pointer to _entity_poly_seq.entity_id in the
+      ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_entity_poly_segment.entity_id'
+    _item.category_id             ihm_entity_poly_segment
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_sub_category.id
+    _item_sub_category.pdbx_label 
+     mm_poly_res_label      mm_poly_res_label_begin
+     mm_poly_res_label      mm_poly_res_label_end
+    _item_linked.child_name       '_ihm_entity_poly_segment.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_entity_poly_segment.seq_id_begin
+    _item_description.description
+;     The leading residue index for the polymeric segment.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
+;
+    _item.name                  '_ihm_entity_poly_segment.seq_id_begin'
+    _item.category_id             ihm_entity_poly_segment
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
+    _item_linked.child_name       '_ihm_entity_poly_segment.seq_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_entity_poly_segment.seq_id_end
+    _item_description.description
+;     The trailing residue index for the polymeric segment.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
+;
+    _item.name                  '_ihm_entity_poly_segment.seq_id_end'
+    _item.category_id             ihm_entity_poly_segment
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
+    _item_linked.child_name       '_ihm_entity_poly_segment.seq_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_entity_poly_segment.comp_id_begin
+    _item_description.description
+;     The leading monomer component of the polymeric segment.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_entity_poly_segment.comp_id_begin'
+    _item.category_id             ihm_entity_poly_segment
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
+    _item_linked.child_name       '_ihm_entity_poly_segment.comp_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_entity_poly_segment.comp_id_end
+    _item_description.description
+;     The trailing monomer component of the polymeric segment.
+      This data item is a pointer to _entity_poly_seq.mon_id in the ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_entity_poly_segment.comp_id_end'
+    _item.category_id             ihm_entity_poly_segment
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
+    _item_linked.child_name       '_ihm_entity_poly_segment.comp_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
 ################################
 ## IHM_STARTING_MODEL_DETAILS ##
 ################################
@@ -535,20 +727,19 @@ save_ihm_starting_model_details
         _ihm_starting_model_details.entity_id
         _ihm_starting_model_details.entity_description
         _ihm_starting_model_details.asym_id
-        _ihm_starting_model_details.seq_id_begin
-        _ihm_starting_model_details.seq_id_end
+        _ihm_starting_model_details.entity_poly_segment_id
         _ihm_starting_model_details.starting_model_source
         _ihm_starting_model_details.starting_model_auth_asym_id
         _ihm_starting_model_details.starting_model_sequence_offset
         _ihm_starting_model_details.dataset_list_id
-         Nup84-m1    1 Nup84   A   7  726 'comparative model'  A 0  5
-         Nup85-m1    2 Nup85   B  67  743 'comparative model'  B 0  9
-         Nup120-m1   3 Nup120  C   1 1037 'comparative model'  C 0 13
-         Nup133-m1   4 Nup133  D  56  480 'comparative model'  D 0 15
-         Nup133-m2   4 Nup133  D 490 1155 'comparative model'  D 0 16
-         Nup145c-m1  5 Nup145c E 126  553 'comparative model'  E 0 19
-         Seh1-m1     6 Seh1    F   1  346 'experimental model' A 0 20
-         Sec13-m1    7 Sec13   G   2  296 'experimental model' D 0 21
+         Nup84-m1    1 Nup84   A   1 'comparative model'  A 0  5
+         Nup85-m1    2 Nup85   B   2 'comparative model'  B 0  9
+         Nup120-m1   3 Nup120  C   3 'comparative model'  C 0 13
+         Nup133-m1   4 Nup133  D   4 'comparative model'  D 0 15
+         Nup133-m2   4 Nup133  D   4 'comparative model'  D 0 16
+         Nup145c-m1  5 Nup145c E   5 'comparative model'  E 0 19
+         Seh1-m1     6 Seh1    F   6 'experimental model' A 0 20
+         Sec13-m1    7 Sec13   G   7 'experimental model' D 0 21
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -588,8 +779,6 @@ save__ihm_starting_model_details.entity_description
     _item.category_id             ihm_starting_model_details
     _item.mandatory_code          no
     _item_type.code               line
-    _item_linked.child_name     '_ihm_starting_model_details.entity_description'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_starting_model_details.asym_id
@@ -606,30 +795,18 @@ save__ihm_starting_model_details.asym_id
     _item_linked.parent_name      '_struct_asym.id'
      save_
 
-save__ihm_starting_model_details.seq_id_begin
+save__ihm_starting_model_details.entity_poly_segment_id
     _item_description.description
-;     The leading residue index for the sequence segment modeled using this starting model.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
+;     The identifier for the polymeric segment modeled using this starting model.
+      This data item is a pointer to _ihm_entity_poly_segment.id in the 
+      IHM_ENTITY_POLY_SEGMENT category. 
 ;
-    _item.name                  '_ihm_starting_model_details.seq_id_begin'
+    _item.name                  '_ihm_starting_model_details.entity_poly_segment_id'
     _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_model_details.seq_id_begin'
-    _item_linked.parent_name    '_entity_poly_seq.num'
-     save_
-
-save__ihm_starting_model_details.seq_id_end
-    _item_description.description
-;     The trailing residue index for the sequence segment modeled using this starting model.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
-;
-    _item.name                  '_ihm_starting_model_details.seq_id_end'
-    _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_starting_model_details.seq_id_end'
-    _item_linked.parent_name    '_entity_poly_seq.num'
+    _item_linked.child_name     '_ihm_starting_model_details.entity_poly_segment_id'
+    _item_linked.parent_name    '_ihm_entity_poly_segment.id'
      save_
 
 save__ihm_starting_model_details.starting_model_source
@@ -841,7 +1018,7 @@ save__ihm_starting_comparative_models.template_sequence_identity_denominator
     _item.category_id                 ihm_starting_comparative_models
     _item.mandatory_code              no
     _item_type.code                   int
-    _item_dependent.dependent_name  '_ihm_starting_comparative_models.template_sequence_identity_denominator'
+    _item_dependent.dependent_name  '_ihm_starting_comparative_models.template_sequence_identity'
     loop_
     _item_enumeration.value
     _item_enumeration.detail
@@ -974,6 +1151,7 @@ save_ihm_starting_model_seq_dif
 ;
     _category.id                  ihm_starting_model_seq_dif
     _category.mandatory_code      no
+    loop_
     _category_key.name          '_ihm_starting_model_seq_dif.id'
 
     loop_
@@ -1027,6 +1205,7 @@ save__ihm_starting_model_seq_dif.entity_id
     _item.category_id             ihm_starting_model_seq_dif
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name     '_ihm_starting_model_seq_dif.entity_id'
     _item_linked.parent_name    '_entity_poly_seq.entity_id'
      save_
@@ -1054,6 +1233,7 @@ save__ihm_starting_model_seq_dif.seq_id
     _item.category_id             ihm_starting_model_seq_dif
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name     '_ihm_starting_model_seq_dif.seq_id'
     _item_linked.parent_name    '_entity_poly_seq.num'
      save_
@@ -1067,6 +1247,7 @@ save__ihm_starting_model_seq_dif.comp_id
     _item.category_id             ihm_starting_model_seq_dif
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name     '_ihm_starting_model_seq_dif.comp_id'
     _item_linked.parent_name    '_entity_poly_seq.mon_id'
      save_
@@ -1240,25 +1421,23 @@ save_ihm_model_representation_details
         loop_
         _ihm_model_representation_details.id
         _ihm_model_representation_details.representation_id
-        _ihm_model_representation_details.segment_id
+        _ihm_model_representation_details.entity_poly_segment_id
         _ihm_model_representation_details.entity_id
         _ihm_model_representation_details.entity_description
-        _ihm_model_representation_details.entity_asym_id
-        _ihm_model_representation_details.seq_id_begin
-        _ihm_model_representation_details.seq_id_end
+        _ihm_model_representation_details.asym_id
         _ihm_model_representation_details.model_object_primitive
         _ihm_model_representation_details.starting_model_id
         _ihm_model_representation_details.model_mode
         _ihm_model_representation_details.model_granularity
         _ihm_model_representation_details.model_object_count
-         1  1  1  1  Nup84   A     1     6  sphere  Nup84-m1    flexible  by-feature  1  
-         2  1  2  1  Nup84   A     7    20  sphere  Nup84-m1    rigid     by-residue  .  
-         3  1  3  1  Nup84   A    21    26  sphere  Nup84-m1    flexible  by-feature  1  
-         4  1  4  1  Nup84   A    27    80  sphere  Nup84-m1    rigid     by-residue  .  
-         5  1  5  1  Nup84   A    81    95  sphere  Nup84-m1    flexible  by-feature  1  
-         6  1  6  1  Nup84   A    96   126  sphere  Nup84-m1    rigid     by-residue  .
-         7  1  6  1  Nup84   A    96   126  sphere  Nup84-m1    flexible  by-feature  3  
-         8  1  7  1  Nup84   A   127   135  sphere  Nup84-m1    flexible  by-feature  1 
+         1  1  1  1  Nup84   A     sphere  Nup84-m1    flexible  by-feature  1  
+         2  1  2  1  Nup84   A     sphere  Nup84-m1    rigid     by-residue  .  
+         3  1  3  1  Nup84   A     sphere  Nup84-m1    flexible  by-feature  1  
+         4  1  4  1  Nup84   A     sphere  Nup84-m1    rigid     by-residue  .  
+         5  1  5  1  Nup84   A     sphere  Nup84-m1    flexible  by-feature  1  
+         6  1  6  1  Nup84   A     sphere  Nup84-m1    rigid     by-residue  .
+         7  1  6  1  Nup84   A     sphere  Nup84-m1    flexible  by-feature  3  
+         8  1  7  1  Nup84   A     sphere  Nup84-m1    flexible  by-feature  1 
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1290,14 +1469,18 @@ save__ihm_model_representation_details.representation_id
     _item_linked.parent_name    '_ihm_model_representation.id'
      save_
 
-save__ihm_model_representation_details.segment_id
+save__ihm_model_representation_details.entity_poly_segment_id
     _item_description.description
-;     An identifier for the residue range segment within the structural model.
+;     The identifier for the polymeric segment in the representation.
+      This data item is a pointer to _ihm_entity_poly_segment.id in the
+      IHM_ENTITY_POLY_SEGMENT category.
 ;
-    _item.name                  '_ihm_model_representation_details.segment_id'
+    _item.name                  '_ihm_model_representation_details.entity_poly_segment_id'
     _item.category_id             ihm_model_representation_details
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_linked.child_name     '_ihm_model_representation_details.entity_poly_segment_id'
+    _item_linked.parent_name    '_ihm_entity_poly_segment.id'
      save_
 
 save__ihm_model_representation_details.entity_id
@@ -1322,8 +1505,6 @@ save__ihm_model_representation_details.entity_description
     _item.category_id             ihm_model_representation_details
     _item.mandatory_code          no
     _item_type.code               line
-    _item_linked.child_name     '_ihm_model_representation_details.entity_description'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_model_representation_details.entity_asym_id
@@ -1339,33 +1520,6 @@ save__ihm_model_representation_details.entity_asym_id
     _item_linked.child_name       '_ihm_model_representation_details.entity_asym_id'
     _item_linked.parent_name      '_struct_asym.id'
      save_
-
-save__ihm_model_representation_details.seq_id_begin
-    _item_description.description
-;     The leading residue index for the sequence segment modeled using this starting model.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
-;
-    _item.name                  '_ihm_model_representation_details.seq_id_begin'
-    _item.category_id             ihm_model_representation_details
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_model_representation_details.seq_id_begin'
-    _item_linked.parent_name      '_entity_poly_seq.num'
-     save_
-
-save__ihm_model_representation_details.seq_id_end
-    _item_description.description
-;     The trailing residue index for the sequence segment modeled using this starting model.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
-;
-    _item.name                  '_ihm_model_representation_details.seq_id_end'
-    _item.category_id             ihm_model_representation_details
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_model_representation_details.seq_id_end'
-    _item_linked.parent_name      '_entity_poly_seq.num'
-     save_
-
 
 save__ihm_model_representation_details.model_object_primitive
     _item_description.description
@@ -1473,16 +1627,15 @@ save_ihm_struct_assembly_details
     _ihm_struct_assembly_details.entity_description
     _ihm_struct_assembly_details.entity_id
     _ihm_struct_assembly_details.asym_id
-    _ihm_struct_assembly_details.seq_id_begin
-    _ihm_struct_assembly_details.seq_id_end
+    _ihm_struct_assembly_details.entity_poly_segment_id
 
-         1   1   1   Nup84   1  A  1   726 
-         2   1   1   Nup85   2  B  1   744 
-         3   1   1  Nup120   3  C  1  1037 
-         4   2   2  Nup133   4  D  1  1157 
-         5   2   2  Nup145   5  E  1   712 
-         6   3   3    Seh1   6  F  1   349 
-         7   3   3   Sec13   7  G  1   297 
+         1   1   1   Nup84   1  A  1 
+         2   1   1   Nup85   2  B  2 
+         3   1   1  Nup120   3  C  3 
+         4   2   2  Nup133   4  D  4 
+         5   2   2  Nup145   5  E  5 
+         6   3   3    Seh1   6  F  6 
+         7   3   3   Sec13   7  G  7 
          #...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1497,23 +1650,22 @@ save_ihm_struct_assembly_details
     _ihm_struct_assembly_details.entity_description
     _ihm_struct_assembly_details.entity_id
     _ihm_struct_assembly_details.asym_id
-    _ihm_struct_assembly_details.seq_id_begin
-    _ihm_struct_assembly_details.seq_id_end
+    _ihm_struct_assembly_details.entity_poly_segment_id
 
-         1   0   0   Nup84   1  A  1   726
-         2   0   0   Nup85   2  B  1   744
-         3   0   0  Nup120   3  C  1  1037
-         4   0   0  Nup133   4  D  1  1157
-         5   0   0  Nup145   5  E  1   712
-         6   0   0    Seh1   6  F  1   349 
-         7   0   0   Sec13   7  G  1   297
-         8   1   0   Nup84   1  A  1   726 
-         9   1   0   Nup85   2  B  1   744
-        10   1   0  Nup145   5  E  1   712 
-        11   1   0    Seh1   6  F  1   349 
-        12   1   0   Sec13   7  G  1   297 
-        13   2   1   Nup84   1  A  1   726
-        14   2   1   Nup85   2  B  1   744
+         1   0   0   Nup84   1  A  1 
+         2   0   0   Nup85   2  B  2 
+         3   0   0  Nup120   3  C  3 
+         4   0   0  Nup133   4  D  4 
+         5   0   0  Nup145   5  E  5 
+         6   0   0    Seh1   6  F  6 
+         7   0   0   Sec13   7  G  7 
+         8   1   0   Nup84   1  A  1 
+         9   1   0   Nup85   2  B  2 
+        10   1   0  Nup145   5  E  5 
+        11   1   0    Seh1   6  F  6 
+        12   1   0   Sec13   7  G  7 
+        13   2   1   Nup84   1  A  1 
+        14   2   1   Nup85   2  B  2 
         #...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1550,8 +1702,8 @@ save__ihm_struct_assembly_details.assembly_id
 save__ihm_struct_assembly_details.parent_assembly_id
     _item_description.description
 ;     The parent of this assembly in a hierarchy. 
-      This data item is an internal category pointer to 
-      _ihm_struct_assembly_details.assembly_id 
+      This data item is a pointer to _ihm_struct_assembly.id in the  
+      IHM_STRUCT_ASSEMBLY category. 
       This data item should point to the assembly id of the immediate
       parent in a hierarchy. 
       By convention, the full assembly (top of hierarchy) is assigned parent id 0 (zero).
@@ -1565,20 +1717,17 @@ save__ihm_struct_assembly_details.parent_assembly_id
     _item.mandatory_code          yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_struct_assembly_details.parent_assembly_id'
-    _item_linked.parent_name    '_ihm_struct_assembly_details.assembly_id'
+    _item_linked.parent_name    '_ihm_struct_assembly.id'
      save_
 
 save__ihm_struct_assembly_details.entity_description
     _item_description.description
 ;     A text description of the molecular entity
-
 ;
     _item.name                  '_ihm_struct_assembly_details.entity_description'
     _item.category_id             ihm_struct_assembly_details
     _item.mandatory_code          no
     _item_type.code               line
-    _item_linked.child_name     '_ihm_struct_assembly_details.entity_description'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_struct_assembly_details.entity_id
@@ -1609,32 +1758,18 @@ save__ihm_struct_assembly_details.asym_id
     _item_linked.parent_name      '_struct_asym.id'
      save_
 
-save__ihm_struct_assembly_details.seq_id_begin
+save__ihm_struct_assembly_details.entity_poly_segment_id
     _item_description.description
-;     The starting residue index for the sequence segment of the entity instance 
-      that is part of the assembly.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
+;     The identifier for the polymeric segment in the assembly. 
+      This data item is a pointer to _ihm_entity_poly_segment.id in the
+      IHM_ENTITY_POLY_SEGMENT category.
 ;
-    _item.name                  '_ihm_struct_assembly_details.seq_id_begin'
+    _item.name                  '_ihm_struct_assembly_details.entity_poly_segment_id'
     _item.category_id             ihm_struct_assembly_details
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_struct_assembly_details.seq_id_begin'
-    _item_linked.parent_name      '_entity_poly_seq.num'
-     save_
-
-save__ihm_struct_assembly_details.seq_id_end
-    _item_description.description
-;     The ending residue index for the sequence segment of the entity instance 
-      that is part of the assembly.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category. 
-;
-    _item.name                  '_ihm_struct_assembly_details.seq_id_end'
-    _item.category_id             ihm_struct_assembly_details
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_struct_assembly_details.seq_id_end'
-    _item_linked.parent_name      '_entity_poly_seq.num'
+    _item_linked.child_name     '_ihm_struct_assembly_details.entity_poly_segment_id'
+    _item_linked.parent_name    '_ihm_entity_poly_segment.id'
      save_
 
 #########################
@@ -2272,12 +2407,11 @@ save_ihm_multi_state_modeling
     _ihm_multi_state_modeling.population_fraction  
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name 
-    _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.experiment_type
     _ihm_multi_state_modeling.details
 
-         1   1   0.5  'conformational change'  'open'        1  'Fraction of bulk' 'open state ensemble 1'
-         2   1   0.5  'conformational change'  'closed'      2  'Fraction of bulk' 'closed state ensemble 2'
+         1   1   0.5  'conformational change'  'open'         'Fraction of bulk' 'open state ensemble 1'
+         2   1   0.5  'conformational change'  'closed'       'Fraction of bulk' 'closed state ensemble 2'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -2290,12 +2424,11 @@ save_ihm_multi_state_modeling
     _ihm_multi_state_modeling.population_fraction
     _ihm_multi_state_modeling.state_type 
     _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.experiment_type
     _ihm_multi_state_modeling.details
 
-         1   1   0.25  'ligand binding'    'unbound'    1   'Fraction of bulk' 'unbound'
-         2   1   0.75  'ligand binding'    'bound'      2   'Fraction of bulk' 'bound to heme'
+         1   1   0.25  'ligand binding'    'unbound'    'Fraction of bulk' 'unbound'
+         2   1   0.75  'ligand binding'    'bound'      'Fraction of bulk' 'bound to heme'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
@@ -2308,13 +2441,12 @@ save_ihm_multi_state_modeling
     _ihm_multi_state_modeling.population_fraction
     _ihm_multi_state_modeling.state_type
     _ihm_multi_state_modeling.state_name
-    _ihm_multi_state_modeling.model_group_id
     _ihm_multi_state_modeling.experiment_type
     _ihm_multi_state_modeling.details
 
-         1   1   .  'complex formation'    'unbound'      1  'Fraction of bulk'    'unbound molecule 1'
-         2   1   .  'complex formation'    'unbound'      2  'Fraction of bulk'    'unbound molecule 2'
-         3   1   .  'complex formation'    'bound'        3  'Fraction of bulk'    'bound molecules 1 and 2'
+         1   1   .  'complex formation'    'unbound'      'Fraction of bulk'    'unbound molecule 1'
+         2   1   .  'complex formation'    'unbound'      'Fraction of bulk'    'unbound molecule 2'
+         3   1   .  'complex formation'    'bound'        'Fraction of bulk'    'bound molecules 1 and 2'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -2400,20 +2532,6 @@ save__ihm_multi_state_modeling.state_name
         'tensed'
      save_
 
-save__ihm_multi_state_modeling.model_group_id
-    _item_description.description
-;    The model group id corresponding to the particular state in the multi-state model.
-     This data item is a pointer to _ihm_model_group.id in the
-     IHM_MODEL_GROUP category.
-;
-    _item.name                  '_ihm_multi_state_modeling.model_group_id'
-    _item.category_id             ihm_multi_state_modeling
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_multi_state_modeling.model_group_id'
-    _item_linked.parent_name    '_ihm_model_group.id'
-    save_
-
 save__ihm_multi_state_modeling.experiment_type
     _item_description.description
 ;   The type of multi-state modeling experiment carried out. 
@@ -2442,6 +2560,74 @@ save__ihm_multi_state_modeling.details
         'open state ensemble 1'  
         'closed state ensemble 2'
         'bound to heme'
+     save_
+
+######################################
+## IHM_MULTI_STATE_MODEL_GROUP_LINK ##
+######################################
+
+save_ihm_multi_state_model_group_link
+    _category.description
+;              IHM_MULTI_STATE_MODEL_GROUP_LINK category provides the list of models groups
+               corresponding to a particular state. 
+;
+    _category.id                  ihm_multi_state_model_group_link
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_multi_state_model_group_link.model_group_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    loop_
+    _ihm_multi_state_model_group_link.state_id
+    _ihm_multi_state_model_group_link.model_group_id
+
+    1  1
+    1  2
+    1  3
+    1  4
+    1  5
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_multi_state_model_group_link
+     save_
+
+save__ihm_multi_state_model_group_link.state_id
+    _item_description.description
+;     An identifier for the state.
+      This data item is a pointer to _ihm_multi_state_modeling.state_id in the
+      IHM_MULTI_STATE_MODELING category. 
+;
+    _item.name                  '_ihm_multi_state_model_group_link.state_id'
+    _item.category_id             ihm_multi_state_model_group_link
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_model_group_link.state_id'
+    _item_linked.parent_name    '_ihm_multi_state_modeling.state_id'
+     save_
+
+save__ihm_multi_state_model_group_link.model_group_id
+    _item_description.description
+;     An identifier for the structural model group.
+      This data item is a pointer to _ihm_model_group.id in the
+      IHM_MODEL_GROUP category. 
+;              
+    _item.name                  '_ihm_multi_state_model_group_link.model_group_id'
+    _item.category_id             ihm_multi_state_model_group_link
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_model_group_link.model_group_id'
+    _item_linked.parent_name    '_ihm_model_group.id'
      save_
 
 ##########################
@@ -4549,11 +4735,10 @@ save_ihm_localization_density_files
     _ihm_localization_density_files.ensemble_id
     _ihm_localization_density_files.entity_id
     _ihm_localization_density_files.asym_id
-    _ihm_localization_density_files.seq_id_begin
-    _ihm_localization_density_files.seq_id_end
-    1 12 1 1 A 1  726 
-    2 13 1 2 B 1  744
-    3 14 1 3 C 1 1037
+    _ihm_localization_density_files.entity_poly_segment_id
+    1 12 1 1 A 1 
+    2 13 1 2 B 2 
+    3 14 1 3 C 3 
     # ...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -4612,30 +4797,19 @@ save__ihm_localization_density_files.entity_id
     _item_linked.parent_name      '_entity.id'
      save_
 
-save__ihm_localization_density_files.seq_id_begin
+save__ihm_localization_density_files.entity_poly_segment_id
     _item_description.description
-;     The leading sequence index corresponding to this localization density.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+;     The identifier for the polymeric segment corresponding to this
+      localization density.
+      This data item is a pointer to _ihm_entity_poly_segment.id in the
+      IHM_ENTITY_POLY_SEGMENT category.
 ;
-    _item.name                  '_ihm_localization_density_files.seq_id_begin'
+    _item.name                  '_ihm_localization_density_files.entity_poly_segment_id'
     _item.category_id             ihm_localization_density_files
     _item.mandatory_code          yes
     _item_type.code               int
-    _item_linked.child_name       '_ihm_localization_density_files.seq_id_begin'
-    _item_linked.parent_name      '_entity_poly_seq.num'
-     save_
-
-save__ihm_localization_density_files.seq_id_end
-    _item_description.description
-;     The trailing sequence index corresponding to this localization density.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
-;
-    _item.name                  '_ihm_localization_density_files.seq_id_end'
-    _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name       '_ihm_localization_density_files.seq_id_end'
-    _item_linked.parent_name      '_entity_poly_seq.num'
+    _item_linked.child_name     '_ihm_localization_density_files.entity_poly_segment_id'
+    _item_linked.parent_name    '_ihm_entity_poly_segment.id'
      save_
 
 save__ihm_localization_density_files.asym_id
@@ -4747,8 +4921,6 @@ save__ihm_predicted_contact_restraint.entity_description_1
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no   
     _item_type.code               line 
-    _item_linked.child_name     '_ihm_predicted_contact_restraint.entity_description_1'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_predicted_contact_restraint.entity_description_2
@@ -4760,8 +4932,6 @@ save__ihm_predicted_contact_restraint.entity_description_2
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no
     _item_type.code               line
-    _item_linked.child_name     '_ihm_predicted_contact_restraint.entity_description_2'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_predicted_contact_restraint.entity_id_1
@@ -4773,6 +4943,8 @@ save__ihm_predicted_contact_restraint.entity_id_1
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_predicted_contact_restraint.entity_id_1'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -4786,6 +4958,8 @@ save__ihm_predicted_contact_restraint.entity_id_2
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_predicted_contact_restraint.entity_id_2'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -4827,6 +5001,8 @@ save__ihm_predicted_contact_restraint.comp_id_1
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_predicted_contact_restraint.comp_id_1'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -4840,6 +5016,8 @@ save__ihm_predicted_contact_restraint.comp_id_2
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_predicted_contact_restraint.comp_id_2'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -4853,6 +5031,8 @@ save__ihm_predicted_contact_restraint.seq_id_1
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_predicted_contact_restraint.seq_id_1'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -4866,37 +5046,45 @@ save__ihm_predicted_contact_restraint.seq_id_2
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_predicted_contact_restraint.seq_id_2'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
 
-save__ihm_predicted_contact_restraint.atom_id_1
+save__ihm_predicted_contact_restraint.rep_atom_1
     _item_description.description
-;     The atom id of the first partner in the predicted contact.
-      This data item is a pointer to _chem_comp_atom.atom_id in the 
-      CHEM_COMP_ATOM category. 
+;     If _ihm_predicted_contact_restraint.model_granularity is by-residue, then indicate the atom 
+      used to represent the first monomer partner in three-dimension. Default is the C-alpha atom.  
 ;
-    _item.name                  '_ihm_predicted_contact_restraint.atom_id_1'
+    _item.name                  '_ihm_predicted_contact_restraint.rep_atom_1'
     _item.category_id             ihm_predicted_contact_restraint
-    _item.mandatory_code          no
-    _item_type.code               atcode
-    _item_linked.child_name       '_ihm_predicted_contact_restraint.atom_id_1'
-    _item_linked.parent_name      '_chem_comp_atom.atom_id'
-     save_
+    _item.mandatory_code          no    
+    _item_type.code               code  
+    _item_default.value           CA    
+    loop_ 
+    _item_enumeration.value
+    _item_enumeration.detail
+    CA  'C-alpha for all residues'
+    CB  'C-beta for all residues except Glycine; Default value of C-alpha for Glycine'
+    save_ 
 
-save__ihm_predicted_contact_restraint.atom_id_2
+save__ihm_predicted_contact_restraint.rep_atom_2
     _item_description.description
-;     The atom id of the second partner in the predicted contact.
-      This data item is a pointer to _chem_comp_atom.atom_id in the 
-      CHEM_COMP_ATOM category.
+;     If _ihm_predicted_contact_restraint.model_granularity is by-residue, then indicate the atom 
+      used to represent the second monomer partner in three-dimension. Default is the C-alpha atom.
 ;
-    _item.name                  '_ihm_predicted_contact_restraint.atom_id_2'
+    _item.name                  '_ihm_predicted_contact_restraint.rep_atom_2'
     _item.category_id             ihm_predicted_contact_restraint
     _item.mandatory_code          no
-    _item_type.code               atcode
-    _item_linked.child_name       '_ihm_predicted_contact_restraint.atom_id_2'
-    _item_linked.parent_name      '_chem_comp_atom.atom_id'
-     save_
+    _item_type.code               code
+    _item_default.value           CA
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    CA  'C-alpha for all residues'
+    CB  'C-beta for all residues except Glycine; Default value of C-alpha for Glycine'
+    save_
 
 save__ihm_predicted_contact_restraint.distance_lower_limit
     _item_description.description
@@ -4967,7 +5155,6 @@ save__ihm_predicted_contact_restraint.model_granularity
     _item_enumeration.detail
         'by-residue'    'Restraint applied to the specific residue represented by the alpha carbon atom'
         'by-feature'    'Restraint applied to the closest primitive object with the highest resolution'
-        'by-atom'       'Restraint applied to the specified atoms'
      save_
 
 save__ihm_predicted_contact_restraint.dataset_list_id
@@ -5078,21 +5265,21 @@ save__ihm_hydroxyl_radical_fp_restraint.entity_description
     _item.category_id             ihm_hydroxyl_radical_fp_restraint
     _item.mandatory_code          no   
     _item_type.code               line 
-    _item_linked.child_name     '_ihm_hydroxyl_radical_fp_restraint.entity_description'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_hydroxyl_radical_fp_restraint.entity_id
     _item_description.description
 ;     The entity identifier. 
-      This data item is a pointer to _entity.id in the ENTITY category.
+      This data item is a pointer to _entity_poly_seq.entity_id in the 
+      ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_hydroxyl_radical_fp_restraint.entity_id'
     _item.category_id             ihm_hydroxyl_radical_fp_restraint
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_hydroxyl_radical_fp_restraint.entity_id'
-    _item_linked.parent_name      '_entity.id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
 
 save__ihm_hydroxyl_radical_fp_restraint.asym_id
@@ -5118,6 +5305,7 @@ save__ihm_hydroxyl_radical_fp_restraint.comp_id
     _item.category_id             ihm_hydroxyl_radical_fp_restraint
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_hydroxyl_radical_fp_restraint.comp_id'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -5131,6 +5319,7 @@ save__ihm_hydroxyl_radical_fp_restraint.seq_id
     _item.category_id             ihm_hydroxyl_radical_fp_restraint
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_hydroxyl_radical_fp_restraint.seq_id'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -5314,8 +5503,6 @@ save__ihm_cross_link_list.entity_description_1
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          no   
     _item_type.code               line 
-    _item_linked.child_name     '_ihm_cross_link_list.entity_description_1'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_cross_link_list.entity_description_2
@@ -5327,8 +5514,6 @@ save__ihm_cross_link_list.entity_description_2
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          no
     _item_type.code               line
-    _item_linked.child_name     '_ihm_cross_link_list.entity_description_2'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_cross_link_list.entity_id_1
@@ -5340,6 +5525,8 @@ save__ihm_cross_link_list.entity_id_1
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_cross_link_list.entity_id_1'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -5354,6 +5541,8 @@ save__ihm_cross_link_list.entity_id_2
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_cross_link_list.entity_id_2'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -5368,6 +5557,8 @@ save__ihm_cross_link_list.comp_id_1
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_cross_link_list.comp_id_1'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -5382,6 +5573,8 @@ save__ihm_cross_link_list.comp_id_2
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_cross_link_list.comp_id_2'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -5396,6 +5589,8 @@ save__ihm_cross_link_list.seq_id_1
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_cross_link_list.seq_id_1'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -5410,6 +5605,8 @@ save__ihm_cross_link_list.seq_id_2
     _item.category_id             ihm_cross_link_list
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_cross_link_list.seq_id_2'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -5551,6 +5748,8 @@ save__ihm_cross_link_restraint.entity_id_1
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_cross_link_restraint.entity_id_1'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -5566,6 +5765,8 @@ save__ihm_cross_link_restraint.entity_id_2
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_cross_link_restraint.entity_id_2'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -5611,6 +5812,8 @@ save__ihm_cross_link_restraint.comp_id_1
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_cross_link_restraint.comp_id_1'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -5626,6 +5829,8 @@ save__ihm_cross_link_restraint.comp_id_2
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_cross_link_restraint.comp_id_2'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -5641,6 +5846,8 @@ save__ihm_cross_link_restraint.seq_id_1
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_1
     _item_linked.child_name       '_ihm_cross_link_restraint.seq_id_1'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -5656,6 +5863,8 @@ save__ihm_cross_link_restraint.seq_id_2
     _item.category_id             ihm_cross_link_restraint
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_2
     _item_linked.child_name       '_ihm_cross_link_restraint.seq_id_2'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -6993,7 +7202,8 @@ save__ihm_starting_model_coord.atom_id
 save__ihm_starting_model_coord.comp_id
     _item_description.description
 ;     The component identifier corresponding to this coordinate position.
-      This data item is a pointer to _chem_comp.id in the CHEM_COMP category. 
+      This data item is a pointer to _chem_comp.id in the 
+      CHEM_COMP category. 
 ;
     _item.name                  '_ihm_starting_model_coord.comp_id'
     _item.category_id             ihm_starting_model_coord
@@ -7006,13 +7216,13 @@ save__ihm_starting_model_coord.comp_id
 save__ihm_starting_model_coord.seq_id
     _item_description.description
 ;     The sequence index corresponding this to coordinate position.
-
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_starting_model_coord.seq_id'
     _item.category_id             ihm_starting_model_coord
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_starting_model_coord.seq_id'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7165,12 +7375,14 @@ save__ihm_sphere_obj_site.entity_id
 save__ihm_sphere_obj_site.seq_id_begin
     _item_description.description
 ;     The leading sequence index corresponding to this sphere object.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_sphere_obj_site.seq_id_begin'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
     _item_linked.child_name       '_ihm_sphere_obj_site.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7178,12 +7390,14 @@ save__ihm_sphere_obj_site.seq_id_begin
 save__ihm_sphere_obj_site.seq_id_end
     _item_description.description
 ;     The trailing sequence index corresponding to this sphere object.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_sphere_obj_site.seq_id_end'
     _item.category_id             ihm_sphere_obj_site
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
     _item_linked.child_name       '_ihm_sphere_obj_site.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7371,12 +7585,14 @@ save__ihm_gaussian_obj_site.entity_id
 save__ihm_gaussian_obj_site.seq_id_begin
     _item_description.description
 ;     The leading sequence index corresponding to this gaussian object.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_gaussian_obj_site.seq_id_begin'
     _item.category_id             ihm_gaussian_obj_site
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
     _item_linked.child_name       '_ihm_gaussian_obj_site.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7384,12 +7600,14 @@ save__ihm_gaussian_obj_site.seq_id_begin
 save__ihm_gaussian_obj_site.seq_id_end
     _item_description.description
 ;     The trailing sequence index corresponding to this gaussian object.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_gaussian_obj_site.seq_id_end'
     _item.category_id             ihm_gaussian_obj_site
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
     _item_linked.child_name       '_ihm_gaussian_obj_site.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7663,12 +7881,14 @@ save__ihm_gaussian_obj_ensemble.entity_id
 save__ihm_gaussian_obj_ensemble.seq_id_begin
     _item_description.description
 ;     The leading sequence index corresponding to this gaussian object.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_gaussian_obj_ensemble.seq_id_begin'
     _item.category_id             ihm_gaussian_obj_ensemble
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
     _item_linked.child_name       '_ihm_gaussian_obj_ensemble.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7676,12 +7896,14 @@ save__ihm_gaussian_obj_ensemble.seq_id_begin
 save__ihm_gaussian_obj_ensemble.seq_id_end
     _item_description.description
 ;     The trailing sequence index corresponding to this gaussian object.
-      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY category.
+      This data item is a pointer to _entity_poly_seq.num in the ENTITY_POLY_SEQ category.
 ;
     _item.name                  '_ihm_gaussian_obj_ensemble.seq_id_end'
     _item.category_id             ihm_gaussian_obj_ensemble
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
     _item_linked.child_name       '_ihm_gaussian_obj_ensemble.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -7904,11 +8126,13 @@ save_ihm_residues_not_modeled
     _ihm_residues_not_modeled.asym_id
     _ihm_residues_not_modeled.seq_id_begin
     _ihm_residues_not_modeled.seq_id_end
+    _ihm_residues_not_modeled.comp_id_begin
+    _ihm_residues_not_modeled.comp_id_end
     _ihm_residues_not_modeled.reason
-         1   1   Nup84   1  A     1    14   'Highly variable models with poor precision'
-         2   1   Nup85   2  B   740   744   'Highly variable models with poor precision'
-         3   1  Nup133   4  D     5    26   'Highly variable models with poor precision'
-         4   1  Nup145   5  E   707   712   'Highly variable models with poor precision'
+         1   1   Nup84   1  A     1    14   MET LYS 'Highly variable models with poor precision'
+         2   1   Nup85   2  B   740   744   ALA MET 'Highly variable models with poor precision'
+         3   1  Nup133   4  D     5    26   LYS LEU 'Highly variable models with poor precision'
+         4   1  Nup145   5  E   707   712   LYS ILE 'Highly variable models with poor precision'
          #...abbreviated...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -7949,8 +8173,6 @@ save__ihm_residues_not_modeled.entity_description
     _item.category_id             ihm_residues_not_modeled
     _item.mandatory_code          no
     _item_type.code               line
-    _item_linked.child_name     '_ihm_residues_not_modeled.entity_description'
-    _item_linked.parent_name    '_entity.pdbx_description'
      save_
 
 save__ihm_residues_not_modeled.entity_id
@@ -7963,6 +8185,11 @@ save__ihm_residues_not_modeled.entity_id
     _item.category_id             ihm_residues_not_modeled
     _item.mandatory_code          yes
     _item_type.code               code
+    loop_
+    _item_sub_category.id
+    _item_sub_category.pdbx_label 
+     mm_poly_res_label      mm_poly_res_label_begin
+     mm_poly_res_label      mm_poly_res_label_end
     _item_linked.child_name       '_ihm_residues_not_modeled.entity_id'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -7989,8 +8216,10 @@ save__ihm_residues_not_modeled.seq_id_begin
 ;
     _item.name                  '_ihm_residues_not_modeled.seq_id_begin'
     _item.category_id             ihm_residues_not_modeled
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
     _item_linked.child_name       '_ihm_residues_not_modeled.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -8003,10 +8232,44 @@ save__ihm_residues_not_modeled.seq_id_end
 ;
     _item.name                  '_ihm_residues_not_modeled.seq_id_end'
     _item.category_id             ihm_residues_not_modeled
-    _item.mandatory_code          no
+    _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
     _item_linked.child_name       '_ihm_residues_not_modeled.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_residues_not_modeled.comp_id_begin
+    _item_description.description
+;     The starting residue for the sequence segment of missing residues.
+      This data item is a pointer to _entity_poly_seq.mon_id in the
+      ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_residues_not_modeled.comp_id_begin'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
+    _item_linked.child_name       '_ihm_residues_not_modeled.comp_id_begin'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_residues_not_modeled.comp_id_end
+    _item_description.description
+;     The ending residue for the sequence segment of missing residues.
+      This data item is a pointer to _entity_poly_seq.mon_id in the
+      ENTITY_POLY_SEQ category.
+;
+    _item.name                  '_ihm_residues_not_modeled.comp_id_end'
+    _item.category_id             ihm_residues_not_modeled
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
+    _item_linked.child_name       '_ihm_residues_not_modeled.comp_id_end'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
 
 save__ihm_residues_not_modeled.reason
@@ -8330,6 +8593,7 @@ save__ihm_poly_atom_feature.entity_id
     _item.category_id             ihm_poly_atom_feature
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_poly_atom_feature.entity_id'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -8357,6 +8621,7 @@ save__ihm_poly_atom_feature.comp_id
     _item.category_id             ihm_poly_atom_feature
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_poly_atom_feature.comp_id'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -8370,6 +8635,7 @@ save__ihm_poly_atom_feature.seq_id
     _item.category_id             ihm_poly_atom_feature
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_poly_atom_feature.seq_id'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -8472,6 +8738,11 @@ save__ihm_poly_residue_feature.entity_id
     _item.category_id             ihm_poly_residue_feature
     _item.mandatory_code          yes
     _item_type.code               code
+    loop_
+    _item_sub_category.id
+    _item_sub_category.pdbx_label 
+     mm_poly_res_label      mm_poly_res_label_begin
+     mm_poly_res_label      mm_poly_res_label_end
     _item_linked.child_name       '_ihm_poly_residue_feature.entity_id'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -8499,6 +8770,8 @@ save__ihm_poly_residue_feature.comp_id_begin
     _item.category_id             ihm_poly_residue_feature
     _item.mandatory_code          no
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
     _item_linked.child_name       '_ihm_poly_residue_feature.comp_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -8512,6 +8785,8 @@ save__ihm_poly_residue_feature.comp_id_end
     _item.category_id             ihm_poly_residue_feature
     _item.mandatory_code          no
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
     _item_linked.child_name       '_ihm_poly_residue_feature.comp_id_end'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -8525,6 +8800,8 @@ save__ihm_poly_residue_feature.seq_id_begin
     _item.category_id             ihm_poly_residue_feature
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_begin
     _item_linked.child_name       '_ihm_poly_residue_feature.seq_id_begin'
     _item_linked.parent_name      '_entity_poly_seq.num'
     save_
@@ -8538,6 +8815,8 @@ save__ihm_poly_residue_feature.seq_id_end
     _item.category_id             ihm_poly_residue_feature
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+    _item_sub_category.pdbx_label mm_poly_res_label_end
     _item_linked.child_name       '_ihm_poly_residue_feature.seq_id_end'
     _item_linked.parent_name      '_entity_poly_seq.num'
     save_
