@@ -520,7 +520,8 @@ data_ihm-extension.dic
 
 save__entity_poly_seq.entity_id
     _item_description.description
-;              This data item is a pointer to _entity.id in the ENTITY category.
+;              This data item is a pointer to _entity_poly.entity_id in the 
+               ENTITY_POLY category.
 ;
     _item.name                  '_entity_poly_seq.entity_id'
     _item.category_id             entity_poly_seq
@@ -528,7 +529,7 @@ save__entity_poly_seq.entity_id
     _item_type.code               code
     _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name     '_entity_poly_seq.entity_id'
-    _item_linked.parent_name    '_entity.id'
+    _item_linked.parent_name    '_entity_poly.entity_id'
      save_
 
 save__entity_poly_seq.mon_id
@@ -1378,7 +1379,7 @@ save__ihm_model_representation.name
 ;
     _item.name                  '_ihm_model_representation.name'
     _item.category_id             ihm_model_representation
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               line
      save_
 
@@ -2068,7 +2069,7 @@ save__ihm_modeling_protocol.protocol_name
 ;
     _item.name                  '_ihm_modeling_protocol.protocol_name'
     _item.category_id             ihm_modeling_protocol
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_examples.case
@@ -3936,7 +3937,7 @@ save__ihm_dataset_group.name
 ;
     _item.name                  '_ihm_dataset_group.name'
     _item.category_id             ihm_dataset_group
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               line
      save_
 
@@ -4540,7 +4541,7 @@ save__ihm_external_files.file_path
 ;
     _item.name                 '_ihm_external_files.file_path'
     _item.category_id          ihm_external_files
-    _item.mandatory_code       yes
+    _item.mandatory_code       no
     _item_type.code            line
     loop_
     _item_examples.case
@@ -6321,7 +6322,7 @@ save__ihm_2dem_class_average_restraint.number_raw_micrographs
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.number_raw_micrographs'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     save_
 
