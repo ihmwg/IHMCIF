@@ -1424,7 +1424,7 @@ save_ihm_model_representation_details
         _ihm_model_representation_details.entity_poly_segment_id
         _ihm_model_representation_details.entity_id
         _ihm_model_representation_details.entity_description
-        _ihm_model_representation_details.asym_id
+        _ihm_model_representation_details.entity_asym_id
         _ihm_model_representation_details.model_object_primitive
         _ihm_model_representation_details.starting_model_id
         _ihm_model_representation_details.model_mode
