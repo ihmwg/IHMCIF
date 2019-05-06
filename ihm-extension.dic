@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 11-MAR-2019
+#  Date: 6-MAY-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         0.140
+    _dictionary.version         0.141
 #
      loop_
     _dictionary_history.version
@@ -414,6 +414,14 @@ data_ihm-extension.dic
   + Added _ihm_poly_residue_feature.interface_residue_flag
   + Updated item_mandatory.code for _ihm_poly_residue_feature.asym_id
     _ihm_poly_atom_feature.asym_id, _ihm_non_poly_feature.asym_id
+;
+    0.141   2019-05-06
+;
+  Changes (bv):
+  + Added IHM_CHEMICAL_COMPONENT_DESCRIPTOR, IHM_PROBE_LIST, IHM_EPR_RESTRAINT
+  + Added IHM_POLY_PROBE_POSITION, IHM_POLY_PROBE_CONJUGATE 
+  + Added IHM_LIGAND_PROBE
+  + Added _ihm_cross_link_list.linker_chem_comp_descriptor_id
 ;
 
 #########################
@@ -4918,6 +4926,872 @@ save__ihm_hydroxyl_radical_fp_restraint.software_id
     _item_linked.parent_name      '_software.pdbx_ordinal'
      save_
 
+#######################################
+## IHM_CHEMICAL_COMPONENT_DESCRIPTOR ##
+#######################################
+
+save_ihm_chemical_component_descriptor
+    _category.description
+;              Data items in the IHM_CHEMICAL_COMPONENT_DESCRIPTOR category records the
+               details of the chemical descriptors of various non-polymeric
+               chemical components (fluorescent probes, crosslinking agents etc.)
+               used in the experiments.
+;
+    _category.id                  ihm_chemical_component_descriptor
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_chemical_component_descriptor.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_chemical_component_descriptor.id
+        _ihm_chemical_component_descriptor.chemical_name
+        _ihm_chemical_component_descriptor.auth_name
+        _ihm_chemical_component_descriptor.smiles
+        _ihm_chemical_component_descriptor.inchi
+        _ihm_chemical_component_descriptor.inchi_key
+        1 "1-ethyl-3-(3-dimethylaminopropyl)carbodiimide hydrochloride" "EDC" "CCN=C=NCCCN(C)C"
+          "1S/C8H17N3/c1-4-9-8-10-6-5-7-11(2)3/h4-7H2,1-3H3" "LMDZBCPBFSXMTL-UHFFFAOYSA-N"
+        2 "disuccinimidyl suberate" "DSS" "C1CC(=O)N(C1=O)OC(=O)CCCCCCC(=O)ON2C(=O)CCC2=O"
+          "1S/C16H20N2O8/c19-11-7-8-12(20)17(11)25-15(23)5-3-1-2-4-6-16(24)26-18-13(21)9-10-14(18)22/h1-10H2"
+          "ZWIBGKZDAWNIFC-UHFFFAOYSA-N"
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_chemical_component_descriptor
+     save_
+
+save__ihm_chemical_component_descriptor.id
+    _item_description.description
+;     An identifier for the chemical descriptor.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.id'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_chemical_component_descriptor.chemical_name
+    _item_description.description
+;     The chemical name of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.chemical_name'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_chemical_component_descriptor.common_name
+    _item_description.description
+;     The common name of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.common_name'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_chemical_component_descriptor.auth_name
+    _item_description.description
+;     The author-provided name of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.auth_name'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          yes
+    _item_type.code               line
+     save_
+save__ihm_chemical_component_descriptor.smiles
+    _item_description.description
+;     The smile string of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.smiles'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_chemical_component_descriptor.smiles_canonical
+    _item_description.description
+;     The canonical smile string of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.smiles_canonical'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_chemical_component_descriptor.inchi
+    _item_description.description
+;     The IUPAC INCHI descriptor of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.inchi'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_chemical_component_descriptor.inchi_key
+    _item_description.description
+;     The hashed INCHI key of the component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.inchi_key'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_chemical_component_descriptor.details
+    _item_description.description
+;     Additional details regarding the chemical component.
+;
+    _item.name                  '_ihm_chemical_component_descriptor.details'
+    _item.category_id             ihm_chemical_component_descriptor
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+####################
+## IHM_PROBE_LIST ##
+####################
+
+save_ihm_probe_list
+    _category.description
+;              Data items in the IHM_PROBE_LIST category records the
+               list of probes used in the experiment.
+;
+    _category.id                  ihm_probe_list
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_probe_list.probe_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_probe_list.probe_id
+        _ihm_probe_list.probe_name
+        _ihm_probe_list.probe_origin
+        _ihm_probe_list.probe_link_type
+        _ihm_probe_list.probe_chem_comp_descriptor_id
+        _ihm_probe_list.reactive_probe_flag
+        _ihm_probe_list.reactive_probe_name
+        _ihm_probe_list.reactive_probe_chem_comp_descriptor_id
+        1 MTSL extrinsic covalent 1 ? ? ?
+        
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_probe_list
+     save_
+
+save__ihm_probe_list.probe_id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_probe_list.probe_id'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_probe_list.probe_name
+    _item_description.description
+;     Author provided name for the probe.
+;
+    _item.name                  '_ihm_probe_list.probe_name'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          yes
+    _item_type.code               line
+     save_
+
+save__ihm_probe_list.reactive_probe_flag
+    _item_description.description
+;     Indicate whether the probe has a reactive form.
+;
+    _item.name                  '_ihm_probe_list.reactive_probe_flag'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    "yes"
+    "no"
+     save_
+
+save__ihm_probe_list.reactive_probe_name
+    _item_description.description
+;     Author provided name for the reactive_probe, if applicable.
+;
+    _item.name                  '_ihm_probe_list.reactive_probe_name'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_probe_list.probe_origin
+    _item_description.description
+;     The origin of the probe.
+;
+    _item.name                  '_ihm_probe_list.probe_origin'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'intrinsic'     'a probe which is an instrinsic part of the biomolecule; eg: Tryptophan or Flavins or metals in EPR'
+    'extrinsic'     'a probe that has been synthetically introduced for carrying out the experiment; eg: organic probe Alexa 488 or MANT-ATP'
+     save_
+
+save__ihm_probe_list.probe_link_type
+    _item_description.description
+;     The type of link between the probe and the biomolecule.
+;
+    _item.name                  '_ihm_probe_list.probe_link_type'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'covalent'   'a probe which is covalently linked to a particular residue in the polymeric marcomolecule; eg: Tryptophan in proteins or Alexa 488'
+    'ligand'     'a ligand probe that is not covalently linked to the macromolecule; eg: Flavins, MANT-ATP'
+     save_
+
+save__ihm_probe_list.probe_chem_comp_descriptor_id
+    _item_description.description
+;     The identifier for the chemical descriptor of the probe.
+      This data item is a pointer to _ihm_chemical_component_descriptor.id in the 
+      IHM_CHEMICAL_COMPONENT_DESCRIPTOR category.
+;
+    _item.name                  '_ihm_probe_list.probe_chem_comp_descriptor_id'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_probe_list.probe_chem_comp_descriptor_id'
+    _item_linked.parent_name    '_ihm_chemical_component_descriptor.id'
+     save_
+
+save__ihm_probe_list.reactive_probe_chem_comp_descriptor_id
+    _item_description.description
+;     The identifier for the chemical descriptor of the reactive probe.
+      This data item is a pointer to _ihm_chemical_component_descriptor.id in the 
+      IHM_CHEMICAL_COMPONENT_DESCRIPTOR category.
+;
+    _item.name                  '_ihm_probe_list.reactive_probe_chem_comp_descriptor_id'
+    _item.category_id             ihm_probe_list
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_probe_list.reactive_probe_chem_comp_descriptor_id'
+    _item_linked.parent_name    '_ihm_chemical_component_descriptor.id'
+     save_
+
+#############################
+## IHM_POLY_PROBE_POSITION ##
+#############################
+
+save_ihm_poly_probe_position
+    _category.description
+;              Data items in the IHM_POLY_PROBE_POSITION category identifies
+               specific residue positions in the polymeric entity where probes
+               are covalently attached. 
+;
+    _category.id                  ihm_poly_probe_position
+    _category.mandatory_code      no
+    _category_key.name          '_ihm_poly_probe_position.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_poly_probe_position.id
+        _ihm_poly_probe_position.entity_id
+        _ihm_poly_probe_position.entity_description
+        _ihm_poly_probe_position.comp_id
+        _ihm_poly_probe_position.seq_id
+        _ihm_poly_probe_position.mutation_flag
+        _ihm_poly_probe_position.modification_flag
+        _ihm_poly_probe_position.mut_res_chem_comp_id
+        _ihm_poly_probe_position.mod_res_chem_comp_descriptor_id
+        _ihm_poly_probe_position.description
+        1 1 ? LYS 340 yes no CYS ? ? 
+        2 1 ? VAL 354 yes no CYS ? ? 
+        3 1 ? LEU 372 yes no CYS ? ?
+
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_poly_probe_position
+     save_
+
+save__ihm_poly_probe_position.id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_poly_probe_position.id'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_poly_probe_position.entity_id
+    _item_description.description
+;     A unique identifier for the entity where the probe is attached.
+      This data item is a pointer to _entity_poly_seq.entity_id
+      in the ENTITY_POLY_SEQ category. 
+;
+    _item.name                  '_ihm_poly_probe_position.entity_id'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name       '_ihm_poly_probe_position.entity_id'
+    _item_linked.parent_name      '_entity_poly_seq.entity_id'
+     save_
+
+save__ihm_poly_probe_position.entity_description
+    _item_description.description
+;     Description of the entity.
+;
+    _item.name                  '_ihm_poly_probe_position.entity_description'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_poly_probe_position.seq_id
+    _item_description.description
+;     The sequence index of the residue in the entity where the probe is attached.
+      This data item is a pointer to _entity_poly_seq.num
+      in the ENTITY_POLY_SEQ category. 
+;
+    _item.name                  '_ihm_poly_probe_position.seq_id'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_poly_probe_position.seq_id'
+    _item_linked.parent_name      '_entity_poly_seq.num'
+     save_
+
+save__ihm_poly_probe_position.comp_id
+    _item_description.description
+;     The component identifier of the residue in the entity where the probe is attached.
+      This data item is a pointer to _entity_poly_seq.mon_id
+      in the ENTITY_POLY_SEQ category. 
+;
+    _item.name                  '_ihm_poly_probe_position.comp_id'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_linked.child_name       '_ihm_poly_probe_position.comp_id'
+    _item_linked.parent_name      '_entity_poly_seq.mon_id'
+     save_
+
+save__ihm_poly_probe_position.mutation_flag
+    _item_description.description
+;    A flag to indicate whether the residue has an engineered mutation or not.
+;
+    _item.name                  '_ihm_poly_probe_position.mutation_flag'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    "yes"
+    "no"
+     save_
+
+save__ihm_poly_probe_position.mut_res_chem_comp_id
+    _item_description.description
+;     The chemical component identifier of the mutated residue, if applicable. 
+      This data item is a pointer to _chem_comp.id in the CHEM_COMP category. 
+;
+    _item.name                  '_ihm_poly_probe_position.mut_res_chem_comp_id'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    _item_linked.child_name     '_ihm_poly_probe_position.mut_res_chem_comp_id'
+    _item_linked.parent_name    '_chem_comp.id'
+    loop_
+    _item_examples.case
+    'CYS'
+    'TRP'
+     save_
+
+save__ihm_poly_probe_position.modification_flag
+    _item_description.description
+;    A flag to indicate whether the residue is chemically modified or not.
+;
+    _item.name                  '_ihm_poly_probe_position.modification_flag'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    "yes"
+    "no"
+     save_
+
+save__ihm_poly_probe_position.mod_res_chem_comp_descriptor_id
+    _item_description.description
+;     An identifier to the chemical descriptor of the modified residue, if applicable.
+      This data item is a pointer to _ihm_chemical_component_descriptor.id in the 
+      IHM_CHEMICAL_COMPONENT_DESCRIPTOR category. 
+;
+    _item.name                  '_ihm_poly_probe_position.mod_res_chem_comp_descriptor_id'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_poly_probe_position.mod_res_chem_comp_descriptor_id'
+    _item_linked.parent_name    '_ihm_chemical_component_descriptor.id'
+     save_
+
+save__ihm_poly_probe_position.description
+    _item_description.description
+;    An author provided description for the residue position in the polymer.
+;
+    _item.name                  '_ihm_poly_probe_position.description'
+    _item.category_id             ihm_poly_probe_position
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+##############################
+## IHM_POLY_PROBE_CONJUGATE ##
+##############################
+
+save_ihm_poly_probe_conjugate
+    _category.description
+;              Data items in the IHM_POLY_PROBE_CONJUGATE category records the
+               details of the probes that are covalenty attached to residues in the 
+               polymeric entities.
+;
+    _category.id                  ihm_poly_probe_conjugate
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_poly_probe_conjugate.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_poly_probe_conjugate.id
+        _ihm_poly_probe_conjugate.probe_id
+        _ihm_poly_probe_conjugate.position_id
+        _ihm_poly_probe_conjugate.chem_comp_descriptor_id
+        _ihm_poly_probe_conjugate.ambiguous_stoichiometry_flag
+        _ihm_poly_probe_conjugate.probe_stoichiometry
+        _ihm_poly_probe_conjugate.details
+        _ihm_poly_probe_conjugate.dataset_list_id
+        1 1 1 ? ? ? ? 2
+        2 1 2 ? ? ? ? 2
+        3 1 3 ? ? ? ? 2
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_poly_probe_conjugate
+     save_
+
+save__ihm_poly_probe_conjugate.id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_poly_probe_conjugate.id'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_poly_probe_conjugate.probe_id
+    _item_description.description
+;     An identifier for the probe.
+      This data item is a pointer to _ihm_probe_list.probe_id in the 
+      IHM_PROBE_LIST category. 
+;
+    _item.name                  '_ihm_poly_probe_conjugate.probe_id'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_poly_probe_conjugate.probe_id'
+    _item_linked.parent_name    '_ihm_probe_list.probe_id'
+     save_
+
+save__ihm_poly_probe_conjugate.position_id
+    _item_description.description
+;     An identifier for the position in the polymeric entity where the probe
+      is attached.
+      This data item is a pointer to _ihm_poly_probe_position.id in the 
+      IHM_POLY_PROBE_POSITION category. 
+;
+    _item.name                  '_ihm_poly_probe_conjugate.position_id'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_poly_probe_conjugate.position_id'
+    _item_linked.parent_name    '_ihm_poly_probe_position.id'
+     save_
+
+save__ihm_poly_probe_conjugate.chem_comp_descriptor_id
+    _item_description.description
+;     The chemical descriptor of the polymeric residue conjugate with the probe.
+      This data item is a pointer to _ihm_chemical_component_descriptor.id in the
+      IHM_CHEMICAL_COMPONENT_DESCRIPTOR category. 
+;
+    _item.name                  '_ihm_poly_probe_conjugate.chem_comp_descriptor_id'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_poly_probe_conjugate.chem_comp_descriptor_id'
+    _item_linked.parent_name    '_ihm_chemical_component_descriptor.id'
+     save_
+
+save__ihm_poly_probe_conjugate.ambiguous_stoichiometry_flag
+    _item_description.description
+;    Indicate whether there is ambiguity regarding the stoichiometry of the labeled site.
+;
+    _item.name                  '_ihm_poly_probe_conjugate.ambiguous_stoichiometry_flag'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    "yes"
+    "no"
+     save_
+
+save__ihm_poly_probe_conjugate.probe_stoichiometry
+    _item_description.description
+;    The stoichiometry of the probe labeling site, if known.
+;
+    _item.name                  '_ihm_poly_probe_conjugate.probe_stoichiometry'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_poly_probe_conjugate.details
+    _item_description.description
+;    Additional details regarding the conjugate. 
+;
+    _item.name                  '_ihm_poly_probe_conjugate.details'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_poly_probe_conjugate.dataset_list_id
+    _item_description.description
+;     An identifier for the experimental dataset corresponding to the 
+      polymer-probe conjugate.
+      This data item is a pointer to _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_poly_probe_conjugate.dataset_list_id'
+    _item.category_id             ihm_poly_probe_conjugate
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_poly_probe_conjugate.dataset_list_id'
+    _item_linked.parent_name    '_ihm_dataset_list.id'
+     save_
+
+######################
+## IHM_LIGAND_PROBE ##
+######################
+
+save_ihm_ligand_probe
+    _category.description
+;              Data items in the IHM_LIGAND_PROBE category identifies
+               non-polymeric entities (ligands) that are used as probes.
+;
+    _category.id                  ihm_ligand_probe
+    _category.mandatory_code      no
+    _category_key.name          '_ihm_ligand_probe.probe_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_ligand_probe.probe_id
+        _ihm_ligand_probe.entity_id
+        _ihm_ligand_probe.dataset_list_id
+        _ihm_ligand_probe.details
+        1 3 1 ?
+        2 4 1 ?
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_ligand_probe
+     save_
+
+save__ihm_ligand_probe.probe_id
+    _item_description.description
+;     An identifier for the probe.
+      This data item is a pointer to _ihm_probe_list.probe_id
+      in the IHM_PROBE_LIST category. 
+;
+    _item.name                  '_ihm_ligand_probe.probe_id'
+    _item.category_id             ihm_ligand_probe
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_ligand_probe.probe_id'
+    _item_linked.parent_name     '_ihm_probe_list.probe_id'
+     save_
+
+save__ihm_ligand_probe.entity_id
+    _item_description.description
+;     The entity id of the ligand.
+      This data item is a pointer to _entity.id in the ENTITY category. 
+;
+    _item.name                  '_ihm_ligand_probe.entity_id'
+    _item.category_id             ihm_ligand_probe
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_linked.child_name     '_ihm_ligand_probe.entity_id'
+    _item_linked.parent_name     '_entity.id'
+     save_
+
+save__ihm_ligand_probe.details
+    _item_description.description
+;     Additional details regarding the ligand probe. 
+;
+    _item.name                  '_ihm_ligand_probe.details'
+    _item.category_id             ihm_ligand_probe
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_ligand_probe.dataset_list_id
+    _item_description.description
+;     An identifier for the experimental dataset corresponding 
+      to the ligand probe.
+      This data item is a pointer to _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_ligand_probe.dataset_list_id'
+    _item.category_id             ihm_ligand_probe
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_ligand_probe.dataset_list_id'
+    _item_linked.parent_name    '_ihm_dataset_list.id'
+     save_
+
+#######################
+## IHM_EPR_RESTRAINT ##
+#######################
+
+save_ihm_epr_restraint
+    _category.description
+;              Data items in the IHM_EPR_RESTRAINT category records the
+               details of the EPR data used as restraints in the
+               IHM modeling.
+;
+    _category.id                  ihm_epr_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_epr_restraint.ordinal_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    _ihm_epr_restraint.ordinal_id                      1
+    _ihm_epr_restraint.dataset_list_id                 8
+    _ihm_epr_restraint.model_id                        1
+    _ihm_epr_restraint.fitting_particle_type           'Unpaired electron of the label'
+    _ihm_epr_restraint.fitting_method                  'Spin label rotamer refinement using DEER/PELDOR data'
+    _ihm_epr_restraint.fitting_method_citation_id      3
+    _ihm_epr_restraint.fitting_state                   'Single'
+    _ihm_epr_restraint.fitting_software_id             1
+    _ihm_epr_restraint.chi_value                       0.06
+    _ihm_epr_restraint.details                         .
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_epr_restraint
+     save_
+
+save__ihm_epr_restraint.ordinal_id
+    _item_description.description
+;     A unique identifier for the EPR restraint description.
+;
+    _item.name                  '_ihm_epr_restraint.ordinal_id'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_epr_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the EPR data used.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_epr_restraint.dataset_list_id'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_epr_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_epr_restraint.model_id
+    _item_description.description
+;     The model number corresponding to the EPR fitting result presented.
+      This data item is a pointer to _ihm_model_list.model_id in the
+      IHM_MODEL_LIST category.
+;
+    _item.name                    '_ihm_epr_restraint.model_id'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_epr_restraint.model_id'
+    _item_linked.parent_name      '_ihm_model_list.model_id'
+     save_
+
+save__ihm_epr_restraint.fitting_particle_type
+    _item_description.description
+;    The type of particle fit to the EPR data.  
+;
+    _item.name                  '_ihm_epr_restraint.fitting_particle_type'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Unpaired electrons of the probe'
+     save_
+
+save__ihm_epr_restraint.fitting_method
+    _item_description.description
+;    The method used for fitting the model to the EPR data.
+;
+    _item.name                  '_ihm_epr_restraint.fitting_method'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'Spin label rotamer refinement using DEER/PELDOR data'
+     save_
+
+save__ihm_epr_restraint.fitting_method_citation_id
+    _item_description.description
+;    Identifier pointing to the citation for the fitting method.
+     This data item is a pointer to _citation.id in the
+     CITATION category.
+;
+    _item.name                  '_ihm_epr_restraint.fitting_method_citation_id'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    _item_linked.child_name     '_ihm_epr_restraint.fitting_method_citation_id'
+    _item_linked.parent_name    '_citation.id'
+     save_
+
+save__ihm_epr_restraint.fitting_state
+    _item_description.description
+;    An indicator to single or multiple state fitting. 
+;
+    _item.name                  '_ihm_epr_restraint.fitting_state'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'Single'    'Single-state fitting'
+    'Multiple'  'Multi-state fitting'
+     save_
+
+save__ihm_epr_restraint.fitting_software_id
+    _item_description.description
+;    Identifier pointing to the software used for fitting. 
+     This data item is a pointer to _software.pdbx_ordinal in the
+     SOFTWARE category. 
+;
+    _item.name                  '_ihm_epr_restraint.fitting_software_id'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_epr_restraint.fitting_software_id'
+    _item_linked.parent_name    '_software.pdbx_ordinal'
+     save_
+
+save__ihm_epr_restraint.chi_value
+    _item_description.description
+;    The chi value resulting from fitting the model to the EPR data. 
+;
+    _item.name                  '_ihm_epr_restraint.chi_value'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_epr_restraint.details
+    _item_description.description
+;    Additional details regarding the EPR restraint used. 
+;
+    _item.name                  '_ihm_epr_restraint.details'
+    _item.category_id             ihm_epr_restraint
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
 #########################
 ## IHM_CROSS_LINK_LIST ##
 #########################
@@ -5137,6 +6011,20 @@ save__ihm_cross_link_list.linker_type
                  'sulfo-SMCC' "sulfosuccinimidyl 4-(N-maleimidomethyl)cyclohexane-1-carboxylate"
                  'DSSO'     'disuccinimidyl sulfoxide (DSSO) crosslinker'
                  'Other'    'Other type of crosslinker'
+     save_
+
+save__ihm_cross_link_list.linker_chem_comp_descriptor_id
+    _item_description.description
+;     Pointer to the chemical description of the linker.
+      Data item points to _ihm_chemical_component_descriptor.id in the
+      IHM_CHEMICAL_COMPONENT_DESCRIPTOR category.
+;
+    _item.name                  '_ihm_cross_link_list.linker_chem_comp_descriptor_id'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_cross_link_list.linker_chem_comp_descriptor_id'
+    _item_linked.parent_name    '_ihm_chemical_component_descriptor.id'
      save_
 
 save__ihm_cross_link_list.dataset_list_id
