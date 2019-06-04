@@ -4869,12 +4869,12 @@ save_ihm_predicted_contact_restraint
         _ihm_predicted_contact_restraint.asym_id_1
         _ihm_predicted_contact_restraint.seq_id_1
         _ihm_predicted_contact_restraint.comp_id_1
-        _ihm_predicted_contact_restraint.atom_id_1
+        _ihm_predicted_contact_restraint.rep_atom_1
         _ihm_predicted_contact_restraint.entity_id_2
         _ihm_predicted_contact_restraint.asym_id_2
         _ihm_predicted_contact_restraint.seq_id_2
         _ihm_predicted_contact_restraint.comp_id_2
-        _ihm_predicted_contact_restraint.atom_id_2
+        _ihm_predicted_contact_restraint.rep_atom_2
         _ihm_predicted_contact_restraint.restraint_type
         _ihm_predicted_contact_restraint.distance_upper_limit
         _ihm_predicted_contact_restraint.probability
