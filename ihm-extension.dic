@@ -363,7 +363,7 @@ data_ihm-extension.dic
   Changes (bv):
   + Updated _item_sub_category.id for matrices and vectors 
 ;
-    0.135   2018-10-4
+    0.135   2018-10-04
 ;
   Changes (bv):
   + Added DSSO crosslinker
@@ -375,7 +375,7 @@ data_ihm-extension.dic
     _ihm_gaussian_obj_ensemble.entity_id
   + Updated _item_type.code for _ihm_external_files.file_path
 ;
-    0.136   2018-10-5
+    0.136   2018-10-05
 ;
   Changes (bv):
   + Added ihm_hydroxyl_radical_fp_restraint
