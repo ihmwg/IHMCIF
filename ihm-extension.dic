@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 31-MAY-2019
+#  Date: 26-JULY-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.0
+    _dictionary.version         1.01
 #
      loop_
     _dictionary_history.version
@@ -428,6 +428,13 @@ data_ihm-extension.dic
   Changes (bv):
   + Updated several categories to fix primary key information and parent-child relationships
 ;
+    1.01  2019-07-26
+;
+  Changes (bv):
+  + Updated _item_mandatory.code and _pdbx_item.mandatory_code for several data items. 
+  + Added _item_sub_category.id in ihm_poly_probe_position.
+  + Added PDB-Dev to the enumeration list in ihm_dataset_related_db_reference.db_name. 
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -812,7 +819,7 @@ save__ihm_starting_model_details.entity_poly_segment_id
 ;
     _item.name                  '_ihm_starting_model_details.entity_poly_segment_id'
     _item.category_id             ihm_starting_model_details
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_model_details.entity_poly_segment_id'
     _item_linked.parent_name    '_ihm_entity_poly_segment.id'
@@ -1125,7 +1132,8 @@ save__ihm_starting_computational_models.script_file_id
 ;
     _item.name                  '_ihm_starting_computational_models.script_file_id'
     _item.category_id             ihm_starting_computational_models
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_computational_models.script_file_id'
     _item_linked.parent_name    '_ihm_external_files.id'
@@ -1138,7 +1146,8 @@ save__ihm_starting_computational_models.software_id
 ;
     _item.name                  '_ihm_starting_computational_models.software_id'
     _item.category_id             ihm_starting_computational_models
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_computational_models.software_id'
     _item_linked.parent_name    '_software.pdbx_ordinal'
@@ -1486,7 +1495,7 @@ save__ihm_model_representation_details.entity_poly_segment_id
 ;
     _item.name                  '_ihm_model_representation_details.entity_poly_segment_id'
     _item.category_id             ihm_model_representation_details
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_model_representation_details.entity_poly_segment_id'
     _item_linked.parent_name    '_ihm_entity_poly_segment.id'
@@ -1775,7 +1784,7 @@ save__ihm_struct_assembly_details.entity_poly_segment_id
 ;
     _item.name                  '_ihm_struct_assembly_details.entity_poly_segment_id'
     _item.category_id             ihm_struct_assembly_details
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_struct_assembly_details.entity_poly_segment_id'
     _item_linked.parent_name    '_ihm_entity_poly_segment.id'
@@ -1909,7 +1918,8 @@ save__ihm_struct_assembly_class.name
 ;
     _item.name                  '_ihm_struct_assembly_class.name'
     _item.category_id             ihm_struct_assembly_class
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               line
     loop_
     _item_examples.case
@@ -2213,7 +2223,7 @@ save__ihm_modeling_protocol_details.struct_assembly_id
 ;
     _item.name                  '_ihm_modeling_protocol_details.struct_assembly_id'
     _item.category_id             ihm_modeling_protocol_details
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_modeling_protocol_details.struct_assembly_id'
     _item_linked.parent_name    '_ihm_struct_assembly.id' 
@@ -2228,7 +2238,7 @@ save__ihm_modeling_protocol_details.dataset_group_id
 ;
     _item.name                  '_ihm_modeling_protocol_details.dataset_group_id'
     _item.category_id             ihm_modeling_protocol_details
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_modeling_protocol_details.dataset_group_id'
     _item_linked.parent_name    '_ihm_dataset_group.id'
@@ -2511,7 +2521,8 @@ save__ihm_multi_state_modeling.state_type
 ;
     _item.name                  '_ihm_multi_state_modeling.state_type'
     _item.category_id             ihm_multi_state_modeling
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               line
     loop_
     _item_examples.case
@@ -2527,7 +2538,8 @@ save__ihm_multi_state_modeling.state_name
 ;
     _item.name                  '_ihm_multi_state_modeling.state_name'
     _item.category_id             ihm_multi_state_modeling
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               line
     loop_
     _item_examples.case
@@ -2799,7 +2811,8 @@ save__ihm_ordered_ensemble.ordered_by
 ;  
     _item.name                  '_ihm_ordered_ensemble.ordered_by'
     _item.category_id             ihm_ordered_ensemble
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               line
     loop_
     _item_examples.case
@@ -2969,7 +2982,8 @@ save__ihm_modeling_post_process.type
 ;
     _item.name                  '_ihm_modeling_post_process.type'
     _item.category_id             ihm_modeling_post_process
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               line
     loop_ 
    _item_enumeration.value
@@ -2988,7 +3002,8 @@ save__ihm_modeling_post_process.feature
 ;
     _item.name                  '_ihm_modeling_post_process.feature'
     _item.category_id             ihm_modeling_post_process
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               code
     loop_ 
     _item_enumeration.value
@@ -3540,7 +3555,7 @@ save__ihm_model_group.name
 ;
     _item.name                  '_ihm_model_group.name'
     _item.category_id             ihm_model_group
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               line
     loop_
     _item_examples.case
@@ -3740,7 +3755,8 @@ save__ihm_model_representative.selection_criteria
 ;
     _item.name                  '_ihm_model_representative.selection_criteria'
     _item.category_id             ihm_model_representative
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               line
     loop_
     _item_enumeration.value
@@ -4211,6 +4227,7 @@ save__ihm_dataset_related_db_reference.db_name
      loop_
     _item_enumeration.value
       'PDB'
+      'PDB-Dev'
       'BMRB'
       'EMDB'
       'EMPIAR'
@@ -4800,7 +4817,7 @@ save__ihm_localization_density_files.entity_id
 ;
     _item.name                  '_ihm_localization_density_files.entity_id'
     _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
     _item_linked.child_name       '_ihm_localization_density_files.entity_id'
     _item_linked.parent_name      '_entity.id'
@@ -4815,7 +4832,7 @@ save__ihm_localization_density_files.entity_poly_segment_id
 ;
     _item.name                  '_ihm_localization_density_files.entity_poly_segment_id'
     _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name     '_ihm_localization_density_files.entity_poly_segment_id'
     _item_linked.parent_name    '_ihm_entity_poly_segment.id'
@@ -4828,7 +4845,7 @@ save__ihm_localization_density_files.asym_id
 ;
     _item.name                  '_ihm_localization_density_files.asym_id'
     _item.category_id             ihm_localization_density_files
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               code
     _item_linked.child_name       '_ihm_localization_density_files.asym_id'
     _item_linked.parent_name      '_struct_asym.id'
@@ -5761,6 +5778,7 @@ save__ihm_poly_probe_position.entity_id
     _item.category_id             ihm_poly_probe_position
     _item.mandatory_code          yes
     _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_poly_probe_position.entity_id'
     _item_linked.parent_name      '_entity_poly_seq.entity_id'
      save_
@@ -5785,6 +5803,7 @@ save__ihm_poly_probe_position.seq_id
     _item.category_id             ihm_poly_probe_position
     _item.mandatory_code          yes
     _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_poly_probe_position.seq_id'
     _item_linked.parent_name      '_entity_poly_seq.num'
      save_
@@ -5799,6 +5818,7 @@ save__ihm_poly_probe_position.comp_id
     _item.category_id             ihm_poly_probe_position
     _item.mandatory_code          yes
     _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
     _item_linked.child_name       '_ihm_poly_probe_position.comp_id'
     _item_linked.parent_name      '_entity_poly_seq.mon_id'
      save_
@@ -7222,7 +7242,8 @@ save__ihm_2dem_class_average_restraint.pixel_size_width
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.pixel_size_width'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               float
     _item_units.code              angstroms
      save_
@@ -7235,7 +7256,8 @@ save__ihm_2dem_class_average_restraint.pixel_size_height
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.pixel_size_height'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               float
     _item_units.code              angstroms
      save_
@@ -7246,7 +7268,8 @@ save__ihm_2dem_class_average_restraint.image_resolution
 ;
     _item.name                  '_ihm_2dem_class_average_restraint.image_resolution'
     _item.category_id             ihm_2dem_class_average_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               float
     _item_units.code              angstroms
      save_
@@ -7422,7 +7445,8 @@ save__ihm_2dem_class_average_fitting.cross_correlation_coefficient
 ;
     _item.name                  '_ihm_2dem_class_average_fitting.cross_correlation_coefficient'
     _item.category_id             ihm_2dem_class_average_fitting
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               float
      save_
 
@@ -7710,7 +7734,8 @@ save__ihm_3dem_restraint.cross_correlation_coefficient
 ;
     _item.name                  '_ihm_3dem_restraint.cross_correlation_coefficient'
     _item.category_id             ihm_3dem_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               float
      save_
 
@@ -9988,7 +10013,8 @@ save__ihm_interface_residue_feature.dataset_list_id
 ;
     _item.name                  '_ihm_interface_residue_feature.dataset_list_id'
     _item.category_id             ihm_interface_residue_feature
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               int
     _item_linked.child_name       '_ihm_interface_residue_feature.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
@@ -10225,7 +10251,8 @@ save__ihm_derived_distance_restraint.dataset_list_id
 ;
     _item.name                  '_ihm_derived_distance_restraint.dataset_list_id'
     _item.category_id             ihm_derived_distance_restraint
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
     _item_type.code               int
     _item_linked.child_name       '_ihm_derived_distance_restraint.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
