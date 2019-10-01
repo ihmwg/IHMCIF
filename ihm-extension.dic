@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 26-JULY-2019
+#  Date: 1-OCT-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.01
+    _dictionary.version         1.02
 #
      loop_
     _dictionary_history.version
@@ -434,6 +434,18 @@ data_ihm-extension.dic
   + Updated _item_mandatory.code and _pdbx_item.mandatory_code for several data items. 
   + Added _item_sub_category.id in ihm_poly_probe_position.
   + Added PDB-Dev to the enumeration list in ihm_dataset_related_db_reference.db_name. 
+;
+    1.02  2019-10-01
+;
+  Changes (bv):
+  + Added _ihm_starting_model_details.description, _ihm_starting_comparative_models.details
+  + Added _ihm_model_representation_details.description, _ihm_modeling_protocol_details.description
+  + Added _ihm_modeling_post_process.details, _ihm_ensemble_info.details
+  + Added _ihm_external_reference_info.details, _ihm_cross_link_list.details
+  + Added _ihm_feature_list.details, _ihm_geometric_object_half_torus.details
+  + Added enumerations (DSG and BSP) to _ihm_cross_link_list.linker_type
+  + Updated _item_enumeration.detail for items in _ihm_cross_link_list.linker_type
+  + Updated _item_description.description for _ihm_external_files.details
 ;
 
 #########################
@@ -883,6 +895,16 @@ save__ihm_starting_model_details.dataset_list_id
     _item_linked.parent_name      '_ihm_dataset_list.id'
      save_
 
+save__ihm_starting_model_details.description
+    _item_description.description
+;     Additional description regarding the starting model. 
+;
+    _item.name                  '_ihm_starting_model_details.description'
+    _item.category_id             ihm_starting_model_details
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
 #####################################
 ## IHM_STARTING_COMPARATIVE_MODELS ##
 #####################################
@@ -1070,6 +1092,16 @@ save__ihm_starting_comparative_models.alignment_file_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_starting_comparative_models.alignment_file_id'
     _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+save__ihm_starting_comparative_models.details
+    _item_description.description
+;     Additional details regarding the starting comparative models.
+;
+    _item.name                  '_ihm_starting_comparative_models.details'
+    _item.category_id             ihm_starting_comparative_models
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 #######################################
@@ -1610,6 +1642,16 @@ save__ihm_model_representation_details.model_object_count
     _item.category_id             ihm_model_representation_details
     _item.mandatory_code          no
     _item_type.code               int
+     save_
+
+save__ihm_model_representation_details.description
+    _item_description.description
+;     Additional description regarding the model representation. 
+;
+    _item.name                  '_ihm_model_representation_details.description'
+    _item.category_id             ihm_model_representation_details
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 #################################
@@ -2394,6 +2436,16 @@ save__ihm_modeling_protocol_details.software_id
     _item_linked.parent_name    '_software.pdbx_ordinal'
      save_
 
+save__ihm_modeling_protocol_details.description
+    _item_description.description
+;     Textual description of the protocol step. 
+;
+    _item.name                  '_ihm_modeling_protocol_details.description'
+    _item.category_id             ihm_modeling_protocol_details
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
 ##############################
 ## IHM_MULTI_STATE_MODELING ##
 ##############################
@@ -3076,6 +3128,16 @@ save__ihm_modeling_post_process.software_id
     _item_linked.parent_name    '_software.pdbx_ordinal'
      save_
 
+save__ihm_modeling_post_process.details
+    _item_description.description
+;     Additional details regarding post processing. 
+;
+    _item.name                  '_ihm_modeling_post_process.details'
+    _item.category_id             ihm_modeling_post_process
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
 #######################
 ## IHM_ENSEMBLE_INFO ##
 #######################
@@ -3290,6 +3352,16 @@ save__ihm_ensemble_info.ensemble_file_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_ensemble_info.ensemble_file_id'
     _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+save__ihm_ensemble_info.details
+    _item_description.description
+;     Additional details regarding the ensemble.         
+;
+    _item.name                  '_ihm_ensemble_info.details'
+    _item.category_id             ihm_ensemble_info
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ####################
@@ -4442,6 +4514,16 @@ save__ihm_external_reference_info.associated_url
     _item_type.code               code
      save_
 
+save__ihm_external_reference_info.details
+    _item_description.description
+;     Additional details regarding the external reference.
+;
+    _item.name                  '_ihm_external_reference_info.details'
+    _item.category_id             ihm_external_reference_info
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
 ########################
 ## IHM_EXTERNAL_FILES ##
 ########################
@@ -4636,7 +4718,7 @@ save__ihm_external_files.file_size_bytes
 
 save__ihm_external_files.details
     _item_description.description
-;   Textual description of what the external file is. 
+;   Additional textual details regarding the external file. 
 ;
     _item.name                 '_ihm_external_files.details'
     _item.category_id          ihm_external_files
@@ -6522,10 +6604,12 @@ save__ihm_cross_link_list.linker_type
                  'EGS'      'ethylene glycol bis(succinimidyl succinate) crosslinker'
                  'BS3'      'bis(sulfosuccinimidyl) suberate crosslinker'
                  'BS2G'     'Bis-(sulfosuccinimidyl) glutarate crosslinker'
-                 'DST'      'disuccinimidyl tartrate'
-                 'sulfo-SDA'  "sulfosuccinimidyl 4,4'-azipentanoate, heterobifunctional"
-                 'sulfo-SMCC' "sulfosuccinimidyl 4-(N-maleimidomethyl)cyclohexane-1-carboxylate"
+                 'DST'      'disuccinimidyl tartrate crosslinker'
+                 'sulfo-SDA'  "sulfosuccinimidyl 4,4'-azipentanoate, heterobifunctional crosslinker"
+                 'sulfo-SMCC' "sulfosuccinimidyl 4-(N-maleimidomethyl)cyclohexane-1-carboxylate crosslinker"
                  'DSSO'     'disuccinimidyl sulfoxide (DSSO) crosslinker'
+                 'DSG'      'disuccinimidyl glutarate crosslinker'
+                 'BSP'      'Bis(succinimidyl) penta(ethylene glycol) crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
@@ -6555,6 +6639,16 @@ save__ihm_cross_link_list.dataset_list_id
     _item_type.code               int
     _item_linked.child_name       '_ihm_cross_link_list.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_cross_link_list.details
+    _item_description.description
+;     Additional details regarding the cross link or the cross linking agent.
+;
+    _item.name                  '_ihm_cross_link_list.details'
+    _item.category_id             ihm_cross_link_list
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ##############################
@@ -9295,6 +9389,16 @@ save__ihm_feature_list.entity_type
     'other'
      save_
 
+save__ihm_feature_list.details
+    _item_description.description
+;     Additional details regarding the feature.         
+;
+    _item.name                  '_ihm_feature_list.details'
+    _item.category_id             ihm_feature_list
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
 #############################
 ## IHM_PSEUDO_SITE_FEATURE ##
 #############################
@@ -10916,6 +11020,16 @@ save__ihm_geometric_object_half_torus.section
     'inner half'
     'outer half'
     'other'
+     save_
+
+save__ihm_geometric_object_half_torus.details
+    _item_description.description
+;     Additional details regarding the half torus geometric object.
+;
+    _item.name                  '_ihm_geometric_object_half_torus.details'
+    _item.category_id             ihm_geometric_object_half_torus
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
 
 ###############################
