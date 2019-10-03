@@ -451,7 +451,7 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Changed _ihm_geometric_object_distance_restraint.other_details to _ihm_geometric_object_distance_restraint.details
-  + Changed _ihm_geometric_object_list.other_details to _ihm_geometric_object_list.details 
+  + Removed _ihm_geometric_object_list.other_details and _ihm_geometric_object_half_torus.details
 ;
 
 #########################
@@ -10462,17 +10462,6 @@ save__ihm_geometric_object_list.object_description
     'Half-torus representing the nuclear membrane'
      save_
 
-save__ihm_geometric_object_list.details
-    _item_description.description
-;     Additional details about the geometric object, especially if
-      _ihm_geometric_object_list.object_type is "other". 
-;
-    _item.name                  '_ihm_geometric_object_list.details'
-    _item.category_id             ihm_geometric_object_list
-    _item.mandatory_code          no
-    _item_type.code               text
-     save_
-
 #################################
 ## IHM_GEOMETRIC_OBJECT_CENTER ##
 #################################
@@ -11026,16 +11015,6 @@ save__ihm_geometric_object_half_torus.section
     'inner half'
     'outer half'
     'other'
-     save_
-
-save__ihm_geometric_object_half_torus.details
-    _item_description.description
-;     Additional details regarding the half torus geometric object.
-;
-    _item.name                  '_ihm_geometric_object_half_torus.details'
-    _item.category_id             ihm_geometric_object_half_torus
-    _item.mandatory_code          no
-    _item_type.code               text
      save_
 
 ###############################
