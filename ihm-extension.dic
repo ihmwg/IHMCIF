@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 1-OCT-2019
+#  Date: 3-OCT-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.02
+    _dictionary.version         1.03
 #
      loop_
     _dictionary_history.version
@@ -446,6 +446,12 @@ data_ihm-extension.dic
   + Added enumerations (DSG and BSP) to _ihm_cross_link_list.linker_type
   + Updated _item_enumeration.detail for items in _ihm_cross_link_list.linker_type
   + Updated _item_description.description for _ihm_external_files.details
+;
+    1.03  2019-10-03
+;
+  Changes (bv):
+  + Changed _ihm_geometric_object_distance_restraint.other_details to _ihm_geometric_object_distance_restraint.details
+  + Changed _ihm_geometric_object_list.other_details to _ihm_geometric_object_list.details 
 ;
 
 #########################
@@ -10456,12 +10462,12 @@ save__ihm_geometric_object_list.object_description
     'Half-torus representing the nuclear membrane'
      save_
 
-save__ihm_geometric_object_list.other_details
+save__ihm_geometric_object_list.details
     _item_description.description
 ;     Additional details about the geometric object, especially if
       _ihm_geometric_object_list.object_type is "other". 
 ;
-    _item.name                  '_ihm_geometric_object_list.other_details'
+    _item.name                  '_ihm_geometric_object_list.details'
     _item.category_id             ihm_geometric_object_list
     _item.mandatory_code          no
     _item_type.code               text
@@ -11424,13 +11430,13 @@ save__ihm_geometric_object_distance_restraint.dataset_list_id
     _item_linked.parent_name      '_ihm_dataset_list.id'
      save_
 
-save__ihm_geometric_object_distance_restraint.other_details
+save__ihm_geometric_object_distance_restraint.details
     _item_description.description
 ;     Additional details about the geometric object distance restraints, 
       especially if _ihm_geometric_object_distance_restraint.restraint_type or
       _ihm_geometric_object_distance_restraint.object_characteristic is "other". 
 ;
-    _item.name                  '_ihm_geometric_object_distance_restraint.other_details'
+    _item.name                  '_ihm_geometric_object_distance_restraint.details'
     _item.category_id             ihm_geometric_object_distance_restraint
     _item.mandatory_code          no
     _item_type.code               text
