@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 3-OCT-2019
+#  Date: 10-OCT-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.03
+    _dictionary.version         1.04
 #
      loop_
     _dictionary_history.version
@@ -452,6 +452,12 @@ data_ihm-extension.dic
   Changes (bv):
   + Changed _ihm_geometric_object_distance_restraint.other_details to _ihm_geometric_object_distance_restraint.details
   + Removed _ihm_geometric_object_list.other_details and _ihm_geometric_object_half_torus.details
+;
+    1.04  2019-10-10
+;
+  Changes (bv):
+  + Added _ihm_derived_distance_restraint.mic_value
+  + Added enumeration to _ihm_dataset_list.data_type
 ;
 
 #########################
@@ -3954,6 +3960,7 @@ save__ihm_dataset_list.data_type
       'DNA footprinting data'
       'Hydroxyl radical footprinting data'
       'Yeast two-hybrid screening data'
+      'Quantitative measurements of genetic interactions'
       'Other'
      save_ 
 
@@ -10347,6 +10354,19 @@ save__ihm_derived_distance_restraint.restraint_type
         'lower bound' 
         'upper bound' 
         'lower and upper bound' 
+     save_
+
+save__ihm_derived_distance_restraint.mic_value
+    _item_description.description
+;     The value of the Maximal Information Co-efficient (MIC), if applicable. 
+      MIC values are correlation measures derived from the genetic profiles
+      and are used to derive restraint information  from quantitative measurements 
+      of genetic interactions. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.mic_value'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
      save_
 
 save__ihm_derived_distance_restraint.dataset_list_id
