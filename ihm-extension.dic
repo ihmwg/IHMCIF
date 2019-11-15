@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 10-OCT-2019
+#  Date: 15-NOV-2019
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.04
+    _dictionary.version         1.05
 #
      loop_
     _dictionary_history.version
@@ -458,6 +458,11 @@ data_ihm-extension.dic
   Changes (bv):
   + Added _ihm_derived_distance_restraint.mic_value
   + Added enumeration to _ihm_dataset_list.data_type
+;
+    1.05  2019-11-15
+;
+  Changes (bv):
+  + Added BMSO and DHSO to _ihm_cross_link_list.linker_type enumeration list
 ;
 
 #########################
@@ -6623,6 +6628,8 @@ save__ihm_cross_link_list.linker_type
                  'DSSO'     'disuccinimidyl sulfoxide (DSSO) crosslinker'
                  'DSG'      'disuccinimidyl glutarate crosslinker'
                  'BSP'      'Bis(succinimidyl) penta(ethylene glycol) crosslinker'
+                 'BMSO'     'bismaleimide sulfoxide crosslinker'
+                 'DHSO'     'dihydrazide sulfoxide crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
