@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 15-NOV-2019
+#  Date: 24-JAN-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.05
+    _dictionary.version         1.06
 #
      loop_
     _dictionary_history.version
@@ -463,6 +463,17 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Added BMSO and DHSO to _ihm_cross_link_list.linker_type enumeration list
+;
+    1.06  2020-01-24
+;
+  Changes (bv):
+  + Added _ihm_cross_link_restraint.pseudo_site_flag
+  + Added ihm_cross_link_pseudo_site category  
+  + Added ihm_pseudo_site category
+  + Removed _ihm_pseudo_site_feature.Cartn_x, _ihm_pseudo_site_feature.Cartn_y
+    _ihm_pseudo_site_feature.Cartn_z, _ihm_pseudo_site_feature.radius 
+    _ihm_pseudo_site_feature.description
+  + Added _ihm_pseudo_site_feature.pseudo_site_id
 ;
 
 #########################
@@ -7017,6 +7028,135 @@ save__ihm_cross_link_restraint.sigma_2
     _item_type.code               float
      save_
 
+save__ihm_cross_link_restraint.pseudo_site_flag
+    _item_description.description
+;     A flag indicating if the cross link involves a pseudo site that is
+      not part of the model representation and hence will not be part
+      of the model. However, it can be part of the input restraints. 
+;
+    _item.name                  '_ihm_cross_link_restraint.pseudo_site_flag'
+    _item.category_id             ihm_cross_link_restraint
+    _item.mandatory_code          no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'YES'   'Cross link involves a pseudo site'
+    'NO'    'Cross link does not involve a pseudo site'
+     save_
+
+################################
+## IHM_CROSS_LINK_PSEUDO_SITE ##
+################################
+
+save_ihm_cross_link_pseudo_site
+    _category.description
+;              Data items in the IHM_CROSS_LINK_PSEUDO_SITE category records the
+               details of the pseudo sites involved in the cross links. 
+;
+    _category.id                  ihm_cross_link_pseudo_site
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_cross_link_pseudo_site.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+	    _ihm_cross_link_pseudo_site.id
+        _ihm_cross_link_pseudo_site.restraint_id
+	    _ihm_cross_link_pseudo_site.cross_link_partner
+        _ihm_cross_link_pseudo_site.pseudo_site_id
+        1  1   1  1 
+        2  2   1  2  
+        3  2   2  3 
+        4  3   2  4 
+        5  4   1  5 
+        6  4   2  6 
+
+    # ...  abbreviated ...
+;
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_cross_link_pseudo_site
+     save_
+
+save__ihm_cross_link_pseudo_site.id
+    _item_description.description
+;     A unique identifier for this category. 
+;
+    _item.name                  '_ihm_cross_link_pseudo_site.id'
+    _item.category_id             ihm_cross_link_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_cross_link_pseudo_site.restraint_id
+    _item_description.description
+;     An identifier for the crosslink restraint between a pair of residues.
+      This data item is a pointer to _ihm_cross_link_restraint.id in the
+      IHM_CROSS_LINK_RESTRAINT category.  
+;
+    _item.name                  '_ihm_cross_link_pseudo_site.restraint_id'
+    _item.category_id             ihm_cross_link_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name    '_ihm_cross_link_pseudo_site.restraint_id'
+    _item_linked.parent_name   '_ihm_cross_link_restraint.id'
+     save_
+
+save__ihm_cross_link_pseudo_site.cross_link_partner
+    _item_description.description
+;     The identity of the cross link partner corresponding to the pseudo site. 
+;
+    _item.name                  '_ihm_cross_link_pseudo_site.cross_link_partner'
+    _item.category_id             ihm_cross_link_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    '1'     'The first partner in the cross link as identified in the ihm_cross_link_restraint table'
+    '2'     'The second partner in the cross link as identified in the ihm_cross_link_restraint table'
+     save_
+
+save__ihm_cross_link_pseudo_site.pseudo_site_id
+    _item_description.description
+;     The pseudo site identifier corresponding to the cross link partner.
+      This data item is a pointer to _ihm_pseudo_site.id
+      in the IHM_PSEUDO_SITE category.
+;
+    _item.name                  '_ihm_cross_link_pseudo_site.pseudo_site_id'
+    _item.category_id             ihm_cross_link_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_pseudo_site.pseudo_site_id'
+    _item_linked.parent_name      '_ihm_pseudo_site.id'
+     save_
+
+save__ihm_cross_link_pseudo_site.model_id
+    _item_description.description
+;     The identifier to the model that the pseudo site corresponds to. 
+      This data item is a pointer to _ihm_model_list.model_id
+      in the IHM_MODEL_LIST category.
+;
+    _item.name                  '_ihm_cross_link_pseudo_site.model_id'
+    _item.category_id             ihm_cross_link_pseudo_site
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_cross_link_pseudo_site.model_id'
+    _item_linked.parent_name      '_ihm_model_list.model_id'
+     save_
+
 ###########################
 ## IHM_CROSS_LINK_RESULT ##
 ###########################
@@ -9117,6 +9257,129 @@ save__ihm_gaussian_obj_ensemble.ensemble_id
     _item_linked.parent_name    '_ihm_ensemble_info.ensemble_id'
      save_
 
+#####################
+## IHM_PSEUDO_SITE ##
+#####################
+
+save_ihm_pseudo_site
+    _category.description
+;              Data items in the IHM_PSEUDO_SITE_FEATURE category records the details
+               of pseudo sites that may be used in the restraints or model representation. 
+;
+    _category.id                  ihm_pseudo_site
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_pseudo_site.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - 
+;
+;
+        loop_
+        _ihm_pseudo_site.id
+        _ihm_pseudo_site.Cartn_x
+        _ihm_pseudo_site.Cartn_y
+        _ihm_pseudo_site.Cartn_z
+        _ihm_pseudo_site.radius
+        _ihm_pseudo_site.description
+           1  1.0  1.0  1.0  1.0 .
+           2  1.0  1.0  1.0  1.0 .
+           3  1.0  1.0  1.0  1.0 .
+           4  1.0  1.0  1.0  1.0 .
+           5  1.0  1.0  1.0  1.0 .
+          # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_pseudo_site
+     save_
+
+save__ihm_pseudo_site.id
+    _item_description.description
+;     An identifier to the pseudo site.
+;
+    _item.name                  '_ihm_pseudo_site.id'
+    _item.category_id             ihm_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_pseudo_site.Cartn_x
+    _item_description.description
+;     The Cartesian X component corresponding to this pseudo site.
+;
+    _item.name                  '_ihm_pseudo_site.Cartn_x'
+    _item.category_id             ihm_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_pseudo_site.Cartn_y'
+        '_ihm_pseudo_site.Cartn_z'
+     save_
+
+save__ihm_pseudo_site.Cartn_y
+    _item_description.description
+;     The Cartesian Y component corresponding to this pseudo site.
+;
+    _item.name                  '_ihm_pseudo_site.Cartn_y'
+    _item.category_id             ihm_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_pseudo_site.Cartn_x'
+        '_ihm_pseudo_site.Cartn_z'
+     save_
+
+save__ihm_pseudo_site.Cartn_z
+    _item_description.description
+;     The Cartesian Z component corresponding to this pseudo site.
+;
+    _item.name                  '_ihm_pseudo_site.Cartn_z'
+    _item.category_id             ihm_pseudo_site
+    _item.mandatory_code          yes
+    _item_type.code               float
+    _item_units.code              angstroms
+    loop_
+    _item_dependent.dependent_name
+        '_ihm_pseudo_site.Cartn_x'
+        '_ihm_pseudo_site.Cartn_y'
+     save_
+
+save__ihm_pseudo_site.radius
+    _item_description.description
+;     The radius associated with the pseudo site, if applicable.
+;
+    _item.name                  '_ihm_pseudo_site.radius'
+    _item.category_id             ihm_pseudo_site
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_pseudo_site.description
+    _item_description.description
+;     Textual description of the pseudo site. 
+;
+    _item.name                  '_ihm_pseudo_site.description'
+    _item.category_id             ihm_pseudo_site
+    _item.mandatory_code          no
+    _item_type.code               text
+    loop_
+    _item_examples.case
+    'centroid of a feature'
+     save_
+
 ##############################
 ## IHM_RESIDUES_NOT_MODELED ##
 ##############################
@@ -9426,7 +9689,7 @@ save__ihm_feature_list.details
 save_ihm_pseudo_site_feature
     _category.description
 ;              Data items in the IHM_PSEUDO_SITE_FEATURE category records the details
-               of pseudo positions for the features listed in IHM_FEATURE_LIST. 
+               of pseudo site features listed in IHM_FEATURE_LIST. 
 ;
     _category.id                  ihm_pseudo_site_feature
     _category.mandatory_code      no
@@ -9446,15 +9709,12 @@ save_ihm_pseudo_site_feature
 ;
         loop_
         _ihm_pseudo_site_feature.feature_id
-        _ihm_pseudo_site_feature.Cartn_x
-        _ihm_pseudo_site_feature.Cartn_y
-        _ihm_pseudo_site_feature.Cartn_z
-        _ihm_pseudo_site_feature.radius
-           1  1.0  1.0  1.0  1.0 
-           2  1.0  1.0  1.0  1.0 
-           3  1.0  1.0  1.0  1.0 
-           4  1.0  1.0  1.0  1.0 
-           5  1.0  1.0  1.0  1.0 
+        _ihm_pseudo_site_feature.pseudo_site_id
+           1 1 
+           2 2 
+           3 3 
+           4 4 
+           5 5
           # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -9476,73 +9736,18 @@ save__ihm_pseudo_site_feature.feature_id
     _item_linked.parent_name      '_ihm_feature_list.feature_id'
      save_
 
-save__ihm_pseudo_site_feature.Cartn_x
+save__ihm_pseudo_site_feature.pseudo_site_id
     _item_description.description
-;     The Cartesian X component corresponding to this pseudo site.
+;     The pseudo site identifier corresponding to this feature.
+      This data item is a pointer to _ihm_pseudo_site.id
+      in the IHM_PSEUDO_SITE category.
 ;
-    _item.name                  '_ihm_pseudo_site_feature.Cartn_x'
+    _item.name                  '_ihm_pseudo_site_feature.pseudo_site_id'
     _item.category_id             ihm_pseudo_site_feature
     _item.mandatory_code          yes
-    _item_type.code               float
-    _item_units.code              angstroms
-    loop_
-    _item_dependent.dependent_name
-        '_ihm_pseudo_site_feature.Cartn_y'
-        '_ihm_pseudo_site_feature.Cartn_z'
-     save_
-
-save__ihm_pseudo_site_feature.Cartn_y
-    _item_description.description
-;     The Cartesian Y component corresponding to this pseudo site.
-;
-    _item.name                  '_ihm_pseudo_site_feature.Cartn_y'
-    _item.category_id             ihm_pseudo_site_feature
-    _item.mandatory_code          yes
-    _item_type.code               float
-    _item_units.code              angstroms
-    loop_
-    _item_dependent.dependent_name
-        '_ihm_pseudo_site_feature.Cartn_x'
-        '_ihm_pseudo_site_feature.Cartn_z'
-     save_
-
-save__ihm_pseudo_site_feature.Cartn_z
-    _item_description.description
-;     The Cartesian Z component corresponding to this pseudo site.
-;
-    _item.name                  '_ihm_pseudo_site_feature.Cartn_z'
-    _item.category_id             ihm_pseudo_site_feature
-    _item.mandatory_code          yes
-    _item_type.code               float
-    _item_units.code              angstroms
-    loop_
-    _item_dependent.dependent_name
-        '_ihm_pseudo_site_feature.Cartn_x'
-        '_ihm_pseudo_site_feature.Cartn_y'
-     save_
-
-save__ihm_pseudo_site_feature.radius
-    _item_description.description
-;     The radius associated with the feature at this position, if applicable.
-;
-    _item.name                  '_ihm_pseudo_site_feature.radius'
-    _item.category_id             ihm_pseudo_site_feature
-    _item.mandatory_code          no
-    _item_type.code               float
-    _item_units.code              angstroms
-     save_
-
-save__ihm_pseudo_site_feature.description
-    _item_description.description
-;     Textual description of the pseudo site representing the specific feature. 
-;
-    _item.name                  '_ihm_pseudo_site_feature.description'
-    _item.category_id             ihm_pseudo_site_feature
-    _item.mandatory_code          no
-    _item_type.code               text
-    loop_
-    _item_examples.case
-    'centroid of the feature'
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_pseudo_site_feature.pseudo_site_id'
+    _item_linked.parent_name      '_ihm_pseudo_site.id'
      save_
 
 ###########################
