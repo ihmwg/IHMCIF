@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 24-JAN-2020
+#  Date: 10-FEB-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.06
+    _dictionary.version         1.07
 #
      loop_
     _dictionary_history.version
@@ -474,6 +474,11 @@ data_ihm-extension.dic
     _ihm_pseudo_site_feature.Cartn_z, _ihm_pseudo_site_feature.radius 
     _ihm_pseudo_site_feature.description
   + Added _ihm_pseudo_site_feature.pseudo_site_id
+;
+    1.07  2020-02-10
+;
+  Changes (bv):
+  + Added CYS to _ihm_cross_link_list.linker_type enumeration list
 ;
 
 #########################
@@ -6641,6 +6646,7 @@ save__ihm_cross_link_list.linker_type
                  'BSP'      'Bis(succinimidyl) penta(ethylene glycol) crosslinker'
                  'BMSO'     'bismaleimide sulfoxide crosslinker'
                  'DHSO'     'dihydrazide sulfoxide crosslinker'
+                 'CYS'      'Cysteine crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
