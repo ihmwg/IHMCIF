@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 14-FEB-2020
+#  Date: 12-MAR-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.08
+    _dictionary.version         1.09
 #
      loop_
     _dictionary_history.version
@@ -485,6 +485,12 @@ data_ihm-extension.dic
   Changes (bv):
   + Added _ihm_ensemble_info.sub_sample_flag, _ihm_ensemble_info.sub_sampling_type
   + Added ihm_ensemble_sub_sample
+;
+    1.09  2020-03-12
+;
+  Changes (bv):
+  + Added ihm_related_datasets_transformation
+  + Added _ihm_related_datasets.transformation_id
 ;
 
 #########################
@@ -4417,6 +4423,213 @@ save__ihm_related_datasets.dataset_list_id_primary
     _item_type.code               int
     _item_linked.child_name     '_ihm_related_datasets.dataset_list_id_primary'
     _item_linked.parent_name    '_ihm_dataset_list.id'
+     save_
+
+save__ihm_related_datasets.transformation_id
+    _item_description.description
+;    A pointer to the transformation matrix, if applicable. 
+     The transformation matrix is to be applied to the derived dataset
+     in order to transform it to the primary dataset from which it is
+     derived. Examples include segmented 3DEM maps, Gaussian Mixture Models
+     derived from 3DEM maps, starting comparative models. 
+     This data item is a pointer to _ihm_related_datasets_transformation.id 
+     in the IHM_RELATED_DATASETS_TRANSFORMATION category.
+;
+    _item.name                  '_ihm_related_datasets.transformation_id'
+    _item.category_id             ihm_related_datasets
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_related_datasets.transformation_id'
+    _item_linked.parent_name    '_ihm_related_datasets_transformation.id'
+     save_
+
+#########################################
+## IHM_RELATED_DATASETS_TRANSFORMATION ##
+#########################################
+
+save_ihm_related_datasets_transformation
+    _category.description
+;              Data items in the IHM_RELATED_DATASETS_TRANSFORMATION category records the
+               details of the rotation matrix and translation vector applied to the
+               derived dataset to transform it to the primary dataset. 
+;
+    _category.id                  ihm_related_datasets_transformation
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_related_datasets_transformation.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+    _ihm_related_datasets_transformation.id                              1
+    _ihm_related_datasets_transformation.rot_matrix[1][1]                1.0
+    _ihm_related_datasets_transformation.rot_matrix[2][1]                0.0
+    _ihm_related_datasets_transformation.rot_matrix[3][1]                0.0
+    _ihm_related_datasets_transformation.rot_matrix[1][2]                0.0
+    _ihm_related_datasets_transformation.rot_matrix[2][2]                1.0
+    _ihm_related_datasets_transformation.rot_matrix[3][2]                0.0
+    _ihm_related_datasets_transformation.rot_matrix[1][3]                0.0
+    _ihm_related_datasets_transformation.rot_matrix[2][3]                0.0
+    _ihm_related_datasets_transformation.rot_matrix[3][3]                1.0
+    _ihm_related_datasets_transformation.tr_vector[1]                    0.0
+    _ihm_related_datasets_transformation.tr_vector[2]                    0.0
+    _ihm_related_datasets_transformation.tr_vector[3]                    0.0
+;
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_related_datasets_transformation
+     save_
+
+save__ihm_related_datasets_transformation.id
+    _item_description.description
+;     A unique identifier for the transformation. 
+;
+    _item.name                  '_ihm_related_datasets_transformation.id'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[1][1]
+    _item_description.description
+;     Data item [1][1] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[1][1]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[2][1]
+    _item_description.description
+;     Data item [2][1] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[2][1]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[3][1]
+    _item_description.description
+;     Data item [3][1] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[3][1]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[1][2]
+    _item_description.description
+;     Data item [1][2] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[1][2]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[2][2]
+    _item_description.description
+;     Data item [2][2] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[2][2]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[3][2]
+    _item_description.description
+;     Data item [3][2] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[3][2]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[1][3]
+    _item_description.description
+;     Data item [1][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[1][3]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[2][3]
+    _item_description.description
+;     Data item [2][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[2][3]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.rot_matrix[3][3]
+    _item_description.description
+;     Data item [3][3] of the rotation matrix used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.rot_matrix[3][3]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         matrix
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.tr_vector[1]
+    _item_description.description
+;     Data item [1] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.tr_vector[1]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         vector
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.tr_vector[2]
+    _item_description.description
+;     Data item [2] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.tr_vector[2]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         vector
+    _item_type.code               float
+     save_
+
+save__ihm_related_datasets_transformation.tr_vector[3]
+    _item_description.description
+;     Data item [3] of the translation vector used in the transformation.
+;
+    _item.name                  '_ihm_related_datasets_transformation.tr_vector[3]'
+    _item.category_id             ihm_related_datasets_transformation
+    _item.mandatory_code          no
+    _item_sub_category.id         vector
+    _item_type.code               float
      save_
 
 ######################################
