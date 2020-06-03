@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 19-MAR-2020
+#  Date: 03-JUN-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.09
+    _dictionary.version         1.10
 #
      loop_
     _dictionary_history.version
@@ -491,6 +491,14 @@ data_ihm-extension.dic
   Changes (bv):
   + Added ihm_data_transformation
   + Added _ihm_related_datasets.transformation_id
+;
+    1.10  2020-06-03
+;
+  Changes (bv):
+  + Added ihm_derived_angle_restraint, ihm_derived_dihedral_restraint
+  + Added _ihm_derived_distance_restraint.distance_threshold_mean
+  + Added _ihm_derived_distance_restraint.distance_threshold_esd
+  + Updated enumeration for _ihm_derived_distance_restraint.restraint_type
 ;
 
 #########################
@@ -10950,6 +10958,7 @@ save__ihm_derived_distance_restraint.restraint_type
         'lower bound' 
         'upper bound' 
         'lower and upper bound' 
+        'harmonic'
      save_
 
 save__ihm_derived_distance_restraint.mic_value
@@ -10963,6 +10972,28 @@ save__ihm_derived_distance_restraint.mic_value
     _item.category_id             ihm_derived_distance_restraint
     _item.mandatory_code          no
     _item_type.code               float
+     save_
+
+save__ihm_derived_distance_restraint.distance_threshold_mean
+    _item_description.description
+;     The distance threshold mean applied to the restraint. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.distance_threshold_mean'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
+     save_
+
+save__ihm_derived_distance_restraint.distance_threshold_esd
+    _item_description.description
+;     The estimated standard deviation of the distance threshold applied to the restraint. 
+;
+    _item.name                  '_ihm_derived_distance_restraint.distance_threshold_esd'
+    _item.category_id             ihm_derived_distance_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              angstroms
      save_
 
 save__ihm_derived_distance_restraint.dataset_list_id
@@ -10981,6 +11012,509 @@ save__ihm_derived_distance_restraint.dataset_list_id
     _pdbx_item.mandatory_code     yes
     _item_type.code               int
     _item_linked.child_name       '_ihm_derived_distance_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+#################################
+## IHM_DERIVED_ANGLE_RESTRAINT ##
+#################################
+
+save_ihm_derived_angle_restraint
+    _category.description
+;              Data items in the IHM_DERIVED_ANGLE_RESTRAINT category records the
+               list of angle restraints used in the integrative modeling experiment. 
+               These angle restraints may be derived from various kinds of experiments. 
+;
+    _category.id                  ihm_derived_angle_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_derived_angle_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_derived_angle_restraint.id
+        _ihm_derived_angle_restraint.feature_id_1
+        _ihm_derived_angle_restraint.feature_id_2
+        _ihm_derived_angle_restraint.feature_id_3
+        _ihm_derived_angle_restraint.restraint_type
+        _ihm_derived_angle_restraint.harmonic_angle_threshold_mean
+        _ihm_derived_angle_restraint.harmonic_angle_threshold_esd
+        _ihm_derived_angle_restraint.dataset_list_id
+         1  9 17  1 'harmonic' 114.6 1.0 5
+         2 10 18  2 'harmonic' 116.9 1.0 5
+         3 11 19  3 'harmonic' 112.9 1.0 5
+         4 12 20  4 'harmonic' 108.9 1.0 5
+         5 13 21  5 'harmonic' 114.6 1.0 5
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_derived_angle_restraint
+     save_
+
+save__ihm_derived_angle_restraint.id
+    _item_description.description
+;     A unique identifier for the derived angle restraint.
+;
+    _item.name                  '_ihm_derived_angle_restraint.id'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_derived_angle_restraint.group_id
+    _item_description.description
+;     An identifier to group the angle restraints. 
+      This can be the same as the _ihm_derived_angle_restraint.id in case
+      the restraints are not grouped.  
+;
+    _item.name                  '_ihm_derived_angle_restraint.group_id'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               int  
+     save_
+
+save__ihm_derived_angle_restraint.feature_id_1
+    _item_description.description
+;     The feature identifier for the first partner in the angle restraint. 
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.feature_id_1'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_angle_restraint.feature_id_1'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_angle_restraint.feature_id_2
+    _item_description.description
+;     The feature identifier for the second partner in the angle restraint.
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_derived_angle_restraint.feature_id_2'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_angle_restraint.feature_id_2'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_angle_restraint.feature_id_3
+    _item_description.description
+;     The feature identifier for the third partner in the angle restraint.
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_derived_angle_restraint.feature_id_3'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_angle_restraint.feature_id_3'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_angle_restraint.group_conditionality
+    _item_description.description
+;     If a group of angles are restrained together, this data item defines 
+      the conditionality based on which the restraint is applied in the modeling. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.group_conditionality'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'ALL'  'All angles in the group are required to be satisfied'
+        'ANY'  'Any one of the angles in the group could be satisfied'
+     save_
+
+save__ihm_derived_angle_restraint.angle_lower_limit
+    _item_description.description
+;     The lower limit to the threshold applied to this angle restraint
+      in the integrative modeling task.
+;
+    _item.name                  '_ihm_derived_angle_restraint.angle_lower_limit'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_angle_restraint.angle_upper_limit
+    _item_description.description
+;     The upper limit to the threshold applied to this angle restraint
+      in the integrative modeling task.
+;
+    _item.name                  '_ihm_derived_angle_restraint.angle_upper_limit'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_angle_restraint.angle_lower_limit_esd
+    _item_description.description
+;     The estimated standard deviation of the lower limit angle threshold applied.
+;
+    _item.name                  '_ihm_derived_angle_restraint.angle_lower_limit_esd'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_angle_restraint.angle_upper_limit_esd
+    _item_description.description
+;     The estimated standard deviation of the upper limit angle threshold applied.
+;
+    _item.name                  '_ihm_derived_angle_restraint.angle_upper_limit_esd'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_angle_restraint.probability
+    _item_description.description
+;      The real number that indicates the probability that the angle restraint 
+       is correct. This number should fall between 0.0 and 1.0. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.probability'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    loop_
+    _item_range.minimum
+    _item_range.maximum
+        0.0   0.0
+        0.0   1.0
+        1.0   1.0
+     save_
+
+save__ihm_derived_angle_restraint.restraint_type
+    _item_description.description
+;     The type of angle restraint applied. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.restraint_type'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+        'lower bound' 
+        'upper bound' 
+        'lower and upper bound' 
+        'harmonic'
+     save_
+
+save__ihm_derived_angle_restraint.angle_threshold_mean
+    _item_description.description
+;     The angle threshold mean applied to the restraint. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.angle_threshold_mean'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_angle_restraint.angle_threshold_esd
+    _item_description.description
+;     The estimated standard deviation of the angle threshold applied to the restraint. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.angle_threshold_esd'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_angle_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the input data from which the angle restraint is derived.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_derived_angle_restraint.dataset_list_id'
+    _item.category_id             ihm_derived_angle_restraint
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_derived_angle_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+####################################
+## IHM_DERIVED_DIHEDRAL_RESTRAINT ##
+####################################
+
+save_ihm_derived_dihedral_restraint
+    _category.description
+;              Data items in the IHM_DERIVED_DIHEDRAL_RESTRAINT category records the
+               list of dihedral restraints used in the integrative modeling experiment. 
+               These dihedral restraints may be derived from various kinds of experiments. 
+;
+    _category.id                  ihm_derived_dihedral_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_derived_dihedral_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_derived_dihedral_restraint.id
+        _ihm_derived_dihedral_restraint.feature_id_1
+        _ihm_derived_dihedral_restraint.feature_id_2
+        _ihm_derived_dihedral_restraint.feature_id_3
+        _ihm_derived_dihedral_restraint.feature_id_4
+        _ihm_derived_dihedral_restraint.restraint_type
+        _ihm_derived_dihedral_restraint.harmonic_dihedral_threshold_mean
+        _ihm_derived_dihedral_restraint.harmonic_dihedral_threshold_esd
+        _ihm_derived_dihedral_restraint.dataset_list_id
+         1 25  9 17  1 'harmonic'  56.1 2.3 6
+         2 26 10 18  2 'harmonic' -52.7 2.3 6
+         3 27 11 19  3 'harmonic' -71.6 2.3 6
+         4 28 12 20  4 'harmonic'  58.4 2.3 6
+         5 29 13 21  5 'harmonic'  56.1 2.3 6
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_derived_dihedral_restraint
+     save_
+
+save__ihm_derived_dihedral_restraint.id
+    _item_description.description
+;     A unique identifier for the derived dihedral restraint.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.id'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_derived_dihedral_restraint.group_id
+    _item_description.description
+;     An identifier to group the dihedral restraints. 
+      This can be the same as the _ihm_derived_dihedral_restraint.id in case
+      the restraints are not grouped.  
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.group_id'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               int  
+     save_
+
+save__ihm_derived_dihedral_restraint.feature_id_1
+    _item_description.description
+;     The feature identifier for the first partner in the dihedral restraint. 
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.feature_id_1'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_dihedral_restraint.feature_id_1'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_dihedral_restraint.feature_id_2
+    _item_description.description
+;     The feature identifier for the second partner in the dihedral restraint.
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.feature_id_2'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_dihedral_restraint.feature_id_2'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_dihedral_restraint.feature_id_3
+    _item_description.description
+;     The feature identifier for the third partner in the dihedral restraint.
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.feature_id_3'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_dihedral_restraint.feature_id_3'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_dihedral_restraint.feature_id_4
+    _item_description.description
+;     The feature identifier for the fourth partner in the dihedral restraint.
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.feature_id_4'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_derived_dihedral_restraint.feature_id_4'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_derived_dihedral_restraint.group_conditionality
+    _item_description.description
+;     If a group of dihedrals are restrained together, this data item defines 
+      the conditionality based on which the restraint is applied in the modeling. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.group_conditionality'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+        'ALL'  'All dihedrals in the group are required to be satisfied'
+        'ANY'  'Any one of the dihedrals in the group could be satisfied'
+     save_
+
+save__ihm_derived_dihedral_restraint.dihedral_lower_limit
+    _item_description.description
+;     The lower limit to the threshold applied to this dihedral restraint
+      in the integrative modeling task.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dihedral_lower_limit'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_dihedral_restraint.dihedral_upper_limit
+    _item_description.description
+;     The upper limit to the threshold applied to this dihedral restraint
+      in the integrative modeling task.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dihedral_upper_limit'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_dihedral_restraint.dihedral_lower_limit_esd
+    _item_description.description
+;     The estimated standard deviation of the lower limit dihedral threshold applied.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dihedral_lower_limit_esd'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_dihedral_restraint.dihedral_upper_limit_esd
+    _item_description.description
+;     The estimated standard deviation of the upper limit dihedral threshold applied.
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dihedral_upper_limit_esd'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_dihedral_restraint.probability
+    _item_description.description
+;      The real number that indicates the probability that the dihedral restraint 
+       is correct. This number should fall between 0.0 and 1.0. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.probability'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    loop_
+    _item_range.minimum
+    _item_range.maximum
+        0.0   0.0
+        0.0   1.0
+        1.0   1.0
+     save_
+
+save__ihm_derived_dihedral_restraint.restraint_type
+    _item_description.description
+;     The type of dihedral restraint applied. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.restraint_type'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          yes
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+        'lower bound' 
+        'upper bound' 
+        'lower and upper bound' 
+        'harmonic'
+     save_
+
+save__ihm_derived_dihedral_restraint.dihedral_threshold_mean
+    _item_description.description
+;     The dihedral threshold mean applied to the restraint. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dihedral_threshold_mean'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_dihedral_restraint.dihedral_threshold_esd
+    _item_description.description
+;     The estimated standard deviation of the dihedral threshold applied to the restraint. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dihedral_threshold_esd'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              degrees
+     save_
+
+save__ihm_derived_dihedral_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the input data from which the dihedral restraint is derived.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category. 
+;
+    _item.name                  '_ihm_derived_dihedral_restraint.dataset_list_id'
+    _item.category_id             ihm_derived_dihedral_restraint
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_derived_dihedral_restraint.dataset_list_id'
     _item_linked.parent_name      '_ihm_dataset_list.id'
      save_
 
@@ -11036,7 +11570,7 @@ save__ihm_geometric_object_list.object_id
 
 save__ihm_geometric_object_list.object_type
     _item_description.description
-;     The type of geomtric object. 
+;     The type of geometric object. 
 ;
     _item.name                  '_ihm_geometric_object_list.object_type'
     _item.category_id             ihm_geometric_object_list
