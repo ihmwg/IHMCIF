@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 03-JUN-2020
+#  Date: 04-JUN-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -492,13 +492,14 @@ data_ihm-extension.dic
   + Added ihm_data_transformation
   + Added _ihm_related_datasets.transformation_id
 ;
-    1.10  2020-06-03
+    1.10  2020-06-04
 ;
   Changes (bv):
   + Added ihm_derived_angle_restraint, ihm_derived_dihedral_restraint
   + Added _ihm_derived_distance_restraint.distance_threshold_mean
   + Added _ihm_derived_distance_restraint.distance_threshold_esd
   + Updated enumeration for _ihm_derived_distance_restraint.restraint_type
+  + Updated enumeration for _ihm_dataset_list.data_type
 ;
 
 #########################
@@ -4145,6 +4146,7 @@ save__ihm_dataset_list.data_type
       '3DEM volume'
       '2DEM class average'
       'EM raw micrographs'
+      'X-ray diffraction data'
       'SAS data'
       'CX-MS data'
       'Mass Spectrometry data'
