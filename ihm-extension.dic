@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 04-JUN-2020
+#  Date: 03-JUL-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.10
+    _dictionary.version         1.11
 #
      loop_
     _dictionary_history.version
@@ -500,6 +500,11 @@ data_ihm-extension.dic
   + Added _ihm_derived_distance_restraint.distance_threshold_esd
   + Updated enumeration for _ihm_derived_distance_restraint.restraint_type
   + Updated enumeration for _ihm_dataset_list.data_type
+;
+    1.11  2020-07-03
+;
+  Changes (bv):
+  + Added ihm_hdx_restraint
 ;
 
 #########################
@@ -8610,6 +8615,115 @@ save__ihm_sas_restraint.details
 ;
     _item.name                  '_ihm_sas_restraint.details'
     _item.category_id             ihm_sas_restraint
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+#######################
+## IHM_HDX_RESTRAINT ##
+#######################
+
+save_ihm_hdx_restraint
+    _category.description
+;              Data items in the IHM_HDX_RESTRAINT category captures the
+               details of restraints derived from Hydrogen-Deuterium
+               Exchange experiments. 
+;
+    _category.id                  ihm_hdx_restraint
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_hdx_restraint.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        loop_
+        _ihm_hdx_restraint.id
+        _ihm_hdx_restraint.feature_id
+        _ihm_hdx_restraint.protection_factor
+        _ihm_hdx_restraint.dataset_list_id
+        _ihm_hdx_restraint.details
+          1   1    1.0  6   .
+          2   2    1.0  6   .
+          3   3    1.0  6   .
+          4   4    1.0  6   . 
+          5   5    1.0  6   .
+          6   6    1.0  6   .
+          7   7    1.0  6   .
+          8   8    1.0  6   .
+          9   9    1.0  6   .
+         # ...  abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_hdx_restraint
+     save_
+
+save__ihm_hdx_restraint.id
+    _item_description.description
+;     A unique identifier for the category. 
+;
+    _item.name                  '_ihm_hdx_restraint.id'
+    _item.category_id             ihm_hdx_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_hdx_restraint.feature_id
+    _item_description.description
+;     Identifier for the peptide / residue feature.
+      This data item is a pointer to _ihm_feature_list.feature_id in the
+      IHM_FEATURE_LIST category.
+;
+    _item.name                  '_ihm_hdx_restraint.feature_id'
+    _item.category_id             ihm_hdx_restraint
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_hdx_restraint.feature_id'
+    _item_linked.parent_name    '_ihm_feature_list.feature_id'
+     save_
+
+save__ihm_hdx_restraint.protection_factor
+    _item_description.description
+;     The value of the protection factor determined from HDX experiments. 
+      These are reported as log(protection factor). Protection factors
+      are scaling factors and are unitless. 
+;
+    _item.name                  '_ihm_hdx_restraint.protection_factor'
+    _item.category_id             ihm_hdx_restraint
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_hdx_restraint.dataset_list_id
+    _item_description.description
+;     Identifier to the HDX input data from which the restraints are derived.
+      This data item is a pointer to the _ihm_dataset_list.id in the
+      IHM_DATASET_LIST category.
+;
+    _item.name                  '_ihm_hdx_restraint.dataset_list_id'
+    _item.category_id             ihm_hdx_restraint
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
+    _item_type.code               int
+    _item_linked.child_name       '_ihm_hdx_restraint.dataset_list_id'
+    _item_linked.parent_name      '_ihm_dataset_list.id'
+     save_
+
+save__ihm_hdx_restraint.details
+    _item_description.description
+;     Additional details regarding the HDX restraint. 
+;
+    _item.name                  '_ihm_hdx_restraint.details'
+    _item.category_id             ihm_hdx_restraint
     _item.mandatory_code          no
     _item_type.code               text
      save_
