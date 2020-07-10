@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 03-JUL-2020
+#  Date: 10-JUL-2020
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.11
+    _dictionary.version         1.12
 #
      loop_
     _dictionary_history.version
@@ -505,6 +505,12 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Added ihm_hdx_restraint
+;
+
+    1.12  2020-07-10
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
 ;
 
 #########################
@@ -7040,6 +7046,8 @@ save__ihm_cross_link_list.linker_type
                  'BMSO'     'bismaleimide sulfoxide crosslinker'
                  'DHSO'     'dihydrazide sulfoxide crosslinker'
                  'CYS'      'Cysteine crosslinker'
+                 'SDA'      "succinimidyl 4,4'-azipentanoate"
+                 'DSA'      'DiSuccinimidyl Adipate'
                  'Other'    'Other type of crosslinker'
      save_
 
