@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 28-JAN-2021
+#  Date: 4-MAR-2021
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.13
+    _dictionary.version         1.14
 #
      loop_
     _dictionary_history.version
@@ -513,6 +513,11 @@ data_ihm-extension.dic
   + Added enumerations to _ihm_cross_link_list.linker_type
 ;
     1.13  2021-01-28
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.14  2021-03-04
 ;
   Changes (bv):
   + Added enumerations to _ihm_cross_link_list.linker_type
@@ -7054,6 +7059,7 @@ save__ihm_cross_link_list.linker_type
                  'SDA'      "succinimidyl 4,4'-azipentanoate"
                  'DSA'      'DiSuccinimidyl Adipate'
                  'BrdU'     "5-bromo-2'-deoxyuridine"
+                 'LCSDA'    "succinimidyl 6-(4,4'-azipentanamido)hexanoate"
                  'Other'    'Other type of crosslinker'
      save_
 
