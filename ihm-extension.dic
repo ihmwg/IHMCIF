@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 4-MAR-2021
+#  Date: 16-MAR-2021
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.14
+    _dictionary.version         1.15
 #
      loop_
     _dictionary_history.version
@@ -521,6 +521,11 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.15  2021-03-16
+;
+  Changes (bv):
+  + Added enumerations to _ihm_dataset_related_db_reference.db_name
 ;
 
 #########################
@@ -4751,6 +4756,7 @@ save__ihm_dataset_related_db_reference.db_name
       'MODEL ARCHIVE'
       'MASSIVE'
       'BioGRID'
+      'ProXL'
       'Other'
      save_
 
