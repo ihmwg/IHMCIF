@@ -549,6 +549,7 @@ data_ihm-extension.dic
   Changes (bv):
   + Added ihm_multi_state_scheme, ihm_multi_state_scheme_connectivity
   + Added ihm_kinetic_rate, ihm_relaxation_time, ihm_relaxation_time_multi_state_scheme
+  + Updated item_units_list
 ;
 
 #########################
@@ -643,6 +644,7 @@ data_ihm-extension.dic
      'angstroms_squared'      'Angstroms squared (metres * 10^(-10)^)^2^'
      '8pi2_angstroms_squared' '8pi^2^ * Angstroms squared (metres * 10^(-10)^)^2^'
      'reciprocal_seconds'     'reciprocal seconds (seconds^(-1)^)'
+     'nanoseconds'            'nanoseconds (seconds * 10^( -9)^)'
 
 #####################
 ## ENTITY_POLY_SEQ ##
