@@ -13095,7 +13095,7 @@ save__ihm_kinetic_rate.id
     _item_description.description
 ;     An identifier for the kinetic rate.
 ;
-    _item.name                  '_ihm_kinetic_rate.id' ## connects to fret_analysis_id
+    _item.name                  '_ihm_kinetic_rate.id' 
     _item.category_id             ihm_kinetic_rate
     _item.mandatory_code          yes
     _item_type.code               int
@@ -13238,7 +13238,7 @@ save__ihm_relaxation_time.id
     _item_description.description
 ;     A unique identifier for the relaxation time.
 ;
-    _item.name                  '_ihm_relaxation_time.id' ##connects to fret_analysis_id
+    _item.name                  '_ihm_relaxation_time.id' 
     _item.category_id             ihm_relaxation_time
     _item.mandatory_code          yes
     _item_type.code               int
