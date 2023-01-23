@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 20-DEC-2022
+#  Date: 23-JAN-2023
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -544,7 +544,7 @@ data_ihm-extension.dic
   + Added enumerations to _ihm_dataset_list.data_type and _ihm_ensemble_info.ensemble_clustering_method
   + Added ihm_entry_collection and ihm_entry_collection_mapping
 ;
-    1.19  2022-12-20
+    1.19  2023-01-23
 ;
   Changes (bv):
   + Added ihm_multi_state_scheme, ihm_multi_state_scheme_connectivity
@@ -13050,6 +13050,20 @@ save__ihm_multi_state_scheme_connectivity.end_state_id
     _item_linked.parent_name    '_ihm_multi_state_modeling.state_id'
      save_
 
+save__ihm_multi_state_scheme_connectivity.dataset_group_id
+    _item_description.description
+;     Identifier for the dataset group from which the multi state scheme is obtained.
+      This data item is a pointer to _ihm_dataset_group.id in the
+      IHM_DATASET_GROUP data category.
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.dataset_group_id'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_scheme_connectivity.dataset_group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.id'
+     save_
+
 save__ihm_multi_state_scheme_connectivity.details
     _item_description.description
 ;     Details about the multi-state scheme connectivity.
@@ -13281,6 +13295,34 @@ save__ihm_relaxation_time.amplitude
     _item_type.code               float
      save_
 
+save__ihm_relaxation_time.dataset_group_id
+    _item_description.description
+;     Identifier for the dataset group from which the relaxation time is obtained.
+      This data item is a pointer to _ihm_dataset_group.id in the
+      IHM_DATASET_GROUP data category.
+;
+    _item.name                  '_ihm_relaxation_time.dataset_group_id'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time.dataset_group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.id'
+     save_
+
+save__ihm_relaxation_time.external_file_id
+    _item_description.description
+;     Identifier for the external file corresponding to the relaxation time measurement.
+      This data item is a pointer to _ihm_external_files.id in the
+      IHM_EXTERNAL_FILES data category.
+;
+    _item.name                  '_ihm_relaxation_time.external_file_id'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time.external_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
 save__ihm_relaxation_time.details
     _item_description.description
 ;     Additional details regarding the relaxation time.
@@ -13373,34 +13415,6 @@ save__ihm_relaxation_time_multi_state_scheme.scheme_connectivity_id
     _item_type.code               int
     _item_linked.child_name     '_ihm_relaxation_time_multi_state_scheme.scheme_connectivity_id'
     _item_linked.parent_name    '_ihm_multi_state_scheme_connectivity.id'
-     save_
-
-save__ihm_relaxation_time_multi_state_scheme.dataset_group_id
-    _item_description.description
-;     Identifier for the dataset group from which the relaxation time is obtained.
-      This data item is a pointer to _ihm_dataset_group.id in the
-      IHM_DATASET_GROUP data category.
-;
-    _item.name                  '_ihm_relaxation_time_multi_state_scheme.dataset_group_id'
-    _item.category_id             ihm_relaxation_time_multi_state_scheme
-    _item.mandatory_code          yes
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_relaxation_time_multi_state_scheme.dataset_group_id'
-    _item_linked.parent_name    '_ihm_dataset_group.id'
-     save_
-
-save__ihm_relaxation_time_multi_state_scheme.external_file_id
-    _item_description.description
-;     Identifier for the external file corresponding to the relaxation time measurement.
-      This data item is a pointer to _ihm_external_files.id in the
-      IHM_EXTERNAL_FILES data category. 
-;
-    _item.name                  '_ihm_relaxation_time_multi_state_scheme.external_file_id'
-    _item.category_id             ihm_relaxation_time_multi_state_scheme
-    _item.mandatory_code          no
-    _item_type.code               int
-    _item_linked.child_name     '_ihm_relaxation_time_multi_state_scheme.external_file_id'
-    _item_linked.parent_name    '_ihm_external_files.id'
      save_
 
 save__ihm_relaxation_time_multi_state_scheme.details
