@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 20-DEC-2022
+#  Date: 2-FEB-2023
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.18
+    _dictionary.version         1.19
 #
      loop_
     _dictionary_history.version
@@ -543,6 +543,11 @@ data_ihm-extension.dic
   + Added _ihm_ensemble_info.model_group_superimposed_flag 
   + Added enumerations to _ihm_dataset_list.data_type and _ihm_ensemble_info.ensemble_clustering_method
   + Added ihm_entry_collection and ihm_entry_collection_mapping
+;
+    1.19  2023-02-02
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type and _ihm_dataset_related_db_reference.db_name
 ;
 
 #########################
@@ -4790,6 +4795,7 @@ save__ihm_dataset_related_db_reference.db_name
       'MASSIVE'
       'BioGRID'
       'ProXL'
+      'jPOSTrepo'
       'Other'
      save_
 
@@ -7101,6 +7107,7 @@ save__ihm_cross_link_list.linker_type
                  'LCSDA'    "succinimidyl 6-(4,4'-azipentanamido)hexanoate"
                  'CDI'      "1,1'-carbonyldiimidazole"
                  'ADH'      '(1Z,6Z)-Hexanedihydrazonic acid'
+                 'L-Photo-Leucine' 'L-Photo-Leucine crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
