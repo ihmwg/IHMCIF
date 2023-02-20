@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 2-FEB-2023
+#  Date: 19-FEB-2023
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.19
+    _dictionary.version         1.20
 #
      loop_
     _dictionary_history.version
@@ -549,6 +549,13 @@ data_ihm-extension.dic
   Changes (bv):
   + Added enumerations to _ihm_cross_link_list.linker_type and _ihm_dataset_related_db_reference.db_name
 ;
+    1.20  2023-02-19
+;
+  Changes (bv):
+  + Updated category keys for ihm_entry_collection_mapping
+  + Added enumerations to _ihm_cross_link_list.linker_type and _ihm_dataset_related_db_reference.db_name
+  + Add nanoseconds to item_units_list
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -642,6 +649,7 @@ data_ihm-extension.dic
      'angstroms_squared'      'Angstroms squared (metres * 10^(-10)^)^2^'
      '8pi2_angstroms_squared' '8pi^2^ * Angstroms squared (metres * 10^(-10)^)^2^'
      'reciprocal_seconds'     'reciprocal seconds (seconds^(-1)^)'
+     'nanoseconds'            'nanoseconds  (seconds * 10^( -9)^)' 
 
 #####################
 ## ENTITY_POLY_SEQ ##
@@ -4796,6 +4804,7 @@ save__ihm_dataset_related_db_reference.db_name
       'BioGRID'
       'ProXL'
       'jPOSTrepo'
+      'iProX'
       'Other'
      save_
 
@@ -7108,6 +7117,7 @@ save__ihm_cross_link_list.linker_type
                  'CDI'      "1,1'-carbonyldiimidazole"
                  'ADH'      '(1Z,6Z)-Hexanedihydrazonic acid'
                  'L-Photo-Leucine' 'L-Photo-Leucine crosslinker'
+                 'KArGO'    'arginine-lysine hetero-bifunctional aromatic glyoxal crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
@@ -12836,7 +12846,8 @@ save_ihm_entry_collection_mapping
     _category.id                  ihm_entry_collection_mapping
     _category.mandatory_code      no
      loop_
-    _category_key.name          '_ihm_entry_collection_mapping.id'
+    _category_key.name          '_ihm_entry_collection_mapping.collection_id'
+                                '_ihm_entry_collection_mapping.entry_id'
 
     loop_
     _category_group.id           'inclusive_group'
@@ -12850,27 +12861,15 @@ save_ihm_entry_collection_mapping
 ;
 ;
         loop_
-        _ihm_entry_collection_mapping.id
         _ihm_entry_collection_mapping.collection_id
         _ihm_entry_collection_mapping.entry_id
-         1  1  PDBDEV_00000010
-         2  1  PDBDEV_00000011
-         3  1  PDBDEV_00000012
+         PDBDEV_G_1000001  PDBDEV_00000165
+         PDBDEV_G_1000001  PDBDEV_00000198
          # ...  abbreviated ...
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    _pdbx_category_context.type         CONTRIBUTED
    _pdbx_category_context.category_id  ihm_entry_collection_mapping
-     save_
-
-save__ihm_entry_collection_mapping.id
-    _item_description.description
-;     A unique identifier for the entry collection mapping.
-;
-    _item.name                  '_ihm_entry_collection_mapping.id'
-    _item.category_id             ihm_entry_collection_mapping
-    _item.mandatory_code          yes
-    _item_type.code               int
      save_
 
 save__ihm_entry_collection_mapping.collection_id
