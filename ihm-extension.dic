@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 19-FEB-2023
+#  Date: 24-MAR-2023
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.20
+    _dictionary.version         1.21
 #
      loop_
     _dictionary_history.version
@@ -555,6 +555,11 @@ data_ihm-extension.dic
   + Updated category keys for ihm_entry_collection_mapping
   + Added enumerations to _ihm_cross_link_list.linker_type and _ihm_dataset_related_db_reference.db_name
   + Add nanoseconds to item_units_list
+;
+    1.21  2023-03-24
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
 ;
 
 #########################
@@ -7118,6 +7123,7 @@ save__ihm_cross_link_list.linker_type
                  'ADH'      '(1Z,6Z)-Hexanedihydrazonic acid'
                  'L-Photo-Leucine' 'L-Photo-Leucine crosslinker'
                  'KArGO'    'arginine-lysine hetero-bifunctional aromatic glyoxal crosslinker'
+                 'BrEtY'    'O-(2-bromoethyl)-tyrosine (non-canonical amino acid)'
                  'Other'    'Other type of crosslinker'
      save_
 
