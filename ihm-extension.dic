@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 24-MAR-2023
+#  Date: 26-MAY-2023
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.21
+    _dictionary.version         1.22
 #
      loop_
     _dictionary_history.version
@@ -560,6 +560,11 @@ data_ihm-extension.dic
 ;
   Changes (bv):
   + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.22  2023-05-26
+;
+  Changes (bv):
+  + Added enumerations to _ihm_dataset_related_db_reference.db_name
 ;
 
 #########################
@@ -4810,6 +4815,7 @@ save__ihm_dataset_related_db_reference.db_name
       'ProXL'
       'jPOSTrepo'
       'iProX'
+      'AlphaFoldDB'
       'Other'
      save_
 
