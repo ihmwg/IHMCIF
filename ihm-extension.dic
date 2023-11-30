@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------------------------------------------------------------
 #
 #  File: ihm-extension.dic
-#  Date: 5-JUL-2023
+#  Date: 30-NOV-2023
 #
 #  Dictionary extension for integrative/hybrid models.
 #
@@ -23,7 +23,7 @@ data_ihm-extension.dic
 
     _dictionary.title           ihm-extension.dic
     _dictionary.datablock_id    ihm-extension.dic
-    _dictionary.version         1.23
+    _dictionary.version         1.24
 #
      loop_
     _dictionary_history.version
@@ -571,6 +571,12 @@ data_ihm-extension.dic
   Changes (bv):
   + Added enumerations to _ihm_cross_link_list.linker_type
 ;
+    1.24  2023-11-30
+;
+  Changes (bv):
+  + Added ihm_multi_state_scheme, ihm_multi_state_scheme_connectivity
+  + Added ihm_kinetic_rate, ihm_relaxation_time, ihm_relaxation_time_multi_state_scheme
+;
 
 #########################
 ## CATEGORY_GROUP_LIST ##
@@ -664,7 +670,7 @@ data_ihm-extension.dic
      'angstroms_squared'      'Angstroms squared (metres * 10^(-10)^)^2^'
      '8pi2_angstroms_squared' '8pi^2^ * Angstroms squared (metres * 10^(-10)^)^2^'
      'reciprocal_seconds'     'reciprocal seconds (seconds^(-1)^)'
-     'nanoseconds'            'nanoseconds  (seconds * 10^( -9)^)' 
+     'nanoseconds'            'nanoseconds (seconds * 10^( -9)^)'
 
 #####################
 ## ENTITY_POLY_SEQ ##
@@ -12918,4 +12924,529 @@ save__ihm_entry_collection_mapping.entry_id
     _item_type.code               code
     _item_linked.child_name     '_ihm_entry_collection_mapping.entry_id'
     _item_linked.parent_name    '_entry.id'
+     save_
+
+############################
+## IHM_MULTI_STATE_SCHEME ##
+############################
+
+save_ihm_multi_state_scheme
+    _category.description
+;              Data items in the IHM_MULTI_STATE_SCHEME category provide details about
+               collection of multiple states that can form a connected/ordered scheme. 
+;
+    _category.id                  ihm_multi_state_scheme
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_multi_state_scheme.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_multi_state_scheme
+     save_
+
+save__ihm_multi_state_scheme.id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_multi_state_scheme.id'
+    _item.category_id             ihm_multi_state_scheme
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_multi_state_scheme.name
+    _item_description.description
+;     Name for the multi-state scheme.
+;
+    _item.name                  '_ihm_multi_state_scheme.name'
+    _item.category_id             ihm_multi_state_scheme
+    _item.mandatory_code          no   
+    _item_type.code               line
+     save_
+
+save__ihm_multi_state_scheme.details
+    _item_description.description
+;     Details about the multi-state scheme.
+;
+    _item.name                  '_ihm_multi_state_scheme.details'
+    _item.category_id             ihm_multi_state_scheme
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+#########################################
+## IHM_MULTI_STATE_SCHEME_CONNECTIVITY ##
+#########################################
+
+save_ihm_multi_state_scheme_connectivity
+    _category.description
+;              Data items in the IHM_MULTI_STATE_SCHEME_CONNECTIVITY category record the
+               details of the ordered connectivities among states in a multi-state scheme.
+;
+    _category.id                  ihm_multi_state_scheme_connectivity
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_multi_state_scheme_connectivity.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_multi_state_scheme_connectivity
+     save_
+
+save__ihm_multi_state_scheme_connectivity.id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.id'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_multi_state_scheme_connectivity.scheme_id 
+    _item_description.description
+;     An identifier for the multi-state scheme.
+      This data item is a pointer to _ihm_multi_state_scheme.id in the
+      IHM_MULTI_STATE_SCHEME data category. 
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.scheme_id'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          yes  
+    _item_type.code               int  
+    _item_linked.child_name     '_ihm_multi_state_scheme_connectivity.scheme_id'
+    _item_linked.parent_name    '_ihm_multi_state_scheme.id'
+     save_
+
+save__ihm_multi_state_scheme_connectivity.begin_state_id
+    _item_description.description
+;     An identifier for the starting state in the multi-state scheme.
+      This data item is a pointer to _ihm_multi_state_modeling.state_id
+      in the IHM_MULTI_STATE_MODELING data category. 
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.begin_state_id'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          yes  
+    _item_type.code               int  
+    _item_linked.child_name     '_ihm_multi_state_scheme_connectivity.begin_state_id'
+    _item_linked.parent_name    '_ihm_multi_state_modeling.state_id'
+     save_
+
+save__ihm_multi_state_scheme_connectivity.end_state_id
+    _item_description.description
+;     An identifier for the ending state in the multi-state scheme.
+      This data item is a pointer to _ihm_multi_state_modeling.state_id
+      in the IHM_MULTI_STATE_MODELING data category.
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.end_state_id'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          no  
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_scheme_connectivity.end_state_id'
+    _item_linked.parent_name    '_ihm_multi_state_modeling.state_id'
+     save_
+
+save__ihm_multi_state_scheme_connectivity.dataset_group_id
+    _item_description.description
+;     Identifier for the dataset group from which the multi state scheme is obtained.
+      This data item is a pointer to _ihm_dataset_group.id in the
+      IHM_DATASET_GROUP data category.
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.dataset_group_id'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_multi_state_scheme_connectivity.dataset_group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.id'
+     save_
+
+save__ihm_multi_state_scheme_connectivity.details
+    _item_description.description
+;     Details about the multi-state scheme connectivity.
+;
+    _item.name                  '_ihm_multi_state_scheme_connectivity.details'
+    _item.category_id             ihm_multi_state_scheme_connectivity
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+#####################
+# IHM_KINETIC_RATE ##
+#####################
+
+save_ihm_kinetic_rate
+    _category.description
+;              Data items in the IHM_KINETIC_RATE category records the
+               details of kinetic rates obtained from biophysical experiments.
+;
+    _category.id                  ihm_kinetic_rate
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_kinetic_rate.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+
+    #...abbreviated...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_kinetic_rate
+     save_
+
+save__ihm_kinetic_rate.id
+    _item_description.description
+;     An identifier for the kinetic rate.
+;
+    _item.name                  '_ihm_kinetic_rate.id' 
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_kinetic_rate.transition_rate_constant
+    _item_description.description
+;     The transition rate constant per second.
+;
+    _item.name                  '_ihm_kinetic_rate.transition_rate_constant'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          no
+    _item_type.code               float
+    _item_units.code              reciprocal_seconds
+     save_
+
+save__ihm_kinetic_rate.equilibrium_constant
+    _item_description.description
+;     The equilibrium constant.
+;
+    _item.name                  '_ihm_kinetic_rate.equilibrium_constant'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          no
+    _item_type.code               float
+     save_
+
+save__ihm_kinetic_rate.equilibrium_constant_determination_method
+    _item_description.description
+;     Method used to determine the equilibrium constant.
+;
+    _item.name                  '_ihm_kinetic_rate.equilibrium_constant_determination_method'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          no
+    _item_type.code               line
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail
+    'from population'       'equilibrium constant is determined from population'
+    'from kinetic rates'    'equilibrium constant is determined from kinetic rates, kAB/kBA'
+    'other'                 'equilibrium constant is determined from another method not listed'
+     save_
+
+save__ihm_kinetic_rate.equilibrium_constant_unit
+    _item_description.description
+;     Unit of the equilibrium constant, if applicable.
+      If the kinetics describes a conformational change, then the equilibrium constant will not have a unit. 
+      If however a complex is involved, then a unit may be necessary.
+;
+    _item.name                  '_ihm_kinetic_rate.equilibrium_constant_unit'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          no
+    _item_type.code               line
+     save_
+
+save__ihm_kinetic_rate.details
+    _item_description.description
+;     Additional details about the kinetic rate.
+;
+    _item.name                  '_ihm_kinetic_rate.details'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          no
+    _item_type.code               text
+    save_
+
+save__ihm_kinetic_rate.scheme_connectivity_id
+    _item_description.description
+;     Identifier for the multi-state scheme connectivity.
+      This data item is a pointer to _ihm_multi_state_scheme_connectivity.id in the
+      IHM_MULTI_STATE_SCHEME_CONNECTIVITY category.
+;
+    _item.name                  '_ihm_kinetic_rate.scheme_connectivity_id'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_kinetic_rate.scheme_connectivity_id'
+    _item_linked.parent_name    '_ihm_multi_state_scheme_connectivity.id'
+     save_
+
+save__ihm_kinetic_rate.dataset_group_id
+    _item_description.description 
+;     Identifier for the dataset group from which the kinetic rates are obtained.
+      This data item is a pointer to _ihm_dataset_group.id in the
+      IHM_DATASET_GROUP data category.
+;
+    _item.name                  '_ihm_kinetic_rate.dataset_group_id'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          yes
+    _item_type.code               int 
+    _item_linked.child_name     '_ihm_kinetic_rate.dataset_group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.id'
+     save_
+
+save__ihm_kinetic_rate.external_file_id
+    _item_description.description
+;     Identifier for the external file corresponding to the kinetic rate measurement.
+      This data item is a pointer to _ihm_external_files.id in the
+      IHM_EXTERNAL_FILES data category. 
+;
+    _item.name                  '_ihm_kinetic_rate.external_file_id'
+    _item.category_id             ihm_kinetic_rate
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_kinetic_rate.external_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+#########################
+## IHM_RELAXATION_TIME ##
+#########################
+
+save_ihm_relaxation_time
+    _category.description
+;              Data items in the IHM_RELAXATION_TIME category records the details
+               of the relaxation times obtained from biophysical experiments. 
+;
+    _category.id                  ihm_relaxation_time
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_relaxation_time.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_relaxation_time
+     save_
+
+save__ihm_relaxation_time.id
+    _item_description.description
+;     A unique identifier for the relaxation time.
+;
+    _item.name                  '_ihm_relaxation_time.id' 
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_relaxation_time.value
+    _item_description.description
+;     Relaxation time value.
+;
+    _item.name                  '_ihm_relaxation_time.value'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          yes
+    _item_type.code               float
+     save_
+
+save__ihm_relaxation_time.unit
+    _item_description.description
+;     Relaxation time unit.
+;
+    _item.name                  '_ihm_relaxation_time.unit'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          yes
+    _item_type.code               code
+    loop_
+    _item_enumeration.value
+    'seconds'
+    'milliseconds'
+    'microseconds'
+     save_
+
+save__ihm_relaxation_time.amplitude
+    _item_description.description
+;     Relaxation time amplitude.
+;
+    _item.name                  '_ihm_relaxation_time.amplitude'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          no  
+    _item_type.code               float
+     save_
+
+save__ihm_relaxation_time.dataset_group_id
+    _item_description.description
+;     Identifier for the dataset group from which the relaxation time is obtained.
+      This data item is a pointer to _ihm_dataset_group.id in the
+      IHM_DATASET_GROUP data category.
+;
+    _item.name                  '_ihm_relaxation_time.dataset_group_id'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time.dataset_group_id'
+    _item_linked.parent_name    '_ihm_dataset_group.id'
+     save_
+
+save__ihm_relaxation_time.external_file_id
+    _item_description.description
+;     Identifier for the external file corresponding to the relaxation time measurement.
+      This data item is a pointer to _ihm_external_files.id in the
+      IHM_EXTERNAL_FILES data category.
+;
+    _item.name                  '_ihm_relaxation_time.external_file_id'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time.external_file_id'
+    _item_linked.parent_name    '_ihm_external_files.id'
+     save_
+
+save__ihm_relaxation_time.details
+    _item_description.description
+;     Additional details regarding the relaxation time.
+;
+    _item.name                  '_ihm_relaxation_time.details'
+    _item.category_id             ihm_relaxation_time
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+############################################
+## IHM_RELAXATION_TIME_MULTI_STATE_SCHEME ##
+############################################
+
+save_ihm_relaxation_time_multi_state_scheme
+    _category.description
+;              Data items in the IHM_RELAXATION_TIME_MULTI_STATE_SCHEME category map the experimentally
+               measured relaxation times with the multi-state schemes. 
+;
+    _category.id                  ihm_relaxation_time_multi_state_scheme 
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_relaxation_time_multi_state_scheme.id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 -
+;
+;
+        # ... abbreviated ...
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_relaxation_time_multi_state_scheme
+     save_
+
+save__ihm_relaxation_time_multi_state_scheme.id
+    _item_description.description
+;     A unique identifier for the category.
+;
+    _item.name                  '_ihm_relaxation_time_multi_state_scheme.id'
+    _item.category_id             ihm_relaxation_time_multi_state_scheme
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_relaxation_time_multi_state_scheme.relaxation_time_id
+    _item_description.description
+;     Identifier for the relaxation_time.
+      This data item is a pointer to _ihm_relaxation_time.id in the
+      IHM_RELAXATION_TIME data category.
+;
+    _item.name                  '_ihm_relaxation_time_multi_state_scheme.relaxation_time_id'
+    _item.category_id             ihm_relaxation_time_multi_state_scheme
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time_multi_state_scheme.relaxation_time_id'
+    _item_linked.parent_name    '_ihm_relaxation_time.id'
+     save_
+
+save__ihm_relaxation_time_multi_state_scheme.scheme_id  
+    _item_description.description
+;     Identifier for the multi-state scheme. 
+      This data item is a pointer to _ihm_multi_state_scheme.id in the
+      IHM_MULTI_STATE_SCHEME data category. 
+;
+    _item.name                  '_ihm_relaxation_time_multi_state_scheme.scheme_id'
+    _item.category_id             ihm_relaxation_time_multi_state_scheme
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time_multi_state_scheme.scheme_id'
+    _item_linked.parent_name    '_ihm_multi_state_scheme.id'
+     save_
+
+save__ihm_relaxation_time_multi_state_scheme.scheme_connectivity_id
+    _item_description.description
+;     Identifier for the multi-state scheme connectivity.
+      This data item is a pointer to _ihm_multi_state_scheme_connectivity.id in the
+      IHM_MULTI_STATE_SCHEME_CONNECTIVITY data category.
+;
+    _item.name                  '_ihm_relaxation_time_multi_state_scheme.scheme_connectivity_id'
+    _item.category_id             ihm_relaxation_time_multi_state_scheme
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_relaxation_time_multi_state_scheme.scheme_connectivity_id'
+    _item_linked.parent_name    '_ihm_multi_state_scheme_connectivity.id'
+     save_
+
+save__ihm_relaxation_time_multi_state_scheme.details
+    _item_description.description
+;     Additional details about the relaxation time measurement. 
+;
+    _item.name                  '_ihm_relaxation_time_multi_state_scheme.details'
+    _item.category_id             ihm_relaxation_time_multi_state_scheme
+    _item.mandatory_code          no
+    _item_type.code               text
      save_
