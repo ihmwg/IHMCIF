@@ -1,0 +1,33 @@
+data_entity_poly_seq-ext.dic            
+    
+_pdbx_dictionary_component.datablock_id   entity_poly_seq-ext.dic
+_pdbx_dictionary_component.dictionary_component_id  entity_poly_seq-ext.dic
+_pdbx_dictionary_component.title          "entity_poly_seq extension for IHMCIF"
+_pdbx_dictionary_component.version        0.001
+    
+loop_
+_pdbx_dictionary_component_history.dictionary_component_id
+_pdbx_dictionary_component_history.version
+_pdbx_dictionary_component_history.update
+_pdbx_dictionary_component_history.revision
+entity_poly_seq-ext.dic    0.001   2023-12-22 
+;      
+  Changes (bv)
+  + Release as initial version 0.001
+;
+#####################
+## ENTITY_POLY_SEQ ##
+#####################
+
+save__entity_poly_seq.entity_id
+    _item_sub_category.id         mm_poly_res_label
+     save_
+
+save__entity_poly_seq.mon_id
+    _item_sub_category.id         mm_poly_res_label
+     save_
+
+save__entity_poly_seq.num
+    _item_sub_category.id         mm_poly_res_label
+     save_
+

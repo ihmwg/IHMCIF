@@ -1,0 +1,580 @@
+#################################
+## IHMCIF EXTENSION DICTIONARY ##
+#################################
+
+# Version 1.25 22nd December 2023
+
+data_mmcif_ihm.dic
+
+    _datablock.id                          mmcif_ihm.dic
+    _datablock.description
+;
+     This data block holds the extension dictionary for Integrative/Hybrid (I/H) methods.
+     This extension is based on the PDBx/mmCIF dictionary.
+     This resource is actively developed and maintained in a github repository available at
+     https://github.com/ihmwg/IHMCIF.
+     I/H structural models that are compliant to this extension dictionary can be deposited
+     to the PDB-Dev prototype deposition and archiving system (https://pdb-dev.wwpdb.org).
+;
+    _dictionary.title           mmcif_ihm.dic
+    _dictionary.datablock_id    mmcif_ihm.dic
+    _dictionary.version         1.25
+#
+     loop_
+    _dictionary_history.version
+    _dictionary_history.update
+    _dictionary_history.revision
+
+  0.000   2017-03-20
+;
+  Changes (jdw/bv)
+  + Release as initial version 0.000
+  + Changed _imp to _ihm
+  + Changed _imp_template_details to _ihm_starting_model_details
+  + Changed _imp_tempate_model_coord to _ihm_starting_model_coord
+  + Changed _imp_pseudo_atom_site to _ihm_sphere_object_site
+  + Added enumeration 'integrative' to _ihm_starting_model_details.starting_model_source
+  + Separated ihm_cross_link_restraint and ihm_cross_link_list categories
+  + Updated ambiguous crosslinks in ihm_cross_link_restraint and ihm_cross_link_list categories
+  + Added ihm_dataset_list, ihm_related_database_reference and ihm_dataset_other categories
+  + Added ihm_cross_link_result (yet to be completed) and ihm_entity_assembly categories
+  + Updated ihm_2dem_class_average_restraint category
+  + Removed ihm_cross_link_db_reference, ihm_cross_link_reference_auxiliary, ihm_2dem_class_average categories
+  + Revised several data items to be non-mandatory
+  + Changed category key item in ihm_model_details category to account for multiple coarse-grained representations
+    of the same model segment (introduced _ihm_model_details.ordinal_id)
+  + Updated _ihm_sphere_obj_site.entity_instance_id, ihm_cross_link_restraint (psi and sigma parameters)
+  + Added ihm_modeling_protocol, ihm_cluster_info, ihm_struct_assembly (previously ihm_entity_assembly)
+  + Added _ihm_3dem_restraint category; minor changes to other categories
+  + Changed ihm_model_details category name to ihm_model_representation (handles multi-scale representation)
+  + Changed several data items in the ihm_modeling_protocol category
+  + Added ihm_modeling_post_process, ihm_model_list, ihm_multi_state_modeling,
+    ihm_time_ordered_ensemble, ihm_gaussian_object_site categories
+  + Linked ihm_model_list to ihm_sphere_obj_site through model_id
+  + Linked ihm_starting_model_details to ihm_dataset_list through dataset_list_id
+  + Added new data item _ihm_model_representation.representation_id and more changes to ihm_modeling_protocol
+    and ihm_gaussian_obj_site categories.
+  + Added ihm_gaussian_obj_ensemble category to represent ensembles as gaussian objects - to be different from
+  + ihm_gaussian_object_site category that is used in model representation and hence by visualization software.
+  + Changed ihm_cluster_info category name to ihm_ensemble_info and changed relevant data item names accordingly.
+  + Changed ihm_related_database_reference category name to ihm_dataset_related_db_reference to be consistent
+    with other similar categories  
+  + Minor changes in other categories: ihm_model_list, ihm_dataset_list, ihm_modeling_protocol, ihm_ensemble_info,
+    ihm_multi_state_modeling, ihm_time_ordered_ensemble, ihm_2dem_class_average_restraint (data items are now
+    similar to 2D class average images in EMPIAR), ihm_model_represenation.
+  + Updated parent-child relationships across several categories (ihm_modeling_protocol, ihm_ensemble_info
+    ihm_model_list, ihm_multi_state_modeling, ihm_time_ordered_ensemble, ihm_2dem_class_average_fitting,
+    ihm_cross_link_result)
+  + Updated examples in ihm_dataset_list, ihm_dataset_other and ihm_dataset_related_db_reference
+  + Changed ihm_modeling_experiment to ihm_modeling_protocol to be consistent with the model archive naming convention
+  + Added ihm_sas_restraint category; added _ihm_3dem_restraint.map_segment_flag
+  + Modified the following categories: ihm_model_list, ihm_modeling_protocol, ihm_multi_state_modeling,
+    ihm_time_ordered_ensemble
+  + Minor updates to ihm_cross_link_list, ihm_cross_link_restraint and ihm_model_representation categories.
+  + Added _ihm_sphere_obj_site.rmsf and _ihm_starting_model_details.asym_id
+  + Added ihm_related_datasets and ihm_cross_link_result_parameters
+  + Added _ihm_3dem_restraint.struct_assembly_id, _ihm_sas_restraint.struct_assembly_id,
+    _ihm_starting_model_details.notes and _ihm_starting_model_coord.group_PDB
+  + Changed _ihm_3dem_restraint.id to _ihm_3dem_restraint.ordinal_id and _ihm_sas_restraint.id to
+    _ihm_sas_restraint.ordinal_id
+  + Changed _ihm_dataset_related_db_reference.access_code to _ihm_dataset_related_db_reference.accession_code
+  + Added new categories to reference externally hosted files: IHM_LOCALIZATION_DENSITY_FILES,
+  + IHM_STARTING_MODEL_ALIGNMENT_FILES, IHM_MODELING_WORKFLOW_FILES
+  + Added IHM_DATA_DOI_URL_INFO category to include a URL corresponding to a DOI. This enables automated
+    download of files.
+  + Removed redundant DOI references from several categories
+  + Added _ihm_starting_model_details.starting_model_sequence_offset
+  + Changed _ihm_starting_model_details.starting_model_db_pdb_auth_asym_id to
+    _ihm_starting_model_details.starting_model_auth_asym_id
+  + Changed IHM_DOI_URL_INFO to IHM_EXTERNAL_REFERENCE_INFO; modified all downstream dependencies
+  + Changed IHM_DATASET_OTHER to IHM_DATASET_EXTERNAL_REFERENCE_DETAILS; modified all downstream dependencies
+  + Modified definitions within IHM_EXTERNAL_REFERENCE_INFO
+  + Added IHM_EXTERNAL_FILES category; Removed IHM_STARTING_MODEL_ALIGNMENT_FILES category
+  + Changed IHM_MODELING_WORKFLOW_FILES, IHM_LOCALIZATION_DENSITY_FILES
+  + Changed IHM_DATASET_EXTERNAL_REFERENCE_DETAILS to IHM_DATASET_EXTERNAL_REFERENCE
+  + Modified IHM_STARTING_MODEL_DETAILS category
+  + Added IHM_STARTING_COMPARATIVE_MODELS category
+  + Added IHM_STARTING_MODEL_SEQ_DIF category; removed _ihm_starting_model_details.notes
+  + Updated IHM_ENSEMBLE_INFO, IHM_EXTERNAL_FILES and IHM_EXTERNAL_REFERENCE_INFO
+  + Added _ihm_multi_state_modeling.experiment_type; updated IHM_ENSEMBLE_INFO
+;  
+  0.100   2017-03-23
+;
+  Changes (bv):
+  + Release as provisional version 0.100
+  + Added _ihm_external_files.content_type
+  + Added _ihm_external_files.details
+  + Removed IHM_MODELING_WORKFLOW_FILES
+;
+  0.101   2017-03-29
+;
+  Changes (bv):
+  + Updated _ihm_starting_model_seq_dif.db_entity_id as non-mandatory
+;
+  0.102   2017-03-29
+;
+  Changes (bv):
+  + Updated examples in IHM_STARTING_COMPARATIVE_MODELS
+;
+  0.103   2017-03-30
+;
+  Changes (bv):
+  + Updated IHM_STARTING_MODEL_DETAILS
+  + Updated IHM_STARTING_COMPARATIVE_MODELS
+  + Updated IHM_DATASET_LIST, IHM_RELATED_DATASETS
+  + Updated IHM_DATASET_RELATED_DB_REFERENCE
+  + Updated IHM_DATASET_EXTERNAL_REFERENCE
+  + Added examples to IHM_EXTERNAL_REFERENCE_INFO and IHM_EXTERNAL_FILES
+;
+    0.104   2017-04-19
+;
+  Changes (bv):
+  + Updated IHM_STARTING_MODEL_DETAILS
+  + Updated IHM_STARTING_COMPARATIVE_MODELS
+  + Updated IHM_STARTING_MODEL_SEQ_DIF
+  + Updated IHM_MODEL_REPRESENTATION
+  + Updated IHM_DATASET_LIST
+  + Added IHM_DATASET_GROUP
+  + Updated IHM_MODELING_PROTOCOL
+;
+    0.105   2017-05-25
+;
+  Changes (bv):
+  + Added item description to _ihm_ensemble_info.ensemble_file_id
+  + Added item description to _ihm_2dem_class_average_restraint.pixel_size_width
+  + Added item description to _ihm_2dem_class_average_restraint.pixel_size_height
+  + Added category description to ihm_2dem_class_average_fitting
+  + Added enumeration 'DCD' to _ihm_external_files.file_format
+  + Changed _ihm_external_files.file_size_kb to _ihm_external_files.file_size_bytes
+;
+    0.106   2017-07-13
+;
+  Changes (bv):
+  + Updated dictionary description and version history
+;
+    0.107   2017-07-17
+;
+  Changes (ep/bv):
+  + Added category_group_list, item_type_list and item_units_list categories
+;
+    0.108   2017-09-12
+;
+  Changes (bv):
+  + Added IHM_STRUCT_ASSEMBLY_CLASS, IHM_STRUCT_ASSEMBLY_CLASS_LIST
+  + Added _ihm_struct_assembly.parent_assembly_id
+;
+    0.109   2017-09-28
+;
+  Changes (bv):
+  + Added _ihm_model_list.representation_id
+  + Added _atom_site.ihm_model_id
+;
+    0.110   2017-10-03
+;
+  Changes (bv):
+  + Added _ihm_cross_link_restraint.atom_id_1, _ihm_cross_link_restraint.atom_id_2
+  + Added _ihm_cross_link_restraint.restraint_type
+  + Changed _ihm_cross_link_restraint.type to _ihm_cross_link_restraint.linker_type
+  + Changed _ihm_cross_link_list.type to _ihm_cross_link_list.linker_type
+  + Added enumerations to _ihm_cross_link_restraint.linker_type and _ihm_cross_link_list.linker_type
+  + Added enumeration to and changed _item.mandatory_code of _ihm_cross_link_restraint.model_granularity
+  + Added ihm_predicted_contact_restraint category
+  + Added enumeration to _ihm_dataset_list.data_type
+;
+    0.111   2017-10-04
+;
+  Changes (bv):
+  + Removed _ihm_cross_link_restraint.linker_type
+  + Updated enumerations to _ihm_cross_link_restraint.restraint_type
+;
+    0.112   2017-10-04
+;
+  Changes (bv):
+  + Added _ihm_dataset_list.details
+  + Added enumeration to _ihm_dataset_list.data_type
+;
+    0.113   2017-10-06
+;
+  Changes (bv):
+  + Added IHM_MODEL_REPRESENTATIVE
+  + Added enumeration to _ihm_cross_link_list.linker_type
+  + Updated item description for _ihm_predicted_contact_restraint.probability
+;
+    0.114   2017-10-09
+;
+  Changes (bv):
+  + Fixed typos and syntax
+;
+    0.115   2017-10-12
+;
+  Changes (bv):
+  + Added _ihm_modeling_post_process.feature_name
+  + Fixed enumeration for _ihm_cross_link_list.linker_type
+;
+    0.116   2017-10-16
+;
+  Changes (bv):
+  + Updated _item_description.description for _ihm_model_list.model_group_id
+  + Updated enumerations for _ihm_dataset_list.data_type
+  + Updated parent-child relationships within _ihm_model_list.model_id
+;
+    0.117   2017-11-09
+;
+  Changes (bv):
+  + Updated description for _ihm_starting_model_details.starting_model_sequence_offset 
+;
+    0.118   2017-12-06
+;
+  Changes (bv):
+  + Changed ihm_time_ordered_ensemble to ihm_ordered_ensemble with appropriate revisions to the category
+  + Changed _ihm_modeling_protocol.time_ordered_flag to _ihm_modeling_protocol.ordered_flag
+  + Changed mandatory code for _ihm_model_list.representation_id
+  + Added an example to ihm_model_list category
+;
+    0.119   2017-12-07
+;
+  Changes (bv):
+  + Changed ihm_ordered_ensemble.ordered_process_id to ihm_ordered_ensemble.process_id
+  + Changed ihm_ordered_ensemble.ordered_process_description to ihm_ordered_ensemble.process_description. 
+  + Changed parent-child relationships for _ihm_predicted_contact_restraint.atom_id_1,
+    _ihm_predicted_contact_restraint.atom_id_2, _ihm_cross_link_restraint.atom_id_1, 
+    _ihm_cross_link_restraint.atom_id_2, _ihm_starting_model_coord.atom_id
+;
+    0.120   2018-01-10
+;
+  Changes (bv):
+  + Added ihm_feature_selection_atom, ihm_feature_selection_residue, ihm_derived_distance_restraint
+  + Fixed typos in the parent name of _ihm_predicted_contact_restraint.atom_id_1 and
+    _ihm_predicted_contact_restraint.atom_id_2
+  + Fixed _item_type.code in _ihm_starting_model_coord.atom_id
+;
+    0.121   2018-01-17
+;
+  Changes (bv):
+  + Added _ihm_derived_distance_restraint.distance_upper_limit_std and 
+    _ihm_derived_distance_restraint.distance_lower_limit_std
+  + Updated _item_type.code for _ihm_external_reference_info.reference_type and
+    _ihm_external_reference_info.reference_provider
+;
+    0.122   2018-01-22
+;
+  Changes (bv):
+  + Updated parent-child relationships for _ihm_model_representation.entity_id,
+    _ihm_struct_assembly.entity_id, _ihm_feature_selection_atom.entity_id, 
+    _ihm_feature_selection_residue.entity_id
+  + Changed _ihm_derived_distance_restraint.distance_lower_limit_std to 
+    _ihm_derived_distance_restraint.distance_lower_limit_esd
+  + Changed _ihm_derived_distance_restraint.distance_upper_limit_std to 
+    _ihm_derived_distance_restraint.distance_upper_limit_esd
+  + Added enumeration for _ihm_external_reference_info.refers_to and 
+    _ihm_external_files.file_format
+;
+
+    0.123   2018-01-24
+;
+  Changes (bv):
+  + Added IHM_STRUCT_ASSEMBLY_DETAILS category. 
+  + Updated parent-child relationships for _ihm_starting_model_details.entity_description,
+    _ihm_model_representation.entity_description, _ihm_struct_assembly.entity_description,
+    _ihm_predicted_contact_restraint.entity_description_1, _ihm_cross_link_list.entity_description_1,
+    _ihm_predicted_contact_restraint.entity_description_2, _ihm_cross_link_list.entity_description_2
+;
+    0.124   2018-02-01
+;
+  Changes (bv):
+  + Updated parent-child relationships for _ihm_model_representation.entity_id,
+    _ihm_struct_assembly.entity_id
+  + Added IHM_FEATURE_LIST and IHM_NON_POLY_ATOM_FEATURE categories. 
+  + Changed IHM_FEATUTE_SELECTION_ATOM to IHM_POLY_ATOM_FEATURE. 
+  + Changed IHM_FEATUTE_SELECTION_RESDIUE to IHM_POLY_RESIDUE_FEATURE.
+  + Updated IHM_DERIVED_DISTANCE_RESTRAINT
+;
+    0.125   2018-02-05
+;
+  Changes (bv):
+  + Added _ihm_derived_distance_restraint.random_exclusion_fraction
+  + Changed _ihm_derived_distance_restraint.conditionality to
+    _ihm_derived_distance_restraint.group_conditionality
+  + Updated description for _ihm_derived_distance_restraint.group_conditionality 
+;
+    0.126    2018-02-06
+;
+  Changes (bv): 
+  + Updated enumeration list for _ihm_dataset_list.data_type
+;
+
+    0.127    2018-02-26
+;
+  Changes (bv):
+  + Added _ihm_poly_residue_feature.residue_range_granularity, _ihm_poly_residue_feature.rep_atom
+  + Updated enumeration for _ihm_cross_link_list.linker_type, _ihm_external_files.content_type
+;
+
+    0.128    2018-03-16
+;
+  Changes (bv):
+  + Added _ihm_dataset_group.application and _ihm_dataset_group.details
+  + Updated enumeration for _ihm_modeling_post_process.type  
+  + Fixed typos 
+;
+
+    0.129    2018-03-22
+;
+  Changes (bv):
+  + Added _ihm_modeling_post_process.struct_assembly_id and _ihm_modeling_post_process.dataset_group_id
+  + Added ihm_residues_not_modeled
+;
+    0.130   2018-04-19
+;
+  Changes (bv):
+  + Updated enumeration for ihm_dataset_related_db_reference.db_name and ihm_dataset_list.data_type
+;
+    0.131   2018-05-21
+;
+  Changes (bv):
+  + Added _ihm_modeling_post_process.software_id, _ihm_modeling_protocol.software_id
+  + Added _ihm_multi_state_modeling.population_fraction_sd
+  + Added _ihm_starting_comparative_models.software_id, _ihm_starting_comparative_models.script_file_id
+  + Updated enumeration for _ihm_starting_model_details.starting_model_source
+  + Updated _item.mandatory_code for _ihm_starting_comparative_models.starting_model_seq_id_begin
+  + Updated _item.mandatory_code for _ihm_starting_comparative_models.starting_model_seq_id_end
+;
+    0.132   2018-05-25
+;
+  Changes (bv):
+  + Added IHM_STARTING_COMPUTATIONAL_MODELS
+  + Removed _ihm_starting_comparative_models.software_id, _ihm_starting_comparative_models.script_file_id
+  + Added _ihm_modeling_post_process.script_file_id, _ihm_modeling_protocol.script_file_id
+;
+    0.133   2018-06-29
+;
+  Changes (bv):
+  + Added IHM_GEOMETRIC_OBJECT_LIST, IHM_GEOMETRIC_OBJECT_CENTER, IHM_GEOMETRIC_OBJECT_TRANSFORMATION
+  + Added IHM_GEOMETRIC_OBJECT_SPHERE, IHM_GEOMETRIC_OBJECT_TORUS, IHM_GEOMETRIC_OBJECT_HALF_TORUS
+  + Added IHM_GEOMETRIC_OBJECT_AXIS, IHM_GEOMETRIC_OBJECT_PLANE, IHM_GEOMETRIC_OBJECT_DISTANCE_RESTRAINT
+;
+    0.134   2018-07-18
+;
+  Changes (bv):
+  + Updated _item_sub_category.id for matrices and vectors 
+;
+    0.135   2018-10-04
+;
+  Changes (bv):
+  + Added DSSO crosslinker
+  + Updated parent-child relationships for several data items: 
+    _ihm_starting_model_details.entity_id, _ihm_model_representation.entity_id,
+    _ihm_struct_assembly.entity_id, _ihm_localization_density_files.entity_id,
+    _ihm_starting_model_coord.entity_id, _ihm_starting_model_coord.comp_id, 
+    _ihm_sphere_obj_site.entity_id, _ihm_gaussian_obj_site.entity_id,
+    _ihm_gaussian_obj_ensemble.entity_id
+  + Updated _item_type.code for _ihm_external_files.file_path
+;
+    0.136   2018-10-05
+;
+  Changes (bv):
+  + Added ihm_hydroxyl_radical_fp_restraint
+;
+    0.137   2018-10-26
+;
+  Changes (bv): 
+  + Renamed IHM_NON_POLY_ATOM_FEATURE to IHM_NON_POLY_FEATURE
+  + Updated _ihm_feature_list.feature_type
+  + Added IHM_FEATURE_PSEUDO_SITE
+;
+    0.138   2018-12-20
+;
+  Changes (bv):
+  + Added _ihm_modeling_protocol.ensemble_flag
+  + Changed _item.type_code from code to ucode for: 
+    _ihm_modeling_protocol.multi_scale_flag
+    _ihm_modeling_protocol.multi_state_flag
+    _ihm_modeling_protocol.ordered_flag
+    _ihm_dataset_list.database_hosted
+    _ihm_2dem_class_average_restraint.image_segment_flag
+    _ihm_3dem_restraint.map_segment_flag
+    _ihm_sas_restraint.profile_segment_flag
+  + Updated definitions for _ihm_feature_list.entity_type
+  + Updated enumeration list for _ihm_feature_list.feature_type
+;   
+    0.139   2019-01-03
+;
+  Changes (bv): 
+  + Changed IHM_FEATURE_PSEUDO_SITE to IHM_PSEUDO_SITE_FEATURE
+;
+    0.140   2019-03-11
+;
+  Changes (bv):
+  + Added IHM_INTERFACE_RESIDUE_FEATURE
+  + Added _ihm_poly_residue_feature.interface_residue_flag
+  + Updated item_mandatory.code for _ihm_poly_residue_feature.asym_id
+    _ihm_poly_atom_feature.asym_id, _ihm_non_poly_feature.asym_id
+;
+    0.141   2019-05-06
+;
+  Changes (bv):
+  + Added IHM_CHEMICAL_COMPONENT_DESCRIPTOR, IHM_PROBE_LIST, IHM_EPR_RESTRAINT
+  + Added IHM_POLY_PROBE_POSITION, IHM_POLY_PROBE_CONJUGATE
+  + Added IHM_LIGAND_PROBE
+  + Added _ihm_cross_link_list.linker_chem_comp_descriptor_id
+;
+    1.0   2019-05-31
+;
+  Changes (bv):
+  + Updated several categories to fix primary key information and parent-child relationships
+;
+    1.01  2019-07-26
+;
+  Changes (bv):
+  + Updated _item_mandatory.code and _pdbx_item.mandatory_code for several data items. 
+  + Added _item_sub_category.id in ihm_poly_probe_position.
+  + Added PDB-Dev to the enumeration list in ihm_dataset_related_db_reference.db_name. 
+;
+    1.02  2019-10-01
+;
+  Changes (bv):
+  + Added _ihm_starting_model_details.description, _ihm_starting_comparative_models.details
+  + Added _ihm_model_representation_details.description, _ihm_modeling_protocol_details.description
+  + Added _ihm_modeling_post_process.details, _ihm_ensemble_info.details
+  + Added _ihm_external_reference_info.details, _ihm_cross_link_list.details
+  + Added _ihm_feature_list.details, _ihm_geometric_object_half_torus.details
+  + Added enumerations (DSG and BSP) to _ihm_cross_link_list.linker_type
+  + Updated _item_enumeration.detail for items in _ihm_cross_link_list.linker_type
+  + Updated _item_description.description for _ihm_external_files.details
+;
+    1.03  2019-10-03
+;
+  Changes (bv):
+  + Changed _ihm_geometric_object_distance_restraint.other_details to _ihm_geometric_object_distance_restraint.details
+  + Removed _ihm_geometric_object_list.other_details and _ihm_geometric_object_half_torus.details
+;
+    1.04  2019-10-10
+;
+  Changes (bv):
+  + Added _ihm_derived_distance_restraint.mic_value
+  + Added enumeration to _ihm_dataset_list.data_type
+;
+    1.05  2019-11-15
+;
+  Changes (bv):
+  + Added BMSO and DHSO to _ihm_cross_link_list.linker_type enumeration list
+;
+    1.06  2020-01-24
+;
+  Changes (bv):
+  + Added _ihm_cross_link_restraint.pseudo_site_flag
+  + Added ihm_cross_link_pseudo_site category  
+  + Added ihm_pseudo_site category
+  + Removed _ihm_pseudo_site_feature.Cartn_x, _ihm_pseudo_site_feature.Cartn_y
+    _ihm_pseudo_site_feature.Cartn_z, _ihm_pseudo_site_feature.radius 
+    _ihm_pseudo_site_feature.description
+  + Added _ihm_pseudo_site_feature.pseudo_site_id
+;
+    1.07  2020-02-10
+;
+  Changes (bv):
+  + Added CYS to _ihm_cross_link_list.linker_type enumeration list
+;
+    1.08  2020-02-14
+;
+  Changes (bv):
+  + Added _ihm_ensemble_info.sub_sample_flag, _ihm_ensemble_info.sub_sampling_type
+  + Added ihm_ensemble_sub_sample
+;
+    1.09  2020-03-19
+;
+  Changes (bv):
+  + Added ihm_data_transformation
+  + Added _ihm_related_datasets.transformation_id
+;
+    1.10  2020-06-04
+;
+  Changes (bv):
+  + Added ihm_derived_angle_restraint, ihm_derived_dihedral_restraint
+  + Added _ihm_derived_distance_restraint.distance_threshold_mean
+  + Added _ihm_derived_distance_restraint.distance_threshold_esd
+  + Updated enumeration for _ihm_derived_distance_restraint.restraint_type
+  + Updated enumeration for _ihm_dataset_list.data_type
+;
+    1.11  2020-07-03
+;
+  Changes (bv):
+  + Added ihm_hdx_restraint
+;
+
+    1.12  2020-07-10
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.13  2021-01-28
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.14  2021-03-04
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.15  2021-03-16
+;
+  Changes (bv):
+  + Added enumerations to _ihm_dataset_related_db_reference.db_name
+;
+    1.16  2021-04-14
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.17  2021-05-21
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.18  2022-12-20
+;
+  Changes (bv):
+  + Added _ihm_ensemble_info.model_group_superimposed_flag 
+  + Added enumerations to _ihm_dataset_list.data_type and _ihm_ensemble_info.ensemble_clustering_method
+  + Added ihm_entry_collection and ihm_entry_collection_mapping
+;
+    1.19  2023-02-02
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type and _ihm_dataset_related_db_reference.db_name
+;
+    1.20  2023-02-19
+;
+  Changes (bv):
+  + Updated category keys for ihm_entry_collection_mapping
+  + Added enumerations to _ihm_cross_link_list.linker_type and _ihm_dataset_related_db_reference.db_name
+  + Add nanoseconds to item_units_list
+;
+    1.21  2023-03-24
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.22  2023-05-26
+;
+  Changes (bv):
+  + Added enumerations to _ihm_dataset_related_db_reference.db_name
+;
+    1.23  2023-07-05
+;
+  Changes (bv):
+  + Added enumerations to _ihm_cross_link_list.linker_type
+;
+    1.24  2023-11-30
+;
+  Changes (bv):
+  + Added ihm_multi_state_scheme, ihm_multi_state_scheme_connectivity
+  + Added ihm_kinetic_rate, ihm_relaxation_time, ihm_relaxation_time_multi_state_scheme
+;
+   1.25   2023-12-22
+;
+  + Rename dictionary
+  + Reorganize repository
+;
+

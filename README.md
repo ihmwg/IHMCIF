@@ -1,27 +1,36 @@
 
 # Overview
 
-The [IHM dictionary](ihm-extension.dic) provides the data representation required for archiving 
-integrative/hybrid structural models in [PDB-dev](https://pdb-dev.wwpdb.org).
+The [IHMCIF dictionary](dist/mmcif_ihm.dic) provides the data representation required for archiving 
+integrative/hybrid structural models in [PDB-Dev](https://pdb-dev.wwpdb.org).
 
 This dictionary is an extension of the [PDBx/mmCIF](http://mmcif.wwpdb.org) dictionary
 and provides the additional defintions required to handle integrative / hybrid models.  
 
-The IHM dictionary provides a mechanism to capture the following information regarding
+The IHMCIF dictionary provides a mechanism to capture the following information regarding
 integrative / hybrid models: 
 
-  - Defintions of multi-scale, multi-state, and ordered ensembles
+  - Defintions of multi-scale, multi-state, ordered, ensembles
+
+  - Definition of models with heterogenous composition
 
   - Descriptions of the starting structural models of individual molecular components obtained 
     from experimental and computational techniques such as
       - X-ray diffraction
       - NMR spectroscopy 
+      - Electron microscopy
       - Computational models
+      - Intergrative models
 
   - Definitions of the spatial restraints derived from a variety of experimental data such as
-      - 2D and 3D electron microscopy
-      - Chemical crosslinking mass spectrometry 
-      - Small angle scattering
+      - 2D and 3D electron microscopy (2DEM and 3DEM)
+      - Chemical crosslinking mass spectrometry (CX-MS)
+      - Small angle scattering (SAS)
+      - Forster resonance energy transfer (FRET)
+      - Electron paramagnetic resonance spectroscopy (EPR)
+      - Hydrogen-deuterium exchange mass spectrometry (HDX-MS)
+      - Atomic force microscopy (AFM)
+      - Distrance restraints from coevolution data
       - Generic distance restraints obtained from biophysical and proteomics methods
 
   - Referencing associated data from external resources
@@ -31,30 +40,29 @@ integrative / hybrid models:
 
   - Description of the modeling workflow
 
-The I/H methods dictionary currently has over 30 new data categories and 300 new data items.
+The IHMCIF dictionary currently has over 30 new data categories and 300 new data items.
 
 *For more details regarding the dictionary, see the 
-[extension dictionary documentation](dictionary_documentation/documentation.md).*
+[IHMCIF dictionary documentation](dictionary_documentation/documentation.md) 
+and the [mmCIF resources website](https://mmcif.wwpdb.org/dictionaries/mmcif_ihm.dic/Index/).*
 
 *For tips on structuring integrative modeling studies to be amenable to
 deposition, see [this page](dictionary_documentation/modeling-tips.md).*
 
-Browse the [wiki page](https://github.com/ihmwg/IHM-dictionary/wiki) for information regarding
-[weekly meetings](https://github.com/ihmwg/IHM-dictionary/wiki/Meetings) and descriptions of 
-[integrative modeling examples](https://github.com/ihmwg/IHM-dictionary/wiki/Use-cases).
+Browse the [wiki page](https://github.com/ihmwg/IHMCIF/wiki) for archived information regarding
+[weekly meetings](https://github.com/ihmwg/IHMCIF/wiki/Meetings) and descriptions of 
+[integrative modeling examples](https://github.com/ihmwg/IHMCIF/wiki/Use-cases).
 
 # Organization of the repository
 
 [README.md](README.md) - this file
 
-[ihm-extension.dic](ihm-extension.dic) - IHM dictionary extension
+[IHMCIF extension](dist/mmcif_ihm_ext.dic) - IHM dictionary extension
+
+[IHMCIF complete](dist/mmcif_ihm.dic) - IHM dictionary extension merged with the parent PDBx/mmCIF dictionary
 
 [dictionary_documentation](dictionary_documentation) - directory with detailed documentation 
-regarding the data categories defined in the [IHM dictionary](ihm-extension.dic) along with examples.  
-
-mmcif_ihm_v0.xxx.sdb - The serialized dictionary for use with the 
-[RCSB mmCIF dictionary suite](https://sw-tools.rcsb.org/apps/MMCIF-DICT-SUITE/index.html). 
-This tool can be used to check whether a data file is compliant with the latest dictionary. 
+regarding the data categories defined in the [IHMCIF dictionary](dist/mmcif_ihm.dic) along with examples.  
 
 [examples](examples) - directory with examples of integrative models compliant with the IHM dictionary
 
@@ -66,19 +74,21 @@ modeling software such as [IMP](https://integrativemodeling.org).
  - Discussion on the file formats is conducted via email - please subscribe to
    [the mailing list](https://salilab.org/mailman/listinfo/ihm-repval).
 
- - We also [meet weekly via Skype](https://github.com/ihmwg/IHM-dictionary/wiki/Meetings) to discuss issues. All are
-   welcome to join some or all meetings.
-
  - To get an email every time this GitHub repository is updated, please
    subscribe to the [IHM-mmCIF-commits mailing list](https://salilab.org/mailman/listinfo/ihm-mmcif-commits).
 
-## Deposition of models to [PDB-dev](https://pdb-dev.wwpdb.org)
+## Deposition of models to [PDB-Dev](https://pdb-dev.wwpdb.org)
 
-In order to deposit models to [PDB-dev](https://pdb-dev.wwpdb.org) in a semi-automated fashion, 
-integrative/hybrid modeling packages need to support the mmCIF file format and the IHM extension.
-See [the deposition directory](deposition) for the current status of software support.
+Models can be deposited to [PDB-Dev](https://pdb-dev.wwpdb.org) in a semi-automated fashion, 
+via the [deposition and data harvesting system](https://data.pdb-dev.org).
+The system accepts mmCIF files compliant with the [PDBx/mmCIF](https://mmcif.wwpdb.org/) 
+and [IHMCIF](dist/mmcif_ihm.dic) dictionaries. Compliant files can be generated using 
+the [python-ihm](https://github.com/ihmwg/python-ihm) software library. 
+Modeling software such as [IMP](https://github.com/salilab/imp) have interal support for IHMCIF. 
+See [the deposition directory](deposition) for more information.
 
 ## Visualization of integrative models
 
 There is currently basic support for visualization of IHM mmCIF models
-in daily builds of [UCSF ChimeraX](https://www.cgl.ucsf.edu/chimerax/).
+in daily builds of [UCSF ChimeraX](https://www.cgl.ucsf.edu/chimerax/) 
+and in [Molstar](https://molstar.org/).

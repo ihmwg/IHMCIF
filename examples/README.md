@@ -1,4 +1,4 @@
-This directory contains a number of examples of using the IHM extension
+This directory contains a number of examples of using the IHMCIF extension
 dictionary:
 
  - `exosome`: [Modeling exosome complexes from cross-link MS data](https://salilab.org/exosome)
