@@ -15,14 +15,15 @@ mmcif_pdbx-base.dic                 ../mmcif_pdbx/base/mmcif_pdbx-base.dic      
 mmcif_pdbx_v50-variable.dic         ../mmcif_pdbx/base/mmcif_pdbx_v50-variable.dic              extend . .
 #Extension of entity_poly_seq
 entity_poly_seq_ext.dic              entity_poly_seq_ext.dic                                    extend . .
+# Item linked groups
+mmcif_pdbx-def-ilg.dic              ../mmcif_pdbx/base/mmcif_pdbx-def-ilg.dic                   extend . .
+mmcif_pdbx-def-pdb-ilg.dic          ../mmcif_pdbx/base/mmcif_pdbx-def-pdb-ilg.dic               extend . .
 # Selected extensions from mmcif_pdbx
 pdbx_audit_support-extension.dic    ../mmcif_pdbx/extensions/pdbx_audit_support-extension.dic   extend . .
 sifts-extension.dic                 ../mmcif_pdbx/extensions/sifts-extension.dic                extend . .
 mmcif_pdbx_license.dic              ../mmcif_pdbx/extensions/data_usage_extension.dic           extend . .
 initial-model-extension.dic         ../mmcif_pdbx/extensions/initial-model-extension.dic        extend . .
 mmcif_pdbx_investigation.dic        ../mmcif_pdbx/extensions/investigation.dic                  extend . .
-# Item linked groups
-mmcif_pdbx-def-ilg.dic              ../mmcif_pdbx/base/mmcif_pdbx-def-ilg.dic                   extend . .
-mmcif_pdbx-def-pdb-ilg.dic          ../mmcif_pdbx/base/mmcif_pdbx-def-pdb-ilg.dic               extend . .
+entity_branch-extension.dic         ../mmcif_pdbx/extensions/entity_branch-extension.dic        extend . .
 #mmcif_ihm core
 mmcif_ihm-core.dic                   mmcif_ihm-core.dic                                           extend . .
