@@ -1,0 +1,89 @@
+data_entity_poly_seq.dic
+
+_pdbx_dictionary_component.datablock_id   entity_poly_seq.dic
+_pdbx_dictionary_component.dictionary_component_id  entity_poly_seq.dic
+_pdbx_dictionary_component.title          "entity_poly_seq for IHMCIF"
+_pdbx_dictionary_component.version        0.001
+
+loop_
+_pdbx_dictionary_component_history.dictionary_component_id
+_pdbx_dictionary_component_history.version
+_pdbx_dictionary_component_history.update
+_pdbx_dictionary_component_history.revision
+entity_poly_seq.dic    0.001   2023-12-22
+;
+  Changes (bv)
+  + Release as initial version 0.001
+;
+#####################
+## ENTITY_POLY_SEQ ##
+#####################
+
+save__entity_poly_seq.entity_id
+    _item_description.description
+;              This data item is a pointer to _entity_poly.entity_id in the 
+               ENTITY_POLY category.
+;
+    _item.name                  '_entity_poly_seq.entity_id'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          yes
+    _item_type.code               code
+    _item_sub_category.id         mm_poly_res_label
+    _item_linked.child_name     '_entity_poly_seq.entity_id'
+    _item_linked.parent_name    '_entity_poly.entity_id'
+     save_
+
+save__entity_poly_seq.mon_id
+    _item_description.description
+;              This data item is a pointer to _chem_comp.id in the CHEM_COMP
+               category.
+;
+    _item.name                  '_entity_poly_seq.mon_id'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          yes
+    _item_type.code               ucode
+    _item_sub_category.id         mm_poly_res_label
+    _item_linked.child_name     '_entity_poly_seq.mon_id'
+    _item_linked.parent_name    '_chem_comp.id'
+     save_
+
+save__entity_poly_seq.num
+    _item_description.description
+;              The value of _entity_poly_seq.num must uniquely and sequentially
+               identify a record in the ENTITY_POLY_SEQ list.
+
+               Note that this item must be a number and that the sequence
+               numbers must progress in increasing numerical order.
+;
+    _item.name                  '_entity_poly_seq.num'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          yes
+    loop_
+    _item_range.maximum
+    _item_range.minimum           .   1
+                                  1   1
+    _item_type.code               int
+    _item_sub_category.id         mm_poly_res_label
+     save_
+
+save__entity_poly_seq.hetero
+    _item_description.description
+;              A flag to indicate whether this monomer in the polymer is
+               heterogeneous in sequence.
+;
+    _item.name                  '_entity_poly_seq.hetero'
+    _item.category_id             entity_poly_seq
+    _item.mandatory_code          no
+    _item_default.value           no
+    _item_type.code               ucode
+    loop_
+    _item_enumeration.value
+    _item_enumeration.detail      no
+                                 'sequence is not heterogeneous at this monomer'
+                                  n
+                                 'abbreviation for "no"'
+                                  yes
+                                 'sequence is heterogeneous at this monomer'
+                                  y
+                                 'abbreviation for "yes"'
+     save_

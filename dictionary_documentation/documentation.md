@@ -35,14 +35,14 @@ The documention on the
 [molecular description](http://mmcif.wwpdb.org/docs/tutorials/content/molecular-entities.html) 
 are especially recommended. 
 
-An [extension to the existing PDBX/mmCIF dictionary](https://github.com/salilab/mmcif/blob/master/ihm-extension.dic) 
+An [extension to the existing PDBX/mmCIF dictionary](https://github.com/ihmwg/IHMCIF) 
 has been created to capture the complex details involved in generating integrative/hybrid models. 
 The figure below provides a high-level illustration of the content areas incorporated in the 
 I/H methods extension dictionary.
  
-![IHM dictionary extension overview](./figures/IHM_dictionary_overview.png "IHM dictionary extension overview")
+![IHMCIF dictionary extension overview](./figures/IHM_dictionary_overview.png "IHMCIF dictionary extension overview")
 
-*Figure 2. Illustration of the data content captured in the IHM dictionary extension.* 
+*Figure 2. Illustration of the data content captured in the IHMCIF dictionary extension.* 
 
 The I/H methods extension dictionary describes the different kinds of input data types used in integrative modeling. 
 These include the following. 
