@@ -2,7 +2,7 @@
 ## IHMCIF DICTIONARY ##
 #######################
 
-# Version 1.25 22nd December 2023
+# Version 1.26 30th April 2024
 
 data_mmcif_ihm.dic
 
@@ -18,7 +18,7 @@ data_mmcif_ihm.dic
 ;
     _dictionary.title           mmcif_ihm.dic
     _dictionary.datablock_id    mmcif_ihm.dic
-    _dictionary.version         1.25
+    _dictionary.version         1.26
 #
      loop_
     _dictionary_history.version
@@ -577,4 +577,11 @@ data_mmcif_ihm.dic
   + Rename dictionary
   + Reorganize repository
 ;
-
+   1.26   2024-04-30
+;
+  + Added "Crosslinking-MS" to the enumeration list of _ihm_dataset_list.data_type
+  + Added "modeling" to the enumeration list of _ihm_dataset_group.application
+  + Updated category descriptions of ihm_model_list, ihm_model_group, ihm_model_group_link, ihm_model_representative
+  + Updated category name "ihm_ordered_ensemble" to "ihm_ordered_model"
+  + Updated enumerations for _ihm_cross_link_list.linker_type
+;
