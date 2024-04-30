@@ -566,6 +566,7 @@ mmcif_ihm-core.dic   1.26   2024-04-30
   + Updated category descriptions of ihm_model_list, ihm_model_group, ihm_model_group_link, ihm_model_representative
   + Updated category name "ihm_ordered_ensemble" to "ihm_ordered_model"
   + Updated enumerations for _ihm_cross_link_list.linker_type
+  + Updated _item_type.code for _ihm_dataset_related_db_reference.accession_code and _ihm_ensemble_info.ensemble_clustering_method
 ;
 
 #############################
@@ -3267,7 +3268,7 @@ save__ihm_ensemble_info.ensemble_clustering_method
     _item.name                  '_ihm_ensemble_info.ensemble_clustering_method'
     _item.category_id             ihm_ensemble_info
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               line
     loop_
     _item_enumeration.value
     'Hierarchical'
@@ -4688,7 +4689,7 @@ save__ihm_dataset_related_db_reference.accession_code
     _item.name                 '_ihm_dataset_related_db_reference.accession_code'
     _item.category_id          ihm_dataset_related_db_reference
     _item.mandatory_code       yes
-    _item_type.code            line
+    _item_type.code            code
     loop_
     _item_examples.case  
       '5FM1'

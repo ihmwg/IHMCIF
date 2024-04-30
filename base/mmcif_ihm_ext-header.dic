@@ -584,4 +584,5 @@ data_mmcif_ihm_ext.dic
   + Updated category descriptions of ihm_model_list, ihm_model_group, ihm_model_group_link, ihm_model_representative
   + Updated category name "ihm_ordered_ensemble" to "ihm_ordered_model"
   + Updated enumerations for _ihm_cross_link_list.linker_type
+  + Updated _item_type.code for _ihm_dataset_related_db_reference.accession_code and _ihm_ensemble_info.ensemble_clustering_method
 ;
