@@ -3,7 +3,7 @@ data_mmcif_ihm-core.dic
 _pdbx_dictionary_component.datablock_id   mmcif_ihm-core.dic
 _pdbx_dictionary_component.dictionary_component_id  mmcif_ihm-core.dic
 _pdbx_dictionary_component.title          "IHMCIF dictionary: mmcif_ihm-core"
-_pdbx_dictionary_component.version        1.25
+_pdbx_dictionary_component.version        1.26
 
 loop_
 _pdbx_dictionary_component_history.dictionary_component_id
@@ -558,6 +558,16 @@ mmcif_ihm-core.dic   1.25   2023-12-22
 ;
   + Rename dictionary
   + Reorganize repository
+;
+mmcif_ihm-core.dic   1.26   2024-07-11
+;
+  + Add "Crosslinking-MS" to the enumeration list of _ihm_dataset_list.data_type
+  + Add "modeling" to the enumeration list of _ihm_dataset_group.application
+  + Update category descriptions of ihm_model_list, ihm_model_group, ihm_model_group_link, ihm_model_representative
+  + Add category "ihm_ordered_model" and deprecate category "ihm_ordered_ensemble"
+  + Update enumerations for _ihm_cross_link_list.linker_type
+  + Update _item_type.code for _ihm_dataset_related_db_reference.accession_code and _ihm_ensemble_info.ensemble_clustering_method
+  + Add "ProteomeXchange" to the enumeration list of _ihm_dataset_related_db_reference.db_name
 ;
 
 #############################
@@ -1353,7 +1363,7 @@ save_ihm_model_representation
     _category.description
 ;              Data items in the IHM_MODEL_REPRESENTATION category lists the
                various mono or multi-scale model representations used in the
-               integrative modeling study. 
+               integrative modeling study.
 ;
     _category.id                  ihm_model_representation
     _category.mandatory_code      no
@@ -2675,9 +2685,208 @@ save__ihm_multi_state_model_group_link.model_group_id
     _item_linked.parent_name    '_ihm_model_group.id'
      save_
 
-##########################
-## IHM_ORDERED_ENSEMBLE ##
-##########################
+#######################
+## IHM_ORDERED_MODEL ##
+#######################
+
+save_ihm_ordered_model
+    _category.description
+;   Data items in the IHM_ORDERED_MODEL category records the
+    details of the models ordered by time or other order. 
+    Ordered models are described as directed graphs with
+    edges between nodes representing model groups. 
+;
+    _category.id                  ihm_ordered_model
+    _category.mandatory_code      no
+     loop_
+    _category_key.name          '_ihm_ordered_model.edge_id'
+                                '_ihm_ordered_model.process_id'
+
+    loop_
+    _category_group.id           'inclusive_group'
+                                 'ihm_group'
+    loop_
+    _category_examples.detail
+    _category_examples.case
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - Linear process
+;
+;
+    loop_
+    _ihm_ordered_model.process_id
+    _ihm_ordered_model.process_description
+    _ihm_ordered_model.edge_id
+    _ihm_ordered_model.edge_description
+    _ihm_ordered_model.step_id
+    _ihm_ordered_model.step_description
+    _ihm_ordered_model.ordered_by
+    _ihm_ordered_model.model_group_id_begin
+    _ihm_ordered_model.model_group_id_end
+
+    1  .  1   .   1   .  'time steps'  1   2
+    1  .  2   .   2   .  'time steps'  2   3
+    1  .  3   .   3   .  'time steps'  3   4
+    1  .  4   .   4   .  'time steps'  4   5
+    # ... abbreviated ... 
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 2 - Cyclic process
+;
+;
+    loop_
+    _ihm_ordered_model.process_id
+    _ihm_ordered_model.edge_id
+    _ihm_ordered_model.step_id
+    _ihm_ordered_model.ordered_by
+    _ihm_ordered_model.model_group_id_begin
+    _ihm_ordered_model.model_group_id_end
+
+    1  1  1   'time steps'  1   2 
+    1  2  2   'time steps'  2   3 
+    1  3  3   'time steps'  3   4 
+    1  4  4   'time steps'  4   1 
+    # ... abbreviated ... 
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 3 - Branched process
+;
+;  
+    loop_
+    _ihm_ordered_model.process_id
+    _ihm_ordered_model.edge_id
+    _ihm_ordered_model.step_id
+    _ihm_ordered_model.ordered_by
+    _ihm_ordered_model.model_group_id_begin
+    _ihm_ordered_model.model_group_id_end
+
+    1  1  1   'time steps'  1   2 
+    1  2  2   'time steps'  2   3 
+    1  3  2   'time steps'  2   4 
+    1  4  3   'time steps'  3   5 
+    1  5  3   'time steps'  4   6 
+    # ... abbreviated ... 
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+   _pdbx_category_context.type         CONTRIBUTED
+   _pdbx_category_context.category_id  ihm_ordered_model
+     save_
+
+save__ihm_ordered_model.process_id
+    _item_description.description
+;    An identifier for the ordered process. 
+     Forms the category key together with _ihm_ordered_model.edge_id. 
+;
+    _item.name                  '_ihm_ordered_model.process_id'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_ordered_model.process_description
+    _item_description.description
+;    Description of the ordered process. 
+;
+    _item.name                  '_ihm_ordered_model.process_description'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_ordered_model.edge_id
+    _item_description.description
+;    An identifier that describes an edge in a directed graph, which
+     represents the ordered model. 
+     Forms the category key together with _ihm_ordered_model.process_id. 
+;
+    _item.name                  '_ihm_ordered_model.edge_id'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_ordered_model.edge_description
+    _item_description.description
+;    Description of the edge.
+;   
+    _item.name                  '_ihm_ordered_model.edge_description'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_ordered_model.step_id
+    _item_description.description
+;    Identifier for a particular step in the ordered process. 
+;   
+    _item.name                  '_ihm_ordered_model.step_id'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          yes
+    _item_type.code               int
+     save_
+
+save__ihm_ordered_model.step_description
+    _item_description.description
+;    Description of the step. 
+;   
+    _item.name                  '_ihm_ordered_model.step_description'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          no
+    _item_type.code               text
+     save_
+
+save__ihm_ordered_model.ordered_by
+    _item_description.description
+;    The parameter based on which the ordering is carried out. 
+;  
+    _item.name                  '_ihm_ordered_model.ordered_by'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          no
+    _pdbx_item.mandatory_code     yes
+    _item_type.code               line
+    loop_
+    _item_examples.case
+    'time steps'
+    'steps in an assembly process'
+    'steps in a metabolic pathway'
+    'steps in an interaction pathway'
+     save_
+    
+save__ihm_ordered_model.model_group_id_begin
+    _item_description.description
+;    The model group id corresponding to the node at the origin of directed edge. 
+     This data item is a pointer to _ihm_model_group.id in the
+     IHM_MODEL_GROUP category. 
+;   
+    _item.name                  '_ihm_ordered_model.model_group_id_begin'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          yes  
+    _item_type.code               int  
+    _item_linked.child_name     '_ihm_ordered_model.model_group_id_begin'
+    _item_linked.parent_name    '_ihm_model_group.id'
+    save_
+
+save__ihm_ordered_model.model_group_id_end
+    _item_description.description
+;    The model group id corresponding to the node at the end of the directed edge.
+     This data item is a pointer to _ihm_model_group.id in the
+     IHM_MODEL_GROUP category.
+;   
+    _item.name                  '_ihm_ordered_model.model_group_id_end'
+    _item.category_id             ihm_ordered_model
+    _item.mandatory_code          yes
+    _item_type.code               int
+    _item_linked.child_name     '_ihm_ordered_model.model_group_id_end'
+    _item_linked.parent_name    '_ihm_model_group.id'
+     save_
+
+#############################################
+## IHM_ORDERED_ENSEMBLE (TO BE DEPRECATED) ##
+#############################################
 
 save_ihm_ordered_ensemble
     _category.description
@@ -2685,6 +2894,7 @@ save_ihm_ordered_ensemble
     details of the ensembles ordered by time or other order. 
     Ordered ensembles are described as directed graphs with
     edges between nodes representing models or model groups. 
+    This category will be deprecated and superseded by ihm_ordered_model. 
 ;
     _category.id                  ihm_ordered_ensemble
     _category.mandatory_code      no
@@ -3259,7 +3469,7 @@ save__ihm_ensemble_info.ensemble_clustering_method
     _item.name                  '_ihm_ensemble_info.ensemble_clustering_method'
     _item.category_id             ihm_ensemble_info
     _item.mandatory_code          no
-    _item_type.code               code
+    _item_type.code               line
     loop_
     _item_enumeration.value
     'Hierarchical'
@@ -3517,7 +3727,7 @@ save__ihm_ensemble_sub_sample.file_id
 save_ihm_model_list
     _category.description
 ;              Data items in the IHM_MODEL_LIST category record the
-               details of the models being deposited.
+               details of the structure models being deposited. 
 ;
     _category.id                  ihm_model_list
     _category.mandatory_code      no
@@ -3700,7 +3910,7 @@ save__ihm_model_list.representation_id
 save_ihm_model_group
     _category.description
 ;              IHM_MODEL_GROUP category defines collections or groups of integrative
-               structural models.
+               structure models.
 ;
     _category.id                  ihm_model_group
     _category.mandatory_code      no   
@@ -3805,8 +4015,8 @@ save__ihm_model_group.details
 
 save_ihm_model_group_link
     _category.description
-;              IHM_MODEL_GROUP_LINK category provides the list of models present in 
-               a particular model group. 
+;              IHM_MODEL_GROUP_LINK category provides the list of structure models present in 
+               a particular structure model group. 
 ;
     _category.id                  ihm_model_group_link
     _category.mandatory_code      no
@@ -3895,7 +4105,7 @@ save__ihm_model_group_link.group_id
 save_ihm_model_representative
     _category.description
 ;              Data items in the IHM_MODEL_REPRESENTATIVE category record the
-               details of the representative model in an ensemble or cluster. 
+               details of the representative structure model in an ensemble or cluster. 
 ;
     _category.id                  ihm_model_representative
     _category.mandatory_code      no
@@ -4082,6 +4292,7 @@ save__ihm_dataset_list.data_type
       'X-ray diffraction data'
       'SAS data'
       'CX-MS data'
+      'Crosslinking-MS data'
       'Mass Spectrometry data'
       'EPR data'
       'H/D exchange data'
@@ -4202,6 +4413,7 @@ save__ihm_dataset_group.application
     'filter'            'dataset used for filtering sampled models'
     'representation'    'dataset used in model representation'
     'sampling'          'dataset used to bias sampling'
+    'modeling'          'dataset used in modeling'
     'other'             'dataset used in other ways'
      save_
 
@@ -4668,6 +4880,7 @@ save__ihm_dataset_related_db_reference.db_name
       'jPOSTrepo'
       'iProX'
       'AlphaFoldDB'
+      'ProteomeXchange'
       'Other'
      save_
 
@@ -4678,7 +4891,7 @@ save__ihm_dataset_related_db_reference.accession_code
     _item.name                 '_ihm_dataset_related_db_reference.accession_code'
     _item.category_id          ihm_dataset_related_db_reference
     _item.mandatory_code       yes
-    _item_type.code            line
+    _item_type.code            code
     loop_
     _item_examples.case  
       '5FM1'
@@ -6985,6 +7198,8 @@ save__ihm_cross_link_list.linker_type
                  'DSBU'     'Disuccinimidyl dibutyric urea'
                  'DSPP'     'Disuccinimidyl phenyl phosphonic acid or PhoX'
                  'TBDSPP'   'tert-butyl disuccinimidyl phenyl phosphonate or tBu-PhoX'
+                 'DMTMM'    '4-(4,6-Dimethoxy-1,3,5-triazin-2-yl)-4-methylmorpholinium chloride crosslinker'
+                 'PDH'      'pimelic acid dihydrazide crosslinker'
                  'Other'    'Other type of crosslinker'
      save_
 
