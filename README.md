@@ -46,6 +46,14 @@ The IHMCIF dictionary currently has over 30 new data categories and 300 new data
 [IHMCIF dictionary documentation](dictionary_documentation/documentation.md) 
 and the [mmCIF resources website](https://mmcif.wwpdb.org/dictionaries/mmcif_ihm.dic/Index/).*
 
+*Cite the IHMCIF dictionary:  
+Vallat B, Webb BM, Westbrook JD, Goddard TD, Hanke CA, Graziadei A, Peisach E, Zalevsky A, Sagendorf J, 
+Tangmunarunkit H, Voinea S, Sekharan M, Yu J, Bonvin AAMJJ, DiMaio F, Hummer G, Meiler J, Tajkhorshid E, 
+Ferrin TE, Lawson CL, Leitner A, Rappsilber J, Seidel CAM, Jeffries CM, Burley SK, Hoch JC, Kurisu G, 
+Morris K, Patwardhan A, Velankar S, Schwede T, Trewhella J, Kesselman C, Berman HM, Sali A. 
+IHMCIF: An Extension of the PDBx/mmCIF Data Standard for Integrative Structure Determination Methods. 
+J Mol Biol. 2024, 168546. doi: [10.1016/j.jmb.2024.168546](https://doi.org/10.1016/j.jmb.2024.168546).*
+
 *For tips on structuring integrative modeling studies to be amenable to
 deposition, see [this page](dictionary_documentation/modeling-tips.md).*
 
