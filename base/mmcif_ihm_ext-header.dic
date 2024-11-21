@@ -2,7 +2,7 @@
 ## IHMCIF EXTENSION DICTIONARY ##
 #################################
 
-# Version 1.26 30th April 2024
+# Version 1.27 25th November 2024
 
 data_mmcif_ihm_ext.dic
 
@@ -14,11 +14,11 @@ data_mmcif_ihm_ext.dic
      This resource is actively developed and maintained in a github repository available at
      https://github.com/ihmwg/IHMCIF.
      I/H structural models that are compliant to this extension dictionary can be deposited
-     to the PDB-Dev prototype deposition and archiving system (https://pdb-dev.wwpdb.org).
+     to PDB-IHM (https://pdb-ihm.org).
 ;
     _dictionary.title           mmcif_ihm_ext.dic
     _dictionary.datablock_id    mmcif_ihm_ext.dic
-    _dictionary.version         1.26
+    _dictionary.version         1.27
 #
      loop_
     _dictionary_history.version
@@ -587,3 +587,7 @@ data_mmcif_ihm_ext.dic
   + Update _item_type.code for _ihm_dataset_related_db_reference.accession_code and _ihm_ensemble_info.ensemble_clustering_method
   + Add "ProteomeXchange" to the enumeration list of _ihm_dataset_related_db_reference.db_name
 ;
+   1.27   2024-11-25
+; 
+  + Added BMRbig to the enumeration list in ihm_dataset_related_db_reference.db_name
+; 
