@@ -2,7 +2,7 @@
 # Overview
 
 The [IHMCIF dictionary](dist/mmcif_ihm.dic) provides the data representation required for archiving 
-integrative/hybrid structural models in [PDB-Dev](https://pdb-dev.wwpdb.org).
+integrative/hybrid structural models in [PDB-IHM](https://pdb-ihm.org).
 
 This dictionary is an extension of the [PDBx/mmCIF](http://mmcif.wwpdb.org) dictionary
 and provides the additional defintions required to handle integrative / hybrid models.  
@@ -85,10 +85,10 @@ modeling software such as [IMP](https://integrativemodeling.org).
  - To get an email every time this GitHub repository is updated, please
    subscribe to the [IHM-mmCIF-commits mailing list](https://salilab.org/mailman/listinfo/ihm-mmcif-commits).
 
-## Deposition of models to [PDB-Dev](https://pdb-dev.wwpdb.org)
+## Deposition of models to [PDB-IHM](https://pdb-ihm.org)
 
-Models can be deposited to [PDB-Dev](https://pdb-dev.wwpdb.org) in a semi-automated fashion, 
-via the [deposition and data harvesting system](https://data.pdb-dev.org).
+Models can be deposited to [PDB-IHM](https://pdb-ihm.org) in a semi-automated fashion, 
+via the [deposition and data harvesting system](https://data.pdb-ihm.org).
 The system accepts mmCIF files compliant with the [PDBx/mmCIF](https://mmcif.wwpdb.org/) 
 and [IHMCIF](dist/mmcif_ihm.dic) dictionaries. Compliant files can be generated using 
 the [python-ihm](https://github.com/ihmwg/python-ihm) software library. 

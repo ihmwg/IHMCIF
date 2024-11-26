@@ -3,7 +3,7 @@ data_mmcif_ihm-core.dic
 _pdbx_dictionary_component.datablock_id   mmcif_ihm-core.dic
 _pdbx_dictionary_component.dictionary_component_id  mmcif_ihm-core.dic
 _pdbx_dictionary_component.title          "IHMCIF dictionary: mmcif_ihm-core"
-_pdbx_dictionary_component.version        1.26
+_pdbx_dictionary_component.version        1.27
 
 loop_
 _pdbx_dictionary_component_history.dictionary_component_id
@@ -568,6 +568,10 @@ mmcif_ihm-core.dic   1.26   2024-07-11
   + Update enumerations for _ihm_cross_link_list.linker_type
   + Update _item_type.code for _ihm_dataset_related_db_reference.accession_code and _ihm_ensemble_info.ensemble_clustering_method
   + Add "ProteomeXchange" to the enumeration list of _ihm_dataset_related_db_reference.db_name
+;
+mmcif_ihm-core.dic   1.27   2024-11-25
+;
+  + Added BMRbig to the enumeration list in ihm_dataset_related_db_reference.db_name
 ;
 
 #############################
@@ -4881,6 +4885,7 @@ save__ihm_dataset_related_db_reference.db_name
       'iProX'
       'AlphaFoldDB'
       'ProteomeXchange'
+      'BMRbig'
       'Other'
      save_
 
