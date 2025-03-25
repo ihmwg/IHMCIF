@@ -3,7 +3,7 @@ data_mmcif_ihm-core.dic
 _pdbx_dictionary_component.datablock_id   mmcif_ihm-core.dic
 _pdbx_dictionary_component.dictionary_component_id  mmcif_ihm-core.dic
 _pdbx_dictionary_component.title          "IHMCIF dictionary: mmcif_ihm-core"
-_pdbx_dictionary_component.version        1.27
+_pdbx_dictionary_component.version        1.28
 
 loop_
 _pdbx_dictionary_component_history.dictionary_component_id
@@ -572,6 +572,11 @@ mmcif_ihm-core.dic   1.26   2024-07-11
 mmcif_ihm-core.dic   1.27   2024-11-25
 ;
   + Added BMRbig to the enumeration list in ihm_dataset_related_db_reference.db_name
+;
+mmcif_ihm-core.dic   1.28   2025-03-24
+;
+  + Add _ihm_cross_link_result.model_group_id
+  + Update _item.mandatory_code for _ihm_cross_link_result.ensemble_id and _ihm_cross_link_result.num_models
 ;
 
 #############################
@@ -7803,7 +7808,7 @@ save__ihm_cross_link_result.ensemble_id
 ;
     _item.name                  '_ihm_cross_link_result.ensemble_id'
     _item.category_id             ihm_cross_link_result
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
     _item_linked.child_name    '_ihm_cross_link_result.ensemble_id'
     _item_linked.parent_name   '_ihm_ensemble_info.ensemble_id'
@@ -7816,8 +7821,22 @@ save__ihm_cross_link_result.num_models
 ;
     _item.name                    '_ihm_cross_link_result.num_models'
     _item.category_id             ihm_cross_link_result
-    _item.mandatory_code          yes
+    _item.mandatory_code          no
     _item_type.code               int
+     save_
+
+save__ihm_cross_link_result.model_group_id
+    _item_description.description
+;     An identifier for the group of structure models whose results are described.
+      This data item is a pointer to _ihm_model_group.id in the
+      IHM_MODEL_GROUP category.
+;
+    _item.name                  '_ihm_cross_link_result.model_group_id'
+    _item.category_id             ihm_cross_link_result
+    _item.mandatory_code          no
+    _item_type.code               int
+    _item_linked.child_name    '_ihm_cross_link_result.model_group_id'
+    _item_linked.parent_name   '_ihm_model_group.id'
      save_
 
 save__ihm_cross_link_result.distance_threshold

@@ -3,13 +3,18 @@ data_mmcif_ihm-data.dic
 _pdbx_dictionary_component.datablock_id   mmcif_ihm-data.dic
 _pdbx_dictionary_component.dictionary_component_id  mmcif_ihm-data.dic
 _pdbx_dictionary_component.title          "IHMCIF dictionary: mmcif_ihm-data"
-_pdbx_dictionary_component.version        1.0
+_pdbx_dictionary_component.version        1.1
 
 loop_
 _pdbx_dictionary_component_history.dictionary_component_id
 _pdbx_dictionary_component_history.version
 _pdbx_dictionary_component_history.update
 _pdbx_dictionary_component_history.revision
+mmcif_ihm-data.dic  1.1   2025-03-24
+;  
+  Changes (bv)
+  + Update author data type to match PDBx/mmCIF definitions
+;
 mmcif_ihm-data.dic  1.0   2023-12-22
 ;
   Changes (bv)
@@ -585,7 +590,8 @@ mmcif_ihm-data.dic  1.0   2023-12-22
    boolean char 'YES|NO' 'Boolean type'
 
    # EM uses this data type
-   author char "(([A-Za-z0-9_]+(( |-|'|\. )[A-Za-z0-9_]+)*( Jr.| III)?, [A-Za-z0-9_]\.(-?[A-Za-z0-9_]+\.)*)|(Seattle Structural Genomics Center for Infectious Disease.*)|(Structural Genomics Consortium.*)|(QCRG Structural Biology Consortium.*)|(Center for Structural Genomics of Infectious Diseases.*))" 'Author name in PDB format: Taylor, C.A.'
+   author char "(([A-Za-z0-9_]+(( |-|'|\. )[A-Za-z0-9_]+)*( Jr.| III)?, [A-Za-z0-9_]\.(-?[A-Za-z0-9_]+\.)*)|(Seattle Structural Genomics Center for Infectious Disease.*)|(Structural Genomics Consortium.*)|(QCRG Structural Biology Consortium.*)|(Center for Structural Genomics of Infectious Diseases.*)|(Center for Structural Biology of Infectious Diseases.*)|(Center for Structures of Membrane Proteins.*))" 'Author name in PDB format: Taylor, C.A.'
+   #author char "(([A-Za-z0-9_]+(( |-|'|\. )[A-Za-z0-9_]+)*( Jr.| III)?, [A-Za-z0-9_]\.(-?[A-Za-z0-9_]+\.)*)|(Seattle Structural Genomics Center for Infectious Disease.*)|(Structural Genomics Consortium.*)|(QCRG Structural Biology Consortium.*)|(Center for Structural Genomics of Infectious Diseases.*))" 'Author name in PDB format: Taylor, C.A.'
    #author char "[A-Za-z '\-]+,\s+([A-Z\-]+\.)+$" 'Author name in PDB format: Taylor, C.A.'
    #author char "[A-Za-z0-9_]+(( |-|'|\. )[A-Za-z0-9_]+)*( Jr.| III)?, [A-Za-z0-9_]\.(-?[A-Za-z0-9_]+\.)*$" 'Author name in PDB format: Taylor, C.A.'
    orcid_id char "[0-9]{4}-[0-9]{4}-[0-9]{4}-([0-9]{3}X|[0-9]{4})"  'ORCID pattern - dddd-dddd-dddd-dddd|dddX'

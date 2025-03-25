@@ -2,7 +2,7 @@
 ## IHMCIF DICTIONARY ##
 #######################
 
-# Version 1.27 25th November 2024
+# Version 1.28 24th March 2025
 
 data_mmcif_ihm.dic
 
@@ -18,7 +18,7 @@ data_mmcif_ihm.dic
 ;
     _dictionary.title           mmcif_ihm.dic
     _dictionary.datablock_id    mmcif_ihm.dic
-    _dictionary.version         1.27
+    _dictionary.version         1.28
 #
      loop_
     _dictionary_history.version
@@ -590,4 +590,9 @@ data_mmcif_ihm.dic
    1.27   2024-11-25
 ; 
   + Added BMRbig to the enumeration list in ihm_dataset_related_db_reference.db_name
-; 
+;
+   1.28   2025-03-24
+;
+  + Add _ihm_cross_link_result.model_group_id
+  + Update _item.mandatory_code for _ihm_cross_link_result.ensemble_id and _ihm_cross_link_result.num_models
+;
