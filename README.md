@@ -79,11 +79,7 @@ modeling software such as [IMP](https://integrativemodeling.org).
 
 ## Discussion
 
- - Discussion on the file formats is conducted via email - please subscribe to
-   [the mailing list](https://salilab.org/mailman/listinfo/ihm-repval).
-
- - To get an email every time this GitHub repository is updated, please
-   subscribe to the [IHM-mmCIF-commits mailing list](https://salilab.org/mailman/listinfo/ihm-mmcif-commits).
+For any questions regarding IHMCIF, please reach out to the [PDB-IHM team](mailto:helpdesk@pdb-ihm.org) or create issues in this repository.
 
 ## Deposition of models to [PDB-IHM](https://pdb-ihm.org)
 
