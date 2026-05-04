@@ -3,13 +3,18 @@ data_mmcif_ihm-data.dic
 _pdbx_dictionary_component.datablock_id   mmcif_ihm-data.dic
 _pdbx_dictionary_component.dictionary_component_id  mmcif_ihm-data.dic
 _pdbx_dictionary_component.title          "IHMCIF dictionary: mmcif_ihm-data"
-_pdbx_dictionary_component.version        1.1
+_pdbx_dictionary_component.version        1.2
 
 loop_
 _pdbx_dictionary_component_history.dictionary_component_id
 _pdbx_dictionary_component_history.version
 _pdbx_dictionary_component_history.update
 _pdbx_dictionary_component_history.revision
+mmcif_ihm-data.dic  1.2   2026-05-04
+;  
+  Changes (bv)
+  + Add int_list data type
+;
 mmcif_ihm-data.dic  1.1   2025-03-24
 ;  
   Changes (bv)
@@ -602,6 +607,9 @@ mmcif_ihm-data.dic  1.0   2023-12-22
    citation_doi        char '10\..*'  'Citation DOI specification.'
    exp_data_doi        char '10\.[0-9]{4,9}/[-._;()/:A-Za-z0-9]+'  'Experimental dataset DOI'
    deposition_email    uchar '[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+' 'code item types/single words  (case insensitive) ...'
+
+   # IHM uses this data type
+   int_list uchar '[1-9][0-9]*(,[1-9][0-9]*)*' "comma separated list of positive integers (no spaces)  ..."
 
 #####################
 ## ITEM_UNITS_LIST ##

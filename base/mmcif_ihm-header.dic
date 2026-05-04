@@ -2,7 +2,7 @@
 ## IHMCIF DICTIONARY ##
 #######################
 
-# Version 1.28 24th March 2025
+# Version 1.29 4th May 2026
 
 data_mmcif_ihm.dic
 
@@ -18,7 +18,7 @@ data_mmcif_ihm.dic
 ;
     _dictionary.title           mmcif_ihm.dic
     _dictionary.datablock_id    mmcif_ihm.dic
-    _dictionary.version         1.28
+    _dictionary.version         1.29
 #
      loop_
     _dictionary_history.version
@@ -595,4 +595,9 @@ data_mmcif_ihm.dic
 ;
   + Add _ihm_cross_link_result.model_group_id
   + Update _item.mandatory_code for _ihm_cross_link_result.ensemble_id and _ihm_cross_link_result.num_models
+;
+   1.29   2026-05-04
+;
+  + Add _pdbx_poly_seq_scheme.ihm_model_id_list
+  + Add int_list data type
 ;
