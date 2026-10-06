@@ -3,7 +3,7 @@ data_mmcif_ihm-core.dic
 _pdbx_dictionary_component.datablock_id   mmcif_ihm-core.dic
 _pdbx_dictionary_component.dictionary_component_id  mmcif_ihm-core.dic
 _pdbx_dictionary_component.title          "IHMCIF dictionary: mmcif_ihm-core"
-_pdbx_dictionary_component.version        1.28
+_pdbx_dictionary_component.version        1.29
 
 loop_
 _pdbx_dictionary_component_history.dictionary_component_id
@@ -577,6 +577,10 @@ mmcif_ihm-core.dic   1.28   2025-03-24
 ;
   + Add _ihm_cross_link_result.model_group_id
   + Update _item.mandatory_code for _ihm_cross_link_result.ensemble_id and _ihm_cross_link_result.num_models
+;
+mmcif_ihm-core.dic   1.29   2026-05-04
+;
+  + Add _pdbx_poly_seq_scheme.ihm_model_id_list 
 ;
 
 #############################
@@ -4225,6 +4229,25 @@ save__atom_site.ihm_model_id
     _item_type.code               int
     _item_linked.child_name     '_atom_site.ihm_model_id'
     _item_linked.parent_name    '_ihm_model_list.model_id'
+     save_
+
+##########################
+## PDBX_POLY_SEQ_SCHEME ##
+##########################
+
+save__pdbx_poly_seq_scheme.ihm_model_id_list
+    _item_description.description
+;     Comma-separated list of IHM model id values.
+      This data item indicates the list of models that have coordinates for 
+      a particular residue in the sequence. 
+      The IHM model ids must match to the values in _ihm_model_list.model_id.
+;
+    _item.name                  '_pdbx_poly_seq_scheme.ihm_model_id_list'
+    _item.category_id             pdbx_poly_seq_scheme
+    _item.mandatory_code          no
+    _item_type.code               code
+    _pdbx_item_type.code          int_list
+    _item_default.value           1
      save_
 
 ######################
