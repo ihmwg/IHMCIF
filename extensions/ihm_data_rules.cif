@@ -1,0 +1,363 @@
+########################
+## PDB-IHM DATA RULES ##
+########################
+
+data_ihm_data_rules
+#
+loop_
+_pdbx_data_rule.id
+_pdbx_data_rule.family
+_pdbx_data_rule.scope_category
+_pdbx_data_rule.procedural_method
+_pdbx_data_rule.message
+_pdbx_data_rule.param_flag
+_pdbx_data_rule.join_flag
+_pdbx_data_rule.row_selection_flag
+IHMDEP001 conditional_presence entry . 'entry must be provided.' NO NO NO
+IHMDEP002 conditional_presence entry . 'struct must be provided.' NO NO NO
+IHMDEP003 conditional_presence entry . '_struct.pdbx_structure_determination_methodology must be provided.' NO NO NO
+IHMDEP004 conditional_presence entry . 'audit_author must be provided.' NO NO NO
+IHMDEP005 conditional_presence entry . 'citation is relevant; please provide it if available.' NO NO NO
+IHMDEP006 conditional_presence entry . 'citation_author is relevant; please provide it if available.' NO NO NO
+IHMDEP007 conditional_presence entry . 'software must be provided.' NO NO NO
+IHMDEP008 conditional_presence entry . 'entity must be provided.' NO NO NO
+IHMDEP009 conditional_presence struct . 'ihm_model_list must be provided for integrative structures.' NO NO NO
+IHMDEP010 conditional_presence struct . 'ihm_model_group must be provided for integrative structures.' NO NO NO
+IHMDEP011 conditional_presence struct . 'ihm_model_group_link must be provided for integrative structures.' NO NO NO
+IHMDEP012 conditional_presence struct . 'ihm_struct_assembly must be provided for integrative structures.' NO NO NO
+IHMDEP013 conditional_presence struct . 'ihm_struct_assembly_details must be provided for integrative structures.' NO NO NO
+IHMDEP014 conditional_presence struct . 'ihm_model_representation must be provided for integrative structures.' NO NO NO
+IHMDEP015 conditional_presence struct . 'ihm_model_representation_details must be provided for integrative structures.' NO NO NO
+IHMDEP016 conditional_presence struct . 'ihm_modeling_protocol must be provided for integrative structures.' NO NO NO
+IHMDEP017 conditional_presence struct . 'ihm_modeling_protocol_details must be provided for integrative structures.' NO NO NO
+IHMDEP018 conditional_presence struct . 'ihm_dataset_list must be provided for integrative structures.' NO NO NO
+IHMDEP019 conditional_presence struct . 'ihm_dataset_group must be provided for integrative structures.' NO NO NO
+IHMDEP020 conditional_presence struct . 'ihm_dataset_group_link must be provided for integrative structures.' NO NO NO
+IHMDEP021 conditional_presence ihm_dataset_list . "ihm_3dem_restraint must be provided when _ihm_dataset_list.data_type is '3DEM volume'." NO NO NO
+IHMDEP022 conditional_presence ihm_dataset_list . "ihm_cross_link_list must be provided when _ihm_dataset_list.data_type is 'Crosslinking-MS data'." NO NO NO
+IHMDEP023 conditional_presence ihm_dataset_list . "ihm_cross_link_restraint must be provided when _ihm_dataset_list.data_type is 'Crosslinking-MS data'." NO NO NO
+IHMDEP024 conditional_presence ihm_dataset_list . "ihm_cross_link_result, ihm_cross_link_result_parameters, ihm_cross_link_pseudo_site are relevant when _ihm_dataset_list.data_type is 'Crosslinking-MS data'; please provide at least one if available." NO NO NO
+IHMDEP025 conditional_presence ihm_dataset_list . "ihm_chemical_component_descriptor must be provided when _ihm_dataset_list.data_type is one of 'Crosslinking-MS data', 'Ensemble FRET data', 'Single molecule FRET data', 'EPR data'." NO NO NO
+IHMDEP026 conditional_presence ihm_dataset_list . "ihm_starting_model_details must be provided when _ihm_dataset_list.data_type is one of 'Experimental model', 'Comparative model', 'Integrative model', 'De Novo model'." NO NO NO
+IHMDEP027 conditional_presence ihm_dataset_list . "ihm_starting_model_details is relevant when _ihm_dataset_list.data_type is 'X-ray diffraction data'; please provide it if available." NO NO NO
+IHMDEP028 conditional_presence ihm_dataset_list . "ihm_starting_model_seq_dif, ihm_starting_model_coord are relevant when _ihm_dataset_list.data_type is one of 'Experimental model', 'Comparative model', 'Integrative model', 'De Novo model', 'X-ray diffraction data'; please provide at least one if available." NO NO NO
+IHMDEP029 conditional_presence ihm_dataset_list . "ihm_starting_comparative_models must be provided when _ihm_dataset_list.data_type is 'Comparative model'." NO NO NO
+IHMDEP030 conditional_presence ihm_dataset_list . "ihm_starting_computational_models is relevant when _ihm_dataset_list.data_type is one of 'Comparative model', 'De Novo model'; please provide it if available." NO NO NO
+IHMDEP031 conditional_presence ihm_dataset_list . "ihm_2dem_class_average_restraint must be provided when _ihm_dataset_list.data_type is '2DEM class average'." NO NO NO
+IHMDEP032 conditional_presence ihm_dataset_list . "ihm_2dem_class_average_fitting must be provided when _ihm_dataset_list.data_type is '2DEM class average'." NO NO NO
+IHMDEP033 conditional_presence ihm_dataset_list . "ihm_sas_restraint must be provided when _ihm_dataset_list.data_type is 'SAS data'." NO NO NO
+IHMDEP034 conditional_presence ihm_dataset_list . "ihm_epr_restraint must be provided when _ihm_dataset_list.data_type is 'EPR data'." NO NO NO
+IHMDEP035 conditional_presence ihm_dataset_list . "ihm_feature_list, ihm_derived_distance_restraint, ihm_interface_residue_feature are relevant when _ihm_dataset_list.data_type is one of 'DNA footprinting data', 'Mutagenesis data', 'NMR data', 'Quantitative measurements of genetic interactions', 'Yeast two-hybrid screening data', 'Other'; please provide at least one if available." NO NO NO
+IHMDEP036 conditional_presence ihm_dataset_list . "ihm_probe_list must be provided when _ihm_dataset_list.data_type is one of 'Ensemble FRET data', 'Single molecule FRET data', 'EPR data'." NO NO NO
+IHMDEP037 conditional_presence ihm_dataset_list . "ihm_poly_probe_position, ihm_poly_probe_conjugate, ihm_ligand_probe are relevant when _ihm_dataset_list.data_type is one of 'Ensemble FRET data', 'Single molecule FRET data', 'EPR data'; please provide at least one if available." NO NO NO
+IHMDEP038 conditional_presence ihm_dataset_list . "ihm_predicted_contact_restraint must be provided when _ihm_dataset_list.data_type is 'Predicted contacts'." NO NO NO
+IHMDEP039 conditional_presence ihm_dataset_list . "ihm_hydroxyl_radical_fp_restraint must be provided when _ihm_dataset_list.data_type is 'Hydroxyl radical footprinting data'." NO NO NO
+IHMDEP040 conditional_presence ihm_dataset_list . "ihm_hdx_restraint must be provided when _ihm_dataset_list.data_type is 'H/D exchange data'." NO NO NO
+IHMDEP041 conditional_presence ihm_dataset_list . "ihm_geometric_object_list, ihm_geometric_object_distance_restraint are relevant when _ihm_dataset_list.data_type is 'Other'; please provide at least one if available." NO NO NO
+IHMDEP042 conditional_presence ihm_feature_list . "ihm_poly_atom_feature must be provided when _ihm_feature_list.feature_type is 'atom'." NO NO NO
+IHMDEP043 conditional_presence ihm_feature_list . "ihm_non_poly_feature must be provided when _ihm_feature_list.feature_type is 'ligand'." NO NO NO
+IHMDEP044 conditional_presence ihm_feature_list . "ihm_poly_residue_feature must be provided when _ihm_feature_list.feature_type is one of 'residue', 'residue range'." NO NO NO
+IHMDEP045 conditional_presence ihm_feature_list . "ihm_pseudo_site must be provided when _ihm_feature_list.feature_type is 'pseudo site'." NO NO NO
+IHMDEP046 conditional_presence ihm_feature_list . "ihm_pseudo_site_feature must be provided when _ihm_feature_list.feature_type is 'pseudo site'." NO NO NO
+IHMDEP047 conditional_presence ihm_feature_list . "ihm_derived_distance_restraint, ihm_derived_angle_restraint, ihm_derived_dihedral_restraint are relevant when _ihm_feature_list.feature_type is one of 'atom', 'ligand', 'residue', 'residue range', 'pseudo site'; please provide at least one if available." NO NO NO
+IHMDEP048 conditional_presence ihm_poly_residue_feature . "ihm_interface_residue_feature must be provided when _ihm_poly_residue_feature.interface_residue_flag is 'YES'." NO NO NO
+IHMDEP049 conditional_presence ihm_cross_link_restraint . "ihm_pseudo_site must be provided when _ihm_cross_link_restraint.pseudo_site_flag is 'YES'." NO NO NO
+IHMDEP050 conditional_presence ihm_cross_link_restraint . "ihm_cross_link_pseudo_site must be provided when _ihm_cross_link_restraint.pseudo_site_flag is 'YES'." NO NO NO
+IHMDEP051 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_center must be provided when _ihm_geometric_object_list.object_type is one of 'sphere', 'axis', 'other', 'torus', 'half-torus', 'plane'." NO NO NO
+IHMDEP052 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_transformation must be provided when _ihm_geometric_object_list.object_type is one of 'sphere', 'axis', 'other', 'torus', 'half-torus', 'plane'." NO NO NO
+IHMDEP053 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_sphere must be provided when _ihm_geometric_object_list.object_type is 'sphere'." NO NO NO
+IHMDEP054 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_torus must be provided when _ihm_geometric_object_list.object_type is one of 'torus', 'half-torus'." NO NO NO
+IHMDEP055 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_half_torus must be provided when _ihm_geometric_object_list.object_type is 'half-torus'." NO NO NO
+IHMDEP056 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_axis must be provided when _ihm_geometric_object_list.object_type is 'axis'." NO NO NO
+IHMDEP057 conditional_presence ihm_geometric_object_list . "ihm_geometric_object_plane must be provided when _ihm_geometric_object_list.object_type is 'plane'." NO NO NO
+IHMDEP058 conditional_presence ihm_dataset_list . "ihm_dataset_related_db_reference must be provided when _ihm_dataset_list.database_hosted is 'YES'." NO NO NO
+IHMDEP059 conditional_presence ihm_dataset_list . "ihm_external_reference_info must be provided when _ihm_dataset_list.database_hosted is 'NO'." NO NO NO
+IHMDEP060 conditional_presence ihm_external_reference_info . "ihm_external_files must be provided when _ihm_external_reference_info.reference_type is one of 'DOI', 'Supplementary Files'." NO NO NO
+IHMDEP061 conditional_presence ihm_external_reference_info . "ihm_dataset_external_reference must be provided when _ihm_external_reference_info.reference_type is one of 'DOI', 'Supplementary Files'." NO NO NO
+IHMDEP062 conditional_presence ihm_modeling_protocol_details . "atom_site must be provided when _ihm_modeling_protocol_details.multi_scale_flag is 'NO'." NO NO NO
+IHMDEP063 conditional_presence ihm_modeling_protocol_details . "At least one of ihm_sphere_obj_site, ihm_gaussian_obj_site must be provided when _ihm_modeling_protocol_details.multi_scale_flag is 'YES'." NO NO NO
+IHMDEP064 conditional_presence ihm_modeling_protocol_details . "ihm_multi_state_modeling must be provided when _ihm_modeling_protocol_details.multi_state_flag is 'YES'." NO NO NO
+IHMDEP065 conditional_presence ihm_modeling_protocol_details . "ihm_multi_state_model_group_link must be provided when _ihm_modeling_protocol_details.multi_state_flag is 'YES'." NO NO NO
+IHMDEP066 conditional_presence ihm_modeling_protocol_details . "ihm_multi_state_scheme, ihm_multi_state_scheme_connectivity, ihm_kinetic_rate, ihm_relaxation_time, ihm_relaxation_time_multi_state_scheme are relevant when _ihm_modeling_protocol_details.multi_state_flag is 'YES'; please provide at least one if available." NO NO NO
+IHMDEP067 conditional_presence ihm_modeling_protocol_details . "ihm_ordered_model must be provided when _ihm_modeling_protocol_details.ordered_flag is 'YES'." NO NO NO
+IHMDEP068 conditional_presence ihm_modeling_protocol_details . "ihm_ensemble_info must be provided when _ihm_modeling_protocol_details.ensemble_flag is 'YES'." NO NO NO
+IHMDEP069 conditional_presence ihm_modeling_protocol_details . "ihm_localization_density_files, ihm_gaussian_obj_ensemble are relevant when _ihm_modeling_protocol_details.ensemble_flag is 'YES'; please provide at least one if available." NO NO NO
+IHMDEP070 conditional_presence ihm_ensemble_info . "ihm_ensemble_sub_sample must be provided when _ihm_ensemble_info.sub_sample_flag is 'YES'." NO NO NO
+IHMDEP071 conditional_presence entity . "pdbx_entity_nonpoly must be provided when _entity.type is 'NON-POLYMER' and the structure is integrative." NO NO NO
+IHMDEP072 conditional_presence entity . "pdbx_nonpoly_scheme must be provided when _entity.type is 'NON-POLYMER' and the structure is integrative." NO NO NO
+IHMDEP073 conditional_presence entity . "entity_poly must be provided when _entity.type is 'POLYMER' and the structure is integrative." NO NO NO
+IHMDEP074 conditional_presence entity . "entity_poly_seq must be provided when _entity.type is 'POLYMER' and the structure is integrative." NO NO NO
+IHMDEP075 conditional_presence entity . "pdbx_poly_seq_scheme must be provided when _entity.type is 'POLYMER' and the structure is integrative." NO NO NO
+IHMDEP076 conditional_presence entity . "ihm_entity_poly_segment must be provided when _entity.type is 'POLYMER' and the structure is integrative." NO NO NO
+#
+loop_
+_pdbx_data_rule_context.rule_id
+_pdbx_data_rule_context.context
+_pdbx_data_rule_context.severity
+_pdbx_data_rule_context.enabled
+IHMDEP001 deposition ERROR YES
+IHMDEP002 deposition ERROR YES
+IHMDEP003 deposition ERROR YES
+IHMDEP004 deposition ERROR YES
+IHMDEP005 deposition INFO YES
+IHMDEP006 deposition INFO YES
+IHMDEP007 deposition ERROR YES
+IHMDEP008 deposition ERROR YES
+IHMDEP009 deposition ERROR YES
+IHMDEP010 deposition ERROR YES
+IHMDEP011 deposition ERROR YES
+IHMDEP012 deposition ERROR YES
+IHMDEP013 deposition ERROR YES
+IHMDEP014 deposition ERROR YES
+IHMDEP015 deposition ERROR YES
+IHMDEP016 deposition ERROR YES
+IHMDEP017 deposition ERROR YES
+IHMDEP018 deposition ERROR YES
+IHMDEP019 deposition ERROR YES
+IHMDEP020 deposition ERROR YES
+IHMDEP021 deposition ERROR YES
+IHMDEP022 deposition ERROR YES
+IHMDEP023 deposition ERROR YES
+IHMDEP024 deposition INFO YES
+IHMDEP025 deposition ERROR YES
+IHMDEP026 deposition ERROR YES
+IHMDEP027 deposition INFO YES
+IHMDEP028 deposition INFO YES
+IHMDEP029 deposition ERROR YES
+IHMDEP030 deposition INFO YES
+IHMDEP031 deposition ERROR YES
+IHMDEP032 deposition ERROR YES
+IHMDEP033 deposition ERROR YES
+IHMDEP034 deposition ERROR YES
+IHMDEP035 deposition INFO YES
+IHMDEP036 deposition ERROR YES
+IHMDEP037 deposition INFO YES
+IHMDEP038 deposition ERROR YES
+IHMDEP039 deposition ERROR YES
+IHMDEP040 deposition ERROR YES
+IHMDEP041 deposition INFO YES
+IHMDEP042 deposition ERROR YES
+IHMDEP043 deposition ERROR YES
+IHMDEP044 deposition ERROR YES
+IHMDEP045 deposition ERROR YES
+IHMDEP046 deposition ERROR YES
+IHMDEP047 deposition INFO YES
+IHMDEP048 deposition ERROR YES
+IHMDEP049 deposition ERROR YES
+IHMDEP050 deposition ERROR YES
+IHMDEP051 deposition ERROR YES
+IHMDEP052 deposition ERROR YES
+IHMDEP053 deposition ERROR YES
+IHMDEP054 deposition ERROR YES
+IHMDEP055 deposition ERROR YES
+IHMDEP056 deposition ERROR YES
+IHMDEP057 deposition ERROR YES
+IHMDEP058 deposition ERROR YES
+IHMDEP059 deposition ERROR YES
+IHMDEP060 deposition ERROR YES
+IHMDEP061 deposition ERROR YES
+IHMDEP062 deposition ERROR YES
+IHMDEP063 deposition ERROR YES
+IHMDEP064 deposition ERROR YES
+IHMDEP065 deposition ERROR YES
+IHMDEP066 deposition INFO YES
+IHMDEP067 deposition ERROR YES
+IHMDEP068 deposition ERROR YES
+IHMDEP069 deposition INFO YES
+IHMDEP070 deposition ERROR YES
+IHMDEP071 deposition ERROR YES
+IHMDEP072 deposition ERROR YES
+IHMDEP073 deposition ERROR YES
+IHMDEP074 deposition ERROR YES
+IHMDEP075 deposition ERROR YES
+IHMDEP076 deposition ERROR YES
+#
+loop_
+_pdbx_data_rule_condition.rule_id
+_pdbx_data_rule_condition.ordinal
+_pdbx_data_rule_condition.role
+_pdbx_data_rule_condition.item_name
+_pdbx_data_rule_condition.operator
+_pdbx_data_rule_condition.value
+_pdbx_data_rule_condition.compare_item_name
+_pdbx_data_rule_condition.group_operator
+_pdbx_data_rule_condition.quantifier
+_pdbx_data_rule_condition.value_transform
+IHMDEP001 1 THEN '_entry.id' NOT_EMPTY . . . . .
+IHMDEP002 1 THEN '_struct.entry_id' NOT_EMPTY . . . ANY .
+IHMDEP003 1 THEN '_struct.pdbx_structure_determination_methodology' NOT_EMPTY . . . ANY .
+IHMDEP004 1 THEN '_audit_author.pdbx_ordinal' NOT_EMPTY . . . ANY .
+IHMDEP005 1 THEN '_citation.id' NOT_EMPTY . . . ANY .
+IHMDEP006 1 THEN '_citation_author.citation_id' NOT_EMPTY . . AND ANY .
+IHMDEP006 2 THEN '_citation_author.name' NOT_EMPTY . . AND ANY .
+IHMDEP006 3 THEN '_citation_author.ordinal' NOT_EMPTY . . AND ANY .
+IHMDEP007 1 THEN '_software.pdbx_ordinal' NOT_EMPTY . . . ANY .
+IHMDEP008 1 THEN '_entity.id' NOT_EMPTY . . . ANY .
+IHMDEP009 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP009 2 THEN '_ihm_model_list.model_id' NOT_EMPTY . . . ANY .
+IHMDEP010 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP010 2 THEN '_ihm_model_group.id' NOT_EMPTY . . . ANY .
+IHMDEP011 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP011 2 THEN '_ihm_model_group_link.model_id' NOT_EMPTY . . AND ANY .
+IHMDEP011 3 THEN '_ihm_model_group_link.group_id' NOT_EMPTY . . AND ANY .
+IHMDEP012 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP012 2 THEN '_ihm_struct_assembly.id' NOT_EMPTY . . . ANY .
+IHMDEP013 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP013 2 THEN '_ihm_struct_assembly_details.id' NOT_EMPTY . . . ANY .
+IHMDEP014 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP014 2 THEN '_ihm_model_representation.id' NOT_EMPTY . . . ANY .
+IHMDEP015 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP015 2 THEN '_ihm_model_representation_details.id' NOT_EMPTY . . . ANY .
+IHMDEP016 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP016 2 THEN '_ihm_modeling_protocol.id' NOT_EMPTY . . . ANY .
+IHMDEP017 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP017 2 THEN '_ihm_modeling_protocol_details.id' NOT_EMPTY . . . ANY .
+IHMDEP018 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP018 2 THEN '_ihm_dataset_list.id' NOT_EMPTY . . . ANY .
+IHMDEP019 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP019 2 THEN '_ihm_dataset_group.id' NOT_EMPTY . . . ANY .
+IHMDEP020 1 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . . . .
+IHMDEP020 2 THEN '_ihm_dataset_group_link.dataset_list_id' NOT_EMPTY . . AND ANY .
+IHMDEP020 3 THEN '_ihm_dataset_group_link.group_id' NOT_EMPTY . . AND ANY .
+IHMDEP021 1 WHEN '_ihm_dataset_list.data_type' EQ '3DEM volume' . . . .
+IHMDEP021 2 THEN '_ihm_3dem_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP022 1 WHEN '_ihm_dataset_list.data_type' EQ 'Crosslinking-MS data' . . . .
+IHMDEP022 2 THEN '_ihm_cross_link_list.id' NOT_EMPTY . . . ANY .
+IHMDEP023 1 WHEN '_ihm_dataset_list.data_type' EQ 'Crosslinking-MS data' . . . .
+IHMDEP023 2 THEN '_ihm_cross_link_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP024 1 WHEN '_ihm_dataset_list.data_type' EQ 'Crosslinking-MS data' . . . .
+IHMDEP024 2 THEN '_ihm_cross_link_result.id' NOT_EMPTY . . OR ANY .
+IHMDEP024 3 THEN '_ihm_cross_link_result_parameters.id' NOT_EMPTY . . OR ANY .
+IHMDEP024 4 THEN '_ihm_cross_link_pseudo_site.id' NOT_EMPTY . . OR ANY .
+IHMDEP025 1 WHEN '_ihm_dataset_list.data_type' IN 'Crosslinking-MS data,Ensemble FRET data,Single molecule FRET data,EPR data' . . . .
+IHMDEP025 2 THEN '_ihm_chemical_component_descriptor.id' NOT_EMPTY . . . ANY .
+IHMDEP026 1 WHEN '_ihm_dataset_list.data_type' IN 'Experimental model,Comparative model,Integrative model,De Novo model' . . . .
+IHMDEP026 2 THEN '_ihm_starting_model_details.starting_model_id' NOT_EMPTY . . . ANY .
+IHMDEP027 1 WHEN '_ihm_dataset_list.data_type' EQ 'X-ray diffraction data' . . . .
+IHMDEP027 2 THEN '_ihm_starting_model_details.starting_model_id' NOT_EMPTY . . . ANY .
+IHMDEP028 1 WHEN '_ihm_dataset_list.data_type' IN 'Experimental model,Comparative model,Integrative model,De Novo model,X-ray diffraction data' . . . .
+IHMDEP028 2 THEN '_ihm_starting_model_seq_dif.id' NOT_EMPTY . . OR ANY .
+IHMDEP028 3 THEN '_ihm_starting_model_coord.ordinal_id' NOT_EMPTY . . OR ANY .
+IHMDEP029 1 WHEN '_ihm_dataset_list.data_type' EQ 'Comparative model' . . . .
+IHMDEP029 2 THEN '_ihm_starting_comparative_models.id' NOT_EMPTY . . . ANY .
+IHMDEP030 1 WHEN '_ihm_dataset_list.data_type' IN 'Comparative model,De Novo model' . . . .
+IHMDEP030 2 THEN '_ihm_starting_computational_models.starting_model_id' NOT_EMPTY . . . ANY .
+IHMDEP031 1 WHEN '_ihm_dataset_list.data_type' EQ '2DEM class average' . . . .
+IHMDEP031 2 THEN '_ihm_2dem_class_average_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP032 1 WHEN '_ihm_dataset_list.data_type' EQ '2DEM class average' . . . .
+IHMDEP032 2 THEN '_ihm_2dem_class_average_fitting.id' NOT_EMPTY . . . ANY .
+IHMDEP033 1 WHEN '_ihm_dataset_list.data_type' EQ 'SAS data' . . . .
+IHMDEP033 2 THEN '_ihm_sas_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP034 1 WHEN '_ihm_dataset_list.data_type' EQ 'EPR data' . . . .
+IHMDEP034 2 THEN '_ihm_epr_restraint.ordinal_id' NOT_EMPTY . . . ANY .
+IHMDEP035 1 WHEN '_ihm_dataset_list.data_type' IN 'DNA footprinting data,Mutagenesis data,NMR data,Quantitative measurements of genetic interactions,Yeast two-hybrid screening data,Other' . . . .
+IHMDEP035 2 THEN '_ihm_feature_list.feature_id' NOT_EMPTY . . OR ANY .
+IHMDEP035 3 THEN '_ihm_derived_distance_restraint.id' NOT_EMPTY . . OR ANY .
+IHMDEP035 4 THEN '_ihm_interface_residue_feature.ordinal_id' NOT_EMPTY . . OR ANY .
+IHMDEP036 1 WHEN '_ihm_dataset_list.data_type' IN 'Ensemble FRET data,Single molecule FRET data,EPR data' . . . .
+IHMDEP036 2 THEN '_ihm_probe_list.probe_id' NOT_EMPTY . . . ANY .
+IHMDEP037 1 WHEN '_ihm_dataset_list.data_type' IN 'Ensemble FRET data,Single molecule FRET data,EPR data' . . . .
+IHMDEP037 2 THEN '_ihm_poly_probe_position.id' NOT_EMPTY . . OR ANY .
+IHMDEP037 3 THEN '_ihm_poly_probe_conjugate.id' NOT_EMPTY . . OR ANY .
+IHMDEP037 4 THEN '_ihm_ligand_probe.probe_id' NOT_EMPTY . . OR ANY .
+IHMDEP038 1 WHEN '_ihm_dataset_list.data_type' EQ 'Predicted contacts' . . . .
+IHMDEP038 2 THEN '_ihm_predicted_contact_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP039 1 WHEN '_ihm_dataset_list.data_type' EQ 'Hydroxyl radical footprinting data' . . . .
+IHMDEP039 2 THEN '_ihm_hydroxyl_radical_fp_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP040 1 WHEN '_ihm_dataset_list.data_type' EQ 'H/D exchange data' . . . .
+IHMDEP040 2 THEN '_ihm_hdx_restraint.id' NOT_EMPTY . . . ANY .
+IHMDEP041 1 WHEN '_ihm_dataset_list.data_type' EQ Other . . . .
+IHMDEP041 2 THEN '_ihm_geometric_object_list.object_id' NOT_EMPTY . . OR ANY .
+IHMDEP041 3 THEN '_ihm_geometric_object_distance_restraint.id' NOT_EMPTY . . OR ANY .
+IHMDEP042 1 WHEN '_ihm_feature_list.feature_type' EQ atom . . . .
+IHMDEP042 2 THEN '_ihm_poly_atom_feature.ordinal_id' NOT_EMPTY . . . ANY .
+IHMDEP043 1 WHEN '_ihm_feature_list.feature_type' EQ ligand . . . .
+IHMDEP043 2 THEN '_ihm_non_poly_feature.ordinal_id' NOT_EMPTY . . . ANY .
+IHMDEP044 1 WHEN '_ihm_feature_list.feature_type' IN 'residue,residue range' . . . .
+IHMDEP044 2 THEN '_ihm_poly_residue_feature.ordinal_id' NOT_EMPTY . . . ANY .
+IHMDEP045 1 WHEN '_ihm_feature_list.feature_type' EQ 'pseudo site' . . . .
+IHMDEP045 2 THEN '_ihm_pseudo_site.id' NOT_EMPTY . . . ANY .
+IHMDEP046 1 WHEN '_ihm_feature_list.feature_type' EQ 'pseudo site' . . . .
+IHMDEP046 2 THEN '_ihm_pseudo_site_feature.feature_id' NOT_EMPTY . . . ANY .
+IHMDEP047 1 WHEN '_ihm_feature_list.feature_type' IN 'atom,ligand,residue,residue range,pseudo site' . . . .
+IHMDEP047 2 THEN '_ihm_derived_distance_restraint.id' NOT_EMPTY . . OR ANY .
+IHMDEP047 3 THEN '_ihm_derived_angle_restraint.id' NOT_EMPTY . . OR ANY .
+IHMDEP047 4 THEN '_ihm_derived_dihedral_restraint.id' NOT_EMPTY . . OR ANY .
+IHMDEP048 1 WHEN '_ihm_poly_residue_feature.interface_residue_flag' EQ YES . . . .
+IHMDEP048 2 THEN '_ihm_interface_residue_feature.ordinal_id' NOT_EMPTY . . . ANY .
+IHMDEP049 1 WHEN '_ihm_cross_link_restraint.pseudo_site_flag' EQ YES . . . .
+IHMDEP049 2 THEN '_ihm_pseudo_site.id' NOT_EMPTY . . . ANY .
+IHMDEP050 1 WHEN '_ihm_cross_link_restraint.pseudo_site_flag' EQ YES . . . .
+IHMDEP050 2 THEN '_ihm_cross_link_pseudo_site.id' NOT_EMPTY . . . ANY .
+IHMDEP051 1 WHEN '_ihm_geometric_object_list.object_type' IN 'sphere,axis,other,torus,half-torus,plane' . . . .
+IHMDEP051 2 THEN '_ihm_geometric_object_center.id' NOT_EMPTY . . . ANY .
+IHMDEP052 1 WHEN '_ihm_geometric_object_list.object_type' IN 'sphere,axis,other,torus,half-torus,plane' . . . .
+IHMDEP052 2 THEN '_ihm_geometric_object_transformation.id' NOT_EMPTY . . . ANY .
+IHMDEP053 1 WHEN '_ihm_geometric_object_list.object_type' EQ sphere . . . .
+IHMDEP053 2 THEN '_ihm_geometric_object_sphere.object_id' NOT_EMPTY . . . ANY .
+IHMDEP054 1 WHEN '_ihm_geometric_object_list.object_type' IN 'torus,half-torus' . . . .
+IHMDEP054 2 THEN '_ihm_geometric_object_torus.object_id' NOT_EMPTY . . . ANY .
+IHMDEP055 1 WHEN '_ihm_geometric_object_list.object_type' EQ half-torus . . . .
+IHMDEP055 2 THEN '_ihm_geometric_object_half_torus.object_id' NOT_EMPTY . . . ANY .
+IHMDEP056 1 WHEN '_ihm_geometric_object_list.object_type' EQ axis . . . .
+IHMDEP056 2 THEN '_ihm_geometric_object_axis.object_id' NOT_EMPTY . . . ANY .
+IHMDEP057 1 WHEN '_ihm_geometric_object_list.object_type' EQ plane . . . .
+IHMDEP057 2 THEN '_ihm_geometric_object_plane.object_id' NOT_EMPTY . . . ANY .
+IHMDEP058 1 WHEN '_ihm_dataset_list.database_hosted' EQ YES . . . .
+IHMDEP058 2 THEN '_ihm_dataset_related_db_reference.id' NOT_EMPTY . . . ANY .
+IHMDEP059 1 WHEN '_ihm_dataset_list.database_hosted' EQ NO . . . .
+IHMDEP059 2 THEN '_ihm_external_reference_info.reference_id' NOT_EMPTY . . . ANY .
+IHMDEP060 1 WHEN '_ihm_external_reference_info.reference_type' IN 'DOI,Supplementary Files' . . . .
+IHMDEP060 2 THEN '_ihm_external_files.id' NOT_EMPTY . . . ANY .
+IHMDEP061 1 WHEN '_ihm_external_reference_info.reference_type' IN 'DOI,Supplementary Files' . . . .
+IHMDEP061 2 THEN '_ihm_dataset_external_reference.id' NOT_EMPTY . . . ANY .
+IHMDEP062 1 WHEN '_ihm_modeling_protocol_details.multi_scale_flag' EQ NO . . . .
+IHMDEP062 2 THEN '_atom_site.id' NOT_EMPTY . . . ANY .
+IHMDEP063 1 WHEN '_ihm_modeling_protocol_details.multi_scale_flag' EQ YES . . . .
+IHMDEP063 2 THEN '_ihm_sphere_obj_site.id' NOT_EMPTY . . OR ANY .
+IHMDEP063 3 THEN '_ihm_gaussian_obj_site.id' NOT_EMPTY . . OR ANY .
+IHMDEP064 1 WHEN '_ihm_modeling_protocol_details.multi_state_flag' EQ YES . . . .
+IHMDEP064 2 THEN '_ihm_multi_state_modeling.state_id' NOT_EMPTY . . . ANY .
+IHMDEP065 1 WHEN '_ihm_modeling_protocol_details.multi_state_flag' EQ YES . . . .
+IHMDEP065 2 THEN '_ihm_multi_state_model_group_link.model_group_id' NOT_EMPTY . . . ANY .
+IHMDEP066 1 WHEN '_ihm_modeling_protocol_details.multi_state_flag' EQ YES . . . .
+IHMDEP066 2 THEN '_ihm_multi_state_scheme.id' NOT_EMPTY . . OR ANY .
+IHMDEP066 3 THEN '_ihm_multi_state_scheme_connectivity.id' NOT_EMPTY . . OR ANY .
+IHMDEP066 4 THEN '_ihm_kinetic_rate.id' NOT_EMPTY . . OR ANY .
+IHMDEP066 5 THEN '_ihm_relaxation_time.id' NOT_EMPTY . . OR ANY .
+IHMDEP066 6 THEN '_ihm_relaxation_time_multi_state_scheme.id' NOT_EMPTY . . OR ANY .
+IHMDEP067 1 WHEN '_ihm_modeling_protocol_details.ordered_flag' EQ YES . . . .
+IHMDEP067 2 THEN '_ihm_ordered_model.edge_id' NOT_EMPTY . . AND ANY .
+IHMDEP067 3 THEN '_ihm_ordered_model.process_id' NOT_EMPTY . . AND ANY .
+IHMDEP068 1 WHEN '_ihm_modeling_protocol_details.ensemble_flag' EQ YES . . . .
+IHMDEP068 2 THEN '_ihm_ensemble_info.ensemble_id' NOT_EMPTY . . . ANY .
+IHMDEP069 1 WHEN '_ihm_modeling_protocol_details.ensemble_flag' EQ YES . . . .
+IHMDEP069 2 THEN '_ihm_localization_density_files.id' NOT_EMPTY . . OR ANY .
+IHMDEP069 3 THEN '_ihm_gaussian_obj_ensemble.id' NOT_EMPTY . . OR ANY .
+IHMDEP070 1 WHEN '_ihm_ensemble_info.sub_sample_flag' EQ YES . . . .
+IHMDEP070 2 THEN '_ihm_ensemble_sub_sample.id' NOT_EMPTY . . . ANY .
+IHMDEP071 1 WHEN '_entity.type' EQ NON-POLYMER . AND . .
+IHMDEP071 2 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . AND ANY .
+IHMDEP071 3 THEN '_pdbx_entity_nonpoly.entity_id' NOT_EMPTY . . . ANY .
+IHMDEP072 1 WHEN '_entity.type' EQ NON-POLYMER . AND . .
+IHMDEP072 2 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . AND ANY .
+IHMDEP072 3 THEN '_pdbx_nonpoly_scheme.asym_id' NOT_EMPTY . . AND ANY .
+IHMDEP072 4 THEN '_pdbx_nonpoly_scheme.ndb_seq_num' NOT_EMPTY . . AND ANY .
+IHMDEP073 1 WHEN '_entity.type' EQ POLYMER . AND . .
+IHMDEP073 2 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . AND ANY .
+IHMDEP073 3 THEN '_entity_poly.entity_id' NOT_EMPTY . . . ANY .
+IHMDEP074 1 WHEN '_entity.type' EQ POLYMER . AND . .
+IHMDEP074 2 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . AND ANY .
+IHMDEP074 3 THEN '_entity_poly_seq.entity_id' NOT_EMPTY . . AND ANY .
+IHMDEP074 4 THEN '_entity_poly_seq.num' NOT_EMPTY . . AND ANY .
+IHMDEP074 5 THEN '_entity_poly_seq.mon_id' NOT_EMPTY . . AND ANY .
+IHMDEP075 1 WHEN '_entity.type' EQ POLYMER . AND . .
+IHMDEP075 2 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . AND ANY .
+IHMDEP075 3 THEN '_pdbx_poly_seq_scheme.asym_id' NOT_EMPTY . . AND ANY .
+IHMDEP075 4 THEN '_pdbx_poly_seq_scheme.entity_id' NOT_EMPTY . . AND ANY .
+IHMDEP075 5 THEN '_pdbx_poly_seq_scheme.seq_id' NOT_EMPTY . . AND ANY .
+IHMDEP075 6 THEN '_pdbx_poly_seq_scheme.mon_id' NOT_EMPTY . . AND ANY .
+IHMDEP076 1 WHEN '_entity.type' EQ POLYMER . AND . .
+IHMDEP076 2 WHEN '_struct.pdbx_structure_determination_methodology' EQ integrative . AND ANY .
+IHMDEP076 3 THEN '_ihm_entity_poly_segment.id' NOT_EMPTY . . . ANY .
+#

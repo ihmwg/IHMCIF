@@ -1,8 +1,8 @@
-###########################################
-## DEPOSITION RULES EXTENSION DICTIONARY ##
-###########################################
+#####################################
+## DATA RULES EXTENSION DICTIONARY ##
+#####################################
 
-data_mmcif_pdbx_deposition_rules_ext.dic
+data_mmcif_pdbx_data_rules_ext.dic
 
 loop_
 _item_type_list.code
@@ -28,18 +28,21 @@ _item_type_list.detail
                '_[_A-Za-z0-9]+\.[][_A-Za-z0-9%-]+(,_[_A-Za-z0-9]+\.[][_A-Za-z0-9%-]+)*'
                'comma-separated list of full item names, without spaces'
 
-##########################
-## PDBX_DEPOSITION_RULE ##
-##########################
+####################
+## PDBX_DATA_RULE ##
+####################
 
-save_pdbx_deposition_rule
+save_pdbx_data_rule
   _category.description
-;  Data items in PDBX_DEPOSITION_RULE define deposition rules. One record per rule. 
+;  Data items in PDBX_DATA_RULE define data rules. One record per
+   rule. The contexts in which a rule is evaluated, and its severity
+   and whether it is enabled in each, are given in
+   PDBX_DATA_RULE_CONTEXT.
 ;
-  _category.id               pdbx_deposition_rule
+  _category.id               pdbx_data_rule
   _category.mandatory_code   no
   loop_
-  _category_key.name         '_pdbx_deposition_rule.id'
+  _category_key.name         '_pdbx_data_rule.id'
   loop_
   _category_group.id         'inclusive_group'
                              'pdbx_group'
@@ -52,48 +55,46 @@ save_pdbx_deposition_rule
 ;
 ;
     loop_
-    _pdbx_deposition_rule.id
-    _pdbx_deposition_rule.family
-    _pdbx_deposition_rule.severity
-    _pdbx_deposition_rule.scope_category
-    _pdbx_deposition_rule.procedural_method
-    _pdbx_deposition_rule.message
-    _pdbx_deposition_rule.enabled
-    _pdbx_deposition_rule.param_flag
-    _pdbx_deposition_rule.join_flag
-    _pdbx_deposition_rule.row_selection_flag
-    R001 conditional_presence error   diffrn_radiation_wavelength . 'Wavelength required for X-ray experiments' YES NO NO NO
-    R002 pairwise_order       error   pdbx_audit_revision_history . 'Release date precedes deposition date' YES NO NO NO
-    R003 format               warning pdbx_initial_refinement_model . 'Accession code does not match source database format' YES NO NO NO
-    R004 aggregate            warning atom_site              . 'Summed occupancy of alt-locs exceeds 1.0' YES YES NO NO
-    R005 procedural           warning entity_poly            seq_model_mismatch 'Sequence does not match modeled residues' YES NO NO NO
-    R006 conditional_presence error   em_sample_support      . 'Grid type required when support film details are given' YES NO YES NO
-    R007 pairwise_order       error   reflns                 . 'Collected data high-resolution limit is lower than high-resolution limit used in refinement' YES NO YES NO
-    R008 pairwise_order       error   refine_ls_shell        . 'Highest-resolution shell limit does not match overall refined high-resolution limit' YES NO YES YES
-    R009 pairwise_order       warning refine                 . 'Overall R_free is higher than R_free in the highest-resolution shell' YES NO YES YES
+    _pdbx_data_rule.id
+    _pdbx_data_rule.family
+    _pdbx_data_rule.scope_category
+    _pdbx_data_rule.procedural_method
+    _pdbx_data_rule.message
+    _pdbx_data_rule.param_flag
+    _pdbx_data_rule.join_flag
+    _pdbx_data_rule.row_selection_flag
+    R001 conditional_presence diffrn_radiation_wavelength   .                  'Wavelength required for X-ray experiments' NO NO NO
+    R002 pairwise_order       pdbx_audit_revision_history   .                  'Release date precedes deposition date' NO NO NO
+    R003 format               pdbx_initial_refinement_model .                  'Accession code does not match source database format' NO NO NO
+    R004 aggregate            atom_site                     .                  'Summed occupancy of alt-locs exceeds 1.0' YES NO NO
+    R005 procedural           entity_poly                   seq_model_mismatch 'Sequence does not match modeled residues' NO NO NO
+    R006 conditional_presence em_sample_support             .                  'Grid type required when support film details are given' NO YES NO
+    R007 pairwise_order       reflns                        .                  'Collected data high-resolution limit is lower than high-resolution limit used in refinement' NO YES NO
+    R008 pairwise_order       refine_ls_shell               .                  'Highest-resolution shell limit does not match overall refined high-resolution limit' NO YES YES
+    R009 pairwise_order       refine                        .                  'Overall R_free is higher than R_free in the highest-resolution shell' NO YES YES
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED
-    _pdbx_category_context.category_id  pdbx_deposition_rule
+    _pdbx_category_context.category_id  pdbx_data_rule
 
      save_
 
-save__pdbx_deposition_rule.id
+save__pdbx_data_rule.id
     _item_description.description
-;    A unique identifier for the deposition rule.
+;    A unique identifier for the data rule.
 ;
-  _item.name               '_pdbx_deposition_rule.id'
-  _item.category_id        pdbx_deposition_rule
+  _item.name               '_pdbx_data_rule.id'
+  _item.category_id        pdbx_data_rule
   _item.mandatory_code     yes
   _item_type.code          code
    save_
 
-save__pdbx_deposition_rule.family
+save__pdbx_data_rule.family
     _item_description.description
-;    Deposition rule family.
+;    Data rule family.
 ;
-  _item.name               '_pdbx_deposition_rule.family'
-  _item.category_id        pdbx_deposition_rule
+  _item.name               '_pdbx_data_rule.family'
+  _item.category_id        pdbx_data_rule
   _item.mandatory_code     yes
   _item_type.code          code
   loop_
@@ -106,15 +107,187 @@ save__pdbx_deposition_rule.family
     cross_reference       'value must exist/match in another category'
     format                'value must match a pattern'
     aggregate             'sum/count over a group (param group_by, aggregate); the THEN condition is applied to the aggregated value'
-    procedural            'named built-in check; see _pdbx_deposition_rule_param'
+    procedural            'named built-in check; see _pdbx_data_rule_param'
    save_
 
-save__pdbx_deposition_rule.severity
+save__pdbx_data_rule.message
     _item_description.description
-;    Deposition rule severity.
+;    Data rule message.
 ;
-  _item.name               '_pdbx_deposition_rule.severity'
-  _item.category_id        pdbx_deposition_rule
+  _item.name               '_pdbx_data_rule.message'
+  _item.category_id        pdbx_data_rule
+  _item.mandatory_code     yes
+  _item_type.code          text
+   save_
+
+save__pdbx_data_rule.scope_category
+    _item_description.description
+;    Category in which each violation is assessed and reported. The rule
+     is evaluated separately for each row of this category remaining
+     after row selection (PDBX_DATA_RULE_ROW_SELECTION); every
+     such row must satisfy the rule, and each failing row is reported
+     as a separate violation.
+;
+  _item.name               '_pdbx_data_rule.scope_category'
+  _item.category_id        pdbx_data_rule
+  _item.mandatory_code     yes
+  _item_type.code          code
+   save_
+
+save__pdbx_data_rule.procedural_method
+    _item_description.description
+;    Data rule procedural method.
+;
+  _item.name               '_pdbx_data_rule.procedural_method'
+  _item.category_id        pdbx_data_rule
+  _item.mandatory_code     no
+  _item_type.code          code
+  loop_
+  _item_examples.case
+    occupancy_sum_gt_1
+    seq_model_mismatch
+   save_
+
+save__pdbx_data_rule.param_flag
+    _item_description.description
+;    Flag indicating that the rule has additional parameters defined in
+     PDBX_DATA_RULE_PARAM.
+;
+  _item.name               '_pdbx_data_rule.param_flag'
+  _item.category_id        pdbx_data_rule
+  _item.mandatory_code     no
+  _item_type.code          ucode
+  _item_default.value      NO
+  loop_
+  _item_enumeration.value
+    YES
+    NO
+   save_
+
+save__pdbx_data_rule.join_flag
+    _item_description.description
+;    Flag indicating that rows of the rule's scope category are paired
+     with rows of its partner categories as defined in
+     PDBX_DATA_RULE_JOIN. If NO, every scope row is paired with
+     every row of each partner category.
+;
+  _item.name               '_pdbx_data_rule.join_flag'
+  _item.category_id        pdbx_data_rule
+  _item.mandatory_code     no
+  _item_type.code          ucode
+  _item_default.value      NO
+  loop_
+  _item_enumeration.value
+    YES
+    NO
+   save_
+
+save__pdbx_data_rule.row_selection_flag
+    _item_description.description
+;    Flag indicating that the rule is evaluated on selected rows of one
+     or more categories, as defined in
+     PDBX_DATA_RULE_ROW_SELECTION. If NO, all rows of every
+     category referenced by the rule are evaluated.
+;
+  _item.name               '_pdbx_data_rule.row_selection_flag'
+  _item.category_id        pdbx_data_rule
+  _item.mandatory_code     no
+  _item_type.code          ucode
+  _item_default.value      NO
+  loop_
+  _item_enumeration.value
+    YES
+    NO
+   save_
+
+############################
+## PDBX_DATA_RULE_CONTEXT ##
+############################
+
+save_pdbx_data_rule_context
+  _category.description
+;  Data items in PDBX_DATA_RULE_CONTEXT define the contexts in which
+   a data rule is evaluated, with the severity of the rule and whether
+   it is enabled in each context. One record per rule and context.
+   Every rule must have at least one record. A rule is evaluated only
+   in the contexts listed for it, and only where enabled is YES. A
+   violation is reported with the severity given for the context in
+   which the rule is evaluated.
+;
+  _category.id               pdbx_data_rule_context
+  _category.mandatory_code   no
+  loop_
+  _category_key.name         '_pdbx_data_rule_context.rule_id'
+                             '_pdbx_data_rule_context.context'
+  loop_
+  _category_group.id         'inclusive_group'
+                             'pdbx_group'
+  loop_
+  _category_examples.detail
+  _category_examples.case
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+    Example 1 - all rules are evaluated at deposition. R003 is also
+    evaluated in the archive, where it is a warning rather than an
+    error. R005 has an archive record but is disabled there.
+;
+;
+    loop_
+    _pdbx_data_rule_context.rule_id
+    _pdbx_data_rule_context.context
+    _pdbx_data_rule_context.severity
+    _pdbx_data_rule_context.enabled
+    R001 deposition ERROR   YES
+    R002 deposition ERROR   YES
+    R003 deposition ERROR   YES
+    R003 archive    WARNING YES
+    R004 deposition WARNING YES
+    R005 deposition WARNING YES
+    R005 archive    WARNING NO
+    R006 deposition ERROR   YES
+    R007 deposition ERROR   YES
+    R008 deposition ERROR   YES
+    R009 deposition WARNING YES
+;
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    _pdbx_category_context.type         CONTRIBUTED
+    _pdbx_category_context.category_id  pdbx_data_rule_context
+
+     save_
+
+save__pdbx_data_rule_context.rule_id
+    _item_description.description
+;    A pointer to _pdbx_data_rule.id.
+;
+  _item.name               '_pdbx_data_rule_context.rule_id'
+  _item.category_id        pdbx_data_rule_context
+  _item.mandatory_code     yes
+  _item_type.code          code
+  _item_linked.child_name  '_pdbx_data_rule_context.rule_id'
+  _item_linked.parent_name '_pdbx_data_rule.id'
+   save_
+
+save__pdbx_data_rule_context.context
+    _item_description.description
+;    Context in which the rule is evaluated.
+;
+  _item.name               '_pdbx_data_rule_context.context'
+  _item.category_id        pdbx_data_rule_context
+  _item.mandatory_code     yes
+  _item_type.code          code
+  loop_
+  _item_enumeration.value
+  _item_enumeration.detail
+    deposition  'data submitted for deposition'
+    archive     'data in the public archive'
+   save_
+
+save__pdbx_data_rule_context.severity
+    _item_description.description
+;    Severity of a violation of the rule in this context.
+;
+  _item.name               '_pdbx_data_rule_context.severity'
+  _item.category_id        pdbx_data_rule_context
   _item.mandatory_code     yes
   _item_type.code          ucode
   loop_
@@ -124,50 +297,12 @@ save__pdbx_deposition_rule.severity
     INFO
    save_
 
-save__pdbx_deposition_rule.message
+save__pdbx_data_rule_context.enabled
     _item_description.description
-;    Deposition rule message.
+;    Flag to enable/disable the rule in this context.
 ;
-  _item.name               '_pdbx_deposition_rule.message'
-  _item.category_id        pdbx_deposition_rule
-  _item.mandatory_code     yes
-  _item_type.code          text
-   save_
-
-save__pdbx_deposition_rule.scope_category
-    _item_description.description
-;    Category in which each violation is assessed and reported. The rule
-     is evaluated separately for each row of this category remaining
-     after row selection (PDBX_DEPOSITION_RULE_ROW_SELECTION); every
-     such row must satisfy the rule, and each failing row is reported
-     as a separate violation.
-;
-  _item.name               '_pdbx_deposition_rule.scope_category'
-  _item.category_id        pdbx_deposition_rule
-  _item.mandatory_code     yes
-  _item_type.code          code
-   save_
-
-save__pdbx_deposition_rule.procedural_method
-    _item_description.description
-;    Deposition rule procedural method.
-;
-  _item.name               '_pdbx_deposition_rule.procedural_method'
-  _item.category_id        pdbx_deposition_rule
-  _item.mandatory_code     no
-  _item_type.code          code
-  loop_
-  _item_examples.case
-    occupancy_sum_gt_1
-    seq_model_mismatch
-   save_
-
-save__pdbx_deposition_rule.enabled
-    _item_description.description
-;    Flag to enable/disable the deposition rule.
-; 
-  _item.name               '_pdbx_deposition_rule.enabled'
-  _item.category_id        pdbx_deposition_rule
+  _item.name               '_pdbx_data_rule_context.enabled'
+  _item.category_id        pdbx_data_rule_context
   _item.mandatory_code     no
   _item_type.code          ucode
   _item_default.value      YES
@@ -177,66 +312,14 @@ save__pdbx_deposition_rule.enabled
     NO
    save_
 
-save__pdbx_deposition_rule.param_flag
-    _item_description.description
-;    Flag indicating that the rule has additional parameters defined in
-     PDBX_DEPOSITION_RULE_PARAM.
-;
-  _item.name               '_pdbx_deposition_rule.param_flag'
-  _item.category_id        pdbx_deposition_rule
-  _item.mandatory_code     no
-  _item_type.code          ucode
-  _item_default.value      NO
-  loop_
-  _item_enumeration.value
-    YES
-    NO
-   save_
+##############################
+## PDBX_DATA_RULE_CONDITION ##
+##############################
 
-save__pdbx_deposition_rule.join_flag
-    _item_description.description
-;    Flag indicating that rows of the rule's scope category are paired
-     with rows of its partner categories as defined in
-     PDBX_DEPOSITION_RULE_JOIN. If NO, every scope row is paired with
-     every row of each partner category.
-;
-  _item.name               '_pdbx_deposition_rule.join_flag'
-  _item.category_id        pdbx_deposition_rule
-  _item.mandatory_code     no
-  _item_type.code          ucode
-  _item_default.value      NO
-  loop_
-  _item_enumeration.value
-    YES
-    NO
-   save_
-
-save__pdbx_deposition_rule.row_selection_flag
-    _item_description.description
-;    Flag indicating that the rule is evaluated on selected rows of one
-     or more categories, as defined in
-     PDBX_DEPOSITION_RULE_ROW_SELECTION. If NO, all rows of every
-     category referenced by the rule are evaluated.
-;
-  _item.name               '_pdbx_deposition_rule.row_selection_flag'
-  _item.category_id        pdbx_deposition_rule
-  _item.mandatory_code     no
-  _item_type.code          ucode
-  _item_default.value      NO
-  loop_
-  _item_enumeration.value
-    YES
-    NO
-   save_
-
-####################################
-## PDBX_DEPOSITION_RULE_CONDITION ##
-####################################
-
-save_pdbx_deposition_rule_condition
+save_pdbx_data_rule_condition
   _category.description
-;  Data items in the PDBX_DEPOSITION_RULE_CONDITION category describe
-   the WHEN, THEN and UNLESS conditions of a deposition rule. One record
+;  Data items in the PDBX_DATA_RULE_CONDITION category describe
+   the WHEN, THEN and UNLESS conditions of a data rule. One record
    per condition.
 
    Roles:
@@ -252,25 +335,25 @@ save_pdbx_deposition_rule_condition
    rules must have at least one THEN condition.
 
    Conditions with the same role in a rule are combined using
-   _pdbx_deposition_rule_condition.group_operator. All conditions with
+   _pdbx_data_rule_condition.group_operator. All conditions with
    the same role in a rule must use the same group operator.
 
    Evaluation:
    Each rule is evaluated separately for each row of the rule's scope
-   category (_pdbx_deposition_rule.scope_category). Evaluation proceeds
+   category (_pdbx_data_rule.scope_category). Evaluation proceeds
    in this order:
      (1) rows of each category referred to by the rule are restricted
-         as defined in PDBX_DEPOSITION_RULE_ROW_SELECTION;
+         as defined in PDBX_DATA_RULE_ROW_SELECTION;
      (2) each remaining scope row is paired with rows of each partner
-         category as defined in PDBX_DEPOSITION_RULE_JOIN; if no join
+         category as defined in PDBX_DATA_RULE_JOIN; if no join
          is defined, every row of the partner category is a partner of
          every scope row;
      (3) the conditions are evaluated for the scope row; a condition
          that refers to a partner category is evaluated over the
          partner rows paired with that scope row, using
-         _pdbx_deposition_rule_condition.quantifier. Each condition is
+         _pdbx_data_rule_condition.quantifier. Each condition is
          quantified independently. If
-         _pdbx_deposition_rule_condition.value_transform is given, it
+         _pdbx_data_rule_condition.value_transform is given, it
          is applied to the item values before they are compared.
    Each failing scope row is reported as a separate violation.
 
@@ -310,7 +393,7 @@ save_pdbx_deposition_rule_condition
        has no detail, the comparison is skipped as for a missing value.
        Joins and the quantifier do not apply.
      - Procedural rules may have no THEN condition; the item checked
-       is then given in PDBX_DEPOSITION_RULE_PARAM.
+       is then given in PDBX_DATA_RULE_PARAM.
 
    Missing values:
    A value is missing if the item or its category is absent from the
@@ -350,16 +433,16 @@ save_pdbx_deposition_rule_condition
      - For aggregate rules, rows with a missing value are excluded
        from the aggregation.
      - A scope row with a missing value in any of its join items has
-       no partner rows; _pdbx_deposition_rule_join.on_no_match
+       no partner rows; _pdbx_data_rule_join.on_no_match
        applies.
      - Rows with a missing selector_item value are ignored by row
-       selection (see _pdbx_deposition_rule_row_selection.selector).
+       selection (see _pdbx_data_rule_row_selection.selector).
 ;
-  _category.id               pdbx_deposition_rule_condition
+  _category.id               pdbx_data_rule_condition
   _category.mandatory_code   no
   loop_
-  _category_key.name        '_pdbx_deposition_rule_condition.rule_id'
-                            '_pdbx_deposition_rule_condition.ordinal'
+  _category_key.name        '_pdbx_data_rule_condition.rule_id'
+                            '_pdbx_data_rule_condition.ordinal'
     loop_
     _category_group.id           'inclusive_group'
                                  'pdbx_group'
@@ -372,15 +455,15 @@ save_pdbx_deposition_rule_condition
 ;
 ;
     loop_
-    _pdbx_deposition_rule_condition.rule_id
-    _pdbx_deposition_rule_condition.ordinal
-    _pdbx_deposition_rule_condition.role
-    _pdbx_deposition_rule_condition.item_name
-    _pdbx_deposition_rule_condition.operator
-    _pdbx_deposition_rule_condition.value
-    _pdbx_deposition_rule_condition.compare_item_name
-    _pdbx_deposition_rule_condition.group_operator
-    _pdbx_deposition_rule_condition.quantifier
+    _pdbx_data_rule_condition.rule_id
+    _pdbx_data_rule_condition.ordinal
+    _pdbx_data_rule_condition.role
+    _pdbx_data_rule_condition.item_name
+    _pdbx_data_rule_condition.operator
+    _pdbx_data_rule_condition.value
+    _pdbx_data_rule_condition.compare_item_name
+    _pdbx_data_rule_condition.group_operator
+    _pdbx_data_rule_condition.quantifier
     R001 1 WHEN '_exptl.method'                               EQ         'X-RAY DIFFRACTION' . . ANY
     R001 2 THEN '_diffrn_radiation_wavelength.wavelength'     NOT_EMPTY  .                   . . .
     R002 1 THEN '_pdbx_audit_revision_history.revision_date'  GE_ITEM    .                   '_pdbx_database_status.recvd_initial_deposition_date' . ALL
@@ -395,38 +478,38 @@ save_pdbx_deposition_rule_condition
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED
-    _pdbx_category_context.category_id  pdbx_deposition_rule_condition
+    _pdbx_category_context.category_id  pdbx_data_rule_condition
 
      save_
 
-save__pdbx_deposition_rule_condition.rule_id
+save__pdbx_data_rule_condition.rule_id
     _item_description.description
-;    A pointer to _pdbx_deposition_rule.id. 
+;    A pointer to _pdbx_data_rule.id. 
 ; 
-  _item.name               '_pdbx_deposition_rule_condition.rule_id'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.rule_id'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     yes
   _item_type.code          code
-  _item_linked.child_name  '_pdbx_deposition_rule_condition.rule_id'
-  _item_linked.parent_name '_pdbx_deposition_rule.id'
+  _item_linked.child_name  '_pdbx_data_rule_condition.rule_id'
+  _item_linked.parent_name '_pdbx_data_rule.id'
    save_
 
-save__pdbx_deposition_rule_condition.ordinal
+save__pdbx_data_rule_condition.ordinal
     _item_description.description
 ;    An identifier for the rule condition.  
 ;
-  _item.name               '_pdbx_deposition_rule_condition.ordinal'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.ordinal'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     yes
   _item_type.code          int
    save_
 
-save__pdbx_deposition_rule_condition.role
+save__pdbx_data_rule_condition.role
     _item_description.description
 ;    Primary role for the rule condition. 
 ;
-  _item.name               '_pdbx_deposition_rule_condition.role'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.role'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     yes
   _item_type.code          ucode
   loop_
@@ -436,21 +519,21 @@ save__pdbx_deposition_rule_condition.role
     UNLESS
    save_
 
-save__pdbx_deposition_rule_condition.item_name
+save__pdbx_data_rule_condition.item_name
     _item_description.description
 ;    Full item name where the rule condition applies.
      Must be an item name defined in the main dictionary.
      The item may belong to the rule's scope category or to a partner
-     category (see the PDBX_DEPOSITION_RULE_CONDITION category
+     category (see the PDBX_DATA_RULE_CONDITION category
      description).
 ;
-  _item.name               '_pdbx_deposition_rule_condition.item_name'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.item_name'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     yes
   _item_type.code          code
    save_
 
-save__pdbx_deposition_rule_condition.operator
+save__pdbx_data_rule_condition.operator
     _item_description.description
 ;    Operator for the rule condition.
      MATCHES_TYPE: the value of item_name must match the construct of
@@ -460,8 +543,8 @@ save__pdbx_deposition_rule_condition.operator
      construct is a POSIX extended regular expression that must match
      the whole value.
 ;
-  _item.name               '_pdbx_deposition_rule_condition.operator'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.operator'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     yes
   _item_type.code          ucode
   loop_
@@ -492,7 +575,7 @@ save__pdbx_deposition_rule_condition.operator
     IN_ENUMERATION_DETAILS_OF  'value of item_name is listed in the main dictionary enumeration detail for the value of compare_item_name in the same row'
    save_
 
-save__pdbx_deposition_rule_condition.value
+save__pdbx_data_rule_condition.value
     _item_description.description
 ;    Value used by the rule condition.
      For IN and NOT_IN, a comma-separated list of values; for
@@ -503,8 +586,8 @@ save__pdbx_deposition_rule_condition.value
      comparison operators, a single value. For these operators a comma
      is part of the value.
 ;
-  _item.name               '_pdbx_deposition_rule_condition.value'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.value'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     no
   _item_type.code          value_csv
   loop_
@@ -514,17 +597,17 @@ save__pdbx_deposition_rule_condition.value
    'ELECTRON MICROSCOPY,ELECTRON CRYSTALLOGRAPHY'
    save_
 
-save__pdbx_deposition_rule_condition.compare_item_name
+save__pdbx_data_rule_condition.compare_item_name
     _item_description.description
 ;    Full item name of the second item involved in the condition.
      Applies for cases where operators are *_ITEM, IN_COLUMN_OF and
      IN_ENUMERATION_DETAILS_OF.
      Must be an item name defined in the main dictionary.
      The item may belong to the scope category or to a partner
-     category, as described in the PDBX_DEPOSITION_RULE_CONDITION
+     category, as described in the PDBX_DATA_RULE_CONDITION
      category description. If it belongs to a partner category, its
      values are taken from the partner rows paired with the scope row
-     (see PDBX_DEPOSITION_RULE_JOIN); if no join is defined, every row
+     (see PDBX_DATA_RULE_JOIN); if no join is defined, every row
      of the partner category is a partner of every scope row. For
      IN_COLUMN_OF, the item refers to the values in all rows of its
      category remaining after row selection, and joins do not apply.
@@ -533,21 +616,21 @@ save__pdbx_deposition_rule_condition.compare_item_name
      enumeration entry in the main dictionary whose detail lists the
      values allowed for item_name.
 ;
-  _item.name               '_pdbx_deposition_rule_condition.compare_item_name'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.compare_item_name'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     no
   _item_type.code          code
    save_
 
-save__pdbx_deposition_rule_condition.group_operator
+save__pdbx_data_rule_condition.group_operator
     _item_description.description
 ;    Operator used to combine conditions with the same role (WHEN,
      THEN or UNLESS) in a rule. AND requires all of them to hold; OR
      requires at least one of them to hold. All conditions with the
      same role in a rule must use the same group operator.
 ;
-  _item.name               '_pdbx_deposition_rule_condition.group_operator'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.group_operator'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     no
   _item_type.code          ucode
   _item_default.value      AND
@@ -557,12 +640,12 @@ save__pdbx_deposition_rule_condition.group_operator
     OR
    save_
 
-save__pdbx_deposition_rule_condition.quantifier
+save__pdbx_data_rule_condition.quantifier
     _item_description.description
 ;    Quantifier applied over the partner rows of the condition, i.e.
      the rows of the category of item_name or compare_item_name that
      is not the rule's scope category and that are paired with the
-     current scope row (see PDBX_DEPOSITION_RULE_JOIN).
+     current scope row (see PDBX_DATA_RULE_JOIN).
        ALL   condition must hold for every partner row
        ANY   condition must hold for at least one partner row
      If not given, the default is ANY for WHEN and UNLESS conditions
@@ -577,8 +660,8 @@ save__pdbx_deposition_rule_condition.quantifier
      NOT_EMPTY with quantifier ANY; with ALL, a condition over no
      partner rows holds.
 ;
-  _item.name               '_pdbx_deposition_rule_condition.quantifier'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.quantifier'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     no
   _item_type.code          ucode
   loop_
@@ -588,17 +671,17 @@ save__pdbx_deposition_rule_condition.quantifier
     ANY   'condition must hold for at least one partner row'
    save_
 
-save__pdbx_deposition_rule_condition.value_transform
+save__pdbx_data_rule_condition.value_transform
     _item_description.description
 ;    Transformation applied to the values of item_name and, for
      operators that compare two items (*_ITEM), compare_item_name
      before the comparison is made. The literal value given in
-     _pdbx_deposition_rule_condition.value is not transformed.
+     _pdbx_data_rule_condition.value is not transformed.
      Applies only to items with a numeric type in the main dictionary.
      If not given, values are compared as they are.
 ;
-  _item.name               '_pdbx_deposition_rule_condition.value_transform'
-  _item.category_id        pdbx_deposition_rule_condition
+  _item.name               '_pdbx_data_rule_condition.value_transform'
+  _item.category_id        pdbx_data_rule_condition
   _item.mandatory_code     no
   _item_type.code          ucode
   loop_
@@ -607,19 +690,19 @@ save__pdbx_deposition_rule_condition.value_transform
     ABS   'absolute value'
    save_
 
-################################
-## PDBX_DEPOSITION_RULE_PARAM ##
-################################
+##########################
+## PDBX_DATA_RULE_PARAM ##
+##########################
 
-save_pdbx_deposition_rule_param
+save_pdbx_data_rule_param
   _category.description
 ;  The category provides name/value parameters for procedural and aggregate rules.
 ;
-  _category.id               pdbx_deposition_rule_param
+  _category.id               pdbx_data_rule_param
   _category.mandatory_code   no
   loop_
-  _category_key.name         '_pdbx_deposition_rule_param.rule_id'
-                             '_pdbx_deposition_rule_param.name'
+  _category_key.name         '_pdbx_data_rule_param.rule_id'
+                             '_pdbx_data_rule_param.name'
   loop_
   _category_group.id         'inclusive_group'
                              'pdbx_group'
@@ -632,36 +715,36 @@ save_pdbx_deposition_rule_param
 ;
 ;
     loop_
-    _pdbx_deposition_rule_param.rule_id
-    _pdbx_deposition_rule_param.name
-    _pdbx_deposition_rule_param.value
+    _pdbx_data_rule_param.rule_id
+    _pdbx_data_rule_param.name
+    _pdbx_data_rule_param.value
     R004 group_by   '_atom_site.pdbx_PDB_model_num,_atom_site.auth_asym_id,_atom_site.auth_seq_id,_atom_site.pdbx_PDB_ins_code,_atom_site.auth_atom_id'
     R004 aggregate  SUM
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED
-    _pdbx_category_context.category_id  pdbx_deposition_rule_param
+    _pdbx_category_context.category_id  pdbx_data_rule_param
 
      save_
 
-save__pdbx_deposition_rule_param.rule_id
+save__pdbx_data_rule_param.rule_id
     _item_description.description
-;    A pointer to _pdbx_deposition_rule.id.
+;    A pointer to _pdbx_data_rule.id.
 ;
-  _item.name               '_pdbx_deposition_rule_param.rule_id'
-  _item.category_id        pdbx_deposition_rule_param
+  _item.name               '_pdbx_data_rule_param.rule_id'
+  _item.category_id        pdbx_data_rule_param
   _item.mandatory_code     yes
   _item_type.code          code
-  _item_linked.child_name  '_pdbx_deposition_rule_param.rule_id'
-  _item_linked.parent_name '_pdbx_deposition_rule.id'
+  _item_linked.child_name  '_pdbx_data_rule_param.rule_id'
+  _item_linked.parent_name '_pdbx_data_rule.id'
    save_
 
-save__pdbx_deposition_rule_param.name
+save__pdbx_data_rule_param.name
     _item_description.description
 ;    Name for the rule parameter.
 ;
-  _item.name               '_pdbx_deposition_rule_param.name'
-  _item.category_id        pdbx_deposition_rule_param
+  _item.name               '_pdbx_data_rule_param.name'
+  _item.category_id        pdbx_data_rule_param
   _item.mandatory_code     yes
   _item_type.code          code
   loop_
@@ -694,42 +777,42 @@ save__pdbx_deposition_rule_param.name
 ;
    save_
 
-save__pdbx_deposition_rule_param.value
+save__pdbx_data_rule_param.value
     _item_description.description
 ;    Value for the rule parameter. Lists of item names are
      comma-separated without spaces, as for item_name_csv.
 ;
-  _item.name               '_pdbx_deposition_rule_param.value'
-  _item.category_id        pdbx_deposition_rule_param
+  _item.name               '_pdbx_data_rule_param.value'
+  _item.category_id        pdbx_data_rule_param
   _item.mandatory_code     yes
   _item_type.code          text
    save_
 
-###############################
-## PDBX_DEPOSITION_RULE_JOIN ##
-###############################
+#########################
+## PDBX_DATA_RULE_JOIN ##
+#########################
 
-save_pdbx_deposition_rule_join
+save_pdbx_data_rule_join
   _category.description
-;  Data items in PDBX_DEPOSITION_RULE_JOIN define how rows of the rule's
+;  Data items in PDBX_DATA_RULE_JOIN define how rows of the rule's
    scope category are paired with rows of a partner category. Used when
-   _pdbx_deposition_rule.join_flag is YES. For each scope row, its
+   _pdbx_data_rule.join_flag is YES. For each scope row, its
    partner rows are the rows of the partner category whose join item
    values are equal to those of the scope row. The number of partners
    per scope row (one-to-one, one-to-many, many-to-one, many-to-many)
    is inferred from the category keys in the main dictionary; when a
    scope row has more than one partner,
-   _pdbx_deposition_rule_condition.quantifier determines how the
+   _pdbx_data_rule_condition.quantifier determines how the
    condition is evaluated.
    Each condition that refers to a partner category uses the join
    whose partner_item_names belong to that category; a rule may
    have at most one join per partner category.
 ;
-  _category.id               pdbx_deposition_rule_join
+  _category.id               pdbx_data_rule_join
   _category.mandatory_code   no
   loop_
-  _category_key.name         '_pdbx_deposition_rule_join.rule_id'
-                             '_pdbx_deposition_rule_join.ordinal'
+  _category_key.name         '_pdbx_data_rule_join.rule_id'
+                             '_pdbx_data_rule_join.ordinal'
   loop_
   _category_group.id         'inclusive_group'
                              'pdbx_group'
@@ -747,11 +830,11 @@ save_pdbx_deposition_rule_join
 ;
 ;
     loop_
-    _pdbx_deposition_rule_join.rule_id
-    _pdbx_deposition_rule_join.ordinal
-    _pdbx_deposition_rule_join.scope_item_names
-    _pdbx_deposition_rule_join.partner_item_names
-    _pdbx_deposition_rule_join.on_no_match
+    _pdbx_data_rule_join.rule_id
+    _pdbx_data_rule_join.ordinal
+    _pdbx_data_rule_join.scope_item_names
+    _pdbx_data_rule_join.partner_item_names
+    _pdbx_data_rule_join.on_no_match
     R006 1 '_em_sample_support.id'           '_em_support_film.sample_support_id' SKIP
     R007 1 '_reflns.pdbx_diffrn_id'          '_refine.pdbx_diffrn_id'             SINGLE_ROW_FALLBACK
     R008 1 '_refine_ls_shell.pdbx_refine_id' '_refine.pdbx_refine_id'             SKIP
@@ -759,39 +842,39 @@ save_pdbx_deposition_rule_join
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED
-    _pdbx_category_context.category_id  pdbx_deposition_rule_join
+    _pdbx_category_context.category_id  pdbx_data_rule_join
 
      save_
 
-save__pdbx_deposition_rule_join.rule_id
+save__pdbx_data_rule_join.rule_id
     _item_description.description
-;    A pointer to _pdbx_deposition_rule.id.
+;    A pointer to _pdbx_data_rule.id.
 ;
-  _item.name               '_pdbx_deposition_rule_join.rule_id'
-  _item.category_id        pdbx_deposition_rule_join
+  _item.name               '_pdbx_data_rule_join.rule_id'
+  _item.category_id        pdbx_data_rule_join
   _item.mandatory_code     yes
   _item_type.code          code
-  _item_linked.child_name  '_pdbx_deposition_rule_join.rule_id'
-  _item_linked.parent_name '_pdbx_deposition_rule.id'
+  _item_linked.child_name  '_pdbx_data_rule_join.rule_id'
+  _item_linked.parent_name '_pdbx_data_rule.id'
    save_
 
-save__pdbx_deposition_rule_join.ordinal
+save__pdbx_data_rule_join.ordinal
     _item_description.description
 ;    An identifier for the join within the rule. A rule with conditions
      on more than one partner category has one record per partner
      category; every join starts from the rule's scope category.
 ;
-  _item.name               '_pdbx_deposition_rule_join.ordinal'
-  _item.category_id        pdbx_deposition_rule_join
+  _item.name               '_pdbx_data_rule_join.ordinal'
+  _item.category_id        pdbx_data_rule_join
   _item.mandatory_code     yes
   _item_type.code          int
    save_
 
-save__pdbx_deposition_rule_join.scope_item_names
+save__pdbx_data_rule_join.scope_item_names
     _item_description.description
 ;    Comma-separated list (without spaces) of full item names in the rule's scope category
      whose values are matched against
-     _pdbx_deposition_rule_join.partner_item_names, which belong to a
+     _pdbx_data_rule_join.partner_item_names, which belong to a
      partner category. More than one item defines a composite join:
      a scope row and a partner row are paired only if the values of
      every item pair are equal. The items need not be the category key.
@@ -799,8 +882,8 @@ save__pdbx_deposition_rule_join.scope_item_names
      on more than one partner category has one record per partner
      category. Must be item names defined in the main dictionary.
 ;
-  _item.name               '_pdbx_deposition_rule_join.scope_item_names'
-  _item.category_id        pdbx_deposition_rule_join
+  _item.name               '_pdbx_data_rule_join.scope_item_names'
+  _item.category_id        pdbx_data_rule_join
   _item.mandatory_code     yes
   _item_type.code          item_name_csv
   loop_
@@ -809,20 +892,20 @@ save__pdbx_deposition_rule_join.scope_item_names
     '_struct_ref_seq.align_id,_struct_ref_seq.pdbx_strand_id'
    save_
 
-save__pdbx_deposition_rule_join.partner_item_names
+save__pdbx_data_rule_join.partner_item_names
     _item_description.description
 ;    Comma-separated list (without spaces) of full item names in the partner category,
      matched position by position with
-     _pdbx_deposition_rule_join.scope_item_names; the list must have the same
+     _pdbx_data_rule_join.scope_item_names; the list must have the same
      length. The items need not be the category key. If they form the
      full key of the partner category, each scope row has at most one
      partner; otherwise a scope row may have several partners and
-     _pdbx_deposition_rule_condition.quantifier applies. All items must
+     _pdbx_data_rule_condition.quantifier applies. All items must
      belong to the same category. Must be item names defined in the
      main dictionary.
 ;
-  _item.name               '_pdbx_deposition_rule_join.partner_item_names'
-  _item.category_id        pdbx_deposition_rule_join
+  _item.name               '_pdbx_data_rule_join.partner_item_names'
+  _item.category_id        pdbx_data_rule_join
   _item.mandatory_code     yes
   _item_type.code          item_name_csv
   loop_
@@ -830,13 +913,13 @@ save__pdbx_deposition_rule_join.partner_item_names
     '_refine.pdbx_refine_id'
    save_
 
-save__pdbx_deposition_rule_join.on_no_match
+save__pdbx_data_rule_join.on_no_match
     _item_description.description
 ;    Action taken when a scope row has no partner row in the partner
      category, including when a join item of the scope row is missing.
 ;
-  _item.name               '_pdbx_deposition_rule_join.on_no_match'
-  _item.category_id        pdbx_deposition_rule_join
+  _item.name               '_pdbx_data_rule_join.on_no_match'
+  _item.category_id        pdbx_data_rule_join
   _item.mandatory_code     no
   _item_type.code          ucode
   _item_default.value      SKIP
@@ -848,28 +931,28 @@ save__pdbx_deposition_rule_join.on_no_match
     SINGLE_ROW_FALLBACK  'if the join items are absent and each category has exactly one row, pair those rows; otherwise SKIP'
    save_
 
-########################################
-## PDBX_DEPOSITION_RULE_ROW_SELECTION ##
-########################################
+##################################
+## PDBX_DATA_RULE_ROW_SELECTION ##
+##################################
 
-save_pdbx_deposition_rule_row_selection
+save_pdbx_data_rule_row_selection
   _category.description
-;  Data items in PDBX_DEPOSITION_RULE_ROW_SELECTION restrict the rows
+;  Data items in PDBX_DATA_RULE_ROW_SELECTION restrict the rows
    of a category on which a rule is evaluated, either by choosing one
    row (or one row per group) with the smallest or largest value of an
    item, or by keeping only rows that contain a value. Used when
-   _pdbx_deposition_rule.row_selection_flag is YES. Rules are evaluated
+   _pdbx_data_rule.row_selection_flag is YES. Rules are evaluated
    in this order: (1) row selection in each category, (2) pairing of
-   rows as defined in PDBX_DEPOSITION_RULE_JOIN, (3) evaluation of
+   rows as defined in PDBX_DATA_RULE_JOIN, (3) evaluation of
    WHEN / THEN / UNLESS conditions using
-   _pdbx_deposition_rule_condition.quantifier. If a rule has no record
+   _pdbx_data_rule_condition.quantifier. If a rule has no record
    here for a category, all rows of that category are evaluated.
 ;
-  _category.id               pdbx_deposition_rule_row_selection
+  _category.id               pdbx_data_rule_row_selection
   _category.mandatory_code   no
   loop_
-  _category_key.name         '_pdbx_deposition_rule_row_selection.rule_id'
-                             '_pdbx_deposition_rule_row_selection.category_id'
+  _category_key.name         '_pdbx_data_rule_row_selection.rule_id'
+                             '_pdbx_data_rule_row_selection.category_id'
   loop_
   _category_group.id         'inclusive_group'
                              'pdbx_group'
@@ -885,46 +968,46 @@ save_pdbx_deposition_rule_row_selection
 ;
 ;
     loop_
-    _pdbx_deposition_rule_row_selection.rule_id
-    _pdbx_deposition_rule_row_selection.category_id
-    _pdbx_deposition_rule_row_selection.selector
-    _pdbx_deposition_rule_row_selection.selector_item
-    _pdbx_deposition_rule_row_selection.group_by
+    _pdbx_data_rule_row_selection.rule_id
+    _pdbx_data_rule_row_selection.category_id
+    _pdbx_data_rule_row_selection.selector
+    _pdbx_data_rule_row_selection.selector_item
+    _pdbx_data_rule_row_selection.group_by
     R008 refine_ls_shell MIN '_refine_ls_shell.d_res_high' '_refine_ls_shell.pdbx_refine_id'
     R009 refine_ls_shell MIN '_refine_ls_shell.d_res_high' '_refine_ls_shell.pdbx_refine_id'
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _pdbx_category_context.type         CONTRIBUTED
-    _pdbx_category_context.category_id  pdbx_deposition_rule_row_selection
+    _pdbx_category_context.category_id  pdbx_data_rule_row_selection
 
      save_
 
-save__pdbx_deposition_rule_row_selection.rule_id
+save__pdbx_data_rule_row_selection.rule_id
     _item_description.description
-;    A pointer to _pdbx_deposition_rule.id.
+;    A pointer to _pdbx_data_rule.id.
 ;
-  _item.name               '_pdbx_deposition_rule_row_selection.rule_id'
-  _item.category_id        pdbx_deposition_rule_row_selection
+  _item.name               '_pdbx_data_rule_row_selection.rule_id'
+  _item.category_id        pdbx_data_rule_row_selection
   _item.mandatory_code     yes
   _item_type.code          code
-  _item_linked.child_name  '_pdbx_deposition_rule_row_selection.rule_id'
-  _item_linked.parent_name '_pdbx_deposition_rule.id'
+  _item_linked.child_name  '_pdbx_data_rule_row_selection.rule_id'
+  _item_linked.parent_name '_pdbx_data_rule.id'
    save_
 
-save__pdbx_deposition_rule_row_selection.category_id
+save__pdbx_data_rule_row_selection.category_id
     _item_description.description
 ;    Category whose rows are restricted. Usually the rule's
-     _pdbx_deposition_rule.scope_category, but may be any other
+     _pdbx_data_rule.scope_category, but may be any other
      category referenced by the rule's conditions. Must be a category
      defined in the main dictionary.
 ;
-  _item.name               '_pdbx_deposition_rule_row_selection.category_id'
-  _item.category_id        pdbx_deposition_rule_row_selection
+  _item.name               '_pdbx_data_rule_row_selection.category_id'
+  _item.category_id        pdbx_data_rule_row_selection
   _item.mandatory_code     yes
   _item_type.code          code
    save_
 
-save__pdbx_deposition_rule_row_selection.selector
+save__pdbx_data_rule_row_selection.selector
     _item_description.description
 ;    Method used to choose the row within each group (see group_by).
      MIN selects the row with the smallest value of selector_item; MAX
@@ -934,14 +1017,14 @@ save__pdbx_deposition_rule_row_selection.selector
      the rule's scope category, the rule is not evaluated for that
      group; when category_id is a partner category, the scope rows
      paired with that group have no partner and
-     _pdbx_deposition_rule_join.on_no_match applies.
+     _pdbx_data_rule_join.on_no_match applies.
      ANY_VALUE keeps every row in which at least one item of
      category_id that is present in the data, other than those listed
      in exclude_items, has a value; rows without such a value are not
      evaluated. selector_item and group_by are not used with ANY_VALUE.
 ;
-  _item.name               '_pdbx_deposition_rule_row_selection.selector'
-  _item.category_id        pdbx_deposition_rule_row_selection
+  _item.name               '_pdbx_data_rule_row_selection.selector'
+  _item.category_id        pdbx_data_rule_row_selection
   _item.mandatory_code     yes
   _item_type.code          ucode
   loop_
@@ -952,10 +1035,10 @@ save__pdbx_deposition_rule_row_selection.selector
     ANY_VALUE  'every row in which at least one item of category_id, other than those listed in exclude_items, has a value'
    save_
 
-save__pdbx_deposition_rule_row_selection.selector_item
+save__pdbx_data_rule_row_selection.selector_item
     _item_description.description
 ;    Full name of the item used to rank rows. Must belong to the category in
-     _pdbx_deposition_rule_row_selection.category_id and must have a
+     _pdbx_data_rule_row_selection.category_id and must have a
      numeric type (e.g. int, float) or a date type (e.g. yyyy-mm-dd)
      in the main dictionary; values are compared according to that
      type. Text, code and range types are not allowed. To select the
@@ -963,8 +1046,8 @@ save__pdbx_deposition_rule_row_selection.selector_item
      (e.g. pdbx_ordinal) rather than row order in the file.
      Required when selector is MIN or MAX; not used with ANY_VALUE.
 ;
-  _item.name               '_pdbx_deposition_rule_row_selection.selector_item'
-  _item.category_id        pdbx_deposition_rule_row_selection
+  _item.name               '_pdbx_data_rule_row_selection.selector_item'
+  _item.category_id        pdbx_data_rule_row_selection
   _item.mandatory_code     no
   _item_type.code          code
   loop_
@@ -976,17 +1059,17 @@ save__pdbx_deposition_rule_row_selection.selector_item
     '_pdbx_audit_revision_history.revision_date'  'MAX selects the latest revision'
    save_
 
-save__pdbx_deposition_rule_row_selection.group_by
+save__pdbx_data_rule_row_selection.group_by
     _item_description.description
 ;    Optional comma-separated list (without spaces) of items in the category that partition
      rows into groups; one row is selected within each group, e.g. one
      highest-resolution shell per dataset or per refinement. When the
      category is joined to another category through
-     PDBX_DEPOSITION_RULE_JOIN, group_by should list the same items as
+     PDBX_DATA_RULE_JOIN, group_by should list the same items as
      the join so that selection is made per join group.
 ;
-  _item.name               '_pdbx_deposition_rule_row_selection.group_by'
-  _item.category_id        pdbx_deposition_rule_row_selection
+  _item.name               '_pdbx_data_rule_row_selection.group_by'
+  _item.category_id        pdbx_data_rule_row_selection
   _item.mandatory_code     no
   _item_type.code          item_name_csv
   loop_
@@ -995,14 +1078,14 @@ save__pdbx_deposition_rule_row_selection.group_by
     '_refine_ls_shell.pdbx_refine_id'
    save_
 
-save__pdbx_deposition_rule_row_selection.exclude_items
+save__pdbx_data_rule_row_selection.exclude_items
     _item_description.description
 ;    Optional comma-separated list (without spaces) of items in category_id that are
      ignored when selector is ANY_VALUE, e.g. key items that are
      filled in automatically. Not used with MIN or MAX.
 ;
-  _item.name               '_pdbx_deposition_rule_row_selection.exclude_items'
-  _item.category_id        pdbx_deposition_rule_row_selection
+  _item.name               '_pdbx_data_rule_row_selection.exclude_items'
+  _item.category_id        pdbx_data_rule_row_selection
   _item.mandatory_code     no
   _item_type.code          item_name_csv
   loop_
